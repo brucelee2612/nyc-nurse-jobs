@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏥 뉴욕 정신과 RN 채용공고 대시보드</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #e4e4e4; padding: 20px; }
+    /* Password Screen */
+    #password-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; }
+    #password-screen h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    #password-screen p { color: #888; margin-bottom: 30px; }
+    #password-screen input { padding: 15px 20px; font-size: 1.2rem; border: 2px solid #3a7bd5; border-radius: 10px; background: rgba(255,255,255,0.1); color: #fff; text-align: center; width: 200px; }
+    #password-screen input:focus { outline: none; border-color: #00d2ff; }
+    #password-screen button { margin-top: 20px; padding: 12px 40px; font-size: 1rem; background: linear-gradient(90deg, #3a7bd5, #00d2ff); border: none; border-radius: 10px; color: #fff; cursor: pointer; }
+    #password-screen .error { color: #ef4444; margin-top: 15px; display: none; }
+    #main-content { display: none; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    header { text-align: center; padding: 30px 0; border-bottom: 1px solid #333; margin-bottom: 30px; }
+    h1 { font-size: 2rem; background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .profile-box { background: rgba(58, 123, 213, 0.1); border: 1px solid #3a7bd5; border-radius: 12px; padding: 15px 20px; margin: 20px auto; max-width: 600px; text-align: left; }
+    .profile-box h3 { color: #3a7bd5; margin-bottom: 10px; }
+    .profile-box ul { list-style: none; }
+    .profile-box li { margin: 5px 0; color: #aaa; }
+    .profile-box li strong { color: #fff; }
+    .stats { display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
+    .stat-box { background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 12px; text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: bold; color: #00d2ff; }
+    .stat-label { font-size: 0.85rem; color: #888; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .tab-btn { padding: 12px 24px; border: none; background: rgba(255,255,255,0.1); color: #e4e4e4; border-radius: 10px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+    .tab-btn:hover, .tab-btn.active { background: #3a7bd5; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    #map { height: 500px; border-radius: 16px; margin-bottom: 30px; }
+    .filters { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filter-btn { padding: 8px 16px; border: 1px solid #444; background: transparent; color: #e4e4e4; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+    .filter-btn:hover, .filter-btn.active { background: #3a7bd5; border-color: #3a7bd5; }
+    .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+    .job-card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; border: 1px solid #333; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+    .job-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: #3a7bd5; }
+    .job-card.recommended { border-color: #ffd700; background: linear-gradient(135deg, rgba(255,215,0,0.08) 0%, rgba(255,165,0,0.05) 100%); }
+    .job-title { font-size: 1.05rem; font-weight: 600; color: #fff; line-height: 1.4; }
+    .job-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .badge { font-size: 0.7rem; padding: 3px 8px; border-radius: 10px; font-weight: 500; }
+    .badge-ny { background: #2d5a27; color: #8fdf82; }
+    .badge-nj { background: #5a4327; color: #dfb882; }
+    .badge-ct { background: #27415a; color: #82b8df; }
+    .badge-union { background: #5a2752; color: #df82d3; }
+    .badge-state { background: #1e3a5f; color: #7ec8e3; }
+    .badge-new { background: #c41e3a; color: #fff; }
+    .badge-rec { background: #ffd700; color: #000; }
+    .job-company { color: #3a7bd5; font-weight: 500; margin-bottom: 6px; margin-top: 10px; }
+    .job-location { color: #888; font-size: 0.9rem; }
+    .job-pay { color: #4ade80; font-weight: 600; margin-top: 8px; }
+    .section-title { font-size: 1.3rem; margin: 30px 0 20px; color: #fff; }
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; overflow-y: auto; padding: 40px 20px; }
+    .modal-overlay.active { display: block; }
+    .modal { background: #1e2a3a; max-width: 900px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .modal-header { background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%); padding: 30px; position: relative; }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: #fff; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
+    .modal-title { font-size: 1.4rem; color: #fff; margin-bottom: 10px; }
+    .modal-company { color: rgba(255,255,255,0.9); font-size: 1rem; }
+    .modal-body { padding: 30px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .info-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; }
+    .info-label { color: #888; font-size: 0.75rem; margin-bottom: 4px; }
+    .info-value { color: #fff; font-size: 1rem; font-weight: 500; }
+    .info-value.highlight { color: #4ade80; }
+    .advisor-section { margin-top: 25px; border-top: 1px solid #333; padding-top: 25px; }
+    .advisor-title { font-size: 1.1rem; color: #fff; margin-bottom: 15px; }
+    .advisor-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 15px; margin-bottom: 12px; border-left: 4px solid; }
+    .advisor-card.maggangi { border-color: #ff6b6b; }
+    .advisor-card.jennifer { border-color: #4ecdc4; }
+    .advisor-card.david { border-color: #ffe66d; }
+    .advisor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .advisor-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .advisor-card.maggangi .advisor-avatar { background: rgba(255,107,107,0.2); }
+    .advisor-card.jennifer .advisor-avatar { background: rgba(78,205,196,0.2); }
+    .advisor-card.david .advisor-avatar { background: rgba(255,230,109,0.2); }
+    .advisor-name { font-weight: 600; color: #fff; font-size: 0.9rem; }
+    .advisor-role { font-size: 0.7rem; color: #888; }
+    .advisor-verdict { display: inline-block; padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
+    .verdict-go { background: #22c55e; color: #fff; }
+    .verdict-maybe { background: #f59e0b; color: #fff; }
+    .verdict-wait { background: #ef4444; color: #fff; }
+    .advisor-comment { color: #ccc; line-height: 1.6; font-size: 0.9rem; }
+    .advisor-comment strong { color: #fff; }
+    .action-buttons { display: flex; gap: 10px; margin-top: 25px; flex-wrap: wrap; }
+    .btn { padding: 10px 20px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; cursor: pointer; border: none; }
+    .btn-primary { background: linear-gradient(90deg, #3a7bd5, #00d2ff); color: #fff; }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid #444; }
+    .last-updated { text-align: center; color: #666; font-size: 0.85rem; margin-top: 40px; padding: 20px; }
+    .leaflet-popup-content-wrapper { background: #1e2a3a; color: #fff; border-radius: 12px; }
+    .leaflet-popup-tip { background: #1e2a3a; }
+    .leaflet-popup-content { margin: 12px; }
+    .popup-title { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
+    .popup-company { color: #3a7bd5; margin-bottom: 5px; }
+    .popup-pay { color: #4ade80; }
+    .legend { background: rgba(30,42,58,0.95); padding: 15px; border-radius: 10px; color: #fff; }
+    .legend h4 { margin-bottom: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; margin: 5px 0; font-size: 0.85rem; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+    @media (max-width: 600px) { .job-grid { grid-template-columns: 1fr; } h1 { font-size: 1.5rem; } #map { height: 350px; } }
+  </style>
+</head>
+<body>
+  <!-- Password Screen -->
+  <div id="password-screen">
+    <h1>🔒</h1>
+    <p>비밀번호를 입력하세요</p>
+    <input type="password" id="pwd-input" placeholder="******" maxlength="10" onkeypress="if(event.key==='Enter')checkPwd()">
+    <button onclick="checkPwd()">입장</button>
+    <div class="error" id="pwd-error">비밀번호가 틀렸습니다</div>
+  </div>
+  
+  <!-- Main Content (hidden until password entered) -->
+  <div id="main-content">
+  <div class="container">
+    <header>
+      <h1>🏥 뉴욕 정신과 RN 채용공고</h1>
+      <p style="color: #888;">AI 어드바이저 3인방의 분석과 함께</p>
+      <div class="profile-box">
+        <h3>👤 태권님 프로필</h3>
+        <ul>
+          <li><strong>경력:</strong> 14년 (임상 4년 + 보건진료직 10년)</li>
+          <li><strong>이민 예정:</strong> 2026년 3월 뉴욕</li>
+          <li><strong>목표:</strong> 정신과 RN → PMHNP</li>
+        </ul>
+      </div>
+      <div class="stats">
+        <div class="stat-box"><div class="stat-number" id="totalJobs">0</div><div class="stat-label">전체 공고</div></div>
+        <div class="stat-box"><div class="stat-number" id="nyJobs">0</div><div class="stat-label">뉴욕</div></div>
+        <div class="stat-box"><div class="stat-number" id="njJobs">0</div><div class="stat-label">뉴저지</div></div>
+        <div class="stat-box"><div class="stat-number" id="unionJobs">0</div><div class="stat-label">💪 유니온</div></div>
+      </div>
+    </header>
+    
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('list')">📋 리스트</button>
+      <button class="tab-btn" onclick="showTab('map')">🗺️ 지도</button>
+    </div>
+    
+    <div id="listTab" class="tab-content active">
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">전체 (24)</button>
+        <button class="filter-btn" data-filter="ny">🗽 뉴욕</button>
+        <button class="filter-btn" data-filter="nj">뉴저지</button>
+        <button class="filter-btn" data-filter="union">💪 유니온</button>
+        <button class="filter-btn" data-filter="state">🏛️ 주정부</button>
+      </div>
+      <h2 class="section-title">⭐ 추천 공고 TOP 5</h2>
+      <div class="job-grid" id="recommendedJobs"></div>
+      <h2 class="section-title">📋 전체 공고</h2>
+      <div class="job-grid" id="allJobs"></div>
+    </div>
+    
+    <div id="mapTab" class="tab-content">
+      <h2 class="section-title">🗺️ 병원 위치 지도</h2>
+      <div id="map"></div>
+    </div>
+    
+    <div class="last-updated">마지막 업데이트: 2026-02-01 12:30 | 다음 체크: 6시간마다</div>
+  </div>
+  
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-company" id="modalCompany"></div>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+<script>
+const jobs = [
+  { id: "jamaica-hospital", title: "Psychiatric RN – Night Shift", company: "Jamaica Hospital", location: "Richmond Hill, NY", pay: "$55.92/hr (~$130K)", union: true, unionName: "1199SEIU", recommended: true, hospital: true, lat: 40.6985, lng: -73.8180, advisors: { maggangi: { verdict: "go", comment: "Jamaica Hospital 정신과는 Queens에서 busiest. 시급 $55.92 + 야간 diff면 $60 넘어. <strong>유니온이라 경력 인정</strong> 규정대로." }, jennifer: { verdict: "go", comment: "1199SEIU 유니온이라 경력 인정 grievance 가능. 보건진료직을 'autonomous practice'로 어필하면 <strong>5-7년 인정</strong> 가능." }, david: { verdict: "go", comment: "Foreign nurse에게 열려있어요. 정신과 인력 부족이라 <strong>visa sponsorship</strong>도 가능할 수 있어요!" } } },
+  { id: "montefiore", title: "STAFF NURSE I/II - Psychiatry", company: "Montefiore Einstein", location: "Bronx, NY", pay: "$95K-$120K/year", union: true, unionName: "NYSNA", recommended: true, hospital: true, lat: 40.8531, lng: -73.8464, advisors: { maggangi: { verdict: "go", comment: "Montefiore는 <strong>학술 병원</strong>. NYSNA 유니온이라 경력 인정 빡빡하게 지켜. NP 갈 때 <strong>추천서</strong> 받기 좋아." }, jennifer: { verdict: "go", comment: "Teaching hospital. NYSNA라 해외 경력 인정 조항 있어요. <strong>Step placement 협상</strong> 가능." }, david: { verdict: "go", comment: "대형 학술병원이라 <strong>안정적</strong>. 정신과 경력 + 학술병원 경험은 이직할 때 큰 자산!" } } },
+  { id: "rockland", title: "RN 1 Psychiatric (NY HELPS)", company: "NYS OMH - Rockland", location: "Orangeburg, NY", pay: "$132K-$143K/year", union: true, unionName: "PEF", recommended: true, state: true, lat: 41.0465, lng: -73.9476, advisors: { maggangi: { verdict: "go", comment: "<strong>주정부 공무원</strong>! 연봉 $132K-$143K에 <strong>pension</strong>까지? 복지 끝판왕." }, jennifer: { verdict: "go", comment: "주립 정신병원 <strong>안정성 최고</strong>. NY HELPS라 시험 없이 지원 가능." }, david: { verdict: "go", comment: "State job은 <strong>평생 커리어</strong> 가능. Tuition assistance로 NP 학비도 지원!" } } },
+  { id: "mountsinai-amb", title: "Staff RN I - Psychiatry Ambulatory", company: "Mount Sinai Rivington", location: "New York, NY (LES)", pay: "$69/hr (~$143K)", union: true, unionName: "1199SEIU", recommended: true, hospital: true, isNew: true, lat: 40.7208, lng: -73.9855, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai 외래 정신과! <strong>주간 M-F 8-4</strong>라 워라밸 좋아. 근데 첫 직장으론 까다로워. 1-2년 후 타겟으로." }, jennifer: { verdict: "maybe", comment: "명성 높은 병원. 외래라 스트레스 덜해요. 근데 <strong>경쟁 치열</strong>해서 미국 경력 쌓고 지원 추천." }, david: { verdict: "maybe", comment: "Top-tier라 1년차 외국인은 힘들어요. 하지만 지원해볼 가치 있어요!" } } },
+  { id: "central-nassau", title: "Registered Nurse (Full Time)", company: "Central Nassau Guidance", location: "Hicksville, NY", pay: "$85K-$100K", recommended: true, lat: 40.7684, lng: -73.5251, advisors: { maggangi: { verdict: "go", comment: "<strong>학자금 대출 상환 프로그램</strong> 있어! NP 학비 대출 갚으면서 일할 수 있어." }, jennifer: { verdict: "go", comment: "Community mental health center. <strong>가족적인 분위기</strong>고 외국인한테도 기회 많아요." }, david: { verdict: "go", comment: "<strong>Loan repayment</strong>가 큰 장점! NP 과정 들어가면서 학자금 지원받을 수 있어요." } } },
+  { id: "mpc", title: "RN 2 Psychiatric (NY HELPS)", company: "Manhattan Psychiatric Center", location: "East Harlem, NY", pay: "$100K-$130K", union: true, state: true, lat: 40.7917, lng: -73.9268, advisors: { maggangi: { verdict: "go", comment: "<strong>주립 정신병원</strong>. NY HELPS라 시험 없이 지원. <strong>맨하탄 위치</strong>라 출퇴근 편해!" }, jennifer: { verdict: "go", comment: "OMH 소속. Rockland랑 비슷한 조건인데 <strong>위치가 맨하탄</strong>이라 더 좋아요!" }, david: { verdict: "go", comment: "NYC 내 주립병원이라 <strong>출퇴근 + 복지</strong> 둘 다 잡을 수 있어요!" } } },
+  { id: "nychhc", title: "Asst Dir Nursing - OTxHU", company: "NYC Health + Hospitals", location: "New York, NY", pay: "$120K-$150K", union: true, unionName: "NYSNA", hospital: true, lat: 40.7614, lng: -73.9776, advisors: { maggangi: { verdict: "wait", comment: "ADON은 <strong>관리직</strong>. 미국 와서 바로는 무리. 2-3년 staff nurse 하고 도전해." }, jennifer: { verdict: "wait", comment: "NYC H+H는 <strong>1순위 병원</strong>. 근데 이 포지션은 미국 경력 필요. Staff RN으로 먼저!" }, david: { verdict: "wait", comment: "리더십은 미국 경력 2-3년 후. <strong>NYC H+H Staff RN 공고</strong>를 찾아보세요!" } } },
+  { id: "northwell", title: "Asst Director Nursing Psych", company: "Northwell Health", location: "Glen Oaks, NY", hospital: true, lat: 40.7554, lng: -73.7170, advisors: { maggangi: { verdict: "wait", comment: "Northwell은 <strong>NY 최대 시스템</strong>. ADON은 관리직이라 Staff RN 공고 찾아봐." }, jennifer: { verdict: "wait", comment: "관리직은 <strong>미국 경력 2-3년 후</strong>가 현실적이에요." }, david: { verdict: "wait", comment: "Staff RN 공고도 많을 거예요. 거기부터 시작하세요!" } } },
+  { id: "welllife", title: "LPN/RN - ART011", company: "WellLife Network", location: "Elmont, NY", lat: 40.7004, lng: -73.7134, advisors: { maggangi: { verdict: "go", comment: "WellLife는 <strong>정신건강 비영리</strong>. 대형병원보다 편하고 경험 쌓기 좋아." }, jennifer: { verdict: "go", comment: "비영리라 <strong>외국인한테 열려있어요</strong>. 미국 적응하면서 일하기 좋은 환경." }, david: { verdict: "go", comment: "정신과 경력은 <strong>동일하게 인정</strong>돼요. 좋은 시작점!" } } },
+  { id: "surfpoint", title: "Overnight RN", company: "Surfpoint Recovery", location: "Brooklyn, NY", lat: 40.6782, lng: -73.9442, advisors: { maggangi: { verdict: "maybe", comment: "Surfpoint는 <strong>중독 치료 시설</strong>. 정신과랑 관련 있어. 야간이라 힘들지만 경험 쌓기엔 괜찮아." }, jennifer: { verdict: "maybe", comment: "Recovery 시설도 정신건강 경험으로 인정돼요. <strong>다양한 경험</strong> 가능." }, david: { verdict: "maybe", comment: "중독 치료 경험도 NP 때 도움 돼요. <strong>Backup option</strong>으로." } } },
+  { id: "cas-harlem", title: "Registered Nurse", company: "Center for Alternative Sentencing", location: "Harlem, NY", lat: 40.8116, lng: -73.9465, advisors: { maggangi: { verdict: "maybe", comment: "<strong>교정 관련 기관</strong>. Forensic psych 경험 쌓을 수 있어." }, jennifer: { verdict: "maybe", comment: "Forensic nursing은 특수 분야. 관심 있으시면 <strong>좋은 경험</strong>이 될 수 있어요." }, david: { verdict: "maybe", comment: "독특한 경험이 될 수 있어요." } } },
+  { id: "summit-nyack", title: "RN - 3pm-11pm Shift", company: "Summit School at Nyack", location: "Nyack, NY", lat: 41.0907, lng: -73.9174, advisors: { maggangi: { verdict: "maybe", comment: "<strong>특수학교</strong> 간호사. 정신과는 아닌데 아동/청소년 경험 쌓을 수 있어." }, jennifer: { verdict: "maybe", comment: "학교 간호사는 정신과와는 좀 달라요. <strong>청소년 정신건강</strong> 관심 있으시면 고려." }, david: { verdict: "maybe", comment: "병원 경력이 우선이에요." } } },
+  { id: "stvincent-ct", title: "RN Adolescent/Adult Psych", company: "St. Vincent's Medical", location: "Westport, CT", lat: 41.1415, lng: -73.3579, advisors: { maggangi: { verdict: "maybe", comment: "CT는 뉴욕보다 경쟁 덜해서 <strong>경력 쌓기엔 좋을 수</strong> 있어." }, jennifer: { verdict: "maybe", comment: "CT 병원들도 괜찮아요. <strong>CT RN License</strong> 따로 필요." }, david: { verdict: "maybe", comment: "NY가 메인 타겟이시니까 <strong>backup</strong>으로만." } } },
+  { id: "stmary-nj", title: "RN Behavioral Health", company: "St. Mary's General Hospital", location: "Passaic, NJ", lat: 40.8568, lng: -74.1288, advisors: { maggangi: { verdict: "maybe", comment: "NJ 병원. Passaic은 뉴욕시에서 가까워. <strong>NJ 라이선스</strong> 필요." }, jennifer: { verdict: "maybe", comment: "NJ도 좋은 옵션. 뉴욕보다 <strong>생활비 저렴</strong>하고 출퇴근 가능." }, david: { verdict: "maybe", comment: "NJ 병원들도 인력 부족. <strong>NY와 함께 지원</strong>해도 좋아요." } } },
+  { id: "hackensack", title: "RN - Behav Health", company: "Hackensack Meridian Health", location: "Perth Amboy, NJ", hospital: true, isNew: true, lat: 40.5068, lng: -74.2654, advisors: { maggangi: { verdict: "maybe", comment: "Hackensack은 <strong>뉴저지 대형 시스템</strong>. NJ면 출퇴근 1시간 넘을 수 있어." }, jennifer: { verdict: "maybe", comment: "뉴저지도 좋은 옵션. <strong>NJ RN License</strong> 따로 필요." }, david: { verdict: "maybe", comment: "NJ 병원들도 기회 많아요. <strong>Backup option</strong>으로." } } },
+  { id: "greystone", title: "Charge Nurse - RN", company: "Greystone Park Psychiatric", location: "Morris Plains, NJ", union: true, state: true, lat: 40.8223, lng: -74.4800, advisors: { maggangi: { verdict: "maybe", comment: "Greystone은 <strong>NJ 주립 정신병원</strong>. Charge는 경력직이라 Staff RN 공고 확인해봐." }, jennifer: { verdict: "maybe", comment: "주립 병원 안정적. <strong>Charge는 미국 경력 후</strong>가 현실적." }, david: { verdict: "maybe", comment: "State hospital이라 <strong>job security</strong> 좋아요." } } },
+  { id: "rwjbarnabas", title: "Nursing Supervisor", company: "RWJBarnabas Health", location: "West Orange, NJ", hospital: true, lat: 40.7982, lng: -74.2390, advisors: { maggangi: { verdict: "wait", comment: "Supervisor는 <strong>관리직</strong>이라 미국 경력 필요해." }, jennifer: { verdict: "wait", comment: "관리직은 2-3년 경력 후. <strong>Staff RN부터</strong> 시작하세요." }, david: { verdict: "wait", comment: "Staff RN 공고를 찾아보세요." } } },
+  { id: "navitas-adon", title: "Assistant Director of Nursing", company: "NavitasPartners (Agency)", location: "Kings County, NY", lat: 40.6501, lng: -73.9496, advisors: { maggangi: { verdict: "wait", comment: "NavitasPartners는 <strong>staffing agency</strong>. ADON은 agency 통한 건 좀 그래." }, jennifer: { verdict: "wait", comment: "Agency ADON은 <strong>권장하지 않아요</strong>. 병원 직접 채용을 찾으세요." }, david: { verdict: "wait", comment: "Agency는 <strong>마지막 옵션</strong>. 직접 채용 우선!" } } },
+  { id: "navitas-don", title: "Director of Nursing (DON) - BH", company: "NavitasPartners (Agency)", location: "Kings County, NY", isNew: true, lat: 40.6510, lng: -73.9500, advisors: { maggangi: { verdict: "wait", comment: "DON은 <strong>최고 관리직</strong>. 미국 경력 5년 이상 필요해." }, jennifer: { verdict: "wait", comment: "DON은 나중에. <strong>Staff RN → Charge → Manager → DON</strong> 단계." }, david: { verdict: "wait", comment: "Agency DON은 현실성 없어요. <strong>스킵</strong>하세요." } } },
+  { id: "prosperity", title: "RN - Behavioral Health", company: "Prosperity (Agency)", location: "Belle Mead, NJ", isNew: true, lat: 40.4706, lng: -74.6445, advisors: { maggangi: { verdict: "wait", comment: "<strong>Staffing agency</strong> 공고. 경력 인정이나 베네핏 면에서 불리해." }, jennifer: { verdict: "wait", comment: "Agency 취업은 <strong>마지막 옵션</strong>. 병원 직접 채용 먼저." }, david: { verdict: "wait", comment: "Agency라 <strong>패스</strong>. 직접 채용에 집중하세요." } } },
+  { id: "mountsinai-float", title: "Staff Nurse - Psych Float Pool", company: "Mount Sinai Rivington", location: "New York, NY (LES)", union: true, unionName: "1199SEIU", hospital: true, isNew: true, lat: 40.7210, lng: -73.9850, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai Float Pool. <strong>Per Diem</strong>이라 풀타임 아니야. 베네핏 제한적." }, jennifer: { verdict: "maybe", comment: "Per Diem은 <strong>시간제</strong>. 처음엔 풀타임이 베네핏도 좋고 안정적." }, david: { verdict: "maybe", comment: "Float Pool은 경험 다양하게 쌓이는데, <strong>풀타임</strong>이 우선이에요." } } },
+  { id: "umh-np", title: "Psychiatric NP", company: "Upper Manhattan Mental Health", location: "New York, NY", lat: 40.8270, lng: -73.9481, advisors: { maggangi: { verdict: "wait", comment: "<strong>NP 포지션</strong>. 태권님은 아직 NP 아니니까 해당 안 돼. 나중에!" }, jennifer: { verdict: "wait", comment: "NP 자격 취득 후에요. <strong>장기 목표</strong>로 기억해두세요!" }, david: { verdict: "wait", comment: "NP 공고는 <strong>참고용</strong>. 시장 보는 용도로!" } } },
+  { id: "curated-np", title: "Psychiatric NP", company: "Curated Mental Health", location: "Chelsea, NY", lat: 40.7465, lng: -74.0014, advisors: { maggangi: { verdict: "wait", comment: "<strong>NP 포지션</strong>. 지금은 해당 없지만 나중에 NP 되면 이런 곳 많아." }, jennifer: { verdict: "wait", comment: "NP 자격 후에요. Chelsea 위치 좋네요. <strong>나중에 참고</strong>." }, david: { verdict: "wait", comment: "NP 시장 좋아요. <strong>미래 목표</strong>로!" } } }
+];
+
+let map;
+
+function showTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelector(`[onclick="showTab('${tab}')"]`).classList.add('active');
+  document.getElementById(tab + 'Tab').classList.add('active');
+  if (tab === 'map' && !map) initMap();
+}
+
+function initMap() {
+  map = L.map('map').setView([40.7580, -73.9855], 10);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap, &copy; CARTO'
+  }).addTo(map);
+  
+  const colors = { go: '#22c55e', maybe: '#f59e0b', wait: '#ef4444' };
+  
+  jobs.forEach(job => {
+    if (!job.lat) return;
+    const verdict = job.advisors?.maggangi?.verdict || 'maybe';
+    const color = colors[verdict];
+    
+    const marker = L.circleMarker([job.lat, job.lng], {
+      radius: job.recommended ? 12 : 8,
+      fillColor: color,
+      color: '#fff',
+      weight: job.recommended ? 3 : 1,
+      fillOpacity: 0.8
+    }).addTo(map);
+    
+    marker.bindPopup(`
+      <div class="popup-title">${job.title}</div>
+      <div class="popup-company">${job.company}</div>
+      <div>${job.location}</div>
+      ${job.pay ? `<div class="popup-pay">💰 ${job.pay}</div>` : ''}
+      ${job.union ? `<div>💪 ${job.unionName || 'Union'}</div>` : ''}
+      <button onclick="openModal('${job.id}')" style="margin-top:10px;padding:5px 10px;background:#3a7bd5;color:#fff;border:none;border-radius:5px;cursor:pointer;">상세보기</button>
+    `);
+  });
+  
+  const legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function() {
+    const div = L.DomUtil.create('div', 'legend');
+    div.innerHTML = `
+      <h4>AI 추천</h4>
+      <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>적극 추천</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>조건부</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>나중에</div>
+    `;
+    return div;
+  };
+  legend.addTo(map);
+}
+
+function getStateBadge(loc) {
+  if (loc.includes('NY') || loc.includes('New York') || loc.includes('Harlem') || loc.includes('Brooklyn') || loc.includes('Bronx') || loc.includes('Queens') || loc.includes('LES')) return 'ny';
+  if (loc.includes('NJ') || loc.includes('New Jersey')) return 'nj';
+  if (loc.includes('CT')) return 'ct';
+  return 'ny';
+}
+
+function renderJob(job) {
+  const state = getStateBadge(job.location);
+  return `
+    <div class="job-card ${job.recommended ? 'recommended' : ''}" onclick="openModal('${job.id}')">
+      <div class="job-title">${job.title}</div>
+      <div class="job-badges">
+        ${job.recommended ? '<span class="badge badge-rec">⭐ 추천</span>' : ''}
+        <span class="badge badge-${state}">${state.toUpperCase()}</span>
+        ${job.union ? '<span class="badge badge-union">💪 ' + (job.unionName || 'Union') + '</span>' : ''}
+        ${job.state ? '<span class="badge badge-state">🏛️ 주정부</span>' : ''}
+        ${job.isNew ? '<span class="badge badge-new">🆕</span>' : ''}
+      </div>
+      <div class="job-company">${job.company}</div>
+      <div class="job-location">📍 ${job.location}</div>
+      ${job.pay ? `<div class="job-pay">💰 ${job.pay}</div>` : ''}
+    </div>
+  `;
+}
+
+function getVerdictClass(v) { return v === 'go' ? 'verdict-go' : v === 'maybe' ? 'verdict-maybe' : 'verdict-wait'; }
+function getVerdictText(v) { return v === 'go' ? '✅ 적극 추천!' : v === 'maybe' ? '🤔 조건부' : '⏳ 나중에'; }
+
+function openModal(jobId) {
+  const job = jobs.find(j => j.id === jobId);
+  if (!job) return;
+  document.getElementById('modalTitle').textContent = job.title;
+  document.getElementById('modalCompany').textContent = job.company + ' • ' + job.location;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="info-grid">
+      <div class="info-box"><div class="info-label">💰 급여</div><div class="info-value highlight">${job.pay || '협의'}</div></div>
+      <div class="info-box"><div class="info-label">💪 노조</div><div class="info-value">${job.union ? job.unionName || 'Yes' : '없음'}</div></div>
+      <div class="info-box"><div class="info-label">🏛️ 주정부</div><div class="info-value">${job.state ? 'Yes' : 'No'}</div></div>
+      <div class="info-box"><div class="info-label">📍 위치</div><div class="info-value">${job.location}</div></div>
+    </div>
+    ${job.lat ? `<p style="margin-bottom:15px;"><a href="https://www.google.com/maps?q=${job.lat},${job.lng}" target="_blank" style="color:#3a7bd5;">🗺️ Google Maps에서 보기</a></p>` : ''}
+    <div class="advisor-section">
+      <h3 class="advisor-title">🤖 AI 어드바이저 분석</h3>
+      <div class="advisor-card maggangi">
+        <div class="advisor-header"><div class="advisor-avatar">😎</div><div><div class="advisor-name">마깡이</div><div class="advisor-role">Mount Sinai 정신과 RN 5년</div></div></div>
+        <div class="advisor-verdict ${getVerdictClass(job.advisors.maggangi.verdict)}">${getVerdictText(job.advisors.maggangi.verdict)}</div>
+        <div class="advisor-comment">${job.advisors.maggangi.comment}</div>
+      </div>
+      <div class="advisor-card jennifer">
+        <div class="advisor-header"><div class="advisor-avatar">👩‍⚕️</div><div><div class="advisor-name">수간호사 Jennifer Kim</div><div class="advisor-role">NYC H+H Nurse Manager 20년</div></div></div>
+        <div class="advisor-verdict ${getVerdictClass(job.advisors.jennifer.verdict)}">${getVerdictText(job.advisors.jennifer.verdict)}</div>
+        <div class="advisor-comment">${job.advisors.jennifer.comment}</div>
+      </div>
+      <div class="advisor-card david">
+        <div class="advisor-header"><div class="advisor-avatar">🧑‍💼</div><div><div class="advisor-name">리크루터 David Park</div><div class="advisor-role">MedStaff NYC</div></div></div>
+        <div class="advisor-verdict ${getVerdictClass(job.advisors.david.verdict)}">${getVerdictText(job.advisors.david.verdict)}</div>
+        <div class="advisor-comment">${job.advisors.david.comment}</div>
+      </div>
+    </div>
+    <div class="action-buttons">
+      <button class="btn btn-primary" onclick="window.open('https://www.indeed.com/jobs?q=' + encodeURIComponent('${job.title} ${job.company}'), '_blank')">🔍 Indeed 검색</button>
+      ${job.lat ? `<button class="btn btn-secondary" onclick="window.open('https://www.google.com/maps?q=${job.lat},${job.lng}', '_blank')">🗺️ 지도</button>` : ''}
+      <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
+
+function render(filter = 'all') {
+  let filtered = jobs;
+  if (filter === 'ny') filtered = jobs.filter(j => getStateBadge(j.location) === 'ny');
+  if (filter === 'nj') filtered = jobs.filter(j => getStateBadge(j.location) === 'nj');
+  if (filter === 'union') filtered = jobs.filter(j => j.union);
+  if (filter === 'state') filtered = jobs.filter(j => j.state);
+  
+  document.getElementById('recommendedJobs').innerHTML = jobs.filter(j => j.recommended).map(renderJob).join('');
+  document.getElementById('allJobs').innerHTML = filtered.filter(j => !j.recommended).map(renderJob).join('');
+  
+  document.getElementById('totalJobs').textContent = jobs.length;
+  document.getElementById('nyJobs').textContent = jobs.filter(j => getStateBadge(j.location) === 'ny').length;
+  document.getElementById('njJobs').textContent = jobs.filter(j => getStateBadge(j.location) === 'nj').length;
+  document.getElementById('unionJobs').textContent = jobs.filter(j => j.union).length;
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  });
+});
+
+render();
+</script>
+</div> <!-- end main-content -->
+
+<script>
+// Password protection
+const correctPwd = '089608';
+function checkPwd() {
+  const input = document.getElementById('pwd-input').value;
+  if (input === correctPwd) {
+    document.getElementById('password-screen').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+    sessionStorage.setItem('authenticated', 'true');
+  } else {
+    document.getElementById('pwd-error').style.display = 'block';
+    document.getElementById('pwd-input').value = '';
+  }
+}
+// Check if already authenticated in this session
+if (sessionStorage.getItem('authenticated') === 'true') {
+  document.getElementById('password-screen').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+}
+</script>
+</body>
+</html>
