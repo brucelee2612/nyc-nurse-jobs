@@ -52,6 +52,10 @@
     .badge-union { background: #5a2752; color: #df82d3; }
     .badge-state { background: #1e3a5f; color: #7ec8e3; }
     .badge-new { background: #c41e3a; color: #fff; }
+    .badge-dday { background: #dc2626; color: #fff; font-weight: bold; }
+    .badge-dday-soon { background: #f59e0b; color: #000; }
+    .badge-dday-ok { background: #22c55e; color: #fff; }
+    .badge-posted { background: #6b7280; color: #fff; }
     .badge-rec { background: #ffd700; color: #000; }
     .job-company { color: #3a7bd5; font-weight: 500; margin-bottom: 6px; margin-top: 10px; }
     .job-location { color: #888; font-size: 0.9rem; }
@@ -180,7 +184,7 @@
 <script>
 const jobs = [
   // === 2026-02-02 새 공고 (11건) ===
-  { id: "nysomh-nycc-bronx", title: "RN 1 Psychiatric (NY HELPS) - NYC Children's Center", company: "NYS Office of Mental Health", location: "Bronx, NY", pay: "$115K-$124K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, lat: 40.8448, lng: -73.8648, advisors: { maggangi: { verdict: "go", comment: "<strong>아동/청소년 정신과</strong> 주립병원! 연봉 $115K-$124K + NY HELPS라 시험 없이 지원 가능. 복지 끝판왕." }, jennifer: { verdict: "go", comment: "Children's Center라 <strong>소아 청소년 정신과 경험</strong> 쌓기 좋아요. 주립이라 안정적!" }, david: { verdict: "go", comment: "State job + 아동 정신과 경험은 <strong>NP 때 큰 자산</strong>이 돼요!" } } },
+  { id: "nysomh-nycc-bronx", title: "RN 1 Psychiatric (NY HELPS) - NYC Children's Center", company: "NYS Office of Mental Health", location: "Bronx, NY", pay: "$115K-$124K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, dateFound: "2026-02-02", lat: 40.8448, lng: -73.8648, advisors: { maggangi: { verdict: "go", comment: "<strong>아동/청소년 정신과</strong> 주립병원! 연봉 $115K-$124K + NY HELPS라 시험 없이 지원 가능. 복지 끝판왕." }, jennifer: { verdict: "go", comment: "Children's Center라 <strong>소아 청소년 정신과 경험</strong> 쌓기 좋아요. 주립이라 안정적!" }, david: { verdict: "go", comment: "State job + 아동 정신과 경험은 <strong>NP 때 큰 자산</strong>이 돼요!" } } },
   { id: "nysomh-kingsboro", title: "RN 2 Psychiatric (NY HELPS) - Kingsboro", company: "NYS Office of Mental Health", location: "Brooklyn, NY", pay: "$123K-$133K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, lat: 40.6340, lng: -73.9120, advisors: { maggangi: { verdict: "go", comment: "<strong>Brooklyn 주립 정신병원</strong>! RN 2라 경력직인데 연봉 $123K-$133K. Rockland만큼 좋아." }, jennifer: { verdict: "go", comment: "RN 2는 경력 인정해주는 포지션. <strong>해외 경력으로 Step 협상</strong> 가능!" }, david: { verdict: "go", comment: "Brooklyn 위치라 출퇴근도 편해요. <strong>주립 + 고연봉</strong> 조합!" } } },
   { id: "university-hospital-nj", title: "Staff Nurse, Psychiatry - G Yellow", company: "University Hospital", location: "Newark, NJ", pay: "협의", isNew: true, lat: 40.7420, lng: -74.1907, advisors: { maggangi: { verdict: "maybe", comment: "University Hospital은 <strong>NJ 주요 병원</strong>. Newark라 NYC에서 출퇴근 가능해." }, jennifer: { verdict: "maybe", comment: "Teaching hospital이라 경험 쌓기 좋아요. <strong>NJ 라이선스</strong> 필요." }, david: { verdict: "maybe", comment: "NJ도 좋은 옵션. <strong>NY와 함께 지원</strong>하세요!" } } },
   { id: "cpi-eastorange", title: "Psychiatric Nurse RN", company: "Community Psychiatric Institute", location: "East Orange, NJ", pay: "$30/hr", isNew: true, lat: 40.7673, lng: -74.2048, advisors: { maggangi: { verdict: "maybe", comment: "Community 정신과 시설. 시급 $30은 좀 낮지만 <strong>경험 쌓기엔</strong> 괜찮아." }, jennifer: { verdict: "maybe", comment: "시급이 낮은 편. <strong>협상 여지</strong> 있는지 확인해보세요." }, david: { verdict: "maybe", comment: "Quick apply 가능해서 <strong>연습 삼아 지원</strong>해볼 만해요." } } },
@@ -272,6 +276,38 @@ function initMap() {
   legend.addTo(map);
 }
 
+function getDdayBadge(job) {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  
+  if (job.deadline) {
+    const deadline = new Date(job.deadline);
+    deadline.setHours(0,0,0,0);
+    const diff = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+    
+    if (diff < 0) return '<span class="badge badge-dday">마감됨</span>';
+    if (diff === 0) return '<span class="badge badge-dday">D-Day!</span>';
+    if (diff <= 3) return '<span class="badge badge-dday">D-' + diff + '</span>';
+    if (diff <= 7) return '<span class="badge badge-dday-soon">D-' + diff + '</span>';
+    if (diff <= 14) return '<span class="badge badge-dday-ok">D-' + diff + '</span>';
+    return '<span class="badge badge-posted">D-' + diff + '</span>';
+  }
+  
+  if (job.dateFound) {
+    const found = new Date(job.dateFound);
+    found.setHours(0,0,0,0);
+    const daysAgo = Math.floor((today - found) / (1000 * 60 * 60 * 24));
+    
+    if (daysAgo === 0) return '<span class="badge badge-new">오늘 발견</span>';
+    if (daysAgo <= 3) return '<span class="badge badge-dday-ok">' + daysAgo + '일 전</span>';
+    if (daysAgo <= 7) return '<span class="badge badge-dday-soon">' + daysAgo + '일 전</span>';
+    if (daysAgo <= 14) return '<span class="badge badge-posted">' + daysAgo + '일 전</span>';
+    return '<span class="badge badge-dday">오래됨</span>';
+  }
+  
+  return '';
+}
+
 function getStateBadge(loc) {
   if (loc.includes('NY') || loc.includes('New York') || loc.includes('Harlem') || loc.includes('Brooklyn') || loc.includes('Bronx') || loc.includes('Queens') || loc.includes('LES')) return 'ny';
   if (loc.includes('NJ') || loc.includes('New Jersey')) return 'nj';
@@ -281,15 +317,16 @@ function getStateBadge(loc) {
 
 function renderJob(job) {
   const state = getStateBadge(job.location);
+  const ddayBadge = getDdayBadge(job);
   return `
     <div class="job-card ${job.recommended ? 'recommended' : ''}" onclick="openModal('${job.id}')">
       <div class="job-title">${job.title}</div>
       <div class="job-badges">
+        ${ddayBadge}
         ${job.recommended ? '<span class="badge badge-rec">⭐ 추천</span>' : ''}
         <span class="badge badge-${state}">${state.toUpperCase()}</span>
         ${job.union ? '<span class="badge badge-union">💪 ' + (job.unionName || 'Union') + '</span>' : ''}
         ${job.state ? '<span class="badge badge-state">🏛️ 주정부</span>' : ''}
-        ${job.isNew ? '<span class="badge badge-new">🆕</span>' : ''}
       </div>
       <div class="job-company">${job.company}</div>
       <div class="job-location">📍 ${job.location}</div>
