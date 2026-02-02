@@ -249,7 +249,8 @@ function initMap() {
       fillColor: color,
       color: '#fff',
       weight: job.recommended ? 3 : 1,
-      fillOpacity: 0.8
+      fillOpacity: 0.8,
+      interactive: true
     }).addTo(map);
     
     marker.bindPopup(`
