@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>?�� ?�욕 ?�신�?RN 채용공고 ?�?�보??/title>
+  <title>🏥 뉴욕 정신과 RN 채용공고 대시보드</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
@@ -52,10 +52,6 @@
     .badge-union { background: #5a2752; color: #df82d3; }
     .badge-state { background: #1e3a5f; color: #7ec8e3; }
     .badge-new { background: #c41e3a; color: #fff; }
-    .badge-dday { background: #dc2626; color: #fff; font-weight: bold; }
-    .badge-dday-soon { background: #f59e0b; color: #000; }
-    .badge-dday-ok { background: #22c55e; color: #fff; }
-    .badge-posted { background: #6b7280; color: #fff; }
     .badge-rec { background: #ffd700; color: #000; }
     .job-company { color: #3a7bd5; font-weight: 500; margin-bottom: 6px; margin-top: 10px; }
     .job-location { color: #888; font-size: 0.9rem; }
@@ -114,60 +110,60 @@
 <body>
   <!-- Password Screen -->
   <div id="password-screen">
-    <h1>?��</h1>
-    <p>비�?번호�??�력?�세??/p>
+    <h1>🔒</h1>
+    <p>비밀번호를 입력하세요</p>
     <input type="password" id="pwd-input" placeholder="******" maxlength="10" onkeypress="if(event.key==='Enter')checkPwd()">
-    <button onclick="checkPwd()">?�장</button>
-    <div class="error" id="pwd-error">비�?번호가 ?�?�습?�다</div>
+    <button onclick="checkPwd()">입장</button>
+    <div class="error" id="pwd-error">비밀번호가 틀렸습니다</div>
   </div>
   
   <!-- Main Content (hidden until password entered) -->
   <div id="main-content">
   <div class="container">
     <header>
-      <h1>?�� ?�욕 ?�신�?RN 채용공고</h1>
-      <p style="color: #888;">AI ?�드바이?� 3?�방??분석�??�께</p>
+      <h1>🏥 뉴욕 정신과 RN 채용공고</h1>
+      <p style="color: #888;">AI 어드바이저 3인방의 분석과 함께</p>
       <div class="profile-box">
-        <h3>?�� ?�권???�로??/h3>
+        <h3>👤 태권님 프로필</h3>
         <ul>
-          <li><strong>경력:</strong> 14??(?�상 4??+ 보건진료�?10??</li>
-          <li><strong>?��? ?�정:</strong> 2026??3???�욕</li>
-          <li><strong>목표:</strong> ?�신�?RN ??PMHNP</li>
+          <li><strong>경력:</strong> 14년 (임상 4년 + 보건진료직 10년)</li>
+          <li><strong>이민 예정:</strong> 2026년 3월 뉴욕</li>
+          <li><strong>목표:</strong> 정신과 RN → PMHNP</li>
         </ul>
       </div>
       <div class="stats">
-        <div class="stat-box"><div class="stat-number" id="totalJobs">0</div><div class="stat-label">?�체 공고</div></div>
-        <div class="stat-box"><div class="stat-number" id="nyJobs">0</div><div class="stat-label">?�욕</div></div>
-        <div class="stat-box"><div class="stat-number" id="njJobs">0</div><div class="stat-label">?��?지</div></div>
-        <div class="stat-box"><div class="stat-number" id="unionJobs">0</div><div class="stat-label">?�� ?�니??/div></div>
+        <div class="stat-box"><div class="stat-number" id="totalJobs">0</div><div class="stat-label">전체 공고</div></div>
+        <div class="stat-box"><div class="stat-number" id="nyJobs">0</div><div class="stat-label">뉴욕</div></div>
+        <div class="stat-box"><div class="stat-number" id="njJobs">0</div><div class="stat-label">뉴저지</div></div>
+        <div class="stat-box"><div class="stat-number" id="unionJobs">0</div><div class="stat-label">💪 유니온</div></div>
       </div>
     </header>
     
     <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('list')">?�� 리스??/button>
-      <button class="tab-btn" onclick="showTab('map')">?���?지??/button>
+      <button class="tab-btn active" onclick="showTab('list')">📋 리스트</button>
+      <button class="tab-btn" onclick="showTab('map')">🗺️ 지도</button>
     </div>
     
     <div id="listTab" class="tab-content active">
       <div class="filters">
-        <button class="filter-btn active" data-filter="all">?�체 (35)</button>
-        <button class="filter-btn" data-filter="ny">?�� ?�욕</button>
-        <button class="filter-btn" data-filter="nj">?��?지</button>
-        <button class="filter-btn" data-filter="union">?�� ?�니??/button>
-        <button class="filter-btn" data-filter="state">?���?주정부</button>
+        <button class="filter-btn active" data-filter="all">전체 (35)</button>
+        <button class="filter-btn" data-filter="ny">🗽 뉴욕</button>
+        <button class="filter-btn" data-filter="nj">뉴저지</button>
+        <button class="filter-btn" data-filter="union">💪 유니온</button>
+        <button class="filter-btn" data-filter="state">🏛️ 주정부</button>
       </div>
-      <h2 class="section-title">�?추천 공고 TOP 5</h2>
+      <h2 class="section-title">⭐ 추천 공고 TOP 5</h2>
       <div class="job-grid" id="recommendedJobs"></div>
-      <h2 class="section-title">?�� ?�체 공고</h2>
+      <h2 class="section-title">📋 전체 공고</h2>
       <div class="job-grid" id="allJobs"></div>
     </div>
     
     <div id="mapTab" class="tab-content">
-      <h2 class="section-title">?���?병원 ?�치 지??/h2>
+      <h2 class="section-title">🗺️ 병원 위치 지도</h2>
       <div id="map"></div>
     </div>
     
-    <div class="last-updated">마�?�??�데?�트: 2026-02-02 17:00 | ?�음 체크: 6?�간마다</div>
+    <div class="last-updated">마지막 업데이트: 2026-02-02 17:00 | 다음 체크: 6시간마다</div>
   </div>
   
   <div class="modal-overlay" id="modalOverlay">
@@ -183,42 +179,42 @@
 
 <script>
 const jobs = [
-  // === 2026-02-02 ??공고 (11�? ===
-  { id: "nysomh-nycc-bronx", title: "RN 1 Psychiatric (NY HELPS) - NYC Children's Center", company: "NYS Office of Mental Health", location: "Bronx, NY", pay: "$115K-$124K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, dateFound: "2026-02-02", lat: 40.8448, lng: -73.8648, advisors: { maggangi: { verdict: "go", comment: "<strong>?�동/�?��???�신�?/strong> 주립병원! ?�봉 $115K-$124K + NY HELPS???�험 ?�이 지??가?? 복�? ?�판??" }, jennifer: { verdict: "go", comment: "Children's Center??<strong>?�아 �?��???�신�?경험</strong> ?�기 좋아?? 주립?�라 ?�정??" }, david: { verdict: "go", comment: "State job + ?�동 ?�신�?경험?� <strong>NP ?????�산</strong>???�요!" } } },
-  { id: "nysomh-kingsboro", title: "RN 2 Psychiatric (NY HELPS) - Kingsboro", company: "NYS Office of Mental Health", location: "Brooklyn, NY", pay: "$123K-$133K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, dateFound: "2026-02-02", lat: 40.6340, lng: -73.9120, advisors: { maggangi: { verdict: "go", comment: "<strong>Brooklyn 주립 ?�신병원</strong>! RN 2??경력직인???�봉 $123K-$133K. Rockland만큼 좋아." }, jennifer: { verdict: "go", comment: "RN 2??경력 ?�정?�주???��??? <strong>?�외 경력?�로 Step ?�상</strong> 가??" }, david: { verdict: "go", comment: "Brooklyn ?�치??출퇴근도 ?�해?? <strong>주립 + 고연�?/strong> 조합!" } } },
-  { id: "university-hospital-nj", title: "Staff Nurse, Psychiatry - G Yellow", company: "University Hospital", location: "Newark, NJ", pay: "?�의", isNew: true, dateFound: "2026-02-02", lat: 40.7420, lng: -74.1907, advisors: { maggangi: { verdict: "maybe", comment: "University Hospital?� <strong>NJ 주요 병원</strong>. Newark??NYC?�서 출퇴�?가?�해." }, jennifer: { verdict: "maybe", comment: "Teaching hospital?�라 경험 ?�기 좋아?? <strong>NJ ?�이?�스</strong> ?�요." }, david: { verdict: "maybe", comment: "NJ??좋�? ?�션. <strong>NY?� ?�께 지??/strong>?�세??" } } },
-  { id: "cpi-eastorange", title: "Psychiatric Nurse RN", company: "Community Psychiatric Institute", location: "East Orange, NJ", pay: "$30/hr", isNew: true, dateFound: "2026-02-02", lat: 40.7673, lng: -74.2048, advisors: { maggangi: { verdict: "maybe", comment: "Community ?�신�??�설. ?�급 $30?� 좀 ???�?<strong>경험 ?�기??/strong> 괜찮??" }, jennifer: { verdict: "maybe", comment: "?�급????? ?? <strong>?�상 ?��?</strong> ?�는지 ?�인?�보?�요." }, david: { verdict: "maybe", comment: "Quick apply 가?�해??<strong>?�습 ?�아 지??/strong>?�볼 만해??" } } },
-  { id: "bridgeway-union-nj", title: "Psychiatric RN", company: "Bridgeway Behavioral Health", location: "Union, NJ", pay: "$38-$43/hr", isNew: true, dateFound: "2026-02-02", lat: 40.6976, lng: -74.2632, advisors: { maggangi: { verdict: "go", comment: "?�급 $38-43 괜찮?? <strong>Behavioral health ?�문</strong> ?�설?�라 ?�신�?경험 ?�기 좋아." }, jennifer: { verdict: "go", comment: "NJ ?�신�??�설 �?<strong>?�급 좋�? ??/strong>. On-site???�정??" }, david: { verdict: "go", comment: "Quick apply 가?? <strong>NJ ?�션</strong>?�로 추천." } } },
-  { id: "carepoint-bayonne", title: "RN-Psychiatric (Full-time Day)", company: "CarePoint Health", location: "Bayonne, NJ", pay: "?�의", isNew: true, dateFound: "2026-02-02", lat: 40.6687, lng: -74.1143, advisors: { maggangi: { verdict: "maybe", comment: "Bayonne?� NYC?�서 가까워. <strong>주간 ?�?�??/strong>?�라 ?�라�?좋아." }, jennifer: { verdict: "maybe", comment: "Day shift ?�?�?��? <strong>처음 ?�응????/strong> 좋�? 조건?�에??" }, david: { verdict: "maybe", comment: "NJ 병원 경험??<strong>?��? ?�요</strong>. 지?�해보세??" } } },
-  { id: "jasa-act-bronx", title: "Registered Nurse - ACT Team", company: "JASA", location: "Bronx, NY", pay: "$100K-$109K/year", isNew: true, dateFound: "2026-02-02", lat: 40.8176, lng: -73.9002, advisors: { maggangi: { verdict: "go", comment: "ACT Team?� <strong>지??��???�신건강</strong>! 병원???�니???�장?�서 ?�자 관리해. ?�특??경험." }, jennifer: { verdict: "go", comment: "ACT(Assertive Community Treatment)??<strong>community mental health</strong>???�심. NP ???��? ?�요." }, david: { verdict: "go", comment: "?�봉 $100K-$109K 좋아?? <strong>?�양??경험</strong> ?�을 ???�어??" } } },
-  { id: "mountsinai-wellness-rn", title: "Licensed Wellness Self Management Specialist (RN)", company: "Mount Sinai Rivington", location: "New York, NY", pay: "?�의", union: true, unionName: "1199SEIU", hospital: true, isNew: true, dateFound: "2026-02-02", lat: 40.7205, lng: -73.9860, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai Psych Admin ??��. <strong>?�자 교육/?�니??/strong> 중심?�라 ?�상�?좀 ?�라." }, jennifer: { verdict: "maybe", comment: "Wellness Specialist??<strong>교육/?�담</strong> ??��. ?�상 경험 ?�하�?Staff RN???�아??" }, david: { verdict: "maybe", comment: "Mount Sinai ?�사 기회로는 좋아?? <strong>?��? ?�동</strong> 가??" } } },
-  { id: "mountsinai-ed-mgr", title: "Nurse Education Manager - Mental Health", company: "Mount Sinai West", location: "New York, NY", pay: "?�의", union: true, hospital: true, isNew: true, dateFound: "2026-02-02", lat: 40.7695, lng: -73.9862, advisors: { maggangi: { verdict: "wait", comment: "Education Manager??<strong>관�?교육�?/strong>. 미국 경력 2-3???��? ?�실??" }, jennifer: { verdict: "wait", comment: "관리직?� <strong>미국 ?�스???�해 ??/strong>가 좋아?? Staff RN부??" }, david: { verdict: "wait", comment: "?�중??목표�? 지금�? <strong>Staff RN</strong> 집중." } } },
-  { id: "mountsinai-mgr-morningside", title: "Nurse Manager, RN - Behavioral Health", company: "Mount Sinai Morningside", location: "New York, NY", pay: "?�의", union: true, hospital: true, isNew: true, dateFound: "2026-02-02", lat: 40.8050, lng: -73.9619, advisors: { maggangi: { verdict: "wait", comment: "Nurse Manager??<strong>관리직</strong>. 미국 경력 ?�요??" }, jennifer: { verdict: "wait", comment: "관리직?� <strong>2-3????/strong>. Staff RN 공고 찾으?�요!" }, david: { verdict: "wait", comment: "Mount Sinai Staff RN 공고가 ???�실?�이?�요." } } },
-  { id: "mountsinai-mgr-west", title: "Nurse Manager, RN - Behavioral Health", company: "Mount Sinai West", location: "New York, NY", pay: "?�의", union: true, hospital: true, isNew: true, dateFound: "2026-02-02", lat: 40.7690, lng: -73.9865, advisors: { maggangi: { verdict: "wait", comment: "West 캠퍼??관리직. <strong>Staff RN부??/strong> ?�작?�자." }, jennifer: { verdict: "wait", comment: "관리직?� ?�중?? <strong>Staff RN ??Charge ??Manager</strong> ?�계�?" }, david: { verdict: "wait", comment: "Mount Sinai ?�사가 목표�?<strong>Staff RN 공고</strong> 찾아보세??" } } },
+  // === 2026-02-02 새 공고 (11건) ===
+  { id: "nysomh-nycc-bronx", title: "RN 1 Psychiatric (NY HELPS) - NYC Children's Center", company: "NYS Office of Mental Health", location: "Bronx, NY", pay: "$115K-$124K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, lat: 40.8448, lng: -73.8648, advisors: { maggangi: { verdict: "go", comment: "<strong>아동/청소년 정신과</strong> 주립병원! 연봉 $115K-$124K + NY HELPS라 시험 없이 지원 가능. 복지 끝판왕." }, jennifer: { verdict: "go", comment: "Children's Center라 <strong>소아 청소년 정신과 경험</strong> 쌓기 좋아요. 주립이라 안정적!" }, david: { verdict: "go", comment: "State job + 아동 정신과 경험은 <strong>NP 때 큰 자산</strong>이 돼요!" } } },
+  { id: "nysomh-kingsboro", title: "RN 2 Psychiatric (NY HELPS) - Kingsboro", company: "NYS Office of Mental Health", location: "Brooklyn, NY", pay: "$123K-$133K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, lat: 40.6340, lng: -73.9120, advisors: { maggangi: { verdict: "go", comment: "<strong>Brooklyn 주립 정신병원</strong>! RN 2라 경력직인데 연봉 $123K-$133K. Rockland만큼 좋아." }, jennifer: { verdict: "go", comment: "RN 2는 경력 인정해주는 포지션. <strong>해외 경력으로 Step 협상</strong> 가능!" }, david: { verdict: "go", comment: "Brooklyn 위치라 출퇴근도 편해요. <strong>주립 + 고연봉</strong> 조합!" } } },
+  { id: "university-hospital-nj", title: "Staff Nurse, Psychiatry - G Yellow", company: "University Hospital", location: "Newark, NJ", pay: "협의", isNew: true, lat: 40.7420, lng: -74.1907, advisors: { maggangi: { verdict: "maybe", comment: "University Hospital은 <strong>NJ 주요 병원</strong>. Newark라 NYC에서 출퇴근 가능해." }, jennifer: { verdict: "maybe", comment: "Teaching hospital이라 경험 쌓기 좋아요. <strong>NJ 라이선스</strong> 필요." }, david: { verdict: "maybe", comment: "NJ도 좋은 옵션. <strong>NY와 함께 지원</strong>하세요!" } } },
+  { id: "cpi-eastorange", title: "Psychiatric Nurse RN", company: "Community Psychiatric Institute", location: "East Orange, NJ", pay: "$30/hr", isNew: true, lat: 40.7673, lng: -74.2048, advisors: { maggangi: { verdict: "maybe", comment: "Community 정신과 시설. 시급 $30은 좀 낮지만 <strong>경험 쌓기엔</strong> 괜찮아." }, jennifer: { verdict: "maybe", comment: "시급이 낮은 편. <strong>협상 여지</strong> 있는지 확인해보세요." }, david: { verdict: "maybe", comment: "Quick apply 가능해서 <strong>연습 삼아 지원</strong>해볼 만해요." } } },
+  { id: "bridgeway-union-nj", title: "Psychiatric RN", company: "Bridgeway Behavioral Health", location: "Union, NJ", pay: "$38-$43/hr", isNew: true, lat: 40.6976, lng: -74.2632, advisors: { maggangi: { verdict: "go", comment: "시급 $38-43 괜찮아! <strong>Behavioral health 전문</strong> 시설이라 정신과 경험 쌓기 좋아." }, jennifer: { verdict: "go", comment: "NJ 정신과 시설 중 <strong>시급 좋은 편</strong>. On-site라 안정적." }, david: { verdict: "go", comment: "Quick apply 가능! <strong>NJ 옵션</strong>으로 추천." } } },
+  { id: "carepoint-bayonne", title: "RN-Psychiatric (Full-time Day)", company: "CarePoint Health", location: "Bayonne, NJ", pay: "협의", isNew: true, lat: 40.6687, lng: -74.1143, advisors: { maggangi: { verdict: "maybe", comment: "Bayonne은 NYC에서 가까워. <strong>주간 풀타임</strong>이라 워라밸 좋아." }, jennifer: { verdict: "maybe", comment: "Day shift 풀타임은 <strong>처음 적응할 때</strong> 좋은 조건이에요." }, david: { verdict: "maybe", comment: "NJ 병원 경험도 <strong>도움 돼요</strong>. 지원해보세요!" } } },
+  { id: "jasa-act-bronx", title: "Registered Nurse - ACT Team", company: "JASA", location: "Bronx, NY", pay: "$100K-$109K/year", isNew: true, lat: 40.8176, lng: -73.9002, advisors: { maggangi: { verdict: "go", comment: "ACT Team은 <strong>지역사회 정신건강</strong>! 병원이 아니라 현장에서 환자 관리해. 독특한 경험." }, jennifer: { verdict: "go", comment: "ACT(Assertive Community Treatment)는 <strong>community mental health</strong>의 핵심. NP 때 도움 돼요." }, david: { verdict: "go", comment: "연봉 $100K-$109K 좋아요. <strong>다양한 경험</strong> 쌓을 수 있어요!" } } },
+  { id: "mountsinai-wellness-rn", title: "Licensed Wellness Self Management Specialist (RN)", company: "Mount Sinai Rivington", location: "New York, NY", pay: "협의", union: true, unionName: "1199SEIU", hospital: true, isNew: true, lat: 40.7205, lng: -73.9860, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai Psych Admin 역할. <strong>환자 교육/웰니스</strong> 중심이라 임상과 좀 달라." }, jennifer: { verdict: "maybe", comment: "Wellness Specialist는 <strong>교육/상담</strong> 역할. 임상 경험 원하면 Staff RN이 나아요." }, david: { verdict: "maybe", comment: "Mount Sinai 입사 기회로는 좋아요. <strong>내부 이동</strong> 가능!" } } },
+  { id: "mountsinai-ed-mgr", title: "Nurse Education Manager - Mental Health", company: "Mount Sinai West", location: "New York, NY", pay: "협의", union: true, hospital: true, isNew: true, lat: 40.7695, lng: -73.9862, advisors: { maggangi: { verdict: "wait", comment: "Education Manager는 <strong>관리/교육직</strong>. 미국 경력 2-3년 후가 현실적." }, jennifer: { verdict: "wait", comment: "관리직은 <strong>미국 시스템 이해 후</strong>가 좋아요. Staff RN부터!" }, david: { verdict: "wait", comment: "나중에 목표로! 지금은 <strong>Staff RN</strong> 집중." } } },
+  { id: "mountsinai-mgr-morningside", title: "Nurse Manager, RN - Behavioral Health", company: "Mount Sinai Morningside", location: "New York, NY", pay: "협의", union: true, hospital: true, isNew: true, lat: 40.8050, lng: -73.9619, advisors: { maggangi: { verdict: "wait", comment: "Nurse Manager는 <strong>관리직</strong>. 미국 경력 필요해." }, jennifer: { verdict: "wait", comment: "관리직은 <strong>2-3년 후</strong>. Staff RN 공고 찾으세요!" }, david: { verdict: "wait", comment: "Mount Sinai Staff RN 공고가 더 현실적이에요." } } },
+  { id: "mountsinai-mgr-west", title: "Nurse Manager, RN - Behavioral Health", company: "Mount Sinai West", location: "New York, NY", pay: "협의", union: true, hospital: true, isNew: true, lat: 40.7690, lng: -73.9865, advisors: { maggangi: { verdict: "wait", comment: "West 캠퍼스 관리직. <strong>Staff RN부터</strong> 시작하자." }, jennifer: { verdict: "wait", comment: "관리직은 나중에. <strong>Staff RN → Charge → Manager</strong> 단계로!" }, david: { verdict: "wait", comment: "Mount Sinai 입사가 목표면 <strong>Staff RN 공고</strong> 찾아보세요!" } } },
   // === 기존 공고 ===
-  { id: "jamaica-hospital", title: "Psychiatric RN ??Night Shift", company: "Jamaica Hospital", location: "Richmond Hill, NY", pay: "$55.92/hr (~$130K)", union: true, unionName: "1199SEIU", recommended: true, hospital: true, dateFound: "2026-02-01", lat: 40.6985, lng: -73.8180, advisors: { maggangi: { verdict: "go", comment: "Jamaica Hospital ?�신과는 Queens?�서 busiest. ?�급 $55.92 + ?�간 diff�?$60 ?�어. <strong>?�니?�이??경력 ?�정</strong> 규정?��?" }, jennifer: { verdict: "go", comment: "1199SEIU ?�니?�이??경력 ?�정 grievance 가?? 보건진료직을 'autonomous practice'�??�필?�면 <strong>5-7???�정</strong> 가??" }, david: { verdict: "go", comment: "Foreign nurse?�게 ?�려?�어?? ?�신�??�력 부족이??<strong>visa sponsorship</strong>??가?�할 ???�어??" } } },
-  { id: "montefiore", title: "STAFF NURSE I/II - Psychiatry", company: "Montefiore Einstein", location: "Bronx, NY", pay: "$95K-$120K/year", union: true, unionName: "NYSNA", recommended: true, hospital: true, dateFound: "2026-02-01", lat: 40.8531, lng: -73.8464, advisors: { maggangi: { verdict: "go", comment: "Montefiore??<strong>?�술 병원</strong>. NYSNA ?�니?�이??경력 ?�정 빡빡?�게 지�? NP �???<strong>추천??/strong> 받기 좋아." }, jennifer: { verdict: "go", comment: "Teaching hospital. NYSNA???�외 경력 ?�정 조항 ?�어?? <strong>Step placement ?�상</strong> 가??" }, david: { verdict: "go", comment: "?�???�술병원?�라 <strong>?�정??/strong>. ?�신�?경력 + ?�술병원 경험?� ?�직???????�산!" } } },
-  { id: "rockland", title: "RN 1 Psychiatric (NY HELPS)", company: "NYS OMH - Rockland", location: "Orangeburg, NY", pay: "$132K-$143K/year", union: true, unionName: "PEF", recommended: true, state: true, lat: 41.0465, lng: -73.9476, advisors: { maggangi: { verdict: "go", comment: "<strong>주정부 공무??/strong>! ?�봉 $132K-$143K??<strong>pension</strong>까�?? 복�? ?�판??" }, jennifer: { verdict: "go", comment: "주립 ?�신병원 <strong>?�정??최고</strong>. NY HELPS???�험 ?�이 지??가??" }, david: { verdict: "go", comment: "State job?� <strong>?�생 커리??/strong> 가?? Tuition assistance�?NP ?�비??지??" } } },
-  { id: "mountsinai-amb", title: "Staff RN I - Psychiatry Ambulatory", company: "Mount Sinai Rivington", location: "New York, NY (LES)", pay: "$69/hr (~$143K)", union: true, unionName: "1199SEIU", recommended: true, hospital: true, isNew: true, dateFound: "2026-02-02", lat: 40.7208, lng: -73.9855, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai ?�래 ?�신�? <strong>주간 M-F 8-4</strong>???�라�?좋아. 근데 �?직장?�론 까다로워. 1-2?????�겟으�?" }, jennifer: { verdict: "maybe", comment: "명성 ?��? 병원. ?�래???�트?�스 ?�해?? 근데 <strong>경쟁 치열</strong>?�서 미국 경력 ?�고 지??추천." }, david: { verdict: "maybe", comment: "Top-tier??1?�차 ?�국?��? ?�들?�요. ?��?�?지?�해�?가�??�어??" } } },
-  { id: "central-nassau", title: "Registered Nurse (Full Time)", company: "Central Nassau Guidance", location: "Hicksville, NY", pay: "$85K-$100K", recommended: true, lat: 40.7684, lng: -73.5251, advisors: { maggangi: { verdict: "go", comment: "<strong>?�자�??��??�환 ?�로그램</strong> ?�어! NP ?�비 ?��?갚으면서 ?�할 ???�어." }, jennifer: { verdict: "go", comment: "Community mental health center. <strong>가족적??분위�?/strong>�??�국?�한?�도 기회 많아??" }, david: { verdict: "go", comment: "<strong>Loan repayment</strong>가 ???�점! NP 과정 ?�어가면서 ?�자�?지?�받?????�어??" } } },
-  { id: "mpc", title: "RN 2 Psychiatric (NY HELPS)", company: "Manhattan Psychiatric Center", location: "East Harlem, NY", pay: "$100K-$130K", union: true, state: true, lat: 40.7917, lng: -73.9268, advisors: { maggangi: { verdict: "go", comment: "<strong>주립 ?�신병원</strong>. NY HELPS???�험 ?�이 지?? <strong>맨하???�치</strong>??출퇴�??�해!" }, jennifer: { verdict: "go", comment: "OMH ?�속. Rockland??비슷??조건?�데 <strong>?�치가 맨하??/strong>?�라 ??좋아??" }, david: { verdict: "go", comment: "NYC ??주립병원?�라 <strong>출퇴�?+ 복�?</strong> ?????�을 ???�어??" } } },
-  { id: "nychhc", title: "Asst Dir Nursing - OTxHU", company: "NYC Health + Hospitals", location: "New York, NY", pay: "$120K-$150K", union: true, unionName: "NYSNA", hospital: true, dateFound: "2026-02-01", lat: 40.7614, lng: -73.9776, advisors: { maggangi: { verdict: "wait", comment: "ADON?� <strong>관리직</strong>. 미국 ?�??바로??무리. 2-3??staff nurse ?�고 ?�전??" }, jennifer: { verdict: "wait", comment: "NYC H+H??<strong>1?�위 병원</strong>. 근데 ???��??��? 미국 경력 ?�요. Staff RN?�로 먼�?!" }, david: { verdict: "wait", comment: "리더??? 미국 경력 2-3???? <strong>NYC H+H Staff RN 공고</strong>�?찾아보세??" } } },
-  { id: "northwell", title: "Asst Director Nursing Psych", company: "Northwell Health", location: "Glen Oaks, NY", hospital: true, dateFound: "2026-02-01", lat: 40.7554, lng: -73.7170, advisors: { maggangi: { verdict: "wait", comment: "Northwell?� <strong>NY 최�? ?�스??/strong>. ADON?� 관리직?�라 Staff RN 공고 찾아�?" }, jennifer: { verdict: "wait", comment: "관리직?� <strong>미국 경력 2-3????/strong>가 ?�실?�이?�요." }, david: { verdict: "wait", comment: "Staff RN 공고??많을 거예?? 거기부???�작?�세??" } } },
-  { id: "welllife", title: "LPN/RN - ART011", company: "WellLife Network", location: "Elmont, NY", lat: 40.7004, lng: -73.7134, advisors: { maggangi: { verdict: "go", comment: "WellLife??<strong>?�신건강 비영�?/strong>. ?�?�병?�보???�하�?경험 ?�기 좋아." }, jennifer: { verdict: "go", comment: "비영리라 <strong>?�국?�한???�려?�어??/strong>. 미국 ?�응?�면???�하�?좋�? ?�경." }, david: { verdict: "go", comment: "?�신�?경력?� <strong>?�일?�게 ?�정</strong>?�요. 좋�? ?�작??" } } },
-  { id: "surfpoint", title: "Overnight RN", company: "Surfpoint Recovery", location: "Brooklyn, NY", lat: 40.6782, lng: -73.9442, advisors: { maggangi: { verdict: "maybe", comment: "Surfpoint??<strong>중독 치료 ?�설</strong>. ?�신과랑 관???�어. ?�간?�라 ?�들지�?경험 ?�기??괜찮??" }, jennifer: { verdict: "maybe", comment: "Recovery ?�설???�신건강 경험?�로 ?�정?�요. <strong>?�양??경험</strong> 가??" }, david: { verdict: "maybe", comment: "중독 치료 경험??NP ???��? ?�요. <strong>Backup option</strong>?�로." } } },
-  { id: "cas-harlem", title: "Registered Nurse", company: "Center for Alternative Sentencing", location: "Harlem, NY", lat: 40.8116, lng: -73.9465, advisors: { maggangi: { verdict: "maybe", comment: "<strong>교정 관??기�?</strong>. Forensic psych 경험 ?�을 ???�어." }, jennifer: { verdict: "maybe", comment: "Forensic nursing?� ?�수 분야. 관???�으?�면 <strong>좋�? 경험</strong>???????�어??" }, david: { verdict: "maybe", comment: "?�특??경험???????�어??" } } },
-  { id: "summit-nyack", title: "RN - 3pm-11pm Shift", company: "Summit School at Nyack", location: "Nyack, NY", lat: 41.0907, lng: -73.9174, advisors: { maggangi: { verdict: "maybe", comment: "<strong>?�수?�교</strong> 간호?? ?�신과는 ?�닌???�동/�?��??경험 ?�을 ???�어." }, jennifer: { verdict: "maybe", comment: "?�교 간호?�는 ?�신과�???좀 ?�라?? <strong>�?��???�신건강</strong> 관???�으?�면 고려." }, david: { verdict: "maybe", comment: "병원 경력???�선?�에??" } } },
-  { id: "stvincent-ct", title: "RN Adolescent/Adult Psych", company: "St. Vincent's Medical", location: "Westport, CT", lat: 41.1415, lng: -73.3579, advisors: { maggangi: { verdict: "maybe", comment: "CT???�욕보다 경쟁 ?�해??<strong>경력 ?�기??좋을 ??/strong> ?�어." }, jennifer: { verdict: "maybe", comment: "CT 병원?�도 괜찮?�요. <strong>CT RN License</strong> ?�로 ?�요." }, david: { verdict: "maybe", comment: "NY가 메인 ?�겟이?�니�?<strong>backup</strong>?�로�?" } } },
-  { id: "stmary-nj", title: "RN Behavioral Health", company: "St. Mary's General Hospital", location: "Passaic, NJ", lat: 40.8568, lng: -74.1288, advisors: { maggangi: { verdict: "maybe", comment: "NJ 병원. Passaic?� ?�욕?�에??가까워. <strong>NJ ?�이?�스</strong> ?�요." }, jennifer: { verdict: "maybe", comment: "NJ??좋�? ?�션. ?�욕보다 <strong>?�활�??�??/strong>?�고 출퇴�?가??" }, david: { verdict: "maybe", comment: "NJ 병원?�도 ?�력 부�? <strong>NY?� ?�께 지??/strong>?�도 좋아??" } } },
-  { id: "hackensack", title: "RN - Behav Health", company: "Hackensack Meridian Health", location: "Perth Amboy, NJ", hospital: true, isNew: true, dateFound: "2026-02-02", lat: 40.5068, lng: -74.2654, advisors: { maggangi: { verdict: "maybe", comment: "Hackensack?� <strong>?��?지 ?�???�스??/strong>. NJ�?출퇴�?1?�간 ?�을 ???�어." }, jennifer: { verdict: "maybe", comment: "?��?지??좋�? ?�션. <strong>NJ RN License</strong> ?�로 ?�요." }, david: { verdict: "maybe", comment: "NJ 병원?�도 기회 많아?? <strong>Backup option</strong>?�로." } } },
-  { id: "greystone", title: "Charge Nurse - RN", company: "Greystone Park Psychiatric", location: "Morris Plains, NJ", union: true, state: true, lat: 40.8223, lng: -74.4800, advisors: { maggangi: { verdict: "maybe", comment: "Greystone?� <strong>NJ 주립 ?�신병원</strong>. Charge??경력직이??Staff RN 공고 ?�인?�봐." }, jennifer: { verdict: "maybe", comment: "주립 병원 ?�정?? <strong>Charge??미국 경력 ??/strong>가 ?�실??" }, david: { verdict: "maybe", comment: "State hospital?�라 <strong>job security</strong> 좋아??" } } },
-  { id: "rwjbarnabas", title: "Nursing Supervisor", company: "RWJBarnabas Health", location: "West Orange, NJ", hospital: true, dateFound: "2026-02-01", lat: 40.7982, lng: -74.2390, advisors: { maggangi: { verdict: "wait", comment: "Supervisor??<strong>관리직</strong>?�라 미국 경력 ?�요??" }, jennifer: { verdict: "wait", comment: "관리직?� 2-3??경력 ?? <strong>Staff RN부??/strong> ?�작?�세??" }, david: { verdict: "wait", comment: "Staff RN 공고�?찾아보세??" } } },
-  { id: "navitas-adon", title: "Assistant Director of Nursing", company: "NavitasPartners (Agency)", location: "Kings County, NY", lat: 40.6501, lng: -73.9496, advisors: { maggangi: { verdict: "wait", comment: "NavitasPartners??<strong>staffing agency</strong>. ADON?� agency ?�한 �?좀 그래." }, jennifer: { verdict: "wait", comment: "Agency ADON?� <strong>권장?��? ?�아??/strong>. 병원 직접 채용??찾으?�요." }, david: { verdict: "wait", comment: "Agency??<strong>마�?�??�션</strong>. 직접 채용 ?�선!" } } },
-  { id: "navitas-don", title: "Director of Nursing (DON) - BH", company: "NavitasPartners (Agency)", location: "Kings County, NY", isNew: true, dateFound: "2026-02-02", lat: 40.6510, lng: -73.9500, advisors: { maggangi: { verdict: "wait", comment: "DON?� <strong>최고 관리직</strong>. 미국 경력 5???�상 ?�요??" }, jennifer: { verdict: "wait", comment: "DON?� ?�중?? <strong>Staff RN ??Charge ??Manager ??DON</strong> ?�계." }, david: { verdict: "wait", comment: "Agency DON?� ?�실???�어?? <strong>?�킵</strong>?�세??" } } },
-  { id: "prosperity", title: "RN - Behavioral Health", company: "Prosperity (Agency)", location: "Belle Mead, NJ", isNew: true, dateFound: "2026-02-02", lat: 40.4706, lng: -74.6445, advisors: { maggangi: { verdict: "wait", comment: "<strong>Staffing agency</strong> 공고. 경력 ?�정?�나 베네??면에??불리??" }, jennifer: { verdict: "wait", comment: "Agency 취업?� <strong>마�?�??�션</strong>. 병원 직접 채용 먼�?." }, david: { verdict: "wait", comment: "Agency??<strong>?�스</strong>. 직접 채용??집중?�세??" } } },
-  { id: "mountsinai-float", title: "Staff Nurse - Psych Float Pool", company: "Mount Sinai Rivington", location: "New York, NY (LES)", union: true, unionName: "1199SEIU", hospital: true, isNew: true, dateFound: "2026-02-02", lat: 40.7210, lng: -73.9850, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai Float Pool. <strong>Per Diem</strong>?�라 ?�?�???�니?? 베네???�한??" }, jennifer: { verdict: "maybe", comment: "Per Diem?� <strong>?�간??/strong>. 처음???�?�?�이 베네?�도 좋고 ?�정??" }, david: { verdict: "maybe", comment: "Float Pool?� 경험 ?�양?�게 ?�이?�데, <strong>?�?�??/strong>???�선?�에??" } } },
-  { id: "umh-np", title: "Psychiatric NP", company: "Upper Manhattan Mental Health", location: "New York, NY", lat: 40.8270, lng: -73.9481, advisors: { maggangi: { verdict: "wait", comment: "<strong>NP ?��???/strong>. ?�권?��? ?�직 NP ?�니?�까 ?�당 ???? ?�중??" }, jennifer: { verdict: "wait", comment: "NP ?�격 취득 ?�에?? <strong>?�기 목표</strong>�?기억?�두?�요!" }, david: { verdict: "wait", comment: "NP 공고??<strong>참고??/strong>. ?�장 보는 ?�도�?" } } },
-  { id: "curated-np", title: "Psychiatric NP", company: "Curated Mental Health", location: "Chelsea, NY", lat: 40.7465, lng: -74.0014, advisors: { maggangi: { verdict: "wait", comment: "<strong>NP ?��???/strong>. 지금�? ?�당 ?��?�??�중??NP ?�면 ?�런 �?많아." }, jennifer: { verdict: "wait", comment: "NP ?�격 ?�에?? Chelsea ?�치 좋네?? <strong>?�중??참고</strong>." }, david: { verdict: "wait", comment: "NP ?�장 좋아?? <strong>미래 목표</strong>�?" } } }
+  { id: "jamaica-hospital", title: "Psychiatric RN – Night Shift", company: "Jamaica Hospital", location: "Richmond Hill, NY", pay: "$55.92/hr (~$130K)", union: true, unionName: "1199SEIU", recommended: true, hospital: true, lat: 40.6985, lng: -73.8180, advisors: { maggangi: { verdict: "go", comment: "Jamaica Hospital 정신과는 Queens에서 busiest. 시급 $55.92 + 야간 diff면 $60 넘어. <strong>유니온이라 경력 인정</strong> 규정대로." }, jennifer: { verdict: "go", comment: "1199SEIU 유니온이라 경력 인정 grievance 가능. 보건진료직을 'autonomous practice'로 어필하면 <strong>5-7년 인정</strong> 가능." }, david: { verdict: "go", comment: "Foreign nurse에게 열려있어요. 정신과 인력 부족이라 <strong>visa sponsorship</strong>도 가능할 수 있어요!" } } },
+  { id: "montefiore", title: "STAFF NURSE I/II - Psychiatry", company: "Montefiore Einstein", location: "Bronx, NY", pay: "$95K-$120K/year", union: true, unionName: "NYSNA", recommended: true, hospital: true, lat: 40.8531, lng: -73.8464, advisors: { maggangi: { verdict: "go", comment: "Montefiore는 <strong>학술 병원</strong>. NYSNA 유니온이라 경력 인정 빡빡하게 지켜. NP 갈 때 <strong>추천서</strong> 받기 좋아." }, jennifer: { verdict: "go", comment: "Teaching hospital. NYSNA라 해외 경력 인정 조항 있어요. <strong>Step placement 협상</strong> 가능." }, david: { verdict: "go", comment: "대형 학술병원이라 <strong>안정적</strong>. 정신과 경력 + 학술병원 경험은 이직할 때 큰 자산!" } } },
+  { id: "rockland", title: "RN 1 Psychiatric (NY HELPS)", company: "NYS OMH - Rockland", location: "Orangeburg, NY", pay: "$132K-$143K/year", union: true, unionName: "PEF", recommended: true, state: true, lat: 41.0465, lng: -73.9476, advisors: { maggangi: { verdict: "go", comment: "<strong>주정부 공무원</strong>! 연봉 $132K-$143K에 <strong>pension</strong>까지? 복지 끝판왕." }, jennifer: { verdict: "go", comment: "주립 정신병원 <strong>안정성 최고</strong>. NY HELPS라 시험 없이 지원 가능." }, david: { verdict: "go", comment: "State job은 <strong>평생 커리어</strong> 가능. Tuition assistance로 NP 학비도 지원!" } } },
+  { id: "mountsinai-amb", title: "Staff RN I - Psychiatry Ambulatory", company: "Mount Sinai Rivington", location: "New York, NY (LES)", pay: "$69/hr (~$143K)", union: true, unionName: "1199SEIU", recommended: true, hospital: true, isNew: true, lat: 40.7208, lng: -73.9855, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai 외래 정신과! <strong>주간 M-F 8-4</strong>라 워라밸 좋아. 근데 첫 직장으론 까다로워. 1-2년 후 타겟으로." }, jennifer: { verdict: "maybe", comment: "명성 높은 병원. 외래라 스트레스 덜해요. 근데 <strong>경쟁 치열</strong>해서 미국 경력 쌓고 지원 추천." }, david: { verdict: "maybe", comment: "Top-tier라 1년차 외국인은 힘들어요. 하지만 지원해볼 가치 있어요!" } } },
+  { id: "central-nassau", title: "Registered Nurse (Full Time)", company: "Central Nassau Guidance", location: "Hicksville, NY", pay: "$85K-$100K", recommended: true, lat: 40.7684, lng: -73.5251, advisors: { maggangi: { verdict: "go", comment: "<strong>학자금 대출 상환 프로그램</strong> 있어! NP 학비 대출 갚으면서 일할 수 있어." }, jennifer: { verdict: "go", comment: "Community mental health center. <strong>가족적인 분위기</strong>고 외국인한테도 기회 많아요." }, david: { verdict: "go", comment: "<strong>Loan repayment</strong>가 큰 장점! NP 과정 들어가면서 학자금 지원받을 수 있어요." } } },
+  { id: "mpc", title: "RN 2 Psychiatric (NY HELPS)", company: "Manhattan Psychiatric Center", location: "East Harlem, NY", pay: "$100K-$130K", union: true, state: true, lat: 40.7917, lng: -73.9268, advisors: { maggangi: { verdict: "go", comment: "<strong>주립 정신병원</strong>. NY HELPS라 시험 없이 지원. <strong>맨하탄 위치</strong>라 출퇴근 편해!" }, jennifer: { verdict: "go", comment: "OMH 소속. Rockland랑 비슷한 조건인데 <strong>위치가 맨하탄</strong>이라 더 좋아요!" }, david: { verdict: "go", comment: "NYC 내 주립병원이라 <strong>출퇴근 + 복지</strong> 둘 다 잡을 수 있어요!" } } },
+  { id: "nychhc", title: "Asst Dir Nursing - OTxHU", company: "NYC Health + Hospitals", location: "New York, NY", pay: "$120K-$150K", union: true, unionName: "NYSNA", hospital: true, lat: 40.7614, lng: -73.9776, advisors: { maggangi: { verdict: "wait", comment: "ADON은 <strong>관리직</strong>. 미국 와서 바로는 무리. 2-3년 staff nurse 하고 도전해." }, jennifer: { verdict: "wait", comment: "NYC H+H는 <strong>1순위 병원</strong>. 근데 이 포지션은 미국 경력 필요. Staff RN으로 먼저!" }, david: { verdict: "wait", comment: "리더십은 미국 경력 2-3년 후. <strong>NYC H+H Staff RN 공고</strong>를 찾아보세요!" } } },
+  { id: "northwell", title: "Asst Director Nursing Psych", company: "Northwell Health", location: "Glen Oaks, NY", hospital: true, lat: 40.7554, lng: -73.7170, advisors: { maggangi: { verdict: "wait", comment: "Northwell은 <strong>NY 최대 시스템</strong>. ADON은 관리직이라 Staff RN 공고 찾아봐." }, jennifer: { verdict: "wait", comment: "관리직은 <strong>미국 경력 2-3년 후</strong>가 현실적이에요." }, david: { verdict: "wait", comment: "Staff RN 공고도 많을 거예요. 거기부터 시작하세요!" } } },
+  { id: "welllife", title: "LPN/RN - ART011", company: "WellLife Network", location: "Elmont, NY", lat: 40.7004, lng: -73.7134, advisors: { maggangi: { verdict: "go", comment: "WellLife는 <strong>정신건강 비영리</strong>. 대형병원보다 편하고 경험 쌓기 좋아." }, jennifer: { verdict: "go", comment: "비영리라 <strong>외국인한테 열려있어요</strong>. 미국 적응하면서 일하기 좋은 환경." }, david: { verdict: "go", comment: "정신과 경력은 <strong>동일하게 인정</strong>돼요. 좋은 시작점!" } } },
+  { id: "surfpoint", title: "Overnight RN", company: "Surfpoint Recovery", location: "Brooklyn, NY", lat: 40.6782, lng: -73.9442, advisors: { maggangi: { verdict: "maybe", comment: "Surfpoint는 <strong>중독 치료 시설</strong>. 정신과랑 관련 있어. 야간이라 힘들지만 경험 쌓기엔 괜찮아." }, jennifer: { verdict: "maybe", comment: "Recovery 시설도 정신건강 경험으로 인정돼요. <strong>다양한 경험</strong> 가능." }, david: { verdict: "maybe", comment: "중독 치료 경험도 NP 때 도움 돼요. <strong>Backup option</strong>으로." } } },
+  { id: "cas-harlem", title: "Registered Nurse", company: "Center for Alternative Sentencing", location: "Harlem, NY", lat: 40.8116, lng: -73.9465, advisors: { maggangi: { verdict: "maybe", comment: "<strong>교정 관련 기관</strong>. Forensic psych 경험 쌓을 수 있어." }, jennifer: { verdict: "maybe", comment: "Forensic nursing은 특수 분야. 관심 있으시면 <strong>좋은 경험</strong>이 될 수 있어요." }, david: { verdict: "maybe", comment: "독특한 경험이 될 수 있어요." } } },
+  { id: "summit-nyack", title: "RN - 3pm-11pm Shift", company: "Summit School at Nyack", location: "Nyack, NY", lat: 41.0907, lng: -73.9174, advisors: { maggangi: { verdict: "maybe", comment: "<strong>특수학교</strong> 간호사. 정신과는 아닌데 아동/청소년 경험 쌓을 수 있어." }, jennifer: { verdict: "maybe", comment: "학교 간호사는 정신과와는 좀 달라요. <strong>청소년 정신건강</strong> 관심 있으시면 고려." }, david: { verdict: "maybe", comment: "병원 경력이 우선이에요." } } },
+  { id: "stvincent-ct", title: "RN Adolescent/Adult Psych", company: "St. Vincent's Medical", location: "Westport, CT", lat: 41.1415, lng: -73.3579, advisors: { maggangi: { verdict: "maybe", comment: "CT는 뉴욕보다 경쟁 덜해서 <strong>경력 쌓기엔 좋을 수</strong> 있어." }, jennifer: { verdict: "maybe", comment: "CT 병원들도 괜찮아요. <strong>CT RN License</strong> 따로 필요." }, david: { verdict: "maybe", comment: "NY가 메인 타겟이시니까 <strong>backup</strong>으로만." } } },
+  { id: "stmary-nj", title: "RN Behavioral Health", company: "St. Mary's General Hospital", location: "Passaic, NJ", lat: 40.8568, lng: -74.1288, advisors: { maggangi: { verdict: "maybe", comment: "NJ 병원. Passaic은 뉴욕시에서 가까워. <strong>NJ 라이선스</strong> 필요." }, jennifer: { verdict: "maybe", comment: "NJ도 좋은 옵션. 뉴욕보다 <strong>생활비 저렴</strong>하고 출퇴근 가능." }, david: { verdict: "maybe", comment: "NJ 병원들도 인력 부족. <strong>NY와 함께 지원</strong>해도 좋아요." } } },
+  { id: "hackensack", title: "RN - Behav Health", company: "Hackensack Meridian Health", location: "Perth Amboy, NJ", hospital: true, isNew: true, lat: 40.5068, lng: -74.2654, advisors: { maggangi: { verdict: "maybe", comment: "Hackensack은 <strong>뉴저지 대형 시스템</strong>. NJ면 출퇴근 1시간 넘을 수 있어." }, jennifer: { verdict: "maybe", comment: "뉴저지도 좋은 옵션. <strong>NJ RN License</strong> 따로 필요." }, david: { verdict: "maybe", comment: "NJ 병원들도 기회 많아요. <strong>Backup option</strong>으로." } } },
+  { id: "greystone", title: "Charge Nurse - RN", company: "Greystone Park Psychiatric", location: "Morris Plains, NJ", union: true, state: true, lat: 40.8223, lng: -74.4800, advisors: { maggangi: { verdict: "maybe", comment: "Greystone은 <strong>NJ 주립 정신병원</strong>. Charge는 경력직이라 Staff RN 공고 확인해봐." }, jennifer: { verdict: "maybe", comment: "주립 병원 안정적. <strong>Charge는 미국 경력 후</strong>가 현실적." }, david: { verdict: "maybe", comment: "State hospital이라 <strong>job security</strong> 좋아요." } } },
+  { id: "rwjbarnabas", title: "Nursing Supervisor", company: "RWJBarnabas Health", location: "West Orange, NJ", hospital: true, lat: 40.7982, lng: -74.2390, advisors: { maggangi: { verdict: "wait", comment: "Supervisor는 <strong>관리직</strong>이라 미국 경력 필요해." }, jennifer: { verdict: "wait", comment: "관리직은 2-3년 경력 후. <strong>Staff RN부터</strong> 시작하세요." }, david: { verdict: "wait", comment: "Staff RN 공고를 찾아보세요." } } },
+  { id: "navitas-adon", title: "Assistant Director of Nursing", company: "NavitasPartners (Agency)", location: "Kings County, NY", lat: 40.6501, lng: -73.9496, advisors: { maggangi: { verdict: "wait", comment: "NavitasPartners는 <strong>staffing agency</strong>. ADON은 agency 통한 건 좀 그래." }, jennifer: { verdict: "wait", comment: "Agency ADON은 <strong>권장하지 않아요</strong>. 병원 직접 채용을 찾으세요." }, david: { verdict: "wait", comment: "Agency는 <strong>마지막 옵션</strong>. 직접 채용 우선!" } } },
+  { id: "navitas-don", title: "Director of Nursing (DON) - BH", company: "NavitasPartners (Agency)", location: "Kings County, NY", isNew: true, lat: 40.6510, lng: -73.9500, advisors: { maggangi: { verdict: "wait", comment: "DON은 <strong>최고 관리직</strong>. 미국 경력 5년 이상 필요해." }, jennifer: { verdict: "wait", comment: "DON은 나중에. <strong>Staff RN → Charge → Manager → DON</strong> 단계." }, david: { verdict: "wait", comment: "Agency DON은 현실성 없어요. <strong>스킵</strong>하세요." } } },
+  { id: "prosperity", title: "RN - Behavioral Health", company: "Prosperity (Agency)", location: "Belle Mead, NJ", isNew: true, lat: 40.4706, lng: -74.6445, advisors: { maggangi: { verdict: "wait", comment: "<strong>Staffing agency</strong> 공고. 경력 인정이나 베네핏 면에서 불리해." }, jennifer: { verdict: "wait", comment: "Agency 취업은 <strong>마지막 옵션</strong>. 병원 직접 채용 먼저." }, david: { verdict: "wait", comment: "Agency라 <strong>패스</strong>. 직접 채용에 집중하세요." } } },
+  { id: "mountsinai-float", title: "Staff Nurse - Psych Float Pool", company: "Mount Sinai Rivington", location: "New York, NY (LES)", union: true, unionName: "1199SEIU", hospital: true, isNew: true, lat: 40.7210, lng: -73.9850, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai Float Pool. <strong>Per Diem</strong>이라 풀타임 아니야. 베네핏 제한적." }, jennifer: { verdict: "maybe", comment: "Per Diem은 <strong>시간제</strong>. 처음엔 풀타임이 베네핏도 좋고 안정적." }, david: { verdict: "maybe", comment: "Float Pool은 경험 다양하게 쌓이는데, <strong>풀타임</strong>이 우선이에요." } } },
+  { id: "umh-np", title: "Psychiatric NP", company: "Upper Manhattan Mental Health", location: "New York, NY", lat: 40.8270, lng: -73.9481, advisors: { maggangi: { verdict: "wait", comment: "<strong>NP 포지션</strong>. 태권님은 아직 NP 아니니까 해당 안 돼. 나중에!" }, jennifer: { verdict: "wait", comment: "NP 자격 취득 후에요. <strong>장기 목표</strong>로 기억해두세요!" }, david: { verdict: "wait", comment: "NP 공고는 <strong>참고용</strong>. 시장 보는 용도로!" } } },
+  { id: "curated-np", title: "Psychiatric NP", company: "Curated Mental Health", location: "Chelsea, NY", lat: 40.7465, lng: -74.0014, advisors: { maggangi: { verdict: "wait", comment: "<strong>NP 포지션</strong>. 지금은 해당 없지만 나중에 NP 되면 이런 곳 많아." }, jennifer: { verdict: "wait", comment: "NP 자격 후에요. Chelsea 위치 좋네요. <strong>나중에 참고</strong>." }, david: { verdict: "wait", comment: "NP 시장 좋아요. <strong>미래 목표</strong>로!" } } }
 ];
 
 let map;
@@ -256,9 +252,9 @@ function initMap() {
       <div class="popup-title">${job.title}</div>
       <div class="popup-company">${job.company}</div>
       <div>${job.location}</div>
-      ${job.pay ? `<div class="popup-pay">?�� ${job.pay}</div>` : ''}
-      ${job.union ? `<div>?�� ${job.unionName || 'Union'}</div>` : ''}
-      <button onclick="openModal('${job.id}')" style="margin-top:10px;padding:5px 10px;background:#3a7bd5;color:#fff;border:none;border-radius:5px;cursor:pointer;">?�세보기</button>
+      ${job.pay ? `<div class="popup-pay">💰 ${job.pay}</div>` : ''}
+      ${job.union ? `<div>💪 ${job.unionName || 'Union'}</div>` : ''}
+      <button onclick="openModal('${job.id}')" style="margin-top:10px;padding:5px 10px;background:#3a7bd5;color:#fff;border:none;border-radius:5px;cursor:pointer;">상세보기</button>
     `);
   });
   
@@ -267,45 +263,13 @@ function initMap() {
     const div = L.DomUtil.create('div', 'legend');
     div.innerHTML = `
       <h4>AI 추천</h4>
-      <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>?�극 추천</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>적극 추천</div>
       <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>조건부</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>?�중??/div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>나중에</div>
     `;
     return div;
   };
   legend.addTo(map);
-}
-
-function getDdayBadge(job) {
-  const today = new Date();
-  today.setHours(0,0,0,0);
-  
-  if (job.deadline) {
-    const deadline = new Date(job.deadline);
-    deadline.setHours(0,0,0,0);
-    const diff = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
-    
-    if (diff < 0) return '<span class="badge badge-dday">마감??/span>';
-    if (diff === 0) return '<span class="badge badge-dday">D-Day!</span>';
-    if (diff <= 3) return `<span class="badge badge-dday">D-${diff}</span>`;
-    if (diff <= 7) return `<span class="badge badge-dday-soon">D-${diff}</span>`;
-    if (diff <= 14) return `<span class="badge badge-dday-ok">D-${diff}</span>`;
-    return `<span class="badge badge-posted">D-${diff}</span>`;
-  }
-  
-  if (job.dateFound) {
-    const found = new Date(job.dateFound);
-    found.setHours(0,0,0,0);
-    const daysAgo = Math.floor((today - found) / (1000 * 60 * 60 * 24));
-    
-    if (daysAgo === 0) return '<span class="badge badge-new">?�늘 발견</span>';
-    if (daysAgo <= 3) return `<span class="badge badge-dday-ok">${daysAgo}????/span>`;
-    if (daysAgo <= 7) return `<span class="badge badge-dday-soon">${daysAgo}????/span>`;
-    if (daysAgo <= 14) return `<span class="badge badge-posted">${daysAgo}????/span>`;
-    return `<span class="badge badge-dday">?�래??/span>`;
-  }
-  
-  return '';
 }
 
 function getStateBadge(loc) {
@@ -317,62 +281,61 @@ function getStateBadge(loc) {
 
 function renderJob(job) {
   const state = getStateBadge(job.location);
-  const ddayBadge = getDdayBadge(job);
   return `
     <div class="job-card ${job.recommended ? 'recommended' : ''}" onclick="openModal('${job.id}')">
       <div class="job-title">${job.title}</div>
       <div class="job-badges">
-        ${ddayBadge}
-        ${job.recommended ? '<span class="badge badge-rec">�?추천</span>' : ''}
+        ${job.recommended ? '<span class="badge badge-rec">⭐ 추천</span>' : ''}
         <span class="badge badge-${state}">${state.toUpperCase()}</span>
-        ${job.union ? '<span class="badge badge-union">?�� ' + (job.unionName || 'Union') + '</span>' : ''}
-        ${job.state ? '<span class="badge badge-state">?���?주정부</span>' : ''}
+        ${job.union ? '<span class="badge badge-union">💪 ' + (job.unionName || 'Union') + '</span>' : ''}
+        ${job.state ? '<span class="badge badge-state">🏛️ 주정부</span>' : ''}
+        ${job.isNew ? '<span class="badge badge-new">🆕</span>' : ''}
       </div>
       <div class="job-company">${job.company}</div>
-      <div class="job-location">?�� ${job.location}</div>
-      ${job.pay ? `<div class="job-pay">?�� ${job.pay}</div>` : ''}
+      <div class="job-location">📍 ${job.location}</div>
+      ${job.pay ? `<div class="job-pay">💰 ${job.pay}</div>` : ''}
     </div>
   `;
 }
 
 function getVerdictClass(v) { return v === 'go' ? 'verdict-go' : v === 'maybe' ? 'verdict-maybe' : 'verdict-wait'; }
-function getVerdictText(v) { return v === 'go' ? '???�극 추천!' : v === 'maybe' ? '?�� 조건부' : '???�중??; }
+function getVerdictText(v) { return v === 'go' ? '✅ 적극 추천!' : v === 'maybe' ? '🤔 조건부' : '⏳ 나중에'; }
 
 function openModal(jobId) {
   const job = jobs.find(j => j.id === jobId);
   if (!job) return;
   document.getElementById('modalTitle').textContent = job.title;
-  document.getElementById('modalCompany').textContent = job.company + ' ??' + job.location;
+  document.getElementById('modalCompany').textContent = job.company + ' • ' + job.location;
   document.getElementById('modalBody').innerHTML = `
     <div class="info-grid">
-      <div class="info-box"><div class="info-label">?�� 급여</div><div class="info-value highlight">${job.pay || '?�의'}</div></div>
-      <div class="info-box"><div class="info-label">?�� ?�조</div><div class="info-value">${job.union ? job.unionName || 'Yes' : '?�음'}</div></div>
-      <div class="info-box"><div class="info-label">?���?주정부</div><div class="info-value">${job.state ? 'Yes' : 'No'}</div></div>
-      <div class="info-box"><div class="info-label">?�� ?�치</div><div class="info-value">${job.location}</div></div>
+      <div class="info-box"><div class="info-label">💰 급여</div><div class="info-value highlight">${job.pay || '협의'}</div></div>
+      <div class="info-box"><div class="info-label">💪 노조</div><div class="info-value">${job.union ? job.unionName || 'Yes' : '없음'}</div></div>
+      <div class="info-box"><div class="info-label">🏛️ 주정부</div><div class="info-value">${job.state ? 'Yes' : 'No'}</div></div>
+      <div class="info-box"><div class="info-label">📍 위치</div><div class="info-value">${job.location}</div></div>
     </div>
-    ${job.lat ? `<p style="margin-bottom:15px;"><a href="https://www.google.com/maps?q=${job.lat},${job.lng}" target="_blank" style="color:#3a7bd5;">?���?Google Maps?�서 보기</a></p>` : ''}
+    ${job.lat ? `<p style="margin-bottom:15px;"><a href="https://www.google.com/maps?q=${job.lat},${job.lng}" target="_blank" style="color:#3a7bd5;">🗺️ Google Maps에서 보기</a></p>` : ''}
     <div class="advisor-section">
-      <h3 class="advisor-title">?�� AI ?�드바이?� 분석</h3>
+      <h3 class="advisor-title">🤖 AI 어드바이저 분석</h3>
       <div class="advisor-card maggangi">
-        <div class="advisor-header"><div class="advisor-avatar">?��</div><div><div class="advisor-name">마깡??/div><div class="advisor-role">Mount Sinai ?�신�?RN 5??/div></div></div>
+        <div class="advisor-header"><div class="advisor-avatar">😎</div><div><div class="advisor-name">마깡이</div><div class="advisor-role">Mount Sinai 정신과 RN 5년</div></div></div>
         <div class="advisor-verdict ${getVerdictClass(job.advisors.maggangi.verdict)}">${getVerdictText(job.advisors.maggangi.verdict)}</div>
         <div class="advisor-comment">${job.advisors.maggangi.comment}</div>
       </div>
       <div class="advisor-card jennifer">
-        <div class="advisor-header"><div class="advisor-avatar">?��?�⚕�?/div><div><div class="advisor-name">?�간?�사 Jennifer Kim</div><div class="advisor-role">NYC H+H Nurse Manager 20??/div></div></div>
+        <div class="advisor-header"><div class="advisor-avatar">👩‍⚕️</div><div><div class="advisor-name">수간호사 Jennifer Kim</div><div class="advisor-role">NYC H+H Nurse Manager 20년</div></div></div>
         <div class="advisor-verdict ${getVerdictClass(job.advisors.jennifer.verdict)}">${getVerdictText(job.advisors.jennifer.verdict)}</div>
         <div class="advisor-comment">${job.advisors.jennifer.comment}</div>
       </div>
       <div class="advisor-card david">
-        <div class="advisor-header"><div class="advisor-avatar">?��?��?/div><div><div class="advisor-name">리크루터 David Park</div><div class="advisor-role">MedStaff NYC</div></div></div>
+        <div class="advisor-header"><div class="advisor-avatar">🧑‍💼</div><div><div class="advisor-name">리크루터 David Park</div><div class="advisor-role">MedStaff NYC</div></div></div>
         <div class="advisor-verdict ${getVerdictClass(job.advisors.david.verdict)}">${getVerdictText(job.advisors.david.verdict)}</div>
         <div class="advisor-comment">${job.advisors.david.comment}</div>
       </div>
     </div>
     <div class="action-buttons">
-      <button class="btn btn-primary" onclick="window.open('https://www.indeed.com/jobs?q=' + encodeURIComponent('${job.title} ${job.company}'), '_blank')">?�� Indeed 검??/button>
-      ${job.lat ? `<button class="btn btn-secondary" onclick="window.open('https://www.google.com/maps?q=${job.lat},${job.lng}', '_blank')">?���?지??/button>` : ''}
-      <button class="btn btn-secondary" onclick="closeModal()">?�기</button>
+      <button class="btn btn-primary" onclick="window.open('https://www.indeed.com/jobs?q=' + encodeURIComponent('${job.title} ${job.company}'), '_blank')">🔍 Indeed 검색</button>
+      ${job.lat ? `<button class="btn btn-secondary" onclick="window.open('https://www.google.com/maps?q=${job.lat},${job.lng}', '_blank')">🗺️ 지도</button>` : ''}
+      <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
     </div>
   `;
   document.getElementById('modalOverlay').classList.add('active');
