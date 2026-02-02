@@ -246,13 +246,14 @@ function initMap() {
     const verdict = job.advisors?.maggangi?.verdict || 'maybe';
     const color = colors[verdict];
     
-    const marker = L.circleMarker([job.lat, job.lng], {
-      radius: job.recommended ? 12 : 8,
-      fillColor: color,
-      color: '#fff',
-      weight: job.recommended ? 3 : 1,
-      fillOpacity: 0.8,
-      interactive: true
+    const size = job.recommended ? 24 : 16;
+    const marker = L.marker([job.lat, job.lng], {
+      icon: L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="width:${size}px;height:${size}px;background:${color};border:2px solid #fff;border-radius:50%;cursor:pointer;"></div>`,
+        iconSize: [size, size],
+        iconAnchor: [size/2, size/2]
+      })
     }).addTo(map);
     
     const popupContent = `
