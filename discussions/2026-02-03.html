@@ -25,6 +25,30 @@
             color: #888; 
             margin-bottom: 30px;
         }
+        .profile-box {
+            background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(78,205,196,0.2));
+            border: 2px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .profile-box h2 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .profile-item {
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .profile-item strong {
+            color: #00d4ff;
+        }
         .job-section {
             background: rgba(255,255,255,0.05);
             border-radius: 15px;
@@ -86,6 +110,18 @@
             padding: 2px 6px; 
             border-radius: 4px;
         }
+        .match-good {
+            background: rgba(0,255,136,0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #00ff88;
+        }
+        .match-warn {
+            background: rgba(255,193,7,0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffc107;
+        }
         .verdict {
             background: linear-gradient(135deg, #00d4ff20, #00ff8820);
             border: 1px solid #00d4ff;
@@ -100,19 +136,30 @@
             margin-bottom: 8px;
         }
         .go { color: #00ff88; font-weight: bold; font-size: 1.2em; }
-        .summary-box {
+        .match-box {
+            background: rgba(0,255,136,0.1);
+            border-left: 4px solid #00ff88;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .match-box h3 {
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+        .match-box ul {
+            margin-left: 20px;
+        }
+        .jd-box {
             background: rgba(0,212,255,0.1);
             border-left: 4px solid #00d4ff;
             padding: 15px;
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
-        .summary-box h3 {
+        .jd-box h3 {
             color: #00d4ff;
             margin-bottom: 10px;
-        }
-        .summary-box ul {
-            margin-left: 20px;
         }
         .back-link {
             display: inline-block;
@@ -137,24 +184,62 @@
         <h1>🏥 채용공고 AI 어드바이저 토론</h1>
         <p class="date">2026년 2월 3일</p>
 
+        <!-- 태권님 프로필 -->
+        <div class="profile-box">
+            <h2>👤 태권님 경력 프로필</h2>
+            <div class="profile-grid">
+                <div class="profile-item">
+                    <strong>총 경력:</strong> 14년
+                </div>
+                <div class="profile-item">
+                    <strong>목표:</strong> 정신과 RN → PMHNP
+                </div>
+                <div class="profile-item">
+                    <strong>임상 간호:</strong> 4년<br>
+                    <span style="color:#888; font-size:0.9em;">병원 근무 경험</span>
+                </div>
+                <div class="profile-item">
+                    <strong>보건진료직:</strong> 10년<br>
+                    <span style="color:#888; font-size:0.9em;">시골 보건진료소 / Primary Care 역할</span>
+                </div>
+                <div class="profile-item" style="grid-column: span 2;">
+                    <strong>보건진료직 핵심 역량:</strong><br>
+                    ✅ 독립적 환자 평가 및 진단<br>
+                    ✅ 처방 권한 (제한적)<br>
+                    ✅ 건강교육 및 상담<br>
+                    ✅ 만성질환 관리<br>
+                    ✅ 응급상황 초기 대응<br>
+                    → <span style="color:#00ff88;">미국 NP/Community Health Nurse 역할과 유사!</span>
+                </div>
+            </div>
+        </div>
+
         <!-- 공고 1: Bellevue Psych ER -->
         <div class="job-section">
             <h2 class="job-title">1. NYC H+H Bellevue - Staff Nurse Psychiatry (BH Emergency Room)</h2>
             <div class="job-meta">
                 <span>📍 Manhattan</span>
-                <span>💰 $109,490 (기본) ~ $119,480 (경력인정)</span>
+                <span>💰 $109,490 ~ $119,480</span>
                 <span>🏷️ Job ID: 131519</span>
             </div>
 
-            <div class="summary-box">
-                <h3>📋 JD 핵심 포인트</h3>
+            <div class="jd-box">
+                <h3>📋 JD 핵심 요구사항</h3>
                 <ul>
-                    <li><strong>부서:</strong> 정신과 응급실 (BH Emergency Room)</li>
-                    <li><strong>근무:</strong> 12시간 (7AM-7:30PM), 주말 로테이션</li>
-                    <li><strong>경력인정:</strong> 외부 Staff Nurse 경력 최대 10년까지, 연 $987~$8,190 추가</li>
-                    <li><strong>학위 차등:</strong> BSN +$1,800, MSN +$2,000</li>
-                    <li><strong>노조:</strong> NYSNA</li>
-                    <li><strong>특이사항:</strong> Loan Forgiveness, 미국 최초 공립병원(1736), Level I Trauma</li>
+                    <li><strong>필수:</strong> NY RN 라이선스 + BLS</li>
+                    <li><strong>경력인정:</strong> 외부 Staff Nurse 경력 최대 10년, 연 $987~$8,190 추가</li>
+                    <li><strong>업무:</strong> 환자 평가, 간호계획 수립, 다학제팀 협업, 보조인력 지도</li>
+                </ul>
+            </div>
+
+            <div class="match-box">
+                <h3>🎯 태권님 경력 매칭 분석</h3>
+                <ul>
+                    <li><span class="match-good">✅ 경력 10년 인정 가능</span> - 14년 중 10년 max → 연 $8,190 추가</li>
+                    <li><span class="match-good">✅ 환자 평가 능력</span> - 보건진료소에서 10년간 독립적 환자 평가 경험</li>
+                    <li><span class="match-good">✅ 간호계획 수립</span> - Primary care에서 만성질환 관리 계획 수립 경험</li>
+                    <li><span class="match-good">✅ 응급 대응</span> - 시골 보건진료소에서 응급상황 초기 대응 경험</li>
+                    <li><span class="match-warn">⚠️ 정신과 특화 경험 없음</span> - 하지만 JD에 정신과 경험 필수 아님!</li>
                 </ul>
             </div>
 
@@ -162,7 +247,7 @@
                 <div class="avatar makang">😎</div>
                 <div class="message">
                     <div class="name">마깡이 (Mount Sinai 정신과 RN 5년)</div>
-                    와, Bellevue Psych ER이네요. 솔직히 말할게요 - <span class="highlight">여기 빡셉니다</span>. 12시간 근무에 주말 로테이션, 정신과 응급실이면 급성기 환자들 계속 들어와요. 자해, 자살시도, 약물중독, 정신병적 삽화... 근데요, <strong>NP 되려면 이런 경험이 금이에요</strong>. 제가 Mount Sinai 있을 때도 ER 출신들이 제일 인정받았어요.
+                    태권님, JD 업무 중에 <strong>"환자의 신체적/심리사회적 증상 식별"</strong> 있죠? 보건진료소에서 10년간 <span class="match-good">혼자서 환자 보시면서 이거 계속 하셨잖아요</span>. 증상 보고 판단하고, 필요하면 상급 병원 의뢰하고. 이 경험이 Psych ER에서 triage 할 때 엄청 도움 돼요!
                 </div>
             </div>
 
@@ -170,7 +255,7 @@
                 <div class="avatar jennifer">👩‍⚕️</div>
                 <div class="message">
                     <div class="name">Jennifer Kim (NYC H+H Nurse Manager 20년)</div>
-                    H+H 시스템 잘 알죠. Bellevue는 NYC H+H 중에서도 <span class="highlight">flagship 병원</span>이에요. NYU School of Medicine이랑 연계되어 있어서 학술적 환경도 좋고. 경력 인정 부분 보세요 - <strong>외부 경력 10년까지 인정</strong>해요. 태권님 14년 경력인데, 10년 맥스로 인정받으면 연 $8,190 추가. BSN 있으면 $1,800 더해서 <strong>$119,480</strong> 가능해요.
+                    JD에 <strong>"다학제 팀과 종합 환자 케어 프로그램 계획"</strong> 있어요. 보건진료소에서 <span class="match-good">의사, 영양사, 사회복지사랑 협업</span>하신 경험 있으시죠? 미국 병원도 똑같아요 - 정신과는 특히 psychiatrist, social worker, case manager랑 같이 일해요. 이 협업 경험 면접에서 꼭 어필하세요!
                 </div>
             </div>
 
@@ -178,15 +263,7 @@
                 <div class="avatar david">🧑‍💼</div>
                 <div class="message">
                     <div class="name">David Park (MedStaff NYC 리크루터)</div>
-                    리크루터 입장에서 말씀드리면, <span class="highlight">Bellevue 이력은 어디 가도 먹힙니다</span>. 미국 최초 공립병원, Level I Trauma Center - 이력서에 이거 적혀 있으면 다른 병원들이 다 알아봐요. 근데 중요한 건 <strong>NYSNA 노조</strong>라는 점! 경력 인정이 노조 협약에 명문화되어 있어서 병원이 맘대로 깎을 수 없어요.
-                </div>
-            </div>
-
-            <div class="chat-bubble">
-                <div class="avatar makang">😎</div>
-                <div class="message">
-                    <div class="name">마깡이</div>
-                    아, 그리고 JD에 <strong>Loan Forgiveness</strong> 있는 거 보셨어요? 공립병원이라 PSLF(Public Service Loan Forgiveness) 대상이에요. 나중에 NP 학자금 대출 받으면 이거 엄청 꿀이에요. 10년 근무하면 남은 대출 탕감!
+                    경력 인정 계산해볼게요. JD에 <strong>"외부 Staff Nurse 경력 10년까지"</strong>라고 되어 있어요. 태권님 14년이시니까 <span class="match-good">10년 풀로 인정</span> 가능해요. 근데 여기서 중요한 건 - <strong>보건진료직이 "Staff Nurse"로 인정되는지</strong>예요.
                 </div>
             </div>
 
@@ -194,7 +271,15 @@
                 <div class="avatar jennifer">👩‍⚕️</div>
                 <div class="message">
                     <div class="name">Jennifer Kim</div>
-                    태권님 보건진료직 10년 하셨잖아요. Primary care에서 독립적으로 환자 보셨던 경험 - 이게 Psych ER에서 <strong>triage 할 때 엄청 도움</strong> 돼요. 환자 상태 빠르게 파악하고 우선순위 정하는 능력은 보건진료소에서 이미 훈련되셨을 거예요.
+                    H+H HR에서 일해본 경험으로 말씀드리면, 한국 보건진료직은 <span class="match-warn">미국에 정확히 대응하는 직군이 없어요</span>. 근데 <strong>RN 라이선스 기반 + 환자 직접 케어</strong>였으니까 협상의 여지가 있어요. 면접 때 업무 내용 구체적으로 설명하시고, <strong>"독립적으로 환자 평가하고 치료 계획 세웠다"</strong>는 점 강조하세요.
+                </div>
+            </div>
+
+            <div class="chat-bubble">
+                <div class="avatar makang">😎</div>
+                <div class="message">
+                    <div class="name">마깡이</div>
+                    JD 업무 중에 <strong>"보조 간호 인력에게 업무 지시 및 지도"</strong> 있는데, 보건진료소에서 <span class="match-good">혼자 운영하시면서 보건진료원이나 보조인력 관리</span>하신 적 있으시죠? 이것도 리더십 경험으로 어필 가능해요. Charge nurse 역할이랑 비슷하거든요.
                 </div>
             </div>
 
@@ -202,14 +287,16 @@
                 <div class="avatar david">🧑‍💼</div>
                 <div class="message">
                     <div class="name">David Park</div>
-                    한 가지 주의할 점 - 12시간 근무가 처음엔 힘들 수 있어요. 한국에서 3교대 하셨으면 적응 필요해요. 근데 12시간이 <strong>주 3일</strong>이라 4일 쉴 수 있어서 NP 공부하기엔 오히려 좋을 수도?
+                    면접 전략 정리: <strong>보건진료직 = Advanced Practice에 가까운 역할</strong>이었다는 걸 강조하세요. "한국에서는 의사가 없는 시골 지역에서 RN이 primary care provider 역할을 합니다. 저는 10년간 독립적으로 환자를 평가하고, 진단하고, 치료 계획을 세웠습니다." 이렇게요!
                 </div>
             </div>
 
             <div class="verdict">
-                <div class="verdict-title">🎯 최종 판정</div>
-                <div class="go">✅ STRONG GO</div>
-                <p>노조(NYSNA) + 공립 + 경력인정($119K) + Psych ER 경험 + Loan Forgiveness = <strong>PMHNP 가려면 최고의 선택</strong></p>
+                <div class="verdict-title">🎯 경력 매칭 최종 판정</div>
+                <div class="go">✅ STRONG MATCH</div>
+                <p><strong>매칭 포인트:</strong> 독립적 환자 평가 10년 + 다학제 협업 + 응급 대응 경험</p>
+                <p><strong>보완 필요:</strong> 보건진료직→Staff Nurse 경력 인정 협상, 정신과 기본 지식</p>
+                <p><strong>예상 급여:</strong> $109,490 + 경력인정 $8,190 + BSN $1,800 = <strong>~$119,480</strong></p>
             </div>
         </div>
 
@@ -218,19 +305,27 @@
             <h2 class="job-title">2. NYS OMH Rockland Psychiatric Center - RN 1 Psychiatric</h2>
             <div class="job-meta">
                 <span>📍 Orangeburg, NY</span>
-                <span>💰 $115,147 ~ $124,138</span>
+                <span>💰 $115,147 ~ $136,552 (야간)</span>
                 <span>🏷️ Job ID: P26239</span>
             </div>
 
-            <div class="summary-box">
-                <h3>📋 JD 핵심 포인트</h3>
+            <div class="jd-box">
+                <h3>📋 JD 핵심 요구사항</h3>
                 <ul>
-                    <li><strong>고용주:</strong> NYS Office of Mental Health (주정부)</li>
-                    <li><strong>급여 구성:</strong> 기본 $66,951 + Geographic $35,000 + Downstate $4,000 등</li>
-                    <li><strong>시프트 추가:</strong> 저녁 +7%, 야간 +10%</li>
-                    <li><strong>자격:</strong> NY RN 라이선스만 있으면 됨 (정신과 경험 불필요!)</li>
-                    <li><strong>NY HELPS:</strong> 시험 없이 지원 가능</li>
-                    <li><strong>복지:</strong> NYS 연금, Tuition assistance, 13일 휴가 + 13일 공휴일</li>
+                    <li><strong>필수:</strong> NY RN 라이선스만! (정신과 경험 불필요)</li>
+                    <li><strong>NY HELPS:</strong> 공무원 시험 없이 지원 가능</li>
+                    <li><strong>업무:</strong> 간호 평가, 케어 조정, 환자/가족 교육, 증상 관찰</li>
+                </ul>
+            </div>
+
+            <div class="match-box">
+                <h3>🎯 태권님 경력 매칭 분석</h3>
+                <ul>
+                    <li><span class="match-good">✅ 정신과 경험 불필요!</span> - JD에 명시: 신규 환영</li>
+                    <li><span class="match-good">✅ 간호 평가</span> - 보건진료소에서 10년간 독립적 평가 수행</li>
+                    <li><span class="match-good">✅ 환자/가족 건강교육</span> - 보건진료직의 핵심 업무!</li>
+                    <li><span class="match-good">✅ 만성질환 관리</span> - State hospital = 만성 정신질환자 케어</li>
+                    <li><span class="match-good">✅ 진입장벽 최저</span> - 라이선스만 있으면 됨</li>
                 </ul>
             </div>
 
@@ -238,15 +333,7 @@
                 <div class="avatar david">🧑‍💼</div>
                 <div class="message">
                     <div class="name">David Park</div>
-                    <span class="highlight">주정부직이에요!</span> 이건 미국에서 "철밥통"이라고 보시면 돼요. NYS OMH(Office of Mental Health) 소속이라 해고 거의 없고, 연금이 장난 아니에요. <strong>NY HELPS 프로그램</strong>이라 공무원 시험도 안 봐도 돼요 - 라이선스만 있으면 됩니다.
-                </div>
-            </div>
-
-            <div class="chat-bubble">
-                <div class="avatar makang">😎</div>
-                <div class="message">
-                    <div class="name">마깡이</div>
-                    Rockland Psychiatric Center... 오, 이거 <span class="highlight">state hospital</span>이에요. 입원 기간 긴 환자들, 만성 정신질환자들 케어하는 곳이죠. Bellevue Psych ER이랑 완전 다른 환경이에요. 급성기 vs 만성기 차이. <strong>정신과 경험 없어도 된다고 JD에 명시</strong>되어 있어서 진입장벽 낮아요!
+                    태권님 상황에 <span class="match-good">진입장벽 최저</span>인 공고예요! JD에 <strong>"정신과 경험 불필요"</strong>라고 대놓고 써있어요. NY HELPS 프로그램이라 공무원 시험도 안 봐도 되고. <strong>라이선스만 따면 바로 지원 가능</strong>해요.
                 </div>
             </div>
 
@@ -254,15 +341,7 @@
                 <div class="avatar jennifer">👩‍⚕️</div>
                 <div class="message">
                     <div class="name">Jennifer Kim</div>
-                    급여 구조 좀 봐요. 기본급 $66,951인데 <strong>Geographic Pay $35,000</strong>이 붙어요. 뉴욕 근처라 물가 보정인데, 이게 엄청 크죠. 시작부터 $115,147. 경력 따라 $124,138까지. 야간 선택하면 <strong>+10%</strong>라서 $136,000 넘어요.
-                </div>
-            </div>
-
-            <div class="chat-bubble">
-                <div class="avatar david">🧑‍💼</div>
-                <div class="message">
-                    <div class="name">David Park</div>
-                    <strong>Tuition assistance</strong> 있는 거 보세요! 주정부 직원 혜택으로 NP 학비 지원받을 수 있어요. PMHNP 프로그램 비용이 $50,000~$100,000 하는데 이거 지원받으면 엄청 절약. 근데... <span class="highlight">위치가 Orangeburg</span>에요. 맨해튼에서 차로 40분-1시간.
+                    JD 업무 중에 <strong>"환자/가족 건강교육"</strong> 있어요. 태권님 보건진료소에서 10년간 <span class="match-good">주민들 건강교육</span> 엄청 하셨잖아요 - 당뇨 관리, 고혈압 관리, 금연 교육... 이거 정신과에서도 똑같아요. 약물 교육, 증상 관리 교육, 가족 교육. <strong>교육자로서의 경험이 바로 적용</strong>돼요!
                 </div>
             </div>
 
@@ -270,15 +349,7 @@
                 <div class="avatar makang">😎</div>
                 <div class="message">
                     <div class="name">마깡이</div>
-                    위치가 좀 걸리긴 해요. 맨해튼 생활하면서 출퇴근하기엔 좀 멀어요. 근데 반대로, 그 동네 렌트비가 맨해튼의 반도 안 돼요. <strong>생활비 절약 + 높은 급여</strong> 조합이면 저축 많이 할 수 있어요.
-                </div>
-            </div>
-
-            <div class="chat-bubble">
-                <div class="avatar jennifer">👩‍⚕️</div>
-                <div class="message">
-                    <div class="name">Jennifer Kim</div>
-                    솔직히 말하면, PMHNP 진학 목표라면 <strong>임상 경험의 다양성</strong>이 중요해요. State hospital은 만성 환자 위주라 케이스가 좀 제한적일 수 있어요. 근데 안정성, 복지, 학비지원 원하시면 이만한 곳 없어요.
+                    State hospital은 <strong>만성 정신질환자</strong> 케어하는 곳이에요. 조현병, 양극성 장애 환자들이 오래 입원해 있어요. 태권님 보건진료소에서 <span class="match-good">만성질환자 꾸준히 관리하신 경험</span> - 당뇨, 고혈압 환자 수년간 팔로업하신 거 있잖아요. 그 <strong>장기 관계 형성, 지속적 모니터링 스킬</strong>이 여기서 빛나요!
                 </div>
             </div>
 
@@ -286,27 +357,45 @@
                 <div class="avatar david">🧑‍💼</div>
                 <div class="message">
                     <div class="name">David Park</div>
-                    정리하면: <strong>안정성/복지 최우선</strong>이면 Rockland, <strong>임상 경험/이력 쌓기</strong>면 Bellevue. 둘 다 지원해보시는 것도 방법이에요. 어차피 NY RN 라이선스 필요한 건 똑같으니까요.
+                    급여 얘기하면, 주정부라 <strong>경력 인정 체계가 다를 수 있어요</strong>. 시작급 $115,147인데, 경력에 따라 $124,138까지 올라간다고 JD에 있어요. 정확한 경력 인정 기준은 NYS Civil Service 규정 따르는데, <span class="match-warn">한국 경력 인정은 케바케</span>예요. 면접 때 물어보세요.
+                </div>
+            </div>
+
+            <div class="chat-bubble">
+                <div class="avatar jennifer">👩‍⚕️</div>
+                <div class="message">
+                    <div class="name">Jennifer Kim</div>
+                    근데 여기 핵심 장점은 <strong>Tuition assistance</strong>예요! 태권님 목표가 PMHNP잖아요. 주정부 직원이면 <span class="match-good">NP 학비 지원</span> 받을 수 있어요. PMHNP 프로그램이 $50K-$100K 하는데 이거 지원받으면 엄청 커요. <strong>일하면서 학비 지원받으면서 NP 따기</strong> 가능해요!
+                </div>
+            </div>
+
+            <div class="chat-bubble">
+                <div class="avatar makang">😎</div>
+                <div class="message">
+                    <div class="name">마깡이</div>
+                    한 가지 고려할 점 - PMHNP 가려면 <strong>임상 경험의 다양성</strong>도 중요해요. State hospital은 만성 환자 위주라 <span class="match-warn">급성기 경험은 부족</span>할 수 있어요. Bellevue Psych ER은 급성기, Rockland는 만성기. <strong>둘 다 경험하면 best</strong>인데, 처음 시작은 진입장벽 낮은 Rockland가 현실적일 수 있어요.
                 </div>
             </div>
 
             <div class="verdict">
-                <div class="verdict-title">🎯 최종 판정</div>
-                <div class="go">✅ GO</div>
-                <p>주정부 안정성 + $115K+ 급여 + Tuition assistance + NY HELPS = <strong>안정적으로 시작하기 최고</strong></p>
-                <p style="font-size: 0.9em; color: #888; margin-top: 8px;">※ 단, 위치(Orangeburg)와 임상 경험 다양성은 고려 필요</p>
+                <div class="verdict-title">🎯 경력 매칭 최종 판정</div>
+                <div class="go">✅ EASY MATCH</div>
+                <p><strong>매칭 포인트:</strong> 건강교육 전문성 + 만성질환 관리 경험 + 진입장벽 최저</p>
+                <p><strong>보완 필요:</strong> 위치(Orangeburg), 급성기 경험 부족</p>
+                <p><strong>예상 급여:</strong> $115,147 ~ $124,138 (야간 시 +10%)</p>
+                <p><strong>최대 강점:</strong> 정신과 경험 없어도 OK + Tuition assistance로 NP 학비 지원!</p>
             </div>
         </div>
 
         <!-- 최종 추천 -->
         <div class="job-section" style="background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(0,255,136,0.1));">
-            <h2 class="job-title">📊 2026-02-03 최종 추천</h2>
+            <h2 class="job-title">📊 태권님 경력 기반 최종 추천</h2>
             
             <div class="chat-bubble">
                 <div class="avatar makang">😎</div>
                 <div class="message">
                     <div class="name">마깡이</div>
-                    제 추천은 <strong>Bellevue 1순위</strong>예요. PMHNP 가려면 Psych ER 경험이 진짜 도움 많이 돼요. 면접에서도 "급성기 환자 다뤄봤습니다" 이거 엄청 어필되거든요.
+                    태권님 보건진료직 10년이 <strong>미국에서 엄청 희소한 경험</strong>이에요. 독립적으로 환자 보고, 진단하고, 치료 계획 세우는 RN은 미국에서 NP 아니면 못 해요. <strong>이걸 면접에서 제대로 어필하면 차별화</strong> 됩니다!
                 </div>
             </div>
 
@@ -314,7 +403,9 @@
                 <div class="avatar jennifer">👩‍⚕️</div>
                 <div class="message">
                     <div class="name">Jennifer Kim</div>
-                    저도 Bellevue 추천이요. <strong>H+H 시스템 안에서 이동도 가능</strong>해요. 나중에 다른 H+H 병원으로 옮기고 싶으면 내부 지원 유리하고, 경력도 계속 인정돼요.
+                    두 공고 모두 태권님 경력이랑 잘 맞아요. <strong>차이점은 진입 난이도와 임상 경험 종류</strong>예요:<br><br>
+                    • <strong>Bellevue:</strong> 경쟁 치열하지만 급성기 경험 + NYSNA 노조 + 경력 인정 명확<br>
+                    • <strong>Rockland:</strong> 진입 쉬움 + 학비 지원 + 안정성, but 만성기 위주
                 </div>
             </div>
 
@@ -322,15 +413,24 @@
                 <div class="avatar david">🧑‍💼</div>
                 <div class="message">
                     <div class="name">David Park</div>
-                    둘 다 좋아요, 근데 전략적으로 <strong>둘 다 지원</strong>하시죠. 라이선스 따시면 동시 지원 가능하고, 오퍼 받은 다음에 고민해도 늦지 않아요. 일단 라이선스가 먼저예요!
+                    제 추천은 <strong>둘 다 지원</strong>이에요. 라이선스 따시면 동시 지원 가능해요. 현실적으로:<br><br>
+                    1. <strong>Rockland 먼저</strong> - 진입장벽 낮아서 빨리 취업 가능. 일하면서 미국 적응 + NP 준비<br>
+                    2. <strong>경험 쌓고 Bellevue 도전</strong> - 1-2년 후 급성기 경험 원하면 이직<br><br>
+                    아니면 <strong>Bellevue 붙으면 Bellevue로!</strong> 오퍼 받고 고민해도 늦지 않아요.
                 </div>
             </div>
 
             <div class="verdict">
-                <div class="verdict-title">🏆 오늘의 TOP 추천</div>
+                <div class="verdict-title">🏆 태권님 맞춤 최종 추천</div>
                 <div style="font-size: 1.1em; margin-top: 10px;">
-                    <strong>1순위:</strong> Bellevue Psych ER - PMHNP 진학에 최적의 경험<br>
-                    <strong>2순위:</strong> Rockland - 안정성과 복지 최우선 시
+                    <strong>1순위:</strong> Bellevue Psych ER<br>
+                    <span style="color:#888; font-size:0.9em;">→ 경력 인정 명확 + 급성기 경험 + PMHNP 진학에 최적</span><br><br>
+                    <strong>2순위:</strong> Rockland Psychiatric Center<br>
+                    <span style="color:#888; font-size:0.9em;">→ 진입장벽 최저 + Tuition assistance + 안정성 우선 시</span>
+                </div>
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2);">
+                    <strong>💡 태권님 경력 핵심 어필 포인트:</strong><br>
+                    "10년간 독립적 Primary Care Provider로서 환자 평가, 진단, 치료 계획 수립 경험"
                 </div>
             </div>
         </div>
