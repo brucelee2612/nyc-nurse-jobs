@@ -3,51 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📅 2026-02-04 AI 어드바이저 토론</title>
+  <title>💬 2026-02-04 채용공고 토론 | AI 어드바이저 3인방</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #e4e4e4; padding: 20px; line-height: 1.6; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); 
+      min-height: 100vh; 
+      color: #e4e4e4; 
+      padding: 20px;
+      line-height: 1.7;
+    }
     .container { max-width: 900px; margin: 0 auto; }
-    header { text-align: center; padding: 30px 0; border-bottom: 1px solid #333; margin-bottom: 30px; }
-    h1 { font-size: 1.8rem; background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    header { text-align: center; padding: 40px 0 30px; border-bottom: 1px solid #333; margin-bottom: 30px; }
+    h1 { font-size: 2rem; color: #fff; margin-bottom: 10px; }
+    .date { color: #3a7bd5; font-size: 1.2rem; margin-bottom: 15px; }
+    .summary { color: #888; font-size: 0.95rem; }
+    
     .back-link { display: inline-block; margin-bottom: 20px; color: #3a7bd5; text-decoration: none; }
-    .back-link:hover { text-decoration: underline; }
-    .summary-box { background: rgba(58, 123, 213, 0.1); border: 1px solid #3a7bd5; border-radius: 12px; padding: 20px; margin-bottom: 30px; }
-    .summary-box h2 { color: #3a7bd5; margin-bottom: 15px; font-size: 1.2rem; }
-    .summary-box ul { list-style: none; }
-    .summary-box li { margin: 8px 0; padding-left: 20px; position: relative; }
-    .summary-box li::before { content: "•"; position: absolute; left: 0; color: #3a7bd5; }
-    .job-section { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 25px; margin-bottom: 30px; border: 1px solid #333; }
-    .job-header { margin-bottom: 20px; }
-    .job-title { font-size: 1.3rem; color: #fff; margin-bottom: 5px; }
-    .job-meta { color: #888; font-size: 0.9rem; }
-    .job-meta a { color: #3a7bd5; }
-    .job-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-    .badge { font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; font-weight: 500; }
-    .badge-pay { background: #22c55e33; color: #4ade80; }
-    .badge-type { background: #f59e0b33; color: #fbbf24; }
-    .badge-warning { background: #ef444433; color: #f87171; }
-    .chat-container { margin-top: 20px; }
-    .chat-message { display: flex; gap: 12px; margin-bottom: 15px; padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.02); }
-    .chat-message.maggangi { border-left: 3px solid #ff6b6b; }
-    .chat-message.jennifer { border-left: 3px solid #4ecdc4; }
-    .chat-message.david { border-left: 3px solid #ffe66d; }
-    .avatar { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
-    .chat-message.maggangi .avatar { background: rgba(255,107,107,0.2); }
-    .chat-message.jennifer .avatar { background: rgba(78,205,196,0.2); }
-    .chat-message.david .avatar { background: rgba(255,230,109,0.2); }
+    .back-link:hover { color: #00d2ff; }
+    
+    .advisor-intro { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 15px; 
+      margin-bottom: 40px; 
+    }
+    @media (max-width: 700px) { .advisor-intro { grid-template-columns: 1fr; } }
+    
+    .advisor-card { 
+      background: rgba(255,255,255,0.05); 
+      border-radius: 12px; 
+      padding: 15px; 
+      text-align: center;
+      border-left: 4px solid;
+    }
+    .advisor-card.maggangi { border-color: #ff6b6b; }
+    .advisor-card.jennifer { border-color: #4ecdc4; }
+    .advisor-card.david { border-color: #ffe66d; }
+    
+    .avatar { font-size: 2.5rem; margin-bottom: 8px; }
+    .name { font-weight: 600; color: #fff; font-size: 1rem; }
+    .role { font-size: 0.8rem; color: #888; margin-top: 4px; }
+    
+    .job-section { 
+      background: rgba(255,255,255,0.03); 
+      border-radius: 16px; 
+      padding: 25px; 
+      margin-bottom: 30px;
+      border: 1px solid #333;
+    }
+    .job-section.highlight { border-color: #ffd700; background: linear-gradient(135deg, rgba(255,215,0,0.08) 0%, rgba(255,165,0,0.03) 100%); }
+    
+    .job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .job-title { font-size: 1.3rem; color: #fff; font-weight: 600; }
+    .job-company { color: #3a7bd5; margin-top: 5px; }
+    .job-meta { color: #888; font-size: 0.9rem; margin-top: 5px; }
+    .job-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    
+    .badge { font-size: 0.75rem; padding: 4px 10px; border-radius: 15px; font-weight: 500; }
+    .badge-union { background: #5a2752; color: #df82d3; }
+    .badge-hospital { background: #2d5a27; color: #8fdf82; }
+    .badge-pay { background: #1e4620; color: #4ade80; }
+    .badge-rec { background: #ffd700; color: #000; }
+    .badge-pt { background: #f59e0b; color: #000; }
+    .badge-pd { background: #ef4444; color: #fff; }
+    
+    .job-details { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+      gap: 12px; 
+      margin-bottom: 25px;
+      background: rgba(0,0,0,0.2);
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .detail-item { }
+    .detail-label { font-size: 0.75rem; color: #666; }
+    .detail-value { font-size: 0.95rem; color: #fff; }
+    .detail-value.highlight { color: #4ade80; font-weight: 600; }
+    
+    .discussion { margin-top: 25px; }
+    .discussion-title { font-size: 1.1rem; color: #fff; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    
+    .chat-bubble { 
+      display: flex; 
+      gap: 12px; 
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .chat-avatar { 
+      width: 45px; 
+      height: 45px; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .chat-bubble.maggangi .chat-avatar { background: rgba(255,107,107,0.2); }
+    .chat-bubble.jennifer .chat-avatar { background: rgba(78,205,196,0.2); }
+    .chat-bubble.david .chat-avatar { background: rgba(255,230,109,0.2); }
+    
     .chat-content { flex: 1; }
-    .chat-name { font-weight: 600; color: #fff; font-size: 0.95rem; }
-    .chat-role { font-size: 0.75rem; color: #888; margin-bottom: 8px; }
-    .chat-text { color: #ccc; }
+    .chat-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; }
+    .chat-bubble.maggangi .chat-name { color: #ff6b6b; }
+    .chat-bubble.jennifer .chat-name { color: #4ecdc4; }
+    .chat-bubble.david .chat-name { color: #ffe66d; }
+    
+    .chat-text { 
+      background: rgba(255,255,255,0.05); 
+      padding: 12px 16px; 
+      border-radius: 0 12px 12px 12px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
     .chat-text strong { color: #fff; }
-    .verdict { display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; }
+    .chat-text em { color: #f59e0b; font-style: normal; }
+    
+    .verdict-box { 
+      display: flex; 
+      gap: 10px; 
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+    .verdict { 
+      padding: 8px 16px; 
+      border-radius: 20px; 
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
     .verdict-go { background: #22c55e; color: #fff; }
-    .verdict-maybe { background: #f59e0b; color: #fff; }
+    .verdict-maybe { background: #f59e0b; color: #000; }
     .verdict-wait { background: #ef4444; color: #fff; }
-    .conclusion { background: rgba(58, 123, 213, 0.15); border: 1px solid #3a7bd5; border-radius: 12px; padding: 20px; margin-top: 20px; }
-    .conclusion h4 { color: #3a7bd5; margin-bottom: 10px; }
-    footer { text-align: center; color: #666; padding: 30px 0; font-size: 0.85rem; }
+    
+    .final-summary { 
+      background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%); 
+      border-radius: 16px; 
+      padding: 25px;
+      margin-top: 40px;
+    }
+    .final-summary h2 { color: #fff; font-size: 1.3rem; margin-bottom: 15px; }
+    .final-summary p { color: rgba(255,255,255,0.9); margin-bottom: 10px; }
+    .final-summary ul { margin-left: 20px; color: rgba(255,255,255,0.9); }
+    .final-summary li { margin-bottom: 8px; }
+    .final-summary strong { color: #fff; }
+    
+    .action-note { 
+      background: rgba(255,215,0,0.1); 
+      border: 1px solid #ffd700; 
+      border-radius: 12px; 
+      padding: 20px;
+      margin-top: 25px;
+    }
+    .action-note h3 { color: #ffd700; margin-bottom: 10px; }
+    .action-note p { color: #ccc; }
+    
+    footer { text-align: center; color: #666; font-size: 0.85rem; margin-top: 50px; padding: 20px; border-top: 1px solid #333; }
+    footer a { color: #3a7bd5; }
   </style>
 </head>
 <body>
@@ -55,150 +170,386 @@
     <a href="../dashboard.html" class="back-link">← 대시보드로 돌아가기</a>
     
     <header>
-      <h1>📅 2026-02-04 AI 어드바이저 토론</h1>
-      <p style="color: #888; margin-top: 10px;">오늘 발견된 새 공고 2건에 대한 심층 분석</p>
+      <h1>💬 AI 어드바이저 3인 토론</h1>
+      <div class="date">📅 2026년 2월 4일 (화) 18:00</div>
+      <div class="summary">오늘 발견된 채용공고 4건에 대한 심층 분석</div>
     </header>
-
-    <div class="summary-box">
-      <h2>📋 오늘의 요약</h2>
-      <ul>
-        <li><strong>새 공고:</strong> 2건 (Northwell Health)</li>
-        <li><strong>추천:</strong> 둘 다 ⚠️ Maybe (파트타임/Per Diem)</li>
-        <li><strong>핵심 이슈:</strong> BSN 여부 확인 필요!</li>
-        <li><strong>결론:</strong> 풀타임 메인 잡 먼저, 이건 백업 옵션</li>
-      </ul>
+    
+    <!-- 어드바이저 소개 -->
+    <div class="advisor-intro">
+      <div class="advisor-card maggangi">
+        <div class="avatar">😎</div>
+        <div class="name">마깡이</div>
+        <div class="role">Mount Sinai 정신과 RN 5년차<br>한국 → 미국 이민 경험</div>
+      </div>
+      <div class="advisor-card jennifer">
+        <div class="avatar">👩‍⚕️</div>
+        <div class="name">Jennifer Kim</div>
+        <div class="role">NYC H+H Nurse Manager 20년<br>채용/면접 담당</div>
+      </div>
+      <div class="advisor-card david">
+        <div class="avatar">🧑‍💼</div>
+        <div class="name">David Park</div>
+        <div class="role">MedStaff NYC 리크루터<br>외국 간호사 전문</div>
+      </div>
     </div>
-
-    <!-- 공고 1: Zucker Hillside -->
-    <div class="job-section">
+    
+    <!-- 공고 1: Mount Sinai Inpatient Psych (하이라이트) -->
+    <div class="job-section highlight">
       <div class="job-header">
-        <h3 class="job-title">1️⃣ Registered Nurse (RN) – Psych</h3>
-        <div class="job-meta">
-          <strong>Zucker Hillside Hospital</strong> (Northwell Health) • Glen Oaks, NY<br>
-          🔗 <a href="https://jobs.northwell.edu/job-3/22922050/registered-nurse-rn-psych-glen-oaks-ny/" target="_blank">원문 보기</a>
+        <div>
+          <div class="job-title">🏆 Clinical Nurse - Inpatient Psychiatry</div>
+          <div class="job-company">Mount Sinai Hospital</div>
+          <div class="job-meta">Job ID: 3033025 | Full Time Nights</div>
         </div>
         <div class="job-badges">
-          <span class="badge badge-pay">💰 $56-85/hr</span>
-          <span class="badge badge-type">⏰ Part Time Nights</span>
-          <span class="badge badge-warning">📋 BSN 5년 내 필수</span>
+          <span class="badge badge-rec">⭐ 오늘의 추천</span>
+          <span class="badge badge-union">💪 NYSNA 노조</span>
+          <span class="badge badge-pay">$62.36/hr</span>
         </div>
       </div>
-
-      <div class="chat-container">
-        <div class="chat-message maggangi">
-          <div class="avatar">😎</div>
+      
+      <div class="job-details">
+        <div class="detail-item">
+          <div class="detail-label">위치</div>
+          <div class="detail-value">New York, NY (Manhattan)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">급여</div>
+          <div class="detail-value highlight">$62.36/hr (~$130K/yr)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">근무형태</div>
+          <div class="detail-value">Full Time / Nights</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">노조</div>
+          <div class="detail-value">NYSNA-MSH</div>
+        </div>
+      </div>
+      
+      <div class="discussion">
+        <div class="discussion-title">💬 토론 시작</div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
           <div class="chat-content">
             <div class="chat-name">마깡이</div>
-            <div class="chat-role">Mount Sinai 정신과 RN 5년</div>
             <div class="chat-text">
-              Zucker Hillside는 뉴욕에서 <strong>정신과로 꽤 유명한 곳</strong>이에요. Northwell 산하고, 연구도 많이 하는 academic hospital이라 배울 게 많죠. 근데 <strong>파트타임 나이트</strong>라는 게 좀 아쉽네요. 시급 $56-85면 경력에 따라 달라지는 건데, 태권님 14년 경력이면 상단 가까이 받을 수도 있어요.
+              야 이거 진짜 좋다! <strong>Mount Sinai 입원 정신과</strong>에 <strong>NYSNA 노조</strong>까지? 시급 $62.36이면 야간 차등 붙으면 <strong>$67-70</strong> 넘어. 연봉 <strong>$140K</strong> 가능해. 내가 Mount Sinai 있을 때 NYSNA 덕분에 경력 인정 잘 받았어.
             </div>
-            <span class="verdict verdict-maybe">🤔 조건부</span>
           </div>
         </div>
-
-        <div class="chat-message jennifer">
-          <div class="avatar">👩‍⚕️</div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
           <div class="chat-content">
-            <div class="chat-name">수간호사 Jennifer Kim</div>
-            <div class="chat-role">NYC H+H Nurse Manager 20년</div>
+            <div class="chat-name">Jennifer Kim</div>
             <div class="chat-text">
-              파트타임이라 <strong>베네핏이 제한적</strong>일 거예요. 건강보험이나 401(k) 매칭 같은 거 확인해봐야 해요. 그리고 "BSN 5년 내 취득 필수"라고 했는데... <strong>태권님 BSN 있으세요?</strong> 없으면 입사 후 학교 다녀야 하는 거예요.
+              동의해요. <strong>NYSNA는 경력 인정 규정이 명확</strong>해서 해외 경력 협상이 가능해요. 태권님의 보건진료직 10년을 <em>'autonomous primary care practice'</em>로 어필하면 <strong>Step 5-7</strong> 정도는 받을 수 있어요. JD 봤는데 <strong>BSN 필수, BLS 필수</strong>인데 둘 다 태권님 있죠?
             </div>
-            <span class="verdict verdict-maybe">🤔 조건부</span>
           </div>
         </div>
-
-        <div class="chat-message david">
-          <div class="avatar">🧑‍💼</div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
           <div class="chat-content">
-            <div class="chat-name">리크루터 David Park</div>
-            <div class="chat-role">MedStaff NYC</div>
+            <div class="chat-name">David Park</div>
             <div class="chat-text">
-              파트타임 나이트는 보통 <strong>발 담그기용</strong>으로 좋아요. 처음 미국 와서 적응하면서 경험 쌓기. 근데 메인 잡으로는 추천 안 해요. 태권님은 풀타임 찾으시는 거 맞죠? 이건 <strong>백업으로 두고, 풀타임 먼저</strong> 노리세요.
+              Mount Sinai는 외국 간호사 채용 경험 많아요. <strong>Inpatient Psych</strong>는 인력 부족이라 기회 있어요. 다만 <strong>Night Shift</strong>라는 점... 처음 적응할 때 힘들 수 있는데, 대신 <em>경쟁이 덜해요</em>. Day Shift 자리는 시니어들이 다 차지하거든요.
             </div>
-            <span class="verdict verdict-maybe">🤔 조건부</span>
           </div>
         </div>
-      </div>
-
-      <div class="conclusion">
-        <h4>📋 결론</h4>
-        <p>⚠️ <strong>Maybe</strong> - 파트타임이라 메인 옵션 아님. 풀타임 구하면서 백업으로 고려.</p>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
+          <div class="chat-content">
+            <div class="chat-name">마깡이</div>
+            <div class="chat-text">
+              맞아 나도 처음엔 Night 했어. 근데 솔직히 <strong>첫 1년은 Night가 나아</strong>. Day는 회진, 가족 미팅, 교육 다 겹쳐서 정신없거든. Night는 환자 케어에 집중할 수 있어. <strong>미국 시스템 배우기엔 최적</strong>이야.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              JD 분석하면, <strong>Modified Primary Nursing</strong> 모델이라 담당 환자 수가 적어요. 정신과는 보통 <strong>환자 5-6명</strong> 정도. 태권님이 보건진료소에서 독립적으로 환자 관리한 경험이 여기서 빛날 거예요. <strong>Critical thinking + patient education</strong> 강조하는 JD와 딱 맞아요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="verdict-box">
+          <div class="verdict verdict-go">😎 마깡이: 적극 추천!</div>
+          <div class="verdict verdict-go">👩‍⚕️ Jennifer: 적극 추천!</div>
+          <div class="verdict verdict-go">🧑‍💼 David: 적극 추천!</div>
+        </div>
       </div>
     </div>
-
-    <!-- 공고 2: South Oaks -->
+    
+    <!-- 공고 2: Northwell South Oaks 177053 -->
     <div class="job-section">
       <div class="job-header">
-        <h3 class="job-title">2️⃣ Registered Nurse – Psych</h3>
-        <div class="job-meta">
-          <strong>South Oaks Hospital</strong> (Northwell Health) • Amityville, NY<br>
-          🔗 <a href="https://jobs.northwell.edu/job-3/22877403/registered-nurse-psych-amityville-ny/" target="_blank">원문 보기</a>
+        <div>
+          <div class="job-title">Registered Nurse – Psych</div>
+          <div class="job-company">Northwell Health (South Oaks Hospital)</div>
+          <div class="job-meta">Job ID: 177053 | Full Time Days</div>
         </div>
         <div class="job-badges">
-          <span class="badge badge-pay">💰 $63.82/hr (고정)</span>
-          <span class="badge badge-type">⏰ Per Diem</span>
-          <span class="badge badge-warning">⚠️ BSN 필수!</span>
+          <span class="badge badge-hospital">🏥 정신과 전문</span>
+          <span class="badge badge-pay">$53.34/hr</span>
         </div>
       </div>
-
-      <div class="chat-container">
-        <div class="chat-message maggangi">
-          <div class="avatar">😎</div>
+      
+      <div class="job-details">
+        <div class="detail-item">
+          <div class="detail-label">위치</div>
+          <div class="detail-value">Amityville, NY (Long Island)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">급여</div>
+          <div class="detail-value highlight">$53.34/hr (~$111K/yr)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">스케줄</div>
+          <div class="detail-value">10AM-10:30PM, 격주 주말</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">자격</div>
+          <div class="detail-value">BSN 필수, BLS 필수</div>
+        </div>
+      </div>
+      
+      <div class="discussion">
+        <div class="discussion-title">💬 토론</div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
+          <div class="chat-content">
+            <div class="chat-name">David Park</div>
+            <div class="chat-text">
+              South Oaks는 <strong>정신과 전문 병원</strong>이에요. Northwell 시스템이라 안정적이고. 시급 $53.34면 Long Island 기준으로 평균이에요. <strong>Day Shift + 12시간 근무</strong>라 워라밸 괜찮아요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
           <div class="chat-content">
             <div class="chat-name">마깡이</div>
-            <div class="chat-role">Mount Sinai 정신과 RN 5년</div>
             <div class="chat-text">
-              South Oaks도 Northwell 산하 <strong>정신과 전문병원</strong>이에요. Per Diem이고 시급 $63.82 고정... 나쁘지 않은데, <strong>BSN 필수</strong>라고 명시돼 있네요. 다른 Northwell 공고는 "BSN 선호"인데 이건 "required"예요. 태권님 BSN 여부가 관건이에요.
+              근데 <strong>Amityville은 맨하탄에서 기차로 1시간</strong>이야. 태권님 어디 사실 건지에 따라 다른데... Queens나 Brooklyn 살면 출퇴근 1.5시간 각오해야 해. 시급도 Mount Sinai보다 <strong>$9 낮아</strong>.
             </div>
-            <span class="verdict verdict-maybe">🤔 조건부</span>
           </div>
         </div>
-
-        <div class="chat-message jennifer">
-          <div class="avatar">👩‍⚕️</div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
           <div class="chat-content">
-            <div class="chat-name">수간호사 Jennifer Kim</div>
-            <div class="chat-role">NYC H+H Nurse Manager 20년</div>
+            <div class="chat-name">Jennifer Kim</div>
             <div class="chat-text">
-              Per Diem은 <strong>정규직 아니에요</strong>. 베네핏 거의 없고, 스케줄도 불규칙해요. 다만 여러 병원에서 Per Diem으로 일하면서 경험 쌓는 분들도 많아요. Amityville은 롱아일랜드쪽이라 <strong>뉴욕시에서 좀 멀어요</strong>... 출퇴근 고려하세요.
+              JD 보면 <em>"psychiatric experience preferred"</em>라고 돼있어요. <strong>필수가 아니라 선호</strong>. 태권님 14년 경력 중 정신과 직접 경험이 없어도 지원 가능해요. 다만 <strong>노조가 없어서</strong> 경력 인정 협상은 개별적으로 해야 해요.
             </div>
-            <span class="verdict verdict-maybe">🤔 조건부</span>
           </div>
         </div>
-
-        <div class="chat-message david">
-          <div class="avatar">🧑‍💼</div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
           <div class="chat-content">
-            <div class="chat-name">리크루터 David Park</div>
-            <div class="chat-role">MedStaff NYC</div>
+            <div class="chat-name">David Park</div>
             <div class="chat-text">
-              Per Diem은 보통 <strong>이미 풀타임 있는 분들이 부업으로</strong> 하거나, 미국 경력 첫 발 떼는 용도예요. 근데 BSN 필수라니... 솔직히 Per Diem 치고 요구사항이 좀 까다롭네요. 다른 옵션 더 찾아보시죠.
+              Long Island에 사시거나 차가 있으시면 괜찮아요. <strong>Northwell은 NY 최대 민간 의료 시스템</strong>이라 이직할 때도 큰 자산이에요. 다른 Northwell 병원으로 <strong>내부 이동</strong>도 쉽고요.
             </div>
-            <span class="verdict verdict-maybe">🤔 조건부</span>
           </div>
         </div>
-      </div>
-
-      <div class="conclusion">
-        <h4>📋 결론</h4>
-        <p>⚠️ <strong>조건부</strong> - BSN 있으면 고려 가능. Per Diem이라 메인 잡 아님.</p>
+        
+        <div class="verdict-box">
+          <div class="verdict verdict-maybe">😎 마깡이: 조건부 (위치 확인)</div>
+          <div class="verdict verdict-go">👩‍⚕️ Jennifer: 추천</div>
+          <div class="verdict verdict-go">🧑‍💼 David: 추천</div>
+        </div>
       </div>
     </div>
-
-    <div class="summary-box" style="background: rgba(239, 68, 68, 0.1); border-color: #ef4444;">
-      <h2 style="color: #ef4444;">🚨 핵심 액션 아이템</h2>
+    
+    <!-- 공고 3: Zucker Hillside Part Time -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Registered Nurse (RN) – Psych</div>
+          <div class="job-company">Northwell Health (Zucker Hillside Hospital)</div>
+          <div class="job-meta">Job ID: 179395 | Part Time Nights</div>
+        </div>
+        <div class="job-badges">
+          <span class="badge badge-pt">⚠️ Part Time</span>
+          <span class="badge badge-hospital">🏥 정신과 명문</span>
+          <span class="badge badge-pay">$56-$85/hr</span>
+        </div>
+      </div>
+      
+      <div class="job-details">
+        <div class="detail-item">
+          <div class="detail-label">위치</div>
+          <div class="detail-value">Glen Oaks, NY (Queens)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">급여</div>
+          <div class="detail-value highlight">$56.27-$85.23/hr</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">스케줄</div>
+          <div class="detail-value">7PM-7:30AM, 2/1/2/1 rotation</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">주당 시간</div>
+          <div class="detail-value">18.75시간 (Part Time)</div>
+        </div>
+      </div>
+      
+      <div class="discussion">
+        <div class="discussion-title">💬 토론</div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              <strong>Zucker Hillside는 정신과 명문 병원</strong>이에요. 연구 중심이라 PMHNP 목표하시는 분께 좋은 경험이 될 거예요. 근데 <strong>Part Time 18.75시간</strong>이라... 베네핏이 제한적이에요. Health insurance 안 나올 수도 있어요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
+          <div class="chat-content">
+            <div class="chat-name">마깡이</div>
+            <div class="chat-text">
+              Zucker Hillside 이름값은 있어. <strong>정신과 전문의 트레이닝 병원</strong>이라 배울 거 많아. 근데 Part Time은 좀... <strong>풀타임 찾으면서 백업</strong>으로 두는 건 어때? 아니면 풀타임 다른 곳 다니면서 PRN으로 여기 경험 쌓는 것도 방법이야.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
+          <div class="chat-content">
+            <div class="chat-name">David Park</div>
+            <div class="chat-text">
+              JD에 <em>"BSN within 5 years"</em> 조건 있어요. 태권님 BSN 있으시면 문제없고요. <strong>시급 범위가 넓은 건 경력에 따라 다르다</strong>는 뜻이에요. 14년이면 중상위 $70 이상 받을 수 있어요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="verdict-box">
+          <div class="verdict verdict-maybe">😎 마깡이: 조건부 (백업용)</div>
+          <div class="verdict verdict-maybe">👩‍⚕️ Jennifer: 조건부 (파트타임)</div>
+          <div class="verdict verdict-maybe">🧑‍💼 David: 조건부 (풀타임 우선)</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 공고 4: South Oaks Per Diem BSN 필수 -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Registered Nurse – Psych (Per Diem)</div>
+          <div class="job-company">Northwell Health (South Oaks Hospital)</div>
+          <div class="job-meta">Job ID: 178436 | Per Diem Various</div>
+        </div>
+        <div class="job-badges">
+          <span class="badge badge-pd">⚠️ Per Diem</span>
+          <span class="badge badge-pay">$63.82/hr</span>
+        </div>
+      </div>
+      
+      <div class="job-details">
+        <div class="detail-item">
+          <div class="detail-label">위치</div>
+          <div class="detail-value">Amityville, NY (Long Island)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">급여</div>
+          <div class="detail-value highlight">$63.82/hr (고정)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">스케줄</div>
+          <div class="detail-value">7AM-7:30PM (다양)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">필수 자격</div>
+          <div class="detail-value" style="color: #ef4444;">⚠️ BSN Required!</div>
+        </div>
+      </div>
+      
+      <div class="discussion">
+        <div class="discussion-title">💬 토론</div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
+          <div class="chat-content">
+            <div class="chat-name">마깡이</div>
+            <div class="chat-text">
+              Per Diem은 <strong>정규직 아니야</strong>. 스케줄도 불규칙하고 베네핏 거의 없어. 시급 $63.82는 높은데, 그건 <strong>불안정성 프리미엄</strong>이 포함된 거야.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              주목할 점! 이 공고는 <strong>"BSN Required"</strong>라고 명시돼있어요. 다른 Northwell 공고는 "BSN preferred"인데 이건 필수예요. <strong>태권님 BSN 학위 여부 확인</strong>이 필요해요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
+          <div class="chat-content">
+            <div class="chat-name">David Park</div>
+            <div class="chat-text">
+              Per Diem은 <strong>추가 수입용이나 경험 쌓기용</strong>으로는 좋아요. 풀타임 다른 곳 다니면서 주말에 여기서 일하는 분들 많아요. 하지만 <strong>첫 직장으로는 비추</strong>예요. 베네핏이 중요하니까요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="verdict-box">
+          <div class="verdict verdict-wait">😎 마깡이: 나중에 (정규직 우선)</div>
+          <div class="verdict verdict-wait">👩‍⚕️ Jennifer: 나중에 (BSN 확인 후)</div>
+          <div class="verdict verdict-wait">🧑‍💼 David: 나중에 (풀타임 먼저)</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 최종 요약 -->
+    <div class="final-summary">
+      <h2>📊 오늘의 결론</h2>
+      <p><strong>총 4건</strong> 분석 완료. 오늘의 <strong>1순위 추천</strong>:</p>
       <ul>
-        <li><strong>BSN 여부 확인!</strong> - 두 공고 모두 BSN 관련 요구사항 있음</li>
-        <li><strong>풀타임 우선</strong> - 파트타임/Per Diem은 백업 옵션으로만</li>
-        <li><strong>주정부/노조 공고 계속 주시</strong> - Rockland, Bellevue 등이 더 좋은 옵션</li>
+        <li>🏆 <strong>Mount Sinai Inpatient Psychiatry</strong> - 노조 + 고시급 + 맨하탄 위치. 야간이지만 신입에게 오히려 유리!</li>
+      </ul>
+      <p style="margin-top: 15px;"><strong>조건부 추천</strong> (위치/상황에 따라):</p>
+      <ul>
+        <li>🏥 <strong>South Oaks 177053</strong> - Long Island 거주 시 좋은 옵션. Day Shift.</li>
+        <li>🎓 <strong>Zucker Hillside (Part Time)</strong> - 정신과 명문. 풀타임과 병행 가능하면 경험용으로.</li>
+      </ul>
+      <p style="margin-top: 15px;"><strong>패스 권장</strong>:</p>
+      <ul>
+        <li>⏳ <strong>South Oaks Per Diem</strong> - 첫 직장으로 부적합. 나중에 추가 수입용.</li>
       </ul>
     </div>
-
+    
+    <div class="action-note">
+      <h3>📝 태권님 액션 아이템</h3>
+      <p>1. <strong>BSN 학위 여부</strong> 확인 → 일부 공고 BSN 필수<br>
+      2. <strong>거주 예정지</strong> 결정 → 위치별 공고 필터링 가능<br>
+      3. <strong>Mount Sinai 3033025</strong> 지원 준비 → 가장 추천!</p>
+    </div>
+    
     <footer>
-      <p>🤖 AI 어드바이저: 마깡이 | Jennifer Kim | David Park</p>
-      <p>마지막 업데이트: 2026-02-04 17:30</p>
+      <p>Generated by 자비스 🤖 | <a href="https://jobs.mountsinai.org/job/3033025" target="_blank">Mount Sinai 지원 링크</a></p>
+      <p style="margin-top: 10px;">다음 토론: 내일 18:00</p>
     </footer>
   </div>
 </body>
