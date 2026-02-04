@@ -174,10 +174,20 @@
       <h2 class="section-title">💬 AI 어드바이저 3인 토론 기록</h2>
       <p style="color: #888; margin-bottom: 20px;">매일 18:00에 새로 발견된 채용공고에 대해 마깡이, Jennifer, David가 <strong>태권님 경력에 맞춰</strong> 토론합니다.</p>
       <div class="job-grid">
+        <div class="job-card" onclick="window.open('discussions/2026-02-04.html', '_blank')">
+          <div class="job-title">📅 2026-02-04 토론</div>
+          <div class="job-badges">
+            <span class="badge badge-new">최신</span>
+            <span class="badge badge-nj">2건 Northwell</span>
+          </div>
+          <div class="job-company">Zucker Hillside Hospital, South Oaks Hospital</div>
+          <div class="job-location">⚠️ 파트타임/Per Diem - 백업 옵션</div>
+          <div style="color: #888; font-size: 0.85rem; margin-top: 5px;">BSN 필수 여부 확인 필요!</div>
+          <div class="job-pay" style="color: #3a7bd5;">💬 전체 토론 보기 →</div>
+        </div>
         <div class="job-card" onclick="window.open('discussions/2026-02-03.html', '_blank')">
           <div class="job-title">📅 2026-02-03 토론</div>
           <div class="job-badges">
-            <span class="badge badge-new">최신</span>
             <span class="badge badge-ny">2건 JD 심층분석</span>
           </div>
           <div class="job-company">Bellevue Psych ER, Rockland Psychiatric Center</div>
@@ -192,7 +202,7 @@
       </p>
     </div>
     
-    <div class="last-updated">마지막 업데이트: 2026-02-03 21:20 | 다음 체크: 6시간마다</div>
+    <div class="last-updated">마지막 업데이트: 2026-02-04 17:30 | 다음 체크: 6시간마다</div>
   </div>
   
   <div class="modal-overlay" id="modalOverlay">
@@ -252,7 +262,10 @@ const jobs = [
   { id: "northwell-glenoaks-rn", title: "RN - Psych", company: "Northwell Health", location: "Glen Oaks, NY", pay: "$56-$85/hr", hospital: true, recommended: true, isNew: true, dateFound: "2026-02-03", lat: 40.7556, lng: -73.7168, advisors: { maggangi: { verdict: "go", comment: "Northwell은 <strong>NY 최대 민간 시스템</strong>. 시급 범위가 넓은데, 경력 많으면 중상위 받아." }, jennifer: { verdict: "go", comment: "14년 경력이면 <strong>$70/hr 이상</strong> 협상 가능해요." }, david: { verdict: "go", comment: "대형 시스템이라 <strong>안정적</strong>. 이직할 때도 큰 자산!" } } },
   { id: "bridgeway-hoboken-5k", title: "Psychiatric RN - $5K Sign-on Bonus", company: "Bridgeway Behavioral Health", location: "Hoboken, NJ", pay: "$80K-$90K/year", isNew: true, dateFound: "2026-02-03", lat: 40.7440, lng: -74.0324, advisors: { maggangi: { verdict: "maybe", comment: "$5K 사이닝 보너스! NJ라 라이선스 필요하지만 <strong>초기 정착 비용</strong> 커버 가능." }, jennifer: { verdict: "maybe", comment: "NJ도 괜찮은 옵션. 주정부/노조 먼저 보고 <strong>backup</strong>으로." }, david: { verdict: "maybe", comment: "NJ 쪽이 요즘 <strong>간호사 모시기 경쟁</strong> 중이에요!" } } },
   { id: "woods-littlefalls-5k", title: "Psychiatric RN - $5K Sign-on Bonus", company: "Woods Services", location: "Little Falls, NJ", pay: "$80K-$90K/year", isNew: true, dateFound: "2026-02-03", lat: 40.8823, lng: -74.2210, advisors: { maggangi: { verdict: "maybe", comment: "또 $5K 보너스! <strong>BH 전문 시설</strong>이라 경험 쌓기 좋아." }, jennifer: { verdict: "maybe", comment: "NJ 라이선스 필요. <strong>사이닝 보너스</strong>는 매력적이에요." }, david: { verdict: "maybe", comment: "주정부 안 되면 <strong>좋은 대안</strong>!" } } },
-  { id: "rockland-supervisor", title: "RN Supervisor 1 Psychiatric (NY HELPS)", company: "Rockland Children's Psychiatric", location: "Orangeburg, NY", pay: "$132K-$143K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-03", lat: 41.0468, lng: -73.9473, advisors: { maggangi: { verdict: "wait", comment: "Supervisor $132-143K! 근데 <strong>관리직은 미국 경력 2-3년 후</strong>가 현실적." }, jennifer: { verdict: "wait", comment: "Staff RN으로 시작해서 나중에 <strong>내부 승진</strong>이 더 좋아요." }, david: { verdict: "wait", comment: "좋은 목표예요! 일단 <strong>Staff RN부터</strong>." } } }
+  { id: "rockland-supervisor", title: "RN Supervisor 1 Psychiatric (NY HELPS)", company: "Rockland Children's Psychiatric", location: "Orangeburg, NY", pay: "$132K-$143K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-03", lat: 41.0468, lng: -73.9473, advisors: { maggangi: { verdict: "wait", comment: "Supervisor $132-143K! 근데 <strong>관리직은 미국 경력 2-3년 후</strong>가 현실적." }, jennifer: { verdict: "wait", comment: "Staff RN으로 시작해서 나중에 <strong>내부 승진</strong>이 더 좋아요." }, david: { verdict: "wait", comment: "좋은 목표예요! 일단 <strong>Staff RN부터</strong>." } } },
+  // === 2026-02-04 신규 공고 ===
+  { id: "zucker-hillside-179395", title: "RN – Psych (Part Time Nights)", company: "Northwell Health (Zucker Hillside Hospital)", location: "Glen Oaks, NY", pay: "$56-$85/hr", hospital: true, isNew: true, dateFound: "2026-02-04", lat: 40.7556, lng: -73.7165, advisors: { maggangi: { verdict: "maybe", comment: "Zucker Hillside는 <strong>정신과 전문병원</strong>으로 유명해! 근데 <strong>파트타임 나이트</strong>라 풀타임이 아니야." }, jennifer: { verdict: "maybe", comment: "파트타임이라 <strong>베네핏 제한적</strong>. BSN 5년 내 취득 필수 조건도 있어요." }, david: { verdict: "maybe", comment: "풀타임 찾으면서 <strong>백업 옵션</strong>으로. 미국 적응 + 경험 쌓기엔 괜찮아요." } } },
+  { id: "southoaks-178436", title: "RN – Psych (Per Diem)", company: "Northwell Health (South Oaks Hospital)", location: "Amityville, NY", pay: "$63.82/hr", hospital: true, isNew: true, dateFound: "2026-02-04", lat: 40.6783, lng: -73.4171, advisors: { maggangi: { verdict: "maybe", comment: "South Oaks도 정신과 전문! 시급 $63.82 고정인데, <strong>⚠️ BSN 필수</strong>라고 명시돼있어." }, jennifer: { verdict: "maybe", comment: "Per Diem이라 <strong>정규직 아님</strong>. 베네핏 거의 없고 스케줄 불규칙해요." }, david: { verdict: "maybe", comment: "BSN 있으면 지원 가능. 없으면 <strong>다른 공고가 더 적합</strong>해요." } } }
 ];
 
 let map;
