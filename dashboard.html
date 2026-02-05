@@ -617,30 +617,38 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // 합격률 계산 함수 (태권님 프로필 기준)
+// 프로필: NCLEX ✅, BLS ✅, Duolingo 105, 14년 경력, 정신과 관련 경험(우울증/치매검사), 추천서 2개, CPI ❌
 function calculateMatchRate(job) {
-  let rate = 50; // 기본 50%
+  let rate = 60; // 기본 60% (NCLEX + BLS + 경력 있음)
   
   // 긍정 요소
-  if (job.union) rate += 15; // 노조 = 해외 경력 인정 가능성
-  if (job.city) rate += 10; // 시립 = 외국인 채용 열림
-  if (!job.bsnRequired) rate += 5; // BSN 필수 아니면 유리 (태권님 BSN 있음)
-  if (job.settingType === 'community') rate += 10; // 지역사회 = 보건진료직 경험 어필
-  if (job.settingType === 'outpatient') rate += 5; // 외래 = 경쟁 덜함
+  if (job.union) rate += 12; // 노조 = 해외 경력 인정 가능성
+  if (job.city) rate += 8; // 시립 = 외국인 채용 열림
+  if (job.settingType === 'community') rate += 12; // 지역사회 = 보건진료직 경험 어필 (우울증/치매검사)
+  if (job.settingType === 'outpatient') rate += 8; // 외래 = 경쟁 덜함
   if (job.newGradOk) rate += 10; // 신규 환영 = 미국 경력 없어도 OK
+  if (job.location?.includes('Queens')) rate += 5; // 퀸즈 = 출퇴근 편함
+  
+  // 근무 시간 (Day 선호)
+  if (job.schedule?.toLowerCase().includes('day')) rate += 5;
+  if (job.schedule?.toLowerCase().includes('night') || job.title?.toLowerCase().includes('night')) rate -= 5;
   
   // 부정 요소
-  if (job.psychExpRequired) rate -= 15; // 정신과 경력 필수
+  if (job.psychExpRequired) rate -= 10; // 정신과 경력 필수 (관련 경험은 있음)
   if (job.usExpRequired) rate -= 20; // 미국 경력 필수
-  if (job.state && job.settingType === 'inpatient') rate -= 10; // 주립 입원 = 경쟁 치열
+  if (job.cpiRequired) rate -= 8; // CPI 필수 (없음)
+  if (job.state && job.settingType === 'inpatient') rate -= 10; // 주립 입원 = 위험
+  if (job.immediateStart) rate -= 10; // 즉시 시작 (7월 가능)
   
   // 어드바이저 평가 반영
   if (job.advisors) {
-    const goCount = [job.advisors.maggangi?.verdict, job.advisors.jennifer?.verdict, job.advisors.david?.verdict]
-      .filter(v => v === 'go').length;
-    rate += goCount * 5; // go 하나당 +5%
+    const verdicts = [job.advisors.maggangi?.verdict, job.advisors.jennifer?.verdict, job.advisors.david?.verdict,
+                      job.advisors.sarah?.verdict, job.advisors.michael?.verdict, job.advisors.emily?.verdict];
+    const goCount = verdicts.filter(v => v === 'go').length;
+    rate += goCount * 3; // go 하나당 +3%
   }
   
-  return Math.min(95, Math.max(10, rate)); // 10% ~ 95% 범위
+  return Math.min(95, Math.max(15, rate)); // 15% ~ 95% 범위
 }
 
 // TOP 5 점수 계산 함수
