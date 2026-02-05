@@ -212,7 +212,7 @@
           <button class="filter-btn" data-filter="new" data-group="other">🆕 신규</button>
         </div>
       </div>
-      <h2 class="section-title">⭐ 추천 공고 TOP 5 <span style="font-size:0.7em;color:#888;">(점수 기반: 어드바이저go +1 | 노조 +1 | 주립/시립 +1 | $100K+ +1)</span></h2>
+      <h2 class="section-title">⭐ 추천 공고 TOP 5 <span style="font-size:0.7em;color:#888;">(go +1 | 노조 +1 | 시립 +1 | 외래/지역사회 +1 | 주립입원 -1 | $100K+ +1)</span></h2>
       <div class="job-grid" id="recommendedJobs"></div>
       <h2 class="section-title">📋 전체 공고</h2>
       <div class="job-grid" id="allJobs"></div>
@@ -255,7 +255,7 @@
       </p>
     </div>
     
-    <div class="last-updated">마지막 업데이트: 2026-02-06 05:25 (TOP 5 점수제 + 2/5-2/6 공고 추가) | 다음 체크: 6시간마다</div>
+    <div class="last-updated">마지막 업데이트: 2026-02-06 05:28 (주립입원 위험성 반영) | 다음 체크: 6시간마다</div>
   </div>
   
   <div class="modal-overlay" id="modalOverlay">
@@ -597,18 +597,32 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 function calculateScore(job) {
   let score = 0;
   
-  // 어드바이저 만장일치 "go" = 3점
+  // 어드바이저 "go" = 각 1점 (최대 3점)
   if (job.advisors) {
     const verdicts = [job.advisors.maggangi?.verdict, job.advisors.jennifer?.verdict, job.advisors.david?.verdict];
     const goCount = verdicts.filter(v => v === 'go').length;
-    score += goCount; // 각 go마다 1점
+    score += goCount;
   }
   
   // 노조 = 1점
   if (job.union) score += 1;
   
-  // 주립/시립 = 1점
-  if (job.state || job.city) score += 1;
+  // 시립 = 1점 (안정성)
+  if (job.city) score += 1;
+  
+  // 주립병원 조건부 점수
+  if (job.state) {
+    if (job.settingType === 'inpatient') {
+      score -= 1; // 주립 + 입원 = 중증 환자, 위험성 높음
+    } else if (job.settingType === 'outpatient' || job.settingType === 'community') {
+      score += 2; // 주립 + 외래/지역사회 = 복지 좋고 안전
+    }
+  }
+  
+  // 외래/지역사회 = 1점 (워라밸 + 안전)
+  if (job.settingType === 'outpatient' || job.settingType === 'community') {
+    score += 1;
+  }
   
   // 연봉 $100K 이상 = 1점
   if (job.pay) {
