@@ -246,7 +246,7 @@
       </p>
     </div>
     
-    <div class="last-updated">마지막 업데이트: 2026-02-06 05:28 (주립입원 위험성 반영) | 다음 체크: 6시간마다</div>
+    <div class="last-updated">마지막 업데이트: 2026-02-06 05:50 (6인 어드바이저 + 합격률 추가) | 다음 6인 토론: 18:00</div>
   </div>
   
   <div class="modal-overlay" id="modalOverlay">
@@ -422,6 +422,12 @@ function getStateBadge(loc) {
 function renderJob(job) {
   const state = getStateBadge(job.location);
   const ddayBadge = getDdayBadge(job);
+  const matchRate = calculateMatchRate(job);
+  
+  // 합격률 색상
+  let rateColor = '#ef4444'; // 빨강 (낮음)
+  if (matchRate >= 70) rateColor = '#22c55e'; // 초록 (높음)
+  else if (matchRate >= 50) rateColor = '#f59e0b'; // 노랑 (중간)
   
   // 병동 유형 배지
   let settingBadge = '';
@@ -436,7 +442,12 @@ function renderJob(job) {
   
   return `
     <div class="job-card ${job.recommended ? 'recommended' : ''}" onclick="openModal('${job.id}')">
-      <div class="job-title">${job.title}</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div class="job-title" style="flex:1;">${job.title}</div>
+        <div style="background:${rateColor};color:#fff;padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:bold;margin-left:10px;">
+          ${matchRate}%
+        </div>
+      </div>
       <div class="job-badges">
         ${ddayBadge}
         ${job.recommended ? '<span class="badge badge-rec">⭐ 추천</span>' : ''}
@@ -463,28 +474,47 @@ function openModal(jobId) {
   document.getElementById('modalCompany').textContent = job.company + ' • ' + job.location;
   document.getElementById('modalBody').innerHTML = `
     <div class="info-grid">
+      <div class="info-box"><div class="info-label">🎯 합격률</div><div class="info-value highlight" style="font-size:1.3rem;">${calculateMatchRate(job)}%</div></div>
       <div class="info-box"><div class="info-label">💰 급여</div><div class="info-value highlight">${job.pay || '협의'}</div></div>
       <div class="info-box"><div class="info-label">💪 노조</div><div class="info-value">${job.union ? job.unionName || 'Yes' : '없음'}</div></div>
-      <div class="info-box"><div class="info-label">🏛️ 주정부</div><div class="info-value">${job.state ? 'Yes' : 'No'}</div></div>
+      <div class="info-box"><div class="info-label">🏛️ 병원유형</div><div class="info-value">${job.state ? '주립' : job.city ? '시립' : '민간'}</div></div>
+      <div class="info-box"><div class="info-label">🏥 병동</div><div class="info-value">${job.settingType === 'inpatient' ? '입원' : job.settingType === 'outpatient' ? '외래' : job.settingType === 'community' ? '지역사회' : '미분류'}</div></div>
       <div class="info-box"><div class="info-label">📍 위치</div><div class="info-value">${job.location}</div></div>
     </div>
     ${job.lat ? `<p style="margin-bottom:15px;"><a href="https://www.google.com/maps?q=${job.lat},${job.lng}" target="_blank" style="color:#3a7bd5;">🗺️ Google Maps에서 보기</a></p>` : ''}
     <div class="advisor-section">
-      <h3 class="advisor-title">🤖 AI 어드바이저 분석</h3>
-      <div class="advisor-card maggangi">
-        <div class="advisor-header"><div class="advisor-avatar">😎</div><div><div class="advisor-name">마깡이</div><div class="advisor-role">Mount Sinai 정신과 RN 5년</div></div></div>
-        <div class="advisor-verdict ${getVerdictClass(job.advisors.maggangi.verdict)}">${getVerdictText(job.advisors.maggangi.verdict)}</div>
-        <div class="advisor-comment">${job.advisors.maggangi.comment}</div>
-      </div>
-      <div class="advisor-card jennifer">
-        <div class="advisor-header"><div class="advisor-avatar">👩‍⚕️</div><div><div class="advisor-name">수간호사 Jennifer Kim</div><div class="advisor-role">NYC H+H Nurse Manager 20년</div></div></div>
-        <div class="advisor-verdict ${getVerdictClass(job.advisors.jennifer.verdict)}">${getVerdictText(job.advisors.jennifer.verdict)}</div>
-        <div class="advisor-comment">${job.advisors.jennifer.comment}</div>
-      </div>
-      <div class="advisor-card david">
-        <div class="advisor-header"><div class="advisor-avatar">🧑‍💼</div><div><div class="advisor-name">리크루터 David Park</div><div class="advisor-role">MedStaff NYC</div></div></div>
-        <div class="advisor-verdict ${getVerdictClass(job.advisors.david.verdict)}">${getVerdictText(job.advisors.david.verdict)}</div>
-        <div class="advisor-comment">${job.advisors.david.comment}</div>
+      <h3 class="advisor-title">🤖 6인 어드바이저 분석</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header"><div class="advisor-avatar">😎</div><div><div class="advisor-name">마깡이</div><div class="advisor-role">Mount Sinai 정신과 RN 5년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.maggangi?.verdict || 'wait')}">${getVerdictText(job.advisors.maggangi?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.maggangi?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card" style="border-color:#10b981;">
+          <div class="advisor-header"><div class="advisor-avatar" style="background:rgba(16,185,129,0.2);">🩺</div><div><div class="advisor-name">Sarah Lee</div><div class="advisor-role">Northwell→주립 RN 8년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.sarah?.verdict || 'wait')}">${getVerdictText(job.advisors.sarah?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.sarah?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card jennifer">
+          <div class="advisor-header"><div class="advisor-avatar">👩‍⚕️</div><div><div class="advisor-name">Jennifer Kim</div><div class="advisor-role">NYC H+H Manager 20년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.jennifer?.verdict || 'wait')}">${getVerdictText(job.advisors.jennifer?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.jennifer?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card" style="border-color:#8b5cf6;">
+          <div class="advisor-header"><div class="advisor-avatar" style="background:rgba(139,92,246,0.2);">👨‍⚕️</div><div><div class="advisor-name">Michael Chen</div><div class="advisor-role">NYP Nurse Director 15년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.michael?.verdict || 'wait')}">${getVerdictText(job.advisors.michael?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.michael?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card david">
+          <div class="advisor-header"><div class="advisor-avatar">🧑‍💼</div><div><div class="advisor-name">David Park</div><div class="advisor-role">MedStaff 리크루터</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.david?.verdict || 'wait')}">${getVerdictText(job.advisors.david?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.david?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card" style="border-color:#ec4899;">
+          <div class="advisor-header"><div class="advisor-avatar" style="background:rgba(236,72,153,0.2);">👩‍💼</div><div><div class="advisor-name">Emily Rodriguez</div><div class="advisor-role">NYC H+H HR 12년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.emily?.verdict || 'wait')}">${getVerdictText(job.advisors.emily?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.emily?.comment || '(분석 예정)'}</div>
+        </div>
       </div>
     </div>
     <div class="action-buttons">
@@ -585,6 +615,33 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     applyFilters();
   });
 });
+
+// 합격률 계산 함수 (태권님 프로필 기준)
+function calculateMatchRate(job) {
+  let rate = 50; // 기본 50%
+  
+  // 긍정 요소
+  if (job.union) rate += 15; // 노조 = 해외 경력 인정 가능성
+  if (job.city) rate += 10; // 시립 = 외국인 채용 열림
+  if (!job.bsnRequired) rate += 5; // BSN 필수 아니면 유리 (태권님 BSN 있음)
+  if (job.settingType === 'community') rate += 10; // 지역사회 = 보건진료직 경험 어필
+  if (job.settingType === 'outpatient') rate += 5; // 외래 = 경쟁 덜함
+  if (job.newGradOk) rate += 10; // 신규 환영 = 미국 경력 없어도 OK
+  
+  // 부정 요소
+  if (job.psychExpRequired) rate -= 15; // 정신과 경력 필수
+  if (job.usExpRequired) rate -= 20; // 미국 경력 필수
+  if (job.state && job.settingType === 'inpatient') rate -= 10; // 주립 입원 = 경쟁 치열
+  
+  // 어드바이저 평가 반영
+  if (job.advisors) {
+    const goCount = [job.advisors.maggangi?.verdict, job.advisors.jennifer?.verdict, job.advisors.david?.verdict]
+      .filter(v => v === 'go').length;
+    rate += goCount * 5; // go 하나당 +5%
+  }
+  
+  return Math.min(95, Math.max(10, rate)); // 10% ~ 95% 범위
+}
 
 // TOP 5 점수 계산 함수
 function calculateScore(job) {
