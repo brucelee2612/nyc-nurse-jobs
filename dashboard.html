@@ -488,8 +488,10 @@ function openModal(jobId) {
       </div>
     </div>
     <div class="action-buttons">
-      ${job.url ? `<button class="btn btn-primary" onclick="window.open('${job.url}', '_blank')">🔗 원문 공고 보기</button>` : ''}
-      <button class="btn btn-secondary" onclick="window.open('https://www.indeed.com/jobs?q=' + encodeURIComponent('${job.title} ${job.company}'), '_blank')">🔍 Indeed 검색</button>
+      ${job.url 
+        ? `<button class="btn btn-primary" onclick="window.open('${job.url}', '_blank')">🔗 원문 공고 보기</button>` 
+        : `<button class="btn btn-primary" onclick="window.open('https://www.indeed.com/jobs?q=' + encodeURIComponent('${job.title} ${job.company}'), '_blank')">🔍 공고 검색</button>`}
+      <button class="btn btn-secondary" onclick="window.open('https://www.glassdoor.com/Search/results.htm?keyword=' + encodeURIComponent('${job.company}'), '_blank')">📊 Glassdoor 리뷰</button>
       ${job.lat ? `<button class="btn btn-secondary" onclick="window.open('https://www.google.com/maps?q=${job.lat},${job.lng}', '_blank')">🗺️ 지도</button>` : ''}
       <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
     </div>
