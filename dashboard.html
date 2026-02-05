@@ -212,7 +212,7 @@
           <button class="filter-btn" data-filter="new" data-group="other">🆕 신규</button>
         </div>
       </div>
-      <h2 class="section-title">⭐ 추천 공고 TOP 5 <span style="font-size:0.7em;color:#888;">(go +1 | 노조 +1 | 시립 +1 | 외래/지역사회 +1 | 주립입원 -1 | $100K+ +1)</span></h2>
+      <h2 class="section-title">⭐ 추천 공고 TOP 5 <span style="font-size:0.7em;color:#888;">(go +1 | 노조 +1 | 시립 +1 | 외래/지역사회 +1 | 주립입원 -4 | $100K+ +1)</span></h2>
       <div class="job-grid" id="recommendedJobs"></div>
       <h2 class="section-title">📋 전체 공고</h2>
       <div class="job-grid" id="allJobs"></div>
@@ -613,7 +613,7 @@ function calculateScore(job) {
   // 주립병원 조건부 점수
   if (job.state) {
     if (job.settingType === 'inpatient') {
-      score -= 1; // 주립 + 입원 = 중증 환자, 위험성 높음
+      score -= 4; // 주립 + 입원 = 중증 환자, 위험성 매우 높음
     } else if (job.settingType === 'outpatient' || job.settingType === 'community') {
       score += 2; // 주립 + 외래/지역사회 = 복지 좋고 안전
     }
