@@ -212,7 +212,7 @@
           <button class="filter-btn" data-filter="new" data-group="other">🆕 신규</button>
         </div>
       </div>
-      <h2 class="section-title">⭐ 추천 공고 TOP 5</h2>
+      <h2 class="section-title">⭐ 추천 공고 TOP 5 <span style="font-size:0.7em;color:#888;">(점수 기반: 어드바이저go +1 | 노조 +1 | 주립/시립 +1 | $100K+ +1)</span></h2>
       <div class="job-grid" id="recommendedJobs"></div>
       <h2 class="section-title">📋 전체 공고</h2>
       <div class="job-grid" id="allJobs"></div>
@@ -255,7 +255,7 @@
       </p>
     </div>
     
-    <div class="last-updated">마지막 업데이트: 2026-02-06 05:10 (필터 기능 추가) | 다음 체크: 6시간마다</div>
+    <div class="last-updated">마지막 업데이트: 2026-02-06 05:25 (TOP 5 점수제 + 2/5-2/6 공고 추가) | 다음 체크: 6시간마다</div>
   </div>
   
   <div class="modal-overlay" id="modalOverlay">
@@ -321,7 +321,13 @@ const jobs = [
   { id: "southoaks-178436", title: "RN – Psych (Per Diem)", company: "Northwell Health (South Oaks Hospital)", location: "Amityville, NY", pay: "$63.82/hr", hospital: true, isNew: true, dateFound: "2026-02-04", url: "https://jobs.northwell.edu/job-3/22877403/registered-nurse-psych-amityville-ny/", lat: 40.6783, lng: -73.4171, advisors: { maggangi: { verdict: "maybe", comment: "South Oaks도 정신과 전문! 시급 $63.82 고정인데, <strong>⚠️ BSN 필수</strong>라고 명시돼있어." }, jennifer: { verdict: "maybe", comment: "Per Diem이라 <strong>정규직 아님</strong>. 베네핏 거의 없고 스케줄 불규칙해요." }, david: { verdict: "maybe", comment: "BSN 있으면 지원 가능. 없으면 <strong>다른 공고가 더 적합</strong>해요." } } },
   // === 2026-02-04 신규 추가 (토론 후) ===
   { id: "mountsinai-inpatient-psych-3033025", title: "Clinical Nurse - Inpatient Psychiatry (Nights)", company: "Mount Sinai Hospital", location: "New York, NY", pay: "$62.36/hr (~$130K)", union: true, unionName: "NYSNA", hospital: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-04", url: "https://careers.mountsinai.org/jobs/3033025", lat: 40.7903, lng: -73.9523, advisors: { maggangi: { verdict: "go", comment: "<strong>NYSNA 노조</strong> + Mount Sinai 입원 정신과! 시급 $62.36 + 야간 차등 = <strong>$140K 가능</strong>. 경력 인정 잘 받아." }, jennifer: { verdict: "go", comment: "노조라 <strong>경력 인정 규정 명확</strong>. 14년 경력이면 Step 5-7 협상 가능. JD가 태권님 경험과 매칭돼요." }, david: { verdict: "go", comment: "Mount Sinai는 외국 간호사 채용 경험 많아요. <strong>Night shift</strong>라 경쟁 덜해서 기회!" } } },
-  { id: "southoaks-177053", title: "RN – Psych (Full Time Days)", company: "Northwell Health (South Oaks Hospital)", location: "Amityville, NY", pay: "$53.34/hr (~$111K)", hospital: true, isNew: true, dateFound: "2026-02-04", url: "https://jobs.northwell.edu/job/south-oaks-hospital-registered-nurse-psych-amityville-ny-177053/", lat: 40.6785, lng: -73.4173, advisors: { maggangi: { verdict: "maybe", comment: "정신과 전문병원! <strong>Day shift</strong>라 워라밸 좋아. 근데 <strong>Long Island라 출퇴근 1시간+</strong>." }, jennifer: { verdict: "go", comment: "Northwell 시스템이라 안정적. <strong>정신과 경험 '선호'</strong>라 지원 가능해요." }, david: { verdict: "go", comment: "<strong>NY 최대 민간 시스템</strong>. 내부 이동도 쉬워요!" } } }
+  { id: "southoaks-177053", title: "RN – Psych (Full Time Days)", company: "Northwell Health (South Oaks Hospital)", location: "Amityville, NY", pay: "$53.34/hr (~$111K)", hospital: true, isNew: true, dateFound: "2026-02-04", url: "https://jobs.northwell.edu/job/south-oaks-hospital-registered-nurse-psych-amityville-ny-177053/", lat: 40.6785, lng: -73.4173, advisors: { maggangi: { verdict: "maybe", comment: "정신과 전문병원! <strong>Day shift</strong>라 워라밸 좋아. 근데 <strong>Long Island라 출퇴근 1시간+</strong>." }, jennifer: { verdict: "go", comment: "Northwell 시스템이라 안정적. <strong>정신과 경험 '선호'</strong>라 지원 가능해요." }, david: { verdict: "go", comment: "<strong>NY 최대 민간 시스템</strong>. 내부 이동도 쉬워요!" } } },
+  // === 2026-02-05 신규 공고 ===
+  { id: "nyp-gracie-square-mood", title: "RN - Affective Mood Disorder Unit (Nights)", company: "NewYork-Presbyterian (Gracie Square Hospital)", location: "Manhattan, NY", pay: "$117K-$125K/year", hospital: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-05", lat: 40.7729, lng: -73.9541, advisors: { maggangi: { verdict: "go", comment: "<strong>정신과 전문병원!</strong> 우울증/양극성 장애 환자. Gracie Square는 NYC 명문 정신과야." }, jennifer: { verdict: "go", comment: "연봉 $117-125K 좋아요. <strong>Magnet 인증 + Weill Cornell 제휴</strong>라 교육 기회 많아요." }, david: { verdict: "go", comment: "NYP 시스템이라 안정적. <strong>정신과 전문병원</strong> 경력은 이직 시 큰 자산!" } } },
+  { id: "nychhc-elmhurst-bh", title: "Staff Nurse - Behavioral Health Services", company: "NYC Health + Hospitals (Elmhurst)", location: "Queens, NY", pay: "$109K/year", union: true, unionName: "NYSNA", hospital: true, city: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-05", lat: 40.7442, lng: -73.8860, advisors: { maggangi: { verdict: "go", comment: "<strong>NYSNA 노조 + 시립병원!</strong> 연봉 $109K + Day shift 8-4:30. 경력 인정 협상 가능." }, jennifer: { verdict: "go", comment: "<strong>Loan Forgiveness 대상</strong> + 경력수당 최대 $8K/yr. 시립이라 안정적이에요." }, david: { verdict: "go", comment: "Queens 대형 3차병원. <strong>노조라 해외 경력 인정 규정</strong> 있어요!" } } },
+  { id: "nychhc-bellevue-peds-psych", title: "Staff Nurse - Psychiatry (BH Pediatric 21N)", company: "NYC Health + Hospitals (Bellevue)", location: "Manhattan, NY", pay: "협의", union: true, unionName: "NYSNA", hospital: true, city: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-06", lat: 40.7392, lng: -73.9748, advisors: { maggangi: { verdict: "go", comment: "<strong>Bellevue 소아정신과!</strong> NYSNA 노조 + 시립. 소아 경험 쌓으면 NP 때 강점." }, jennifer: { verdict: "go", comment: "소아/청소년 정신과는 <strong>인력 부족</strong>. 취업 잘 돼요." }, david: { verdict: "go", comment: "Bellevue는 <strong>미국 최초 공립병원</strong>. 브랜드 가치 있어요!" } } },
+  { id: "bridgeway-4day-5k", title: "Psychiatric RN - $5K Bonus + 4 Day Week", company: "Bridgeway Rehabilitation", location: "Little Falls, NJ", pay: "$80K-$90K/year", isNew: true, dateFound: "2026-02-05", lat: 40.8823, lng: -74.2210, advisors: { maggangi: { verdict: "go", comment: "<strong>$5K 사이닝 보너스 + 주4일!</strong> 워라밸 끝판왕. NJ라 라이선스 필요하지만 좋은 조건." }, jennifer: { verdict: "maybe", comment: "주4일이 매력적. 근데 <strong>NJ라 NY 경력으로 안 쳐줄 수</strong> 있어요." }, david: { verdict: "go", comment: "NJ도 요즘 <strong>간호사 경쟁</strong> 치열해서 조건 좋아요!" } } },
+  { id: "montefiore-bh-peds", title: "Staff Nurse I/II - Child & Adolescent BH", company: "Montefiore", location: "Bronx, NY", pay: "$60.22/hr (~$125K)", hospital: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-05", lat: 40.8531, lng: -73.8464, advisors: { maggangi: { verdict: "go", comment: "<strong>소아/청소년 정신과!</strong> 시급 $60.22 좋아. Montefiore는 학술병원이라 교육 기회 많아." }, jennifer: { verdict: "maybe", comment: "1-2년 소아/정신과 경력 필수. <strong>경력 요구 조건</strong> 확인하세요." }, david: { verdict: "go", comment: "Teaching hospital이라 <strong>NP 추천서</strong> 받기 좋아요!" } } }
 ];
 
 let map;
@@ -543,12 +549,14 @@ function applyFilters() {
     return true;
   });
   
-  // 추천 공고 (필터 적용)
-  const recommendedFiltered = filtered.filter(j => j.recommended);
-  const otherFiltered = filtered.filter(j => !j.recommended);
+  // TOP 5 추천 공고 (점수 기반)
+  const top5 = getTop5Jobs();
+  const top5Ids = top5.map(j => j.id);
+  const top5Filtered = top5.filter(j => filtered.some(f => f.id === j.id));
+  const otherFiltered = filtered.filter(j => !top5Ids.includes(j.id));
   
-  document.getElementById('recommendedJobs').innerHTML = recommendedFiltered.length > 0 
-    ? recommendedFiltered.map(renderJob).join('') 
+  document.getElementById('recommendedJobs').innerHTML = top5Filtered.length > 0 
+    ? top5Filtered.map(j => renderJob({...j, score: j.score})).join('') 
     : '<p style="color:#666;">해당 조건의 추천 공고가 없습니다.</p>';
   document.getElementById('allJobs').innerHTML = otherFiltered.length > 0 
     ? otherFiltered.map(renderJob).join('') 
@@ -584,6 +592,45 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     applyFilters();
   });
 });
+
+// TOP 5 점수 계산 함수
+function calculateScore(job) {
+  let score = 0;
+  
+  // 어드바이저 만장일치 "go" = 3점
+  if (job.advisors) {
+    const verdicts = [job.advisors.maggangi?.verdict, job.advisors.jennifer?.verdict, job.advisors.david?.verdict];
+    const goCount = verdicts.filter(v => v === 'go').length;
+    score += goCount; // 각 go마다 1점
+  }
+  
+  // 노조 = 1점
+  if (job.union) score += 1;
+  
+  // 주립/시립 = 1점
+  if (job.state || job.city) score += 1;
+  
+  // 연봉 $100K 이상 = 1점
+  if (job.pay) {
+    const payMatch = job.pay.match(/\$(\d+)[Kk]|\$(\d{2,3}),?\d{3}/);
+    if (payMatch) {
+      const amount = payMatch[1] ? parseInt(payMatch[1]) : parseInt(payMatch[2]);
+      if (amount >= 100) score += 1;
+    }
+  }
+  
+  return score;
+}
+
+// TOP 5 공고 가져오기
+function getTop5Jobs() {
+  const scoredJobs = jobs.filter(j => j.recommended).map(job => ({
+    ...job,
+    score: calculateScore(job)
+  }));
+  scoredJobs.sort((a, b) => b.score - a.score);
+  return scoredJobs.slice(0, 5);
+}
 
 // 초기 렌더링
 function render() { applyFilters(); }
