@@ -126,17 +126,8 @@
   </style>
 </head>
 <body>
-  <!-- Password Screen -->
-  <div id="password-screen">
-    <h1>🔒</h1>
-    <p>비밀번호를 입력하세요</p>
-    <input type="password" id="pwd-input" placeholder="******" maxlength="10" onkeypress="if(event.key==='Enter')checkPwd()">
-    <button onclick="checkPwd()">입장</button>
-    <div class="error" id="pwd-error">비밀번호가 틀렸습니다</div>
-  </div>
-  
-  <!-- Main Content (hidden until password entered) -->
-  <div id="main-content">
+  <!-- Main Content -->
+  <div id="main-content" style="display:block;">
   <div class="container">
     <header>
       <h1>🏥 뉴욕 정신과 RN 채용공고</h1>
@@ -653,25 +644,6 @@ render();
 </script>
 </div> <!-- end main-content -->
 
-<script>
-// Password protection
-const correctPwd = '089608';
-function checkPwd() {
-  const input = document.getElementById('pwd-input').value;
-  if (input === correctPwd) {
-    document.getElementById('password-screen').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
-    sessionStorage.setItem('authenticated', 'true');
-  } else {
-    document.getElementById('pwd-error').style.display = 'block';
-    document.getElementById('pwd-input').value = '';
-  }
-}
-// Check if already authenticated in this session
-if (sessionStorage.getItem('authenticated') === 'true') {
-  document.getElementById('password-screen').style.display = 'none';
-  document.getElementById('main-content').style.display = 'block';
-}
-</script>
+<!-- Password removed -->
 </body>
 </html>
