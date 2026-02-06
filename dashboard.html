@@ -40,6 +40,15 @@
     .filter-btn { padding: 8px 16px; border: 1px solid #444; background: transparent; color: #e4e4e4; border-radius: 20px; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }
     .filter-btn:hover, .filter-btn.active { background: #3a7bd5; border-color: #3a7bd5; }
     .search-box { margin-bottom: 20px; }
+    .filters-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 15px; }
+    .filters-bar .search-input { flex: 1; min-width: 150px; max-width: 250px; padding: 10px 15px; font-size: 0.9rem; border: 1px solid #444; border-radius: 8px; background: rgba(255,255,255,0.05); color: #fff; }
+    .filter-select { padding: 10px 15px; font-size: 0.85rem; border: 1px solid #444; border-radius: 8px; background: #1a1a2e; color: #e4e4e4; cursor: pointer; min-width: 130px; }
+    .filter-select:hover { border-color: #3a7bd5; }
+    .filter-select:focus { outline: none; border-color: #3a7bd5; }
+    .quick-filters { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filter-chip { padding: 6px 14px; font-size: 0.85rem; border: 1px solid #444; border-radius: 20px; background: transparent; color: #aaa; cursor: pointer; transition: all 0.2s; }
+    .filter-chip:hover { border-color: #3a7bd5; color: #fff; }
+    .filter-chip.active { background: #3a7bd5; border-color: #3a7bd5; color: #fff; }
     .search-input { width: 100%; max-width: 500px; padding: 12px 20px; font-size: 1rem; border: 2px solid #444; border-radius: 12px; background: rgba(255,255,255,0.05); color: #fff; }
     .search-input:focus { outline: none; border-color: #3a7bd5; }
     .search-input::placeholder { color: #666; }
@@ -155,63 +164,45 @@
     </div>
     
     <div id="listTab" class="tab-content active">
-      <!-- 검색창 -->
-      <div class="search-box">
-        <input type="text" class="search-input" id="searchInput" placeholder="🔍 직책, 회사명, 위치로 검색..." oninput="applyFilters()">
+      <!-- 검색 + 필터 (컴팩트) -->
+      <div class="filters-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 검색..." oninput="applyFilters()">
+        
+        <select class="filter-select" id="regionFilter" onchange="currentFilters.region = this.value; applyFilters();">
+          <option value="all">📍 지역: 전체</option>
+          <option value="ny">🗽 뉴욕</option>
+          <option value="nj">뉴저지</option>
+          <option value="ct">코네티컷</option>
+        </select>
+        
+        <select class="filter-select" id="settingFilter" onchange="currentFilters.setting = this.value; applyFilters();">
+          <option value="all">🏥 병동: 전체</option>
+          <option value="inpatient">🏥 입원</option>
+          <option value="outpatient">🏢 외래</option>
+          <option value="community">🏠 지역사회</option>
+        </select>
+        
+        <select class="filter-select" id="hospitalFilter" onchange="currentFilters.hospital = this.value; applyFilters();">
+          <option value="all">🏛️ 병원: 전체</option>
+          <option value="state">🏛️ 주립</option>
+          <option value="city">🏙️ 시립</option>
+          <option value="federal">🦅 연방(VA)</option>
+          <option value="private">🏨 민간</option>
+        </select>
+        
+        <select class="filter-select" id="sortFilter" onchange="currentFilters.sort = this.value; applyFilters();">
+          <option value="default">📊 정렬: 기본</option>
+          <option value="matchRate">📈 합격률순</option>
+          <option value="pay">💰 연봉순</option>
+          <option value="date">🆕 최신순</option>
+        </select>
       </div>
       
-      <!-- 지역 필터 -->
-      <div class="filter-group">
-        <div class="filter-group-title">📍 지역</div>
-        <div class="filter-row">
-          <button class="filter-btn active" data-filter="all" data-group="region">전체</button>
-          <button class="filter-btn" data-filter="ny" data-group="region">🗽 뉴욕</button>
-          <button class="filter-btn" data-filter="nj" data-group="region">뉴저지</button>
-          <button class="filter-btn" data-filter="ct" data-group="region">코네티컷</button>
-        </div>
-      </div>
-      
-      <!-- 병동 유형 필터 -->
-      <div class="filter-group">
-        <div class="filter-group-title">🏥 병동 유형</div>
-        <div class="filter-row">
-          <button class="filter-btn active" data-filter="all" data-group="setting">전체</button>
-          <button class="filter-btn" data-filter="inpatient" data-group="setting">🏥 입원</button>
-          <button class="filter-btn" data-filter="outpatient" data-group="setting">🏢 외래</button>
-          <button class="filter-btn" data-filter="community" data-group="setting">🏠 지역사회</button>
-        </div>
-      </div>
-      
-      <!-- 병원 유형 필터 -->
-      <div class="filter-group">
-        <div class="filter-group-title">🏛️ 병원 유형</div>
-        <div class="filter-row">
-          <button class="filter-btn active" data-filter="all" data-group="hospital">전체</button>
-          <button class="filter-btn" data-filter="federal" data-group="hospital">🦅 연방(VA)</button>
-          <button class="filter-btn" data-filter="state" data-group="hospital">🏛️ 주립</button>
-          <button class="filter-btn" data-filter="city" data-group="hospital">🏙️ 시립</button>
-          <button class="filter-btn" data-filter="private" data-group="hospital">🏨 사립</button>
-        </div>
-      </div>
-      
-      <!-- 기타 필터 -->
-      <div class="filter-group">
-        <div class="filter-group-title">⭐ 기타</div>
-        <div class="filter-row">
-          <button class="filter-btn" data-filter="union" data-group="other">💪 유니온</button>
-          <button class="filter-btn" data-filter="recommended" data-group="other">⭐ 추천</button>
-          <button class="filter-btn" data-filter="new" data-group="other">🆕 신규</button>
-        </div>
-      </div>
-      <!-- 정렬 -->
-      <div class="filter-group">
-        <div class="filter-group-title">📊 정렬</div>
-        <div class="filter-row">
-          <button class="filter-btn active" data-filter="default" data-group="sort">기본</button>
-          <button class="filter-btn" data-filter="matchRate" data-group="sort">합격률 높은순</button>
-          <button class="filter-btn" data-filter="pay" data-group="sort">연봉 높은순</button>
-          <button class="filter-btn" data-filter="date" data-group="sort">최신순</button>
-        </div>
+      <!-- 퀵 필터 (토글) -->
+      <div class="quick-filters">
+        <button class="filter-chip" data-filter="union" onclick="toggleChip(this)">💪 노조</button>
+        <button class="filter-chip" data-filter="recommended" onclick="toggleChip(this)">⭐ 추천</button>
+        <button class="filter-chip" data-filter="new" onclick="toggleChip(this)">🆕 신규</button>
       </div>
       <h2 class="section-title">⭐ 추천 공고 TOP 5 <span style="font-size:0.7em;color:#888;">(go +1 | 노조 +1 | 시립 +1 | 외래/지역사회 +1 | 주립입원 -4 | $100K+ +1)</span></h2>
       <div class="job-grid" id="recommendedJobs"></div>
@@ -596,6 +587,11 @@ function applyFilters() {
       if (currentFilters.hospital === 'private' && (job.state || job.city || job.federal)) return false;
     }
     
+    // 퀵 필터 (토글)
+    if (isChipActive('union') && !job.union) return false;
+    if (isChipActive('recommended') && !job.recommended) return false;
+    if (isChipActive('new') && !job.isNew) return false;
+    
     return true;
   });
   
@@ -639,6 +635,18 @@ function applyFilters() {
 }
 
 // 필터 버튼 이벤트
+// 퀵 필터 토글 함수
+function toggleChip(btn) {
+  btn.classList.toggle('active');
+  applyFilters();
+}
+
+// 퀵 필터 상태 체크 함수
+function isChipActive(filter) {
+  const chip = document.querySelector(`.filter-chip[data-filter="${filter}"]`);
+  return chip && chip.classList.contains('active');
+}
+
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const group = btn.dataset.group;
