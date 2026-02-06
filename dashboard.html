@@ -203,6 +203,16 @@
           <button class="filter-btn" data-filter="new" data-group="other">🆕 신규</button>
         </div>
       </div>
+      <!-- 정렬 -->
+      <div class="filter-group">
+        <div class="filter-group-title">📊 정렬</div>
+        <div class="filter-row">
+          <button class="filter-btn active" data-filter="default" data-group="sort">기본</button>
+          <button class="filter-btn" data-filter="matchRate" data-group="sort">합격률 높은순</button>
+          <button class="filter-btn" data-filter="pay" data-group="sort">연봉 높은순</button>
+          <button class="filter-btn" data-filter="date" data-group="sort">최신순</button>
+        </div>
+      </div>
       <h2 class="section-title">⭐ 추천 공고 TOP 5 <span style="font-size:0.7em;color:#888;">(go +1 | 노조 +1 | 시립 +1 | 외래/지역사회 +1 | 주립입원 -4 | $100K+ +1)</span></h2>
       <div class="job-grid" id="recommendedJobs"></div>
       <h2 class="section-title">📋 전체 공고</h2>
@@ -553,7 +563,8 @@ let currentFilters = {
   region: 'all',
   setting: 'all',
   hospital: 'all',
-  search: ''
+  search: '',
+  sort: 'default'
 };
 
 function applyFilters() {
@@ -587,6 +598,25 @@ function applyFilters() {
     
     return true;
   });
+  
+  // 정렬 적용
+  if (currentFilters.sort === 'matchRate') {
+    filtered.sort((a, b) => calculateMatchRate(b) - calculateMatchRate(a));
+  } else if (currentFilters.sort === 'pay') {
+    filtered.sort((a, b) => {
+      const getPay = (job) => {
+        if (!job.pay) return 0;
+        const match = job.pay.match(/\$(\d+)[Kk]|\$(\d{2,3}),?\d{3}/);
+        if (match) return match[1] ? parseInt(match[1]) * 1000 : parseInt(match[2]) * 1000;
+        const hourly = job.pay.match(/\$(\d+\.?\d*)/);
+        if (hourly) return parseFloat(hourly[1]) * 2080; // 시급 → 연봉 환산
+        return 0;
+      };
+      return getPay(b) - getPay(a);
+    });
+  } else if (currentFilters.sort === 'date') {
+    filtered.sort((a, b) => new Date(b.dateFound || '2020-01-01') - new Date(a.dateFound || '2020-01-01'));
+  }
   
   // TOP 5 추천 공고 (점수 기반)
   const top5 = getTop5Jobs();
@@ -623,6 +653,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
       if (group === 'region') currentFilters.region = filter;
       if (group === 'setting') currentFilters.setting = filter;
       if (group === 'hospital') currentFilters.hospital = filter;
+      if (group === 'sort') currentFilters.sort = filter;
     } else {
       // 토글 버튼 (union, recommended, new)
       btn.classList.toggle('active');
