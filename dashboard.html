@@ -537,7 +537,7 @@ function openModal(jobId) {
     <div class="action-buttons">
       ${job.url 
         ? `<button class="btn btn-primary" onclick="window.open('${job.url}', '_blank')">🔗 원문 공고 보기</button>` 
-        : `<button class="btn btn-primary" onclick="window.open('https://www.indeed.com/jobs?q=' + encodeURIComponent('${job.title} ${job.company}'), '_blank')">🔍 공고 검색</button>`}
+        : `<button class="btn btn-primary" onclick="searchJobBySource('${job.title.replace(/'/g, "\\'")}', '${job.company.replace(/'/g, "\\'")}', '${job.source || ''}')">🔍 공고 검색</button>`}
       <button class="btn btn-secondary" onclick="window.open('https://www.glassdoor.com/Search/results.htm?keyword=' + encodeURIComponent('${job.company}'), '_blank')">📊 Glassdoor 리뷰</button>
       ${job.lat ? `<button class="btn btn-secondary" onclick="window.open('https://www.google.com/maps?q=${job.lat},${job.lng}', '_blank')">🗺️ 지도</button>` : ''}
       <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
@@ -547,6 +547,44 @@ function openModal(jobId) {
 }
 
 function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+// 소스별 검색 URL 생성 함수
+function searchJobBySource(title, company, source) {
+  const query = encodeURIComponent(`${title} ${company}`);
+  const companyQuery = encodeURIComponent(company);
+  
+  const sourceUrls = {
+    'Indeed': `https://www.indeed.com/jobs?q=${query}&l=New+York`,
+    'LinkedIn': `https://www.linkedin.com/jobs/search/?keywords=${query}&location=New%20York`,
+    'ZipRecruiter': `https://www.ziprecruiter.com/jobs-search?search=${query}&location=New+York`,
+    'Glassdoor': `https://www.glassdoor.com/Job/new-york-jobs-SRCH_IL.0,8_IC1132348.htm?keyword=${query}`,
+    'Health eCareers': `https://www.healthecareers.com/jobs?q=${query}&l=New+York`,
+    'Mount Sinai Careers': `https://careers.mountsinai.org/jobs?keywords=${companyQuery}+psychiatric+nurse`,
+    'NYC Health + Hospitals Careers': `https://careers.nychealthandhospitals.org/search-jobs?k=${encodeURIComponent('psychiatric nurse')}`,
+    'Northwell Health Careers': `https://jobs.northwell.edu/job-search-results/?keyword=psychiatric%20nurse`,
+    'Montefiore Careers': `https://www.montefiore.org/careers-search?keyword=psychiatric+nurse`,
+    'Columbia CUIMC Careers': `https://opportunities.columbia.edu/en-us/filter/?search-keyword=psychiatric+nurse`,
+    'NYU Langone Health Careers': `https://jobs.nyulangone.org/search-jobs?k=psychiatric%20nurse`,
+    'NewYork-Presbyterian Careers': `https://careers.nyp.org/jobs?keywords=psychiatric%20nurse`,
+    'StateJobsNY': `https://statejobs.ny.gov/public/vacancysearch.cfm?searchArg=psychiatric+nurse`,
+    'USAJobs': `https://www.usajobs.gov/Search/Results?k=psychiatric+nurse&l=New+York`,
+    'Maimonides Medical Center': `https://jobs.maimonides.org/?keywords=psychiatric+nurse`,
+    'SUNY Downstate': `https://sunysb.taleo.net/careersection/2/jobsearch.ftl?keyword=psychiatric`,
+    'Hackensack Meridian Health': `https://jobs.hackensackmeridianhealth.org/search-jobs/psychiatric%20nurse`
+  };
+  
+  // 소스에 맞는 URL 찾기, 없으면 Indeed
+  let url = sourceUrls['Indeed']; // 기본값
+  
+  for (const [key, value] of Object.entries(sourceUrls)) {
+    if (source && source.toLowerCase().includes(key.toLowerCase().split(' ')[0])) {
+      url = value;
+      break;
+    }
+  }
+  
+  window.open(url, '_blank');
+}
 document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
 
 // 현재 필터 상태
