@@ -473,6 +473,7 @@ function renderJob(job) {
         ${hospitalBadge}
         ${job.union ? '<span class="badge badge-union">💪 ' + (job.unionName || 'Union') + '</span>' : ''}
         ${job.state ? '<span class="badge badge-state">🏛️ 주립</span>' : ''}
+        ${job.jobId ? '<span class="badge" style="background:#1e3a5f;color:#7ec8e3;">🔑 ID:' + job.jobId + '</span>' : ''}
       </div>
       <div class="job-company">${job.company}</div>
       <div class="job-location">📍 ${job.location}</div>
