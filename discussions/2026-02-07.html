@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💬 2026-02-07 채용공고 토론 | AI 어드바이저 3인방</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); 
+      min-height: 100vh; 
+      color: #e4e4e4; 
+      padding: 20px;
+      line-height: 1.7;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    
+    header { text-align: center; padding: 40px 0 30px; border-bottom: 1px solid #333; margin-bottom: 30px; }
+    h1 { font-size: 2rem; color: #fff; margin-bottom: 10px; }
+    .date { color: #3a7bd5; font-size: 1.2rem; margin-bottom: 15px; }
+    .summary { color: #888; font-size: 0.95rem; }
+    
+    .back-link { display: inline-block; margin-bottom: 20px; color: #3a7bd5; text-decoration: none; }
+    .back-link:hover { color: #00d2ff; }
+    
+    .advisor-intro { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 15px; 
+      margin-bottom: 40px; 
+    }
+    @media (max-width: 700px) { .advisor-intro { grid-template-columns: 1fr; } }
+    
+    .advisor-card { 
+      background: rgba(255,255,255,0.05); 
+      border-radius: 12px; 
+      padding: 15px; 
+      text-align: center;
+      border-left: 4px solid;
+    }
+    .advisor-card.maggangi { border-color: #ff6b6b; }
+    .advisor-card.jennifer { border-color: #4ecdc4; }
+    .advisor-card.david { border-color: #ffe66d; }
+    
+    .avatar { font-size: 2.5rem; margin-bottom: 8px; }
+    .name { font-weight: 600; color: #fff; font-size: 1rem; }
+    .role { font-size: 0.8rem; color: #888; margin-top: 4px; }
+    
+    .job-section { 
+      background: rgba(255,255,255,0.03); 
+      border-radius: 16px; 
+      padding: 25px; 
+      margin-bottom: 30px;
+      border: 1px solid #333;
+    }
+    .job-section.highlight { border-color: #ffd700; background: linear-gradient(135deg, rgba(255,215,0,0.08) 0%, rgba(255,165,0,0.03) 100%); }
+    
+    .job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+    .job-title { font-size: 1.3rem; color: #fff; font-weight: 600; }
+    .job-company { color: #3a7bd5; margin-top: 5px; }
+    .job-meta { color: #888; font-size: 0.9rem; margin-top: 5px; }
+    .job-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    
+    .badge { font-size: 0.75rem; padding: 4px 10px; border-radius: 15px; font-weight: 500; }
+    .badge-union { background: #5a2752; color: #df82d3; }
+    .badge-hospital { background: #2d5a27; color: #8fdf82; }
+    .badge-pay { background: #1e4620; color: #4ade80; }
+    .badge-rec { background: #ffd700; color: #000; }
+    .badge-pt { background: #f59e0b; color: #000; }
+    .badge-pd { background: #ef4444; color: #fff; }
+    .badge-state { background: #1e3a5f; color: #7ec8e3; }
+    .badge-research { background: #4a1e5f; color: #c8a3e3; }
+    .badge-columbia { background: #0033a0; color: #9dd9ff; }
+    .badge-nights { background: #3730a3; color: #c7d2fe; }
+    
+    .job-details { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+      gap: 12px; 
+      margin-bottom: 25px;
+      background: rgba(0,0,0,0.2);
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .detail-item { }
+    .detail-label { font-size: 0.75rem; color: #666; }
+    .detail-value { font-size: 0.95rem; color: #fff; }
+    .detail-value.highlight { color: #4ade80; font-weight: 600; }
+    .detail-value.warning { color: #f59e0b; }
+    
+    .discussion { margin-top: 25px; }
+    .discussion-title { font-size: 1.1rem; color: #fff; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    
+    .chat-bubble { 
+      display: flex; 
+      gap: 12px; 
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .chat-avatar { 
+      width: 45px; 
+      height: 45px; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .chat-bubble.maggangi .chat-avatar { background: rgba(255,107,107,0.2); }
+    .chat-bubble.jennifer .chat-avatar { background: rgba(78,205,196,0.2); }
+    .chat-bubble.david .chat-avatar { background: rgba(255,230,109,0.2); }
+    
+    .chat-content { flex: 1; }
+    .chat-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; }
+    .chat-bubble.maggangi .chat-name { color: #ff6b6b; }
+    .chat-bubble.jennifer .chat-name { color: #4ecdc4; }
+    .chat-bubble.david .chat-name { color: #ffe66d; }
+    
+    .chat-text { 
+      background: rgba(255,255,255,0.05); 
+      padding: 12px 16px; 
+      border-radius: 0 12px 12px 12px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .chat-text strong { color: #fff; }
+    .chat-text em { color: #f59e0b; font-style: normal; }
+    
+    .verdict-box { 
+      display: flex; 
+      gap: 10px; 
+      margin-top: 25px;
+      flex-wrap: wrap;
+    }
+    .verdict { 
+      padding: 8px 16px; 
+      border-radius: 20px; 
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .verdict-go { background: #22c55e; color: #fff; }
+    .verdict-maybe { background: #f59e0b; color: #000; }
+    .verdict-wait { background: #ef4444; color: #fff; }
+    
+    .final-summary { 
+      background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%); 
+      border-radius: 16px; 
+      padding: 25px;
+      margin-top: 40px;
+    }
+    .final-summary h2 { color: #fff; font-size: 1.3rem; margin-bottom: 15px; }
+    .final-summary p { color: rgba(255,255,255,0.9); margin-bottom: 10px; }
+    .final-summary ul { margin-left: 20px; color: rgba(255,255,255,0.9); }
+    .final-summary li { margin-bottom: 8px; }
+    .final-summary strong { color: #fff; }
+    
+    .action-note { 
+      background: rgba(255,215,0,0.1); 
+      border: 1px solid #ffd700; 
+      border-radius: 12px; 
+      padding: 20px;
+      margin-top: 25px;
+    }
+    .action-note h3 { color: #ffd700; margin-bottom: 10px; }
+    .action-note p { color: #ccc; }
+    
+    footer { text-align: center; color: #666; font-size: 0.85rem; margin-top: 50px; padding: 20px; border-top: 1px solid #333; }
+    footer a { color: #3a7bd5; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="https://hanjilee.github.io/nyc-nurse-jobs/dashboard.html" class="back-link">← 대시보드로 돌아가기</a>
+    
+    <header>
+      <h1>💬 AI 어드바이저 3인 토론</h1>
+      <div class="date">📅 2026년 2월 7일 (토) 18:00</div>
+      <div class="summary">오늘 발견된 채용공고 4건에 대한 심층 분석 — 주정부 공고 2개 + NYP 노인정신과!</div>
+    </header>
+    
+    <!-- 어드바이저 소개 -->
+    <div class="advisor-intro">
+      <div class="advisor-card maggangi">
+        <div class="avatar">😎</div>
+        <div class="name">마깡이</div>
+        <div class="role">Mount Sinai 정신과 RN 5년차<br>한국 → 미국 이민 경험</div>
+      </div>
+      <div class="advisor-card jennifer">
+        <div class="avatar">👩‍⚕️</div>
+        <div class="name">Jennifer Kim</div>
+        <div class="role">NYC H+H Nurse Manager 20년<br>채용/면접 담당</div>
+      </div>
+      <div class="advisor-card david">
+        <div class="avatar">🧑‍💼</div>
+        <div class="name">David Park</div>
+        <div class="role">MedStaff NYC 리크루터<br>외국 간호사 전문</div>
+      </div>
+    </div>
+    
+    <!-- 공고 1: NYSPI - 오늘의 최고 추천! -->
+    <div class="job-section highlight">
+      <div class="job-header">
+        <div>
+          <div class="job-title">🏆 RN 1 Psychiatric (NY HELPS) - NY State Psychiatric Institute</div>
+          <div class="job-company">NYS Office of Mental Health</div>
+          <div class="job-meta">Job ID: P26220 | 주정부 정규직</div>
+        </div>
+        <div class="job-badges">
+          <span class="badge badge-rec">⭐ 오늘의 최고 추천!</span>
+          <span class="badge badge-state">🏛️ 주정부</span>
+          <span class="badge badge-columbia">🎓 Columbia 제휴</span>
+          <span class="badge badge-research">🔬 연구 중심</span>
+        </div>
+      </div>
+      
+      <div class="job-details">
+        <div class="detail-item">
+          <div class="detail-label">위치</div>
+          <div class="detail-value">New York, NY (Washington Heights)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">연봉</div>
+          <div class="detail-value highlight">$115K-$124K/yr</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">고용형태</div>
+          <div class="detail-value">주정부 정규직</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">베네핏</div>
+          <div class="detail-value highlight">NYS 연금 + Tuition Assistance</div>
+        </div>
+      </div>
+      
+      <div class="discussion">
+        <div class="discussion-title">💬 토론 시작</div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
+          <div class="chat-content">
+            <div class="chat-name">마깡이</div>
+            <div class="chat-text">
+              야야야 이거 대박! <strong>NYSPI</strong>가 뭔지 알아? <strong>Columbia 정신과와 직접 제휴된 연구 정신과 병원</strong>이야! 미국 정신과 간호사들 사이에서 <em>드림 직장</em> 중 하나야. 연구 참여 기회도 있고, PMHNP 꿈꾸는 사람한테 <strong>완벽한 스텝</strong>이지!
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              마깡이 말이 맞아요. <strong>NYSPI는 정신과 간호의 최상위 환경</strong>이에요. 환자 비율도 낮고, 연구 프로토콜이 많아서 <strong>근거 기반 간호</strong>를 제대로 배울 수 있어요. 게다가 <strong>주정부 베네핏</strong> — 연금(Tier 6), 튜이션 어시스턴스, PTO 20일+, 건강보험... 민간 병원이 못 따라와요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
+          <div class="chat-content">
+            <div class="chat-name">David Park</div>
+            <div class="chat-text">
+              <strong>NY HELPS</strong> 프로그램이라 시험 없이 지원 가능해요. 태권님 14년 경력이면 <strong>최소 자격(라이센스 + 1년 경력)</strong>은 훨씬 넘어요. 연봉 $115K-$124K는 초봉인데, 경력 인정되면 <strong>$120K 이상</strong> 시작 가능해요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
+          <div class="chat-content">
+            <div class="chat-name">마깡이</div>
+            <div class="chat-text">
+              위치도 <strong>Washington Heights</strong>면 맨하탄이야. 1번 라인이나 A 트레인 타면 Queens에서 출퇴근 가능해. 그리고 NYSPI 경력 1-2년 쌓으면 <strong>PMHNP 프로그램</strong> 지원할 때 추천서가 달라. Columbia 교수진이 추천서 써주면 <em>어디든 문 열려</em>!
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              태권님 보건진료직 경험 — <strong>독립적 환자 관리, 정신건강 스크리닝, 치매 CIST 시행</strong> — 이게 NYSPI에서 엄청 어필돼요. 그들이 원하는 건 <strong>autonomous clinical judgment</strong>가 있는 간호사예요. 딱 맞아요!
+            </div>
+          </div>
+        </div>
+        
+        <div class="verdict-box">
+          <div class="verdict verdict-go">😎 마깡이: 무조건 지원!</div>
+          <div class="verdict verdict-go">👩‍⚕️ Jennifer: 최우선 지원!</div>
+          <div class="verdict verdict-go">🧑‍💼 David: 적극 추천!</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 공고 2: Kingsboro RN 1 -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">RN 1 Psychiatric (NY HELPS) - Kingsboro Psychiatric Center</div>
+          <div class="job-company">NYS Office of Mental Health</div>
+          <div class="job-meta">Job ID: P26261 | 주정부 정규직</div>
+        </div>
+        <div class="job-badges">
+          <span class="badge badge-state">🏛️ 주정부</span>
+          <span class="badge badge-pay">$115K-$124K</span>
+        </div>
+      </div>
+      
+      <div class="job-details">
+        <div class="detail-item">
+          <div class="detail-label">위치</div>
+          <div class="detail-value">Brooklyn, NY (Flatbush)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">연봉</div>
+          <div class="detail-value highlight">$115K-$124K/yr</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">고용형태</div>
+          <div class="detail-value">주정부 정규직</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">참고</div>
+          <div class="detail-value">RN 1 (엔트리) vs RN 2 (시니어)</div>
+        </div>
+      </div>
+      
+      <div class="discussion">
+        <div class="discussion-title">💬 토론</div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
+          <div class="chat-content">
+            <div class="chat-name">David Park</div>
+            <div class="chat-text">
+              Kingsboro도 <strong>주정부 정신과 병원</strong>이에요. NYSPI만큼 유명하진 않지만 <strong>같은 베네핏 패키지</strong>예요. Brooklyn Flatbush 위치라 <strong>Queens에서 가까워요</strong>. 출퇴근 30-40분 정도?
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
+          <div class="chat-content">
+            <div class="chat-name">마깡이</div>
+            <div class="chat-text">
+              Kingsboro는 <strong>만성 정신질환 환자 중심</strong>이야. NYSPI가 연구 + 급성기면, Kingsboro는 <strong>장기 치료 + 재활</strong> 쪽이지. 다른 경험이야. 태권님이 커뮤니티 헬스 경험이 많으니까 여기도 잘 맞을 수 있어.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              참고로 <strong>RN 1</strong>이 엔트리 레벨이에요. 예전에 나왔던 <strong>P26120은 RN 2</strong>(시니어)였는데 지금 안 보여요. RN 1으로 시작해서 <strong>1-2년 후 RN 2로 승진</strong>하면 $123K-$133K 되는 구조예요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
+          <div class="chat-content">
+            <div class="chat-name">David Park</div>
+            <div class="chat-text">
+              NYSPI 못 붙으면 Kingsboro가 <strong>좋은 대안</strong>이에요. 같은 주정부, 같은 베네핏, 출퇴근 더 편해요. <strong>두 곳 다 지원</strong>하시는 게 전략적으로 맞아요!
+            </div>
+          </div>
+        </div>
+        
+        <div class="verdict-box">
+          <div class="verdict verdict-go">😎 마깡이: 추천 (NYSPI 백업)</div>
+          <div class="verdict verdict-go">👩‍⚕️ Jennifer: 추천</div>
+          <div class="verdict verdict-go">🧑‍💼 David: 적극 추천!</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 공고 3: NYP 노인정신과 -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">RN - Inpatient Psychiatry-Old Adult Unit</div>
+          <div class="job-company">NewYork-Presbyterian (Gracie Square / Weill Cornell)</div>
+          <div class="job-meta">Full Time Nights</div>
+        </div>
+        <div class="job-badges">
+          <span class="badge badge-hospital">🏥 명문 병원</span>
+          <span class="badge badge-nights">🌙 Night Shift</span>
+        </div>
+      </div>
+      
+      <div class="job-details">
+        <div class="detail-item">
+          <div class="detail-label">위치</div>
+          <div class="detail-value">Manhattan, NY</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">근무형태</div>
+          <div class="detail-value">Full Time Nights</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">전문분야</div>
+          <div class="detail-value">노인 정신과 (Old Adult)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">병원</div>
+          <div class="detail-value highlight">NYP = Magnet 인증</div>
+        </div>
+      </div>
+      
+      <div class="discussion">
+        <div class="discussion-title">💬 토론</div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              NYP는 <strong>미국 최고 수준 병원</strong> 중 하나예요. <strong>Old Adult Unit</strong>이면 노인 우울증, 치매 관련 행동장애, 노인 정신분열 환자들이에요. 태권님이 <strong>노인 우울증 검사, 치매 CIST 시행 경험</strong>이 있으니까 여기서 엄청 어필돼요!
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
+          <div class="chat-content">
+            <div class="chat-name">마깡이</div>
+            <div class="chat-text">
+              근데 <strong>Night Shift</strong>야... 태권님 Day 선호하시잖아. 나는 Night로 시작해서 2년 후에 Day로 옮겼는데, NYP 같은 데는 <strong>Day 자리 경쟁이 치열해</strong>. 처음엔 Night 밖에 없을 수도 있어.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
+          <div class="chat-content">
+            <div class="chat-name">David Park</div>
+            <div class="chat-text">
+              전략적으로 보면요, <strong>NYP Night에서 1년 → 내부 이동으로 Day</strong> 가는 게 외부에서 Day 바로 잡는 것보다 쉬워요. NYP 이름값 + Magnet 인증이 나중에 PMHNP 할 때도 도움 돼요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              그리고 <strong>Affective Mood Disorder Unit</strong> 공고도 같이 있었죠? 그거랑 이 Old Adult Unit 둘 다 지원해보세요. NYP는 <strong>정신과 여러 유닛</strong>이 있어서 하나 안 되면 다른 데서 연락 올 수도 있어요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="verdict-box">
+          <div class="verdict verdict-maybe">😎 마깡이: 조건부 (Night 감안)</div>
+          <div class="verdict verdict-go">👩‍⚕️ Jennifer: 추천 (노인 경험!)</div>
+          <div class="verdict verdict-go">🧑‍💼 David: 추천</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 공고 4: Northwell Admissions Per Diem -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Registered Nurse – Psych Admissions</div>
+          <div class="job-company">Northwell Health (South Oaks Hospital)</div>
+          <div class="job-meta">Job ID: 179397 | Per Diem</div>
+        </div>
+        <div class="job-badges">
+          <span class="badge badge-pd">⚠️ Per Diem</span>
+          <span class="badge badge-pay">$67/hr</span>
+        </div>
+      </div>
+      
+      <div class="job-details">
+        <div class="detail-item">
+          <div class="detail-label">위치</div>
+          <div class="detail-value">Amityville, NY (Long Island)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">급여</div>
+          <div class="detail-value highlight">$67/hr</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">근무형태</div>
+          <div class="detail-value warning">Per Diem (비정규)</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">요구사항</div>
+          <div class="detail-value warning">ER/Admissions 경험 선호</div>
+        </div>
+      </div>
+      
+      <div class="discussion">
+        <div class="discussion-title">💬 토론</div>
+        
+        <div class="chat-bubble maggangi">
+          <div class="chat-avatar">😎</div>
+          <div class="chat-content">
+            <div class="chat-name">마깡이</div>
+            <div class="chat-text">
+              솔직히 이건 <strong>태권님 타겟 아니야</strong>. Per Diem이면 베네핏 없고, 스케줄 불규칙하고, 언제 잘릴지 몰라. 시급 $67 높아 보이지만 <strong>불안정성 프리미엄</strong>이 포함된 거야.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble david">
+          <div class="chat-avatar">🧑‍💼</div>
+          <div class="chat-content">
+            <div class="chat-name">David Park</div>
+            <div class="chat-text">
+              <strong>Admissions</strong> 포지션은 정신과 응급실처럼 환자 첫 평가하는 자리예요. 경험 없으면 스트레스 많아요. 게다가 <strong>ER/Admissions experience preferred</strong>라고 JD에 있어요. 태권님 첫 미국 직장으로는 안 맞아요.
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-bubble jennifer">
+          <div class="chat-avatar">👩‍⚕️</div>
+          <div class="chat-content">
+            <div class="chat-name">Jennifer Kim</div>
+            <div class="chat-text">
+              동의해요. Amityville도 <strong>Queens에서 1시간 반</strong>이에요. 처음 이민 와서 Per Diem으로 Long Island까지 출퇴근하면서 미국 시스템 배우기는 너무 힘들어요. <strong>패스하세요</strong>.
+            </div>
+          </div>
+        </div>
+        
+        <div class="verdict-box">
+          <div class="verdict verdict-wait">😎 마깡이: 패스</div>
+          <div class="verdict verdict-wait">👩‍⚕️ Jennifer: 패스</div>
+          <div class="verdict verdict-wait">🧑‍💼 David: 패스</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 최종 요약 -->
+    <div class="final-summary">
+      <h2>📋 오늘의 결론</h2>
+      <p><strong>오늘 발견된 4개 공고 중 3개가 유망합니다!</strong></p>
+      <ul>
+        <li><strong>🥇 NYSPI (P26220)</strong> — 최우선 지원! Columbia 제휴 연구 정신과, PMHNP 목표에 완벽한 발판</li>
+        <li><strong>🥈 Kingsboro (P26261)</strong> — NYSPI 백업으로 같이 지원. 같은 주정부 베네핏, Queens에서 더 가까움</li>
+        <li><strong>🥉 NYP Old Adult (Night)</strong> — Night지만 노인 우울증/치매 경험이 어필. 명문 병원 경력 쌓기</li>
+        <li><strong>❌ Northwell Admissions</strong> — Per Diem + 원거리 + ER 경험 필요. 패스!</li>
+      </ul>
+    </div>
+    
+    <div class="action-note">
+      <h3>📝 다음 단계</h3>
+      <p>NYSPI와 Kingsboro는 둘 다 <strong>StateJobsNY</strong>에서 지원해야 해요. NY HELPS라 시험 없이 서류 심사예요. 
+      태권님 경력 설명서에서 <strong>"independent primary care practice equivalent to APN scope"</strong> 부분을 강조하세요!</p>
+    </div>
+    
+    <footer>
+      <p>Generated by 자비스 🤖 | <a href="https://hanjilee.github.io/nyc-nurse-jobs/dashboard.html">Dashboard</a></p>
+    </footer>
+  </div>
+</body>
+</html>
