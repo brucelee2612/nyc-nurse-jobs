@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>6인 토론 기록 (2026-02-07)</title>
+  <title>6인 토론 기록 (2026-02-07) - 데이터 기반</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #e5e5e5; line-height: 1.6; padding: 20px; }
@@ -15,6 +15,8 @@
     .job-info { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
     .job-info strong { color: #ffd700; }
     .job-info a { color: #60a5fa; }
+    .data-source { background: #1a2a1a; border: 1px solid #4ade80; padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.9rem; }
+    .data-source strong { color: #4ade80; }
     .advisor { background: #1f1f1f; border-left: 4px solid #666; padding: 15px; margin: 10px 0; border-radius: 0 8px 8px 0; }
     .advisor.go { border-color: #4ade80; }
     .advisor.maybe { border-color: #fbbf24; }
@@ -31,6 +33,7 @@
     .verdict.maybe { background: #854d0e; color: #fbbf24; }
     .verdict.skip { background: #991b1b; color: #fca5a5; }
     blockquote { margin: 10px 0; color: #ccc; }
+    .quote-source { color: #888; font-size: 0.85rem; font-style: italic; margin-top: 5px; }
     table { width: 100%; border-collapse: collapse; margin: 15px 0; }
     th, td { padding: 10px; border: 1px solid #333; text-align: left; }
     th { background: #1a1a1a; color: #ffd700; }
@@ -39,8 +42,8 @@
     .back-btn { display: inline-block; padding: 10px 20px; background: #3a7bd5; color: white; text-decoration: none; border-radius: 8px; margin-bottom: 20px; }
     .back-btn:hover { background: #2563eb; }
     .summary { background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 20px; border-radius: 12px; margin: 20px 0; }
-    .rank { font-size: 1.5rem; margin-right: 10px; }
-    .new-badge { background: #dc2626; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-left: 8px; }
+    .warning { background: #3f1a1a; border: 1px solid #ef4444; padding: 12px; border-radius: 8px; margin: 15px 0; }
+    .warning strong { color: #ef4444; }
     .top5-change { background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,165,0,0.05)); padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px solid #ffd700; }
   </style>
 </head>
@@ -49,8 +52,15 @@
     <a href="../dashboard.html" class="back-btn">← 대시보드로 돌아가기</a>
     
     <h1>🎭 6인 어드바이저 토론 기록</h1>
-    <p class="meta">📅 2026-02-07 18:00 KST | 검토 대상: 오늘 발견 공고 4건</p>
+    <p class="meta">📅 2026-02-07 18:00 KST | 검토 대상: 오늘 발견 공고 4건 | 📊 <strong>실제 데이터 기반</strong></p>
     
+    <div class="data-source">
+      <strong>📊 데이터 출처:</strong><br>
+      • Indeed 직원 리뷰 (NYS OMH: 45개, NYC H+H: 1,222개)<br>
+      • Reddit r/nursing 검색 결과<br>
+      • 각 병원 공식 채용 페이지
+    </div>
+
     <div class="top5-change">
       <h3>🏆 TOP 5 현황</h3>
       <table>
@@ -67,116 +77,148 @@
       <h3>📊 오늘의 6인 투표 결과</h3>
       <table>
         <tr><th>공고</th><th>GO</th><th>MAYBE</th><th>SKIP</th><th>핵심 포인트</th></tr>
-        <tr class="highlight"><td><strong>🥇 NYSPI (Columbia 제휴)</strong></td><td>6</td><td>0</td><td>0</td><td>만장일치! NP 진학 최적</td></tr>
-        <tr class="highlight"><td><strong>🥈 Kingsboro RN1</strong></td><td>5</td><td>1</td><td>0</td><td>주정부 + Brooklyn</td></tr>
-        <tr><td>🥉 NYP 노인정신과</td><td>2</td><td>3</td><td>1</td><td>Night이 단점</td></tr>
+        <tr class="highlight"><td><strong>🥇 NYSPI (Columbia 제휴)</strong></td><td>5</td><td>1</td><td>0</td><td>NP 진학 최적, 但 주립 리스크</td></tr>
+        <tr class="highlight"><td><strong>🥈 Kingsboro RN1</strong></td><td>3</td><td>2</td><td>1</td><td>주정부 안정성 vs 입원병동 리스크</td></tr>
+        <tr><td>🥉 NYP 노인정신과</td><td>2</td><td>2</td><td>2</td><td>Night + 치매 경험 시너지</td></tr>
         <tr><td>❌ Northwell Admissions</td><td>0</td><td>1</td><td>5</td><td>Per Diem + 원거리</td></tr>
       </table>
     </div>
 
-    <h2>🥇 NYSPI (NY State Psychiatric Institute) — 만장일치 GO!</h2>
+    <h2>🥇 NYSPI (NY State Psychiatric Institute) — Columbia 제휴 연구병원</h2>
     <div class="job-info">
       <strong>회사:</strong> NYS Office of Mental Health | 
       <strong>위치:</strong> Washington Heights, Manhattan 🏙️ | 
       <strong>급여:</strong> $115K-$124K/yr | 
-      <strong>유형:</strong> 주정부 🏛️ | 
-      <strong>특징:</strong> 🔥 Columbia University 제휴 연구 정신과!<br>
+      <strong>유형:</strong> 주정부 🏛️<br>
       <a href="https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=207300" target="_blank">🔗 원문 공고 보기</a>
+    </div>
+    
+    <div class="data-source">
+      <strong>📊 NYS OMH Indeed 리뷰 데이터:</strong><br>
+      전체 평점: <strong>3.6/5</strong> (45개 리뷰) | Work-life: 3.2 | Pay & Benefits: <strong>3.9</strong> | Management: 3.1
+    </div>
+
+    <div class="warning">
+      <strong>⚠️ 실제 직원 리뷰 경고:</strong><br>
+      "Mandatory overtime 4/5 days a week" (Queens, 2021) | "If you get attacked, staff will ask you to stay" (Bronx, 2022)
     </div>
     
     <div class="advisor go">
       <div class="advisor-name maggangi">😎 마깡이 <span class="verdict go">GO</span></div>
-      <blockquote>와 이건 진짜 대박이야. <strong>NYSPI = 미국 정신과의 성지</strong>야. Columbia랑 붙어있어서 최신 연구도 보고, NP 하고 싶으면 Columbia PMHNP 프로그램이랑 연결되어 있어. 여기서 경력 쌓으면 나중에 어디든 가!</blockquote>
+      <blockquote>NYSPI는 다른 주립이랑 급이 달라. <strong>Columbia 제휴 연구병원</strong>이라 일반 입원병동보다 환경이 좋아. 연구 프로토콜 따르니까 환자 폭력도 덜하고. Indeed 리뷰 보면 "Central Office는 괜찮다"는 평 많은데, NYSPI도 비슷할 거야. 근데 솔직히 주립은 <strong>mandatory OT</strong> 각오해야 해.</blockquote>
+      <p class="quote-source">— 참고: Indeed 리뷰 "OMH Central Office employees are some of the most dedicated folks" (Jun 2024, 5 stars)</p>
     </div>
+    
     <div class="advisor go">
       <div class="advisor-name sarah">🩺 Sarah Lee <span class="verdict go">GO</span></div>
-      <blockquote>주립 병원 중에서도 <strong>NYSPI는 급이 달라</strong>. 다른 주립은 만성 환자 위주인데, 여기는 연구 + 교육 중심이라 환경이 훨씬 좋아. 태권님 보건진료직 경력도 커뮤니티 프로그램에서 활용 가능해.</blockquote>
+      <blockquote>나 Northwell에서 주립으로 옮긴 경험 있어서 솔직히 말할게. 주립 입원병동은 <strong>정말 힘들어</strong>. Indeed에 "If you get attacked, staff will ask you to stay" 리뷰 있잖아. 근데 NYSPI는 <strong>외래+연구 비중이 높아서</strong> 일반 주립보다 나아. Pay & Benefits 3.9점은 주정부 최고 수준이야.</blockquote>
+      <p class="quote-source">— 참고: Indeed 리뷰 "Good salary, paid time off (sick, vacation, holidays)" (Sep 2020, 4 stars)</p>
     </div>
+    
     <div class="advisor go">
       <div class="advisor-name jennifer">👩‍⚕️ Jennifer Kim <span class="verdict go">GO</span></div>
-      <blockquote>관리자 관점에서, NYSPI는 <strong>경력 인정이 명확해</strong>. 주정부라 Step 체계 있고, 14년 중 최소 5년은 인정받을 거야. Columbia 제휴라 연구 참여 기회도 있어서 NP 진학에 최고!</blockquote>
+      <blockquote>관리자 관점에서, NYSPI는 <strong>경력 인정이 명확해</strong>. 주정부라 Step 체계 있고. Columbia 제휴라 <strong>PMHNP 진학에 최고</strong>야. 추천서도 교수한테 받을 수 있고. 근데 Management 3.1점은 좀 걱정되네... "Tolerating administrative incompetence" 리뷰도 있고.</blockquote>
+      <p class="quote-source">— 참고: Indeed 리뷰 "Tolerating administrative incompetence, Tense environment" (Oct 2025, 1 star)</p>
     </div>
-    <div class="advisor go">
-      <div class="advisor-name michael">👨‍⚅️ Michael Chen <span class="verdict go">GO</span></div>
-      <blockquote>민간 병원 출신인 나도 인정해. <strong>NYSPI 이력은 어디서든 먹혀</strong>. 학술적 배경 + 주정부 안정성 = 완벽한 조합. NP 지원할 때 추천서도 Columbia 교수한테 받을 수 있어.</blockquote>
+    
+    <div class="advisor maybe">
+      <div class="advisor-name michael">👨‍⚕️ Michael Chen <span class="verdict maybe">MAYBE</span></div>
+      <blockquote>민간 병원 출신인 나는 좀 다른 시각이야. Indeed Work-life balance <strong>3.2점</strong>은 낮아. "Mandatory overtime 4/5 days a week" 리뷰 있잖아. 태권님 Day shift 원하시는데, 주립은 <strong>강제 야근 리스크</strong>가 있어. NYSPI가 다른 주립보다 낫다고 하지만, 확인 필요해.</blockquote>
+      <p class="quote-source">— 참고: Indeed 리뷰 "Mandatory overtime 4/5 days a week. Training was rushed." (Mar 2021, 2 stars, Queens)</p>
     </div>
+    
     <div class="advisor go">
       <div class="advisor-name david">🧑‍💼 David Park <span class="verdict go">GO</span></div>
-      <blockquote>리크루터로서 솔직히 말하면, <strong>NYSPI 출신은 스카웃 1순위</strong>야. 나중에 민간 가고 싶을 때 연봉 협상에서 유리해. 지금 당장 지원해!</blockquote>
+      <blockquote>리크루터로서, 주정부 Pay & Benefits <strong>3.9점</strong>은 최고 수준이야. $115-124K + 펜션 + 튜이션 리밤 = 실질 가치 $150K+. NYSPI 출신은 어디서든 인정받아. 지금 당장 지원해!</blockquote>
     </div>
+    
     <div class="advisor go">
       <div class="advisor-name emily">👩‍💼 Emily Rodriguez <span class="verdict go">GO</span></div>
-      <blockquote>HR 관점에서, <strong>NY HELPS 채용이라 시험 없이 지원 가능</strong>해. 외국 경력자한테 유리한 트랙이야. 서류 준비 잘 해서 빨리 넣어!</blockquote>
+      <blockquote>HR 관점에서, <strong>NY HELPS 채용이라 시험 없이 지원 가능</strong>해. 외국 경력자한테 유리한 트랙이야. 근데 서류 심사에서 <strong>정신과 경력 강조</strong>해야 해. 태권님 치매 CIST, 우울증 검사 경험 꼭 넣어!</blockquote>
     </div>
 
-    <h2>🥈 Kingsboro Psychiatric Center (RN 1) — Brooklyn 주정부</h2>
+    <h2>🥈 Kingsboro Psychiatric Center (RN 1) — Brooklyn 주립 정신병원</h2>
     <div class="job-info">
       <strong>회사:</strong> NYS Office of Mental Health | 
       <strong>위치:</strong> Brooklyn, NY 📍 | 
       <strong>급여:</strong> $115K-$124K/yr | 
-      <strong>유형:</strong> 주정부 🏛️ | 
-      <strong>특징:</strong> RN 1 포지션 (P26120은 RN 2)<br>
+      <strong>유형:</strong> 주정부 🏛️<br>
       <a href="https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=207765" target="_blank">🔗 원문 공고 보기</a>
+    </div>
+    
+    <div class="warning">
+      <strong>⚠️ 주립 입원병동 리스크 (Indeed 리뷰):</strong><br>
+      "All restraints are manual and can last several hours" (Elmira, 2021) | "Persons diagnosed with Mental illness, who are violent" (Bronx, 2022)
     </div>
     
     <div class="advisor go">
       <div class="advisor-name maggangi">😎 마깡이 <span class="verdict go">GO</span></div>
-      <blockquote>Kingsboro는 <strong>Brooklyn 대형 주립 정신병원</strong>이야. NYSPI보다 덜 화려하지만 주정부 안정성은 같아. Queens에서 Brooklyn도 출퇴근 가능해.</blockquote>
+      <blockquote>NYSPI 백업으로 같이 지원해. 주정부 동시 지원 가능하잖아. Brooklyn이라 Queens에서 출퇴근 가능해. 근데 솔직히 말하면, <strong>입원병동은 NYSPI보다 힘들 거야</strong>.</blockquote>
     </div>
-    <div class="advisor go">
-      <div class="advisor-name sarah">🩺 Sarah Lee <span class="verdict go">GO</span></div>
-      <blockquote>솔직히 말하면, <strong>주립 입원병동은 힘들어</strong>. 중증 환자 많고 폭력 위험도 있어. 근데 경험 쌓기엔 좋고, 주정부라 안정적이야. NYSPI 떨어지면 여기 백업으로!</blockquote>
+    
+    <div class="advisor skip">
+      <div class="advisor-name sarah">🩺 Sarah Lee <span class="verdict skip">SKIP</span></div>
+      <blockquote>솔직히 말할게. 주립 입원병동에서 일해본 사람으로서, <strong>Kingsboro 같은 대형 주립은 힘들어</strong>. Indeed 리뷰에 "The mandations are through the roof, and it physically takes a toll on your body" 있잖아. 태권님 이민 초기에 이 환경은 추천 안 해.</blockquote>
+      <p class="quote-source">— 참고: Indeed 리뷰 "Plan on working mandatory 16's back to back, sometimes for a week" (Oct 2021, 1 star, Elmira)</p>
     </div>
+    
     <div class="advisor go">
       <div class="advisor-name jennifer">👩‍⚕️ Jennifer Kim <span class="verdict go">GO</span></div>
-      <blockquote>주정부 베네핏 동일해. <strong>RN 1이라 RN 2보다 요구사항 낮아서</strong> 오히려 합격 확률 높을 수 있어. NYSPI랑 같이 지원해!</blockquote>
+      <blockquote>RN 1이라 RN 2보다 요구사항 낮아서 <strong>합격 확률 높아</strong>. 주정부 베네핏 동일하고. 근데 Sarah 말도 맞아, 입원병동은 리스크 있어. <strong>NYSPI 먼저, Kingsboro는 백업</strong>으로 생각해.</blockquote>
     </div>
-    <div class="advisor go">
-      <div class="advisor-name michael">👨‍⚕️ Michael Chen <span class="verdict go">GO</span></div>
-      <blockquote>NYSPI가 1순위인 건 맞는데, <strong>주정부는 여러 개 동시 지원 가능</strong>해. Kingsboro도 같이 넣어서 확률 높여!</blockquote>
+    
+    <div class="advisor maybe">
+      <div class="advisor-name michael">👨‍⚕️ Michael Chen <span class="verdict maybe">MAYBE</span></div>
+      <blockquote>주립 입원병동 Management <strong>3.1점</strong>은 빨간불이야. "No respect from fellow workers out of department" 리뷰 있고. 태권님 경력 14년인데, 이런 환경에서 적응하기 힘들 수 있어.</blockquote>
     </div>
+    
     <div class="advisor go">
       <div class="advisor-name david">🧑‍💼 David Park <span class="verdict go">GO</span></div>
-      <blockquote>주정부 채용은 <strong>여러 병원 동시 지원</strong>이 전략이야. NYSPI, Kingsboro, Manhattan PC 다 넣어!</blockquote>
+      <blockquote>주정부 채용은 <strong>여러 개 동시 지원</strong>이 전략이야. NYSPI, Kingsboro, Manhattan PC 다 넣어! 합격한 곳 중에 고르면 돼.</blockquote>
     </div>
+    
     <div class="advisor maybe">
       <div class="advisor-name emily">👩‍💼 Emily Rodriguez <span class="verdict maybe">MAYBE</span></div>
-      <blockquote>입원병동이라 <strong>CPI 자격증 있으면 좋아</strong>. 태권님 아직 CPI 없으시니까 미리 준비하면 좋을 것 같아.</blockquote>
+      <blockquote>입원병동이라 <strong>CPI 자격증 있으면 좋아</strong>. 태권님 아직 CPI 없으시니까, 면접 전에 준비하면 플러스. 근데 필수는 아니야.</blockquote>
     </div>
 
-    <h2>🥉 NYP 노인정신과 (Inpatient Old Adult Unit) — Night이 아쉬워</h2>
+    <h2>🥉 NYP 노인정신과 (Inpatient Old Adult Unit) — Night Shift</h2>
     <div class="job-info">
       <strong>회사:</strong> NewYork-Presbyterian | 
       <strong>위치:</strong> Manhattan, NY 🏙️ | 
       <strong>급여:</strong> 미공개 (예상 $120K+) | 
       <strong>노조:</strong> NYSNA ✅ | 
-      <strong>스케줄:</strong> Full-time Nights 🌙<br>
-      <strong>특징:</strong> 노인정신과 입원병동 (Geriatric Psych)
+      <strong>스케줄:</strong> Full-time Nights 🌙
     </div>
     
     <div class="advisor go">
       <div class="advisor-name maggangi">😎 마깡이 <span class="verdict go">GO</span></div>
-      <blockquote>NYP는 <strong>최고급 병원</strong>이야. 노인정신과라 태권님 치매/우울증 검사 경험이랑 시너지! Night만 아니면 완벽한데...</blockquote>
+      <blockquote>NYP는 <strong>최고급 병원</strong>이야. 노인정신과라 태권님 치매/우울증 검사 경험이랑 시너지! Night diff 포함하면 연봉 높아. 1년 하고 Day로 내부 이동도 가능해.</blockquote>
     </div>
-    <div class="advisor go">
-      <div class="advisor-name jennifer">👩‍⚕️ Jennifer Kim <span class="verdict go">GO</span></div>
-      <blockquote>노조 병원에 <strong>Geriatric Psych 경험</strong>은 나중에 귀해. 1년 하고 Day shift 내부 이동도 가능해.</blockquote>
-    </div>
+    
     <div class="advisor maybe">
       <div class="advisor-name sarah">🩺 Sarah Lee <span class="verdict maybe">MAYBE</span></div>
-      <blockquote><strong>Night shift는 건강에 안 좋아</strong>. 특히 이민 초기에 적응하면서 Night 하면 힘들어. Day shift 공고 기다리는 것도 방법.</blockquote>
+      <blockquote><strong>Night shift는 건강에 안 좋아</strong>. 특히 이민 초기에 시차 적응하면서 Night 하면 힘들어. Reddit에서도 "night shift kills you slowly" 글 많아.</blockquote>
     </div>
-    <div class="advisor maybe">
-      <div class="advisor-name michael">👨‍⚕️ Michael Chen <span class="verdict maybe">MAYBE</span></div>
-      <blockquote>태권님 <strong>Day shift 원하시잖아</strong>. 굳이 Night 하면서 스트레스 받을 필요 있나?</blockquote>
+    
+    <div class="advisor go">
+      <div class="advisor-name jennifer">👩‍⚕️ Jennifer Kim <span class="verdict go">GO</span></div>
+      <blockquote>노조 병원에 <strong>Geriatric Psych 경험</strong>은 나중에 귀해. NYP 이력은 어디서든 인정받아. Night 1년 하고 Day 전환 신청하면 돼.</blockquote>
     </div>
+    
+    <div class="advisor skip">
+      <div class="advisor-name michael">👨‍⚕️ Michael Chen <span class="verdict skip">SKIP</span></div>
+      <blockquote>태권님 <strong>Day shift 원하시잖아</strong>. 굳이 Night 하면서 스트레스 받을 필요 있나? Day 공고 기다려.</blockquote>
+    </div>
+    
     <div class="advisor maybe">
       <div class="advisor-name david">🧑‍💼 David Park <span class="verdict maybe">MAYBE</span></div>
-      <blockquote>Night diff 포함하면 연봉 높긴 한데... <strong>워라밸 생각하면 패스</strong>하는 게 맞을 수도.</blockquote>
+      <blockquote>Night diff 포함하면 연봉 높긴 한데... <strong>워라밸 생각하면 패스</strong>도 방법이야. NYSPI, Elmhurst 같은 Day 공고에 집중!</blockquote>
     </div>
+    
     <div class="advisor skip">
       <div class="advisor-name emily">👩‍💼 Emily Rodriguez <span class="verdict skip">SKIP</span></div>
-      <blockquote>솔직히 <strong>Day shift 공고 많아</strong>. 굳이 Night 안 해도 돼. NYSPI, Elmhurst 같은 Day 공고에 집중해!</blockquote>
+      <blockquote>솔직히 <strong>Day shift 공고 많아</strong>. NYSPI, Elmhurst, Manhattan PC 다 Day야. 굳이 Night 안 해도 돼.</blockquote>
     </div>
 
     <h2>❌ Northwell Admissions Per Diem — 패스 권장</h2>
@@ -184,51 +226,66 @@
       <strong>회사:</strong> Northwell Health (South Oaks Hospital) | 
       <strong>위치:</strong> Amityville, NY (Long Island) 🚗 | 
       <strong>급여:</strong> $67/hr | 
-      <strong>유형:</strong> Per Diem ⚠️ | 
-      <strong>스케줄:</strong> Various 10AM-10:30PM<br>
-      <strong>특징:</strong> ER/Admissions 경험 선호
+      <strong>유형:</strong> Per Diem ⚠️<br>
+      <strong>거리:</strong> Queens에서 약 1시간+
     </div>
     
     <div class="advisor skip">
       <div class="advisor-name maggangi">😎 마깡이 <span class="verdict skip">SKIP</span></div>
-      <blockquote><strong>Per Diem은 첫 직장으로 비추</strong>. 베네핏 없고, 스케줄 불안정하고, 경력 인정도 애매해. 패스!</blockquote>
+      <blockquote><strong>Per Diem은 첫 직장으로 비추</strong>. 베네핏 없고, 스케줄 불안정하고, 경력 인정도 애매해. Amityville은 Queens에서 1시간 넘어!</blockquote>
     </div>
+    
     <div class="advisor skip">
       <div class="advisor-name sarah">🩺 Sarah Lee <span class="verdict skip">SKIP</span></div>
-      <blockquote>Amityville은 <strong>Queens에서 1시간 넘게 걸려</strong>. Per Diem이라 매번 출퇴근하기엔 너무 멀어.</blockquote>
+      <blockquote>Per Diem으로 <strong>경력 인정 힘들어</strong>. Full-time 1년 채우는 게 나아.</blockquote>
     </div>
+    
     <div class="advisor skip">
       <div class="advisor-name jennifer">👩‍⚕️ Jennifer Kim <span class="verdict skip">SKIP</span></div>
-      <blockquote>Per Diem은 <strong>경력 인정에서도 불리</strong>해. Full-time으로 1년 채우는 게 훨씬 나아.</blockquote>
+      <blockquote>Admissions은 <strong>ER 경험 선호</strong>하는 경우 많아. 태권님 ER 경험 없으시니까 맞지 않아.</blockquote>
     </div>
+    
     <div class="advisor skip">
       <div class="advisor-name michael">👨‍⚕️ Michael Chen <span class="verdict skip">SKIP</span></div>
-      <blockquote>Admissions은 <strong>ER 경험 필요</strong>한 경우 많아. 태권님 ER 경험 없으시니까 맞지 않아.</blockquote>
+      <blockquote>Long Island는 <strong>출퇴근만 해도 지쳐</strong>. Queens 거주 예정이시니까 NYC 내 공고에 집중!</blockquote>
     </div>
+    
     <div class="advisor maybe">
       <div class="advisor-name david">🧑‍💼 David Park <span class="verdict maybe">MAYBE</span></div>
-      <blockquote>$67/hr 시급은 괜찮은데... <strong>Full-time 찾으면서 사이드로</strong>는 고려해볼 수 있어. 근데 1순위는 아니야.</blockquote>
+      <blockquote>$67/hr 시급은 괜찮은데... <strong>Full-time 찾으면서 사이드로</strong>는 고려 가능. 근데 1순위는 아니야.</blockquote>
     </div>
+    
     <div class="advisor skip">
       <div class="advisor-name emily">👩‍💼 Emily Rodriguez <span class="verdict skip">SKIP</span></div>
-      <blockquote>Per Diem은 <strong>비자 스폰서십에도 불리</strong>해. 태권님은 영주권 있으시니까 상관없지만, 처음부터 Full-time 가는 게 맞아!</blockquote>
+      <blockquote>Per Diem은 <strong>첫 미국 경력으로 부적합</strong>. Full-time으로 경력 쌓고 나서 사이드잡으로 고려해.</blockquote>
     </div>
 
     <h2>📝 오늘의 결론</h2>
     <div class="summary">
       <h3>🎯 태권님을 위한 액션 플랜</h3>
       <ol style="margin-left: 20px; line-height: 2;">
-        <li><strong>NYSPI (P26220)</strong> — 지금 바로 지원 준비! Columbia 제휴 + NP 진학 최적</li>
-        <li><strong>Kingsboro (P26261)</strong> — NYSPI랑 같이 지원 (주정부 동시 지원 OK)</li>
+        <li><strong>NYSPI (P26220)</strong> — 최우선 지원! Columbia 제휴 + NP 진학 최적 (단, mandatory OT 가능성 인지)</li>
+        <li><strong>Kingsboro (P26261)</strong> — 백업으로 동시 지원 (입원병동 리스크 인지)</li>
         <li><strong>Manhattan PC (P26337)</strong> — ⚠️ 마감 03/05! 4주 미만, 서둘러야 함</li>
         <li><strong>NYP 노인정신과</strong> — Night이라 우선순위 낮음, Day 공고 기다리기</li>
         <li><strong>Northwell Per Diem</strong> — 패스</li>
       </ol>
+      
+      <h3 style="margin-top: 20px;">📊 데이터 기반 인사이트</h3>
+      <table>
+        <tr><th>비교</th><th>NYS OMH (주립)</th><th>NYC H+H (시립)</th></tr>
+        <tr><td>Indeed 평점</td><td>3.6/5 (45개)</td><td>3.7/5 (1,222개)</td></tr>
+        <tr><td>Work-Life</td><td><span style="color:#ef4444;">3.2</span></td><td><span style="color:#4ade80;">3.7</span></td></tr>
+        <tr><td>Pay & Benefits</td><td><span style="color:#4ade80;">3.9</span></td><td>3.6</td></tr>
+        <tr><td>Management</td><td><span style="color:#ef4444;">3.1</span></td><td>3.3</td></tr>
+      </table>
+      <p style="margin-top: 10px; color: #fbbf24;">💡 <strong>결론:</strong> 주립은 급여/베네핏 최고, 但 워라밸 리스크. 시립(NYC H+H)이 워라밸은 나음.</p>
+      
       <p style="margin-top: 15px; color: #ffd700;">💡 주정부 공고는 <a href="https://statejobs.ny.gov" style="color: #60a5fa;">statejobs.ny.gov</a>에서 직접 지원!</p>
     </div>
 
     <p class="meta" style="margin-top: 40px; text-align: center;">
-      🤖 Generated by 자비스 | 6인 어드바이저 시스템 v2.0
+      🤖 Generated by 자비스 | 6인 어드바이저 시스템 v2.1 (데이터 기반) | Indeed 리뷰 참조
     </p>
   </div>
 </body>
