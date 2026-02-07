@@ -76,12 +76,59 @@
     <div class="summary">
       <h3>📊 오늘의 6인 투표 결과 + 경력 적합도</h3>
       <table>
-        <tr><th>공고</th><th>경력 적합도</th><th>GO</th><th>MAYBE</th><th>SKIP</th><th>태권님 경력 매칭 포인트</th></tr>
-        <tr class="highlight"><td><strong>🥇 NYSPI</strong></td><td style="color:#4ade80;font-weight:bold;">⭐⭐⭐⭐ 높음</td><td>5</td><td>1</td><td>0</td><td>보건진료직 10년 = 커뮤니티 기반 + 체계적 스크리닝</td></tr>
-        <tr><td>🥈 Kingsboro</td><td style="color:#fbbf24;">⭐⭐⭐ 중간</td><td>3</td><td>2</td><td>1</td><td>주정부 베네핏 좋지만 입원병동 경험 부족</td></tr>
-        <tr class="highlight"><td><strong>🥉 NYP 노인정신과</strong></td><td style="color:#4ade80;font-weight:bold;">⭐⭐⭐⭐⭐ 최고</td><td>2</td><td>2</td><td>2</td><td>치매 CIST + 노인 우울증 검사 = 직접 매칭!</td></tr>
-        <tr><td>❌ Northwell</td><td style="color:#ef4444;">⭐⭐ 낮음</td><td>0</td><td>1</td><td>5</td><td>ER/Admissions 경험 없음</td></tr>
+        <tr><th>공고</th><th>경력 적합도</th><th>GO</th><th>MAYBE</th><th>SKIP</th><th>적합도 산출 근거</th></tr>
+        <tr class="highlight">
+          <td><strong>🥇 NYSPI</strong></td>
+          <td style="color:#4ade80;font-weight:bold;font-size:1.2em;">80%</td>
+          <td>5</td><td>1</td><td>0</td>
+          <td>
+            ✅ 보건진료직 10년 = 커뮤니티 기반 (+25%)<br>
+            ✅ 체계적 스크리닝 경험 (+15%)<br>
+            ✅ 치매/우울증 검사 (+15%)<br>
+            ⚠️ 입원병동 경험 부족 (-10%)<br>
+            ⚠️ 미국 경력 0 (-15%)
+          </td>
+        </tr>
+        <tr>
+          <td>🥈 Kingsboro</td>
+          <td style="color:#fbbf24;font-weight:bold;font-size:1.2em;">55%</td>
+          <td>3</td><td>2</td><td>1</td>
+          <td>
+            ✅ 임상 4년 (+15%)<br>
+            ✅ 정신건강 스크리닝 경험 (+10%)<br>
+            ❌ 입원병동 직접 경험 부족 (-20%)<br>
+            ❌ 중증/폭력 환자 케어 경험 적음 (-15%)<br>
+            ⚠️ 미국 경력 0 (-15%)
+          </td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>🥉 NYP 노인정신과</strong></td>
+          <td style="color:#4ade80;font-weight:bold;font-size:1.2em;">90%</td>
+          <td>2</td><td>2</td><td>2</td>
+          <td>
+            ✅✅ 치매 CIST 시행 = 직접 매칭! (+30%)<br>
+            ✅✅ 노인 우울증 검사 = 직접 매칭! (+25%)<br>
+            ✅ 보건진료직 노인 환자 케어 (+15%)<br>
+            ⚠️ Night shift (태권님 Day 선호) (-10%)<br>
+            ⚠️ 미국 경력 0 (-10%)
+          </td>
+        </tr>
+        <tr>
+          <td>❌ Northwell</td>
+          <td style="color:#ef4444;font-weight:bold;font-size:1.2em;">35%</td>
+          <td>0</td><td>1</td><td>5</td>
+          <td>
+            ❌❌ ER/Admissions 경험 없음 (-30%)<br>
+            ❌ Per Diem = 첫 직장 부적합 (-15%)<br>
+            ❌ Queens→Amityville 1시간+ (-10%)<br>
+            ✅ 정신과 관심 (+10%)
+          </td>
+        </tr>
       </table>
+      <p style="margin-top:10px;font-size:0.85rem;color:#888;">
+        💡 경력 적합도 = 기본 50% + 태권님 경력과 JD 매칭 항목별 가감점<br>
+        ✅ 매칭 = +10~30% | ⚠️ 부분 매칭 = -10~15% | ❌ 미스매치 = -15~30%
+      </p>
       
       <h3 style="margin-top:25px;">🎯 태권님 경력 분석</h3>
       <div style="background:#1a2a1a;border:1px solid #4ade80;padding:15px;border-radius:8px;">
@@ -125,7 +172,7 @@
       </table>
     </div>
 
-    <h2>🥇 NYSPI (NY State Psychiatric Institute) — Columbia 제휴 연구병원 <span style="background:#166534;color:#4ade80;padding:4px 12px;border-radius:20px;font-size:0.8em;margin-left:10px;">경력 적합도 ⭐⭐⭐⭐</span></h2>
+    <h2>🥇 NYSPI (NY State Psychiatric Institute) — Columbia 제휴 연구병원 <span style="background:#166534;color:#4ade80;padding:4px 12px;border-radius:20px;font-size:0.8em;margin-left:10px;">경력 적합도 80%</span></h2>
     <div class="job-info">
       <strong>회사:</strong> NYS Office of Mental Health | 
       <strong>위치:</strong> Washington Heights, Manhattan 🏙️ | 
@@ -190,7 +237,7 @@
       <strong>면접 준비:</strong> "보건진료직에서 독립적으로 환자 진단/처방한 경험" = 미국 NP scope과 유사함 강조
     </div>
 
-    <h2>🥈 Kingsboro Psychiatric Center (RN 1) — Brooklyn 주립 정신병원 <span style="background:#854d0e;color:#fbbf24;padding:4px 12px;border-radius:20px;font-size:0.8em;margin-left:10px;">경력 적합도 ⭐⭐⭐</span></h2>
+    <h2>🥈 Kingsboro Psychiatric Center (RN 1) — Brooklyn 주립 정신병원 <span style="background:#854d0e;color:#fbbf24;padding:4px 12px;border-radius:20px;font-size:0.8em;margin-left:10px;">경력 적합도 55%</span></h2>
     <div class="job-info">
       <strong>회사:</strong> NYS Office of Mental Health | 
       <strong>위치:</strong> Brooklyn, NY 📍 | 
@@ -248,7 +295,7 @@
       <strong>백업 포지션:</strong> NYSPI와 동시 지원 권장
     </div>
 
-    <h2>🥉 NYP 노인정신과 (Inpatient Old Adult Unit) — Night Shift <span style="background:#166534;color:#4ade80;padding:4px 12px;border-radius:20px;font-size:0.8em;margin-left:10px;">경력 적합도 ⭐⭐⭐⭐⭐ 최고!</span></h2>
+    <h2>🥉 NYP 노인정신과 (Inpatient Old Adult Unit) — Night Shift <span style="background:#166534;color:#4ade80;padding:4px 12px;border-radius:20px;font-size:0.8em;margin-left:10px;">경력 적합도 90% 최고!</span></h2>
     <div class="job-info">
       <strong>회사:</strong> NewYork-Presbyterian | 
       <strong>위치:</strong> Manhattan, NY 🏙️ | 
@@ -300,7 +347,7 @@
       <strong>면접 킬러 답변:</strong> "한국에서 노인 정신건강 스크리닝을 직접 시행한 경험이 있어서, Geriatric Psych Unit에서 바로 기여할 수 있습니다"
     </div>
 
-    <h2>❌ Northwell Admissions Per Diem — 패스 권장 <span style="background:#991b1b;color:#fca5a5;padding:4px 12px;border-radius:20px;font-size:0.8em;margin-left:10px;">경력 적합도 ⭐⭐ 낮음</span></h2>
+    <h2>❌ Northwell Admissions Per Diem — 패스 권장 <span style="background:#991b1b;color:#fca5a5;padding:4px 12px;border-radius:20px;font-size:0.8em;margin-left:10px;">경력 적합도 35%</span></h2>
     <div class="job-info">
       <strong>회사:</strong> Northwell Health (South Oaks Hospital) | 
       <strong>위치:</strong> Amityville, NY (Long Island) 🚗 | 
