@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏥 뉴욕 정신과 RN 채용공고 대시보드</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #e4e4e4; padding: 20px; }
+    /* Password Screen */
+    #password-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; }
+    #password-screen h1 { font-size: 2.5rem; margin-bottom: 10px; }
+    #password-screen p { color: #888; margin-bottom: 30px; }
+    #password-screen input { padding: 15px 20px; font-size: 1.2rem; border: 2px solid #3a7bd5; border-radius: 10px; background: rgba(255,255,255,0.1); color: #fff; text-align: center; width: 200px; }
+    #password-screen input:focus { outline: none; border-color: #00d2ff; }
+    #password-screen button { margin-top: 20px; padding: 12px 40px; font-size: 1rem; background: linear-gradient(90deg, #3a7bd5, #00d2ff); border: none; border-radius: 10px; color: #fff; cursor: pointer; }
+    #password-screen .error { color: #ef4444; margin-top: 15px; display: none; }
+    #main-content { display: none; }
+    .container { max-width: 1400px; margin: 0 auto; }
+    header { text-align: center; padding: 30px 0; border-bottom: 1px solid #333; margin-bottom: 30px; }
+    h1 { font-size: 2rem; background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .profile-box { background: rgba(58, 123, 213, 0.1); border: 1px solid #3a7bd5; border-radius: 12px; padding: 15px 20px; margin: 20px auto; max-width: 600px; text-align: left; }
+    .profile-box h3 { color: #3a7bd5; margin-bottom: 10px; }
+    .profile-box ul { list-style: none; }
+    .profile-box li { margin: 5px 0; color: #aaa; }
+    .profile-box li strong { color: #fff; }
+    .stats { display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
+    .stat-box { background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 12px; text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: bold; color: #00d2ff; }
+    .stat-label { font-size: 0.85rem; color: #888; }
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .tab-btn { padding: 12px 24px; border: none; background: rgba(255,255,255,0.1); color: #e4e4e4; border-radius: 10px; cursor: pointer; font-size: 1rem; transition: all 0.2s; }
+    .tab-btn:hover, .tab-btn.active { background: #3a7bd5; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    #map { height: 500px; border-radius: 16px; margin-bottom: 30px; }
+    .filters { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filter-btn { padding: 8px 16px; border: 1px solid #444; background: transparent; color: #e4e4e4; border-radius: 20px; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }
+    .filter-btn:hover, .filter-btn.active { background: #3a7bd5; border-color: #3a7bd5; }
+    .search-box { margin-bottom: 20px; }
+    .filters-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 15px; }
+    .filters-bar .search-input { flex: 1; min-width: 150px; max-width: 250px; padding: 10px 15px; font-size: 0.9rem; border: 1px solid #444; border-radius: 8px; background: rgba(255,255,255,0.05); color: #fff; }
+    .filter-select { padding: 10px 15px; font-size: 0.85rem; border: 1px solid #444; border-radius: 8px; background: #1a1a2e; color: #e4e4e4; cursor: pointer; min-width: 130px; }
+    .filter-select:hover { border-color: #3a7bd5; }
+    .filter-select:focus { outline: none; border-color: #3a7bd5; }
+    .quick-filters { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .filter-chip { padding: 6px 14px; font-size: 0.85rem; border: 1px solid #444; border-radius: 20px; background: transparent; color: #aaa; cursor: pointer; transition: all 0.2s; }
+    .filter-chip:hover { border-color: #3a7bd5; color: #fff; }
+    .filter-chip.active { background: #3a7bd5; border-color: #3a7bd5; color: #fff; }
+    .search-input { width: 100%; max-width: 500px; padding: 12px 20px; font-size: 1rem; border: 2px solid #444; border-radius: 12px; background: rgba(255,255,255,0.05); color: #fff; }
+    .search-input:focus { outline: none; border-color: #3a7bd5; }
+    .search-input::placeholder { color: #666; }
+    .filter-group { margin-bottom: 15px; }
+    .filter-group-title { font-size: 0.8rem; color: #888; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge-outpatient { background: #065f46; color: #6ee7b7; }
+    .badge-inpatient { background: #7c2d12; color: #fed7aa; }
+    .badge-community { background: #3730a3; color: #c7d2fe; }
+    .badge-federal { background: #1e3a8a; color: #93c5fd; }
+    .badge-city { background: #701a75; color: #f5d0fe; }
+    .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+    .job-card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; border: 1px solid #333; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+    .job-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-color: #3a7bd5; }
+    .job-card.recommended { border-color: #ffd700; background: linear-gradient(135deg, rgba(255,215,0,0.08) 0%, rgba(255,165,0,0.05) 100%); }
+    .job-title { font-size: 1.05rem; font-weight: 600; color: #fff; line-height: 1.4; }
+    .job-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .badge { font-size: 0.7rem; padding: 3px 8px; border-radius: 10px; font-weight: 500; }
+    .badge-ny { background: #2d5a27; color: #8fdf82; }
+    .badge-nj { background: #5a4327; color: #dfb882; }
+    .badge-ct { background: #27415a; color: #82b8df; }
+    .badge-union { background: #5a2752; color: #df82d3; }
+    .badge-state { background: #1e3a5f; color: #7ec8e3; }
+    .badge-new { background: #c41e3a; color: #fff; }
+    .badge-dday { background: #dc2626; color: #fff; font-weight: bold; }
+    .badge-dday-soon { background: #f59e0b; color: #000; }
+    .badge-dday-ok { background: #22c55e; color: #fff; }
+    .badge-posted { background: #6b7280; color: #fff; }
+    .badge-rec { background: #ffd700; color: #000; }
+    .job-company { color: #3a7bd5; font-weight: 500; margin-bottom: 6px; margin-top: 10px; }
+    .job-location { color: #888; font-size: 0.9rem; }
+    .job-pay { color: #4ade80; font-weight: 600; margin-top: 8px; }
+    .section-title { font-size: 1.3rem; margin: 30px 0 20px; color: #fff; }
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 1000; overflow-y: auto; padding: 40px 20px; }
+    .modal-overlay.active { display: block; }
+    .modal { background: #1e2a3a; max-width: 900px; margin: 0 auto; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .modal-header { background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%); padding: 30px; position: relative; }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: #fff; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
+    .modal-title { font-size: 1.4rem; color: #fff; margin-bottom: 10px; }
+    .modal-company { color: rgba(255,255,255,0.9); font-size: 1rem; }
+    .modal-body { padding: 30px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .info-box { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; }
+    .info-label { color: #888; font-size: 0.75rem; margin-bottom: 4px; }
+    .info-value { color: #fff; font-size: 1rem; font-weight: 500; }
+    .info-value.highlight { color: #4ade80; }
+    .advisor-section { margin-top: 25px; border-top: 1px solid #333; padding-top: 25px; }
+    .advisor-title { font-size: 1.1rem; color: #fff; margin-bottom: 15px; }
+    .advisor-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 15px; margin-bottom: 12px; border-left: 4px solid; }
+    .advisor-card.maggangi { border-color: #ff6b6b; }
+    .advisor-card.jennifer { border-color: #4ecdc4; }
+    .advisor-card.david { border-color: #ffe66d; }
+    .advisor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .advisor-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .advisor-card.maggangi .advisor-avatar { background: rgba(255,107,107,0.2); }
+    .advisor-card.jennifer .advisor-avatar { background: rgba(78,205,196,0.2); }
+    .advisor-card.david .advisor-avatar { background: rgba(255,230,109,0.2); }
+    .advisor-name { font-weight: 600; color: #fff; font-size: 0.9rem; }
+    .advisor-role { font-size: 0.7rem; color: #888; }
+    .advisor-verdict { display: inline-block; padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; }
+    .verdict-go { background: #22c55e; color: #fff; }
+    .verdict-maybe { background: #f59e0b; color: #fff; }
+    .verdict-wait { background: #ef4444; color: #fff; }
+    .advisor-comment { color: #ccc; line-height: 1.6; font-size: 0.9rem; }
+    .advisor-comment strong { color: #fff; }
+    .action-buttons { display: flex; gap: 10px; margin-top: 25px; flex-wrap: wrap; }
+    .btn { padding: 10px 20px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; cursor: pointer; border: none; }
+    .btn-primary { background: linear-gradient(90deg, #3a7bd5, #00d2ff); color: #fff; }
+    .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid #444; }
+    .last-updated { text-align: center; color: #666; font-size: 0.85rem; margin-top: 40px; padding: 20px; }
+    .leaflet-popup-content-wrapper { background: #1e2a3a; color: #fff; border-radius: 12px; }
+    .leaflet-popup-tip { background: #1e2a3a; }
+    .leaflet-popup-content { margin: 12px; }
+    .popup-title { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
+    .popup-company { color: #3a7bd5; margin-bottom: 5px; }
+    .popup-pay { color: #4ade80; }
+    .legend { background: rgba(30,42,58,0.95); padding: 15px; border-radius: 10px; color: #fff; }
+    .legend h4 { margin-bottom: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; margin: 5px 0; font-size: 0.85rem; }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .leaflet-overlay-pane svg { pointer-events: auto !important; }
+    .leaflet-overlay-pane svg path { pointer-events: auto !important; }
+    @media (max-width: 600px) { .job-grid { grid-template-columns: 1fr; } h1 { font-size: 1.5rem; } #map { height: 350px; } }
+  </style>
+</head>
+<body>
+  <!-- Main Content -->
+  <div id="main-content" style="display:block;">
+  <div class="container">
+    <header>
+      <h1>🏥 뉴욕 정신과 RN 채용공고</h1>
+      <p style="color: #888;">AI 어드바이저 3인방의 분석과 함께</p>
+      <div class="profile-box">
+        <h3>👤 태권님 프로필</h3>
+        <ul>
+          <li><strong>경력:</strong> 14년 (임상 4년 + 보건진료직 10년)</li>
+          <li><strong>이민 예정:</strong> 2026년 3월 뉴욕</li>
+          <li><strong>목표:</strong> 정신과 RN → PMHNP</li>
+        </ul>
+      </div>
+      <div class="stats">
+        <div class="stat-box"><div class="stat-number" id="totalJobs">0</div><div class="stat-label">전체 공고</div></div>
+        <div class="stat-box"><div class="stat-number" id="nyJobs">0</div><div class="stat-label">뉴욕</div></div>
+        <div class="stat-box"><div class="stat-number" id="njJobs">0</div><div class="stat-label">뉴저지</div></div>
+        <div class="stat-box"><div class="stat-number" id="unionJobs">0</div><div class="stat-label">💪 유니온</div></div>
+      </div>
+    </header>
+    
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('list')">📋 리스트</button>
+      <button class="tab-btn" onclick="showTab('map')">🗺️ 지도</button>
+      <button class="tab-btn" onclick="showTab('discussions')">💬 토론 기록</button>
+    </div>
+    
+    <div id="listTab" class="tab-content active">
+      <!-- 검색 + 필터 (컴팩트) -->
+      <div class="filters-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 검색..." oninput="applyFilters()">
+        
+        <select class="filter-select" id="regionFilter" onchange="currentFilters.region = this.value; applyFilters();">
+          <option value="all">📍 지역: 전체</option>
+          <option value="ny">🗽 뉴욕</option>
+          <option value="nj">뉴저지</option>
+          <option value="ct">코네티컷</option>
+        </select>
+        
+        <select class="filter-select" id="settingFilter" onchange="currentFilters.setting = this.value; applyFilters();">
+          <option value="all">🏥 병동: 전체</option>
+          <option value="inpatient">🏥 입원</option>
+          <option value="outpatient">🏢 외래</option>
+          <option value="community">🏠 지역사회</option>
+        </select>
+        
+        <select class="filter-select" id="hospitalFilter" onchange="currentFilters.hospital = this.value; applyFilters();">
+          <option value="all">🏛️ 병원: 전체</option>
+          <option value="state">🏛️ 주립</option>
+          <option value="city">🏙️ 시립</option>
+          <option value="federal">🦅 연방(VA)</option>
+          <option value="private">🏨 민간</option>
+        </select>
+        
+        <select class="filter-select" id="sortFilter" onchange="currentFilters.sort = this.value; applyFilters();">
+          <option value="default">📊 정렬: 기본</option>
+          <option value="matchRate">📈 합격률순</option>
+          <option value="pay">💰 연봉순</option>
+          <option value="date">🆕 최신순</option>
+        </select>
+      </div>
+      
+      <!-- 퀵 필터 (토글) -->
+      <div class="quick-filters">
+        <button class="filter-chip" data-filter="union" onclick="toggleChip(this)">💪 노조</button>
+        <button class="filter-chip" data-filter="recommended" onclick="toggleChip(this)">⭐ 추천</button>
+        <button class="filter-chip" data-filter="new" onclick="toggleChip(this)">🆕 신규</button>
+      </div>
+      <h2 class="section-title">⭐ 추천 공고 TOP 5 <span style="font-size:0.7em;color:#888;">(go +1 | 노조 +1 | 시립 +1 | 외래/지역사회 +1 | 주립입원 -4 | $100K+ +1)</span></h2>
+      <div class="job-grid" id="recommendedJobs"></div>
+      <h2 class="section-title">📋 전체 공고</h2>
+      <div class="job-grid" id="allJobs"></div>
+    </div>
+    
+    <div id="mapTab" class="tab-content">
+      <h2 class="section-title">🗺️ 병원 위치 지도</h2>
+      <div id="map"></div>
+    </div>
+    
+    <div id="discussionsTab" class="tab-content">
+      <h2 class="section-title">💬 AI 어드바이저 6인 토론 기록</h2>
+      <p style="color: #888; margin-bottom: 20px;">매일 18:00에 새로 발견된 채용공고에 대해 <strong>6인 어드바이저</strong>(마깡이, Sarah, Jennifer, Michael, David, Emily)가 <strong>태권님 경력에 맞춰</strong> 토론합니다.</p>
+      <div class="job-grid">
+        <div class="job-card" style="border-color: #00d4ff; background: linear-gradient(135deg, rgba(0,212,255,0.1) 0%, rgba(58,123,213,0.05) 100%);" onclick="window.open('discussions/2026-02-09.html', '_blank')">
+          <div class="job-title">📅 2026-02-09 6인 토론 (브라우저 풀스캔)</div>
+          <div class="job-badges">
+            <span class="badge badge-new">🆕 오늘</span>
+            <span class="badge" style="background:#22c55e;color:#fff;">✅ Day Shift!</span>
+            <span class="badge badge-rec">⭐ NYP 발견</span>
+          </div>
+          <div class="job-company">🥇 NYP BH 11N Day/Eve (5표) | 🥈 CUCS (3표)</div>
+          <div class="job-location">Day shift + $128K-$147K + Magnet 인증</div>
+          <div style="color: #4ade80; font-size: 0.9rem; margin-top: 5px;">TOP 5 변동 없음 | NYP Day/Eve → Honorable Mention 추가!</div>
+          <div class="job-pay" style="color: #00d4ff;">💬 6인 토론 전체 보기 →</div>
+        </div>
+        <div class="job-card" style="border-color: #ffd700; background: linear-gradient(135deg, rgba(255,215,0,0.08) 0%, rgba(255,165,0,0.05) 100%);" onclick="window.open('discussions/2026-02-07.html', '_blank')">
+          <div class="job-title">📅 2026-02-07 6인 토론 (데이터 기반)</div>
+          <div class="job-badges">
+            <span class="badge badge-new">🆕 오늘</span>
+            <span class="badge badge-state">🏛️ 주정부 2개!</span>
+            <span class="badge" style="background:#166534;color:#4ade80;">📊 Indeed 리뷰</span>
+          </div>
+          <div class="job-company">🥇 NYSPI (5GO/1MAYBE) | 🥈 Kingsboro (3GO/2MAYBE/1SKIP)</div>
+          <div class="job-location">NYS OMH: 3.6⭐ (45리뷰) vs NYC H+H: 3.7⭐ (1,222리뷰)</div>
+          <div style="color: #fbbf24; font-size: 0.9rem; margin-top: 5px;">⚠️ 주립 리스크: "Mandatory OT 4/5 days" - 데이터 기반 분석!</div>
+          <div class="job-pay" style="color: #3a7bd5;">💬 6인 토론 + Indeed 데이터 보기 →</div>
+        </div>
+        <div class="job-card" onclick="window.open('discussions/2026-02-06.html', '_blank')">
+          <div class="job-title">📅 2026-02-06 6인 토론</div>
+          <div class="job-badges">
+            <span class="badge badge-posted">완료</span>
+            <span class="badge badge-rec">⭐ TOP 5 변동!</span>
+          </div>
+          <div class="job-company">🥇 Elmhurst (2위 신규!) | 🥈 NYSPI (3위 신규!)</div>
+          <div class="job-location">Day + 노조 + Queens / Columbia 제휴 + NP 최적</div>
+          <div style="color: #4ade80; font-size: 0.9rem; margin-top: 5px;">TOP 5에 2개 신규 진입! Elmhurst 97점, NYSPI 96점</div>
+          <div class="job-pay" style="color: #3a7bd5;">💬 6인 토론 전체 보기 →</div>
+        </div>
+        <div class="job-card" onclick="window.open('discussions/2026-02-04-05.html', '_blank')">
+          <div class="job-title">📅 2026-02-04~05 6인 토론</div>
+          <div class="job-badges">
+            <span class="badge badge-posted">완료</span>
+            <span class="badge badge-union">💪 만장일치 GO</span>
+          </div>
+          <div class="job-company">🥇 NYC H+H Elmhurst (75%) | 🥈 Mount Sinai (70%)</div>
+          <div class="job-location">+ NYP Gracie Square, Northwell South Oaks, Bridgeway 등 6건</div>
+          <div style="color: #4ade80; font-size: 0.9rem; margin-top: 5px;">Elmhurst = Queens + Day + 노조 = 완벽 매치!</div>
+          <div class="job-pay" style="color: #3a7bd5;">💬 6인 토론 전체 보기 →</div>
+        </div>
+        <div class="job-card" onclick="window.open('discussions/2026-02-03.html', '_blank')">
+          <div class="job-title">📅 2026-02-03 토론</div>
+          <div class="job-badges">
+            <span class="badge badge-ny">2건 JD 심층분석</span>
+          </div>
+          <div class="job-company">Bellevue Psych ER, Rockland Psychiatric Center</div>
+          <div class="job-location">🎯 태권님 14년 경력 ↔ JD 매칭 분석</div>
+          <div style="color: #888; font-size: 0.85rem; margin-top: 5px;">보건진료직 10년 경험이 어떻게 어필되는지</div>
+          <div class="job-pay" style="color: #3a7bd5;">💬 전체 토론 보기 →</div>
+        </div>
+      </div>
+      <p style="color: #666; margin-top: 30px; text-align: center; font-size: 0.9rem;">
+        토론은 매일 18:00에 자동으로 진행됩니다.<br>
+        <strong>6인 어드바이저:</strong><br>
+        😎 마깡이 (Sinai RN 5년) | 🩺 Sarah (Northwell→주립 8년) | 👩‍⚕️ Jennifer (H+H Manager 20년)<br>
+        👨‍⚕️ Michael (NYP Director 15년) | 🧑‍💼 David (리크루터) | 👩‍💼 Emily (H+H HR 12년)
+      </p>
+    </div>
+    
+    <div class="last-updated">마지막 업데이트: 2026-02-09 11:27 (2/9 토론 완료! NYP Day/Eve + CUCS Honorable Mention 추가) | 다음: 2/10 18:00</div>
+  </div>
+  
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-company" id="modalCompany"></div>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+<script>
+const jobs = [
+  // === 2026-02-02 새 공고 (11건) ===
+  { id: "nysomh-nycc-bronx", title: "RN 1 Psychiatric (NY HELPS) - NYC Children's Center", company: "NYS Office of Mental Health", location: "Bronx, NY", pay: "$115K-$124K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, dateFound: "2026-02-02", lat: 40.8448, lng: -73.8648, advisors: { maggangi: { verdict: "go", comment: "<strong>아동/청소년 정신과</strong> 주립병원! 연봉 $115K-$124K + NY HELPS라 시험 없이 지원 가능. 복지 끝판왕." }, sarah: { verdict: "go", comment: "아동/청소년 정신과는 <strong>희소 경험</strong>. 보건진료직에서 치매/우울증 검사 경험이 어필 포인트!" }, jennifer: { verdict: "go", comment: "Children's Center라 <strong>소아 청소년 정신과 경험</strong> 쌓기 좋아요. 주립이라 안정적!" }, michael: { verdict: "go", comment: "주정부라 <strong>경력 인정 체계 명확해</strong>. PEF 노조 협약에 따라 Step 협상 가능!" }, david: { verdict: "go", comment: "State job + 아동 정신과 경험은 <strong>NP 때 큰 자산</strong>이 돼요!" }, emily: { verdict: "go", comment: "NYS OMH는 <strong>외국 경력 인정에 열려있어</strong>. 서류 잘 갖추면 합격 확률 높아요!" } } },
+  { id: "nysomh-kingsboro", title: "RN 1 Psychiatric (NY HELPS) - Kingsboro", company: "NYS Office of Mental Health", location: "Brooklyn, NY", pay: "$115K-$124K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, dateFound: "2026-02-02", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=207765", source: "StateJobsNY", lat: 40.6340, lng: -73.9120, advisors: { maggangi: { verdict: "go", comment: "<strong>Brooklyn 주립 정신병원</strong>! RN 2라 경력직인데 연봉 $123K-$133K. Rockland만큼 좋아." }, sarah: { verdict: "go", comment: "주립이라 <strong>중증 환자 많지만</strong> 팀 서포트 좋아. 14년 경력이면 충분히 대응 가능!" }, jennifer: { verdict: "go", comment: "RN 2는 경력 인정해주는 포지션. <strong>해외 경력으로 Step 협상</strong> 가능!" }, michael: { verdict: "go", comment: "$123-133K는 <strong>NYC 정신과 RN 최상위권</strong>. 경력 인정 받으면 상단 근처 시작 가능!" }, david: { verdict: "go", comment: "Brooklyn 위치라 출퇴근도 편해요. <strong>주립 + 고연봉</strong> 조합!" }, emily: { verdict: "go", comment: "RN 2라 경력직인데, <strong>14년 경력 어필</strong>하면 서류 통과 확률 높아요!" } } },
+  { id: "university-hospital-nj", title: "Staff Nurse, Psychiatry - G Yellow", company: "University Hospital", location: "Newark, NJ", pay: "협의", isNew: true, dateFound: "2026-02-02", lat: 40.7420, lng: -74.1907, advisors: { maggangi: { verdict: "maybe", comment: "University Hospital은 <strong>NJ 주요 병원</strong>. Newark라 NYC에서 출퇴근 가능해." }, sarah: { verdict: "maybe", comment: "NJ Teaching hospital. <strong>NYC보다 경쟁 덜해</strong>. 백업 옵션으로 괜찮아!" }, jennifer: { verdict: "maybe", comment: "Teaching hospital이라 경험 쌓기 좋아요. <strong>NJ 라이선스</strong> 필요." }, michael: { verdict: "maybe", comment: "NJ는 NY보다 연봉 낮을 수 있어. 근데 <strong>경험 쌓기엔</strong> 괜찮아." }, david: { verdict: "maybe", comment: "NJ도 좋은 옵션. <strong>NY와 함께 지원</strong>하세요!" }, emily: { verdict: "maybe", comment: "NJ 병원들은 <strong>외국 간호사 채용 적극적</strong>. 서류 통과 확률 높아요!" } } },
+  { id: "cpi-eastorange", title: "Psychiatric Nurse RN", company: "Community Psychiatric Institute", location: "East Orange, NJ", pay: "$30/hr", isNew: true, dateFound: "2026-02-02", lat: 40.7673, lng: -74.2048, advisors: { maggangi: { verdict: "maybe", comment: "Community 정신과 시설. 시급 $30은 좀 낮지만 <strong>경험 쌓기엔</strong> 괜찮아." }, sarah: { verdict: "skip", comment: "시급 $30은 <strong>너무 낮아</strong>. NYC에서 $55+ 받을 수 있는데." }, jennifer: { verdict: "maybe", comment: "시급이 낮은 편. <strong>협상 여지</strong> 있는지 확인해보세요." }, michael: { verdict: "skip", comment: "$30/hr면 연봉 $62K. <strong>NYC 평균의 절반</strong>이야. 패스!" }, david: { verdict: "maybe", comment: "Quick apply 가능해서 <strong>연습 삼아 지원</strong>해볼 만해요." }, emily: { verdict: "skip", comment: "연봉이 너무 낮아. <strong>더 좋은 옵션 많아요</strong>!" } } },
+  { id: "bridgeway-union-nj", title: "Psychiatric RN", company: "Bridgeway Behavioral Health", location: "Union, NJ", pay: "$38-$43/hr", isNew: true, dateFound: "2026-02-02", lat: 40.6976, lng: -74.2632, advisors: { maggangi: { verdict: "go", comment: "시급 $38-43 괜찮아! <strong>Behavioral health 전문</strong> 시설이라 정신과 경험 쌓기 좋아." }, sarah: { verdict: "maybe", comment: "NJ 시설이라 <strong>NYC보다 연봉 낮아</strong>. 백업 옵션으로." }, jennifer: { verdict: "go", comment: "NJ 정신과 시설 중 <strong>시급 좋은 편</strong>. On-site라 안정적." }, michael: { verdict: "maybe", comment: "시급 $38-43면 연봉 $79-89K. <strong>NYC 대비 낮지만</strong> 경험 쌓기엔 괜찮아." }, david: { verdict: "go", comment: "Quick apply 가능! <strong>NJ 옵션</strong>으로 추천." }, emily: { verdict: "go", comment: "NJ 시설들은 <strong>채용 빠른 편</strong>. 서류 통과 확률 높아요!" } } },
+  { id: "carepoint-bayonne", title: "RN-Psychiatric (Full-time Day)", company: "CarePoint Health", location: "Bayonne, NJ", pay: "협의", isNew: true, dateFound: "2026-02-02", lat: 40.6687, lng: -74.1143, advisors: { maggangi: { verdict: "maybe", comment: "Bayonne은 NYC에서 가까워. <strong>주간 풀타임</strong>이라 워라밸 좋아." }, sarah: { verdict: "maybe", comment: "Day shift 풀타임 좋아! 근데 <strong>NJ라 라이선스 따로</strong> 필요해." }, jennifer: { verdict: "maybe", comment: "Day shift 풀타임은 <strong>처음 적응할 때</strong> 좋은 조건이에요." }, michael: { verdict: "maybe", comment: "연봉 협의라 <strong>범위 확인 필요</strong>. NJ 평균이면 $80-90K 예상." }, david: { verdict: "maybe", comment: "NJ 병원 경험도 <strong>도움 돼요</strong>. 지원해보세요!" }, emily: { verdict: "maybe", comment: "CarePoint는 <strong>중소형 시스템</strong>. 채용 프로세스 빠른 편이에요!" } } },
+  { id: "jasa-act-bronx", title: "Registered Nurse - ACT Team", company: "JASA", location: "Bronx, NY", pay: "$100K-$109K/year", isNew: true, dateFound: "2026-02-02", settingType: "community", lat: 40.8176, lng: -73.9002, advisors: { maggangi: { verdict: "go", comment: "ACT Team은 <strong>지역사회 정신건강</strong>! 병원이 아니라 현장에서 환자 관리해. 독특한 경험." }, sarah: { verdict: "go", comment: "ACT는 <strong>보건진료직이랑 가장 비슷해</strong>! 지역사회 환자 관리 경험 그대로 활용 가능!" }, jennifer: { verdict: "go", comment: "ACT(Assertive Community Treatment)는 <strong>community mental health</strong>의 핵심. NP 때 도움 돼요." }, michael: { verdict: "go", comment: "커뮤니티 세팅이라 <strong>워라밸 좋아</strong>. 병원보다 스트레스 덜해!" }, david: { verdict: "go", comment: "연봉 $100K-$109K 좋아요. <strong>다양한 경험</strong> 쌓을 수 있어요!" }, emily: { verdict: "go", comment: "비영리 기관이라 <strong>다양한 배경 환영</strong>. 해외 경력 인정에 유연해요!" } } },
+  { id: "mountsinai-wellness-rn", title: "Licensed Wellness Self Management Specialist (RN)", company: "Mount Sinai Rivington", location: "New York, NY", pay: "협의", union: true, unionName: "1199SEIU", hospital: true, isNew: true, dateFound: "2026-02-02", url: "https://careers.mountsinai.org/jobs/3034037", lat: 40.7205, lng: -73.9860, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai Psych Admin 역할. <strong>환자 교육/웰니스</strong> 중심이라 임상과 좀 달라." }, sarah: { verdict: "maybe", comment: "임상 아니지만 <strong>환자 교육</strong> 역할이라 보건진료직 경험 활용 가능!" }, jennifer: { verdict: "maybe", comment: "Wellness Specialist는 <strong>교육/상담</strong> 역할. 임상 경험 원하면 Staff RN이 나아요." }, michael: { verdict: "maybe", comment: "임상 아니라 <strong>경력 쌓기엔 제한적</strong>. Staff RN이 더 나아." }, david: { verdict: "maybe", comment: "Mount Sinai 입사 기회로는 좋아요. <strong>내부 이동</strong> 가능!" }, emily: { verdict: "maybe", comment: "입사 후 <strong>내부 공고로 Staff RN 이동</strong> 가능해요. 발판으로 활용!" } } },
+  { id: "mountsinai-ed-mgr", title: "Nurse Education Manager - Mental Health", company: "Mount Sinai West", location: "New York, NY", pay: "협의", union: true, hospital: true, isNew: true, dateFound: "2026-02-02", url: "https://careers.mountsinai.org/jobs/3025273", lat: 40.7695, lng: -73.9862, advisors: { maggangi: { verdict: "wait", comment: "Education Manager는 <strong>관리/교육직</strong>. 미국 경력 2-3년 후가 현실적." }, sarah: { verdict: "wait", comment: "교육직은 <strong>미국 시스템 파악 후</strong>가 좋아. 2-3년 경력 쌓고 도전!" }, jennifer: { verdict: "wait", comment: "관리직은 <strong>미국 시스템 이해 후</strong>가 좋아요. Staff RN부터!" }, michael: { verdict: "wait", comment: "Manager급은 <strong>미국 경력 필수</strong>. Staff RN 먼저!" }, david: { verdict: "wait", comment: "나중에 목표로! 지금은 <strong>Staff RN</strong> 집중." }, emily: { verdict: "wait", comment: "관리직 서류 심사는 <strong>미국 경력 중시</strong>. 2-3년 후 재도전!" } } },
+  { id: "mountsinai-mgr-morningside", title: "Nurse Manager, RN - Behavioral Health", company: "Mount Sinai Morningside", location: "New York, NY", pay: "협의", union: true, hospital: true, isNew: true, dateFound: "2026-02-02", url: "https://careers.mountsinai.org/jobs/3032225", lat: 40.8050, lng: -73.9619, advisors: { maggangi: { verdict: "wait", comment: "Nurse Manager는 <strong>관리직</strong>. 미국 경력 필요해." }, sarah: { verdict: "wait", comment: "관리직은 <strong>미국 시스템 이해 후</strong>. Staff RN 먼저!" }, jennifer: { verdict: "wait", comment: "관리직은 <strong>2-3년 후</strong>. Staff RN 공고 찾으세요!" }, michael: { verdict: "wait", comment: "Manager급은 <strong>미국 경력 2-3년 필수</strong>." }, david: { verdict: "wait", comment: "Mount Sinai Staff RN 공고가 더 현실적이에요." }, emily: { verdict: "wait", comment: "관리직 서류는 <strong>미국 경력 중시</strong>. Staff RN부터!" } } },
+  { id: "mountsinai-mgr-west", title: "Nurse Manager, RN - Behavioral Health", company: "Mount Sinai West", location: "New York, NY", pay: "협의", union: true, hospital: true, isNew: true, dateFound: "2026-02-02", url: "https://careers.mountsinai.org/jobs/3024579", lat: 40.7690, lng: -73.9865, advisors: { maggangi: { verdict: "wait", comment: "West 캠퍼스 관리직. <strong>Staff RN부터</strong> 시작하자." }, sarah: { verdict: "wait", comment: "관리직은 <strong>미국 경력 후</strong>. Staff RN 먼저!" }, jennifer: { verdict: "wait", comment: "관리직은 나중에. <strong>Staff RN → Charge → Manager</strong> 단계로!" }, michael: { verdict: "wait", comment: "Manager급은 <strong>미국 경력 필수</strong>." }, david: { verdict: "wait", comment: "Mount Sinai 입사가 목표면 <strong>Staff RN 공고</strong> 찾아보세요!" }, emily: { verdict: "wait", comment: "Staff RN부터 시작하면 <strong>내부 승진</strong> 기회 있어요!" } } },
+  // === 기존 공고 ===
+  { id: "jamaica-hospital", title: "Psychiatric RN – Night Shift", company: "Jamaica Hospital", location: "Richmond Hill, NY", pay: "$55.92/hr (~$130K)", union: true, unionName: "1199SEIU", recommended: true, hospital: true, dateFound: "2026-02-01", lat: 40.6985, lng: -73.8180, advisors: { maggangi: { verdict: "go", comment: "Jamaica Hospital 정신과는 Queens에서 busiest. 시급 $55.92 + 야간 diff면 $60 넘어. <strong>유니온이라 경력 인정</strong> 규정대로." }, sarah: { verdict: "go", comment: "Queens 위치 좋아! <strong>Night shift</strong>지만 노조라 초과근무 제한 있어서 워라밸 가능." }, jennifer: { verdict: "go", comment: "1199SEIU 유니온이라 경력 인정 grievance 가능. 보건진료직을 'autonomous practice'로 어필하면 <strong>5-7년 인정</strong> 가능." }, michael: { verdict: "go", comment: "1199SEIU는 <strong>경력 인정 규정 명확해</strong>. 14년 경력이면 상위 Step 협상 가능!" }, david: { verdict: "go", comment: "정신과 인력 부족이라 채용 적극적이에요. <strong>Queens 위치</strong>도 괜찮아요!" }, emily: { verdict: "go", comment: "1199SEIU 병원들은 <strong>외국 간호사 채용 경험 많아</strong>. 서류 잘 갖추면 합격 확률 높아요!" } } },
+  { id: "montefiore", title: "STAFF NURSE I/II - Psychiatry", company: "Montefiore Einstein", location: "Bronx, NY", pay: "$95K-$120K/year", union: true, unionName: "NYSNA", recommended: true, hospital: true, dateFound: "2026-02-01", lat: 40.8531, lng: -73.8464, advisors: { maggangi: { verdict: "go", comment: "Montefiore는 <strong>학술 병원</strong>. NYSNA 유니온이라 경력 인정 빡빡하게 지켜. NP 갈 때 <strong>추천서</strong> 받기 좋아." }, sarah: { verdict: "go", comment: "Teaching hospital이라 <strong>교육 기회 많아</strong>. PMHNP 목표면 연구/교육 경험 쌓기 좋아!" }, jennifer: { verdict: "go", comment: "Teaching hospital. NYSNA라 해외 경력 인정 조항 있어요. <strong>Step placement 협상</strong> 가능." }, michael: { verdict: "go", comment: "NYSNA 노조라 <strong>경력 인정 그리드 있어</strong>. 14년이면 Step 5-7 협상 가능!" }, david: { verdict: "go", comment: "대형 학술병원이라 <strong>안정적</strong>. 정신과 경력 + 학술병원 경험은 이직할 때 큰 자산!" }, emily: { verdict: "go", comment: "Montefiore HR은 <strong>다양한 배경 환영</strong>. WES 인증 + 추천서 있으면 서류 통과 확률 높아요!" } } },
+  { id: "rockland", title: "RN 1 Psychiatric (NY HELPS)", company: "NYS OMH - Rockland", location: "Orangeburg, NY", pay: "$132K-$143K/year", union: true, unionName: "PEF", recommended: true, state: true, dateFound: "2026-02-01", lat: 41.0465, lng: -73.9476, advisors: { maggangi: { verdict: "go", comment: "<strong>주정부 공무원</strong>! 연봉 $132K-$143K에 <strong>pension</strong>까지? 복지 끝판왕." }, sarah: { verdict: "go", comment: "주립이라 <strong>환자 중증도 높지만</strong> 팀 서포트 좋고, 연금+복지가 최고야!" }, jennifer: { verdict: "go", comment: "주립 정신병원 <strong>안정성 최고</strong>. NY HELPS라 시험 없이 지원 가능." }, michael: { verdict: "go", comment: "NYS 주정부는 <strong>경력 인정 체계 명확해</strong>. 14년 경력이면 상위 Step 가능!" }, david: { verdict: "go", comment: "State job은 <strong>평생 커리어</strong> 가능. Tuition assistance로 NP 학비도 지원!" }, emily: { verdict: "go", comment: "NYS OMH HR은 <strong>외국 경력 인정에 유연해</strong>. 서류 잘 갖추면 합격 확률 높아요!" } } },
+  { id: "mountsinai-amb", title: "Staff RN I - Psychiatry Ambulatory", company: "Mount Sinai Rivington", location: "New York, NY (LES)", pay: "$69/hr (~$143K)", union: true, unionName: "1199SEIU", recommended: true, hospital: true, isNew: true, settingType: "outpatient", url: "https://careers.mountsinai.org/jobs/3033476", lat: 40.7208, lng: -73.9855, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai 외래 정신과! <strong>주간 M-F 8-4</strong>라 워라밸 좋아. 근데 첫 직장으론 까다로워. 1-2년 후 타겟으로." }, sarah: { verdict: "go", comment: "외래 정신과는 <strong>워라밸 최고</strong>! 보건진료직 경험이랑 비슷해서 적응 쉬울 거야." }, jennifer: { verdict: "maybe", comment: "명성 높은 병원. 외래라 스트레스 덜해요. 근데 <strong>경쟁 치열</strong>해서 미국 경력 쌓고 지원 추천." }, michael: { verdict: "go", comment: "시급 $69 최상위권! 1199SEIU라 <strong>경력 인정 규정</strong> 있어. 지원해볼 가치 있어!" }, david: { verdict: "maybe", comment: "Top-tier라 1년차 외국인은 힘들어요. 하지만 지원해볼 가치 있어요!" }, emily: { verdict: "maybe", comment: "Mount Sinai 외래는 <strong>경쟁 치열해</strong>. 서류 통과 50:50. 지원해보고 안 되면 1년 후 재도전!" } } },
+  { id: "central-nassau", title: "Registered Nurse (Full Time)", company: "Central Nassau Guidance", location: "Hicksville, NY", pay: "$85K-$100K", recommended: true, dateFound: "2026-02-01", lat: 40.7684, lng: -73.5251, advisors: { maggangi: { verdict: "go", comment: "<strong>학자금 대출 상환 프로그램</strong> 있어! NP 학비 대출 갚으면서 일할 수 있어." }, sarah: { verdict: "go", comment: "Community MH center라 <strong>환자 관계 깊게</strong> 맺을 수 있어. 보건진료직 경험이랑 비슷!" }, jennifer: { verdict: "go", comment: "Community mental health center. <strong>가족적인 분위기</strong>고 외국인한테도 기회 많아요." }, michael: { verdict: "go", comment: "병원보다 연봉 낮지만 <strong>Loan repayment + 워라밸</strong> 합치면 가치 충분해!" }, david: { verdict: "go", comment: "<strong>Loan repayment</strong>가 큰 장점! NP 과정 들어가면서 학자금 지원받을 수 있어요." }, emily: { verdict: "go", comment: "Community center라 <strong>채용 프로세스 유연해</strong>. 해외 경력자 환영하는 분위기!" } } },
+  { id: "mpc", title: "RN 2 Psychiatric (NY HELPS)", company: "Manhattan Psychiatric Center", location: "East Harlem, NY", pay: "$100K-$130K", union: true, state: true, lat: 40.7917, lng: -73.9268, advisors: { maggangi: { verdict: "go", comment: "<strong>주립 정신병원</strong>. NY HELPS라 시험 없이 지원. <strong>맨하탄 위치</strong>라 출퇴근 편해!" }, sarah: { verdict: "go", comment: "맨해튼 위치 최고! 주립이라 <strong>중증 환자 경험</strong> 쌓기 좋아." }, jennifer: { verdict: "go", comment: "OMH 소속. Rockland랑 비슷한 조건인데 <strong>위치가 맨하탄</strong>이라 더 좋아요!" }, michael: { verdict: "go", comment: "주정부라 <strong>경력 인정 체계 명확해</strong>. 14년 경력이면 상위 Step 협상!" }, david: { verdict: "go", comment: "NYC 내 주립병원이라 <strong>출퇴근 + 복지</strong> 둘 다 잡을 수 있어요!" }, emily: { verdict: "go", comment: "NYS OMH는 <strong>해외 경력 인정에 유연해</strong>. 서류 잘 갖추면 합격률 높아요!" } } },
+  { id: "nychhc", title: "Asst Dir Nursing - OTxHU", company: "NYC Health + Hospitals", location: "New York, NY", pay: "$120K-$150K", union: true, unionName: "NYSNA", hospital: true, city: true, settingType: "inpatient", lat: 40.7614, lng: -73.9776, advisors: { maggangi: { verdict: "wait", comment: "ADON은 <strong>관리직</strong>. 미국 와서 바로는 무리. 2-3년 staff nurse 하고 도전해." }, sarah: { verdict: "wait", comment: "관리직은 <strong>미국 시스템 파악 후</strong>. Staff RN 먼저!" }, jennifer: { verdict: "wait", comment: "NYC H+H는 <strong>1순위 병원</strong>. 근데 이 포지션은 미국 경력 필요. Staff RN으로 먼저!" }, michael: { verdict: "wait", comment: "ADON은 <strong>미국 경력 2-3년 필수</strong>." }, david: { verdict: "wait", comment: "리더십은 미국 경력 2-3년 후. <strong>NYC H+H Staff RN 공고</strong>를 찾아보세요!" }, emily: { verdict: "wait", comment: "관리직 서류는 <strong>미국 경력 중시</strong>. Staff RN부터!" } } },
+  { id: "northwell", title: "Asst Director Nursing Psych", company: "Northwell Health", location: "Glen Oaks, NY", hospital: true, lat: 40.7554, lng: -73.7170, advisors: { maggangi: { verdict: "wait", comment: "Northwell은 <strong>NY 최대 시스템</strong>. ADON은 관리직이라 Staff RN 공고 찾아봐." }, sarah: { verdict: "wait", comment: "관리직은 <strong>미국 경력 후</strong>. Staff RN 먼저!" }, jennifer: { verdict: "wait", comment: "관리직은 <strong>미국 경력 2-3년 후</strong>가 현실적이에요." }, michael: { verdict: "wait", comment: "ADON은 <strong>미국 경력 필수</strong>." }, david: { verdict: "wait", comment: "Staff RN 공고도 많을 거예요. 거기부터 시작하세요!" }, emily: { verdict: "wait", comment: "Staff RN으로 입사 후 <strong>내부 승진</strong> 노리세요!" } } },
+  { id: "welllife", title: "LPN/RN - ART011", company: "WellLife Network", location: "Elmont, NY", lat: 40.7004, lng: -73.7134, advisors: { maggangi: { verdict: "go", comment: "WellLife는 <strong>정신건강 비영리</strong>. 대형병원보다 편하고 경험 쌓기 좋아." }, sarah: { verdict: "go", comment: "비영리라 <strong>워라밸 좋고</strong> 환자 관계 깊게 맺을 수 있어!" }, jennifer: { verdict: "go", comment: "비영리라 <strong>외국인한테 열려있어요</strong>. 미국 적응하면서 일하기 좋은 환경." }, michael: { verdict: "go", comment: "대형병원보다 <strong>스트레스 덜해</strong>. 미국 적응하면서 일하기 좋아!" }, david: { verdict: "go", comment: "정신과 경력은 <strong>동일하게 인정</strong>돼요. 좋은 시작점!" }, emily: { verdict: "go", comment: "비영리 기관이라 <strong>다양한 배경 환영</strong>. 해외 경력 인정에 유연해요!" } } },
+  { id: "surfpoint", title: "Overnight RN", company: "Surfpoint Recovery", location: "Brooklyn, NY", lat: 40.6782, lng: -73.9442, advisors: { maggangi: { verdict: "maybe", comment: "Surfpoint는 <strong>중독 치료 시설</strong>. 정신과랑 관련 있어. 야간이라 힘들지만 경험 쌓기엔 괜찮아." }, sarah: { verdict: "maybe", comment: "중독 치료는 정신과와 <strong>연관 있어</strong>. 다양한 경험 쌓을 수 있어!" }, jennifer: { verdict: "maybe", comment: "Recovery 시설도 정신건강 경험으로 인정돼요. <strong>다양한 경험</strong> 가능." }, michael: { verdict: "maybe", comment: "Overnight이라 <strong>힘들지만</strong> 경험 쌓기엔 괜찮아." }, david: { verdict: "maybe", comment: "중독 치료 경험도 NP 때 도움 돼요. <strong>Backup option</strong>으로." }, emily: { verdict: "maybe", comment: "Recovery 시설은 <strong>채용 빠른 편</strong>. 서류 통과 확률 높아요!" } } },
+  { id: "cas-harlem", title: "Registered Nurse", company: "Center for Alternative Sentencing", location: "Harlem, NY", lat: 40.8116, lng: -73.9465, advisors: { maggangi: { verdict: "maybe", comment: "<strong>교정 관련 기관</strong>. Forensic psych 경험 쌓을 수 있어." }, sarah: { verdict: "maybe", comment: "Forensic nursing은 <strong>특수 분야</strong>. 관심 있으면 좋은 경험!" }, jennifer: { verdict: "maybe", comment: "Forensic nursing은 특수 분야. 관심 있으시면 <strong>좋은 경험</strong>이 될 수 있어요." }, michael: { verdict: "maybe", comment: "교정 관련은 <strong>특수 분야</strong>. 메인스트림은 아니야." }, david: { verdict: "maybe", comment: "독특한 경험이 될 수 있어요." }, emily: { verdict: "maybe", comment: "특수 분야라 <strong>경쟁 덜해</strong>. 서류 통과 확률 높아요!" } } },
+  { id: "summit-nyack", title: "RN - 3pm-11pm Shift", company: "Summit School at Nyack", location: "Nyack, NY", lat: 41.0907, lng: -73.9174, advisors: { maggangi: { verdict: "maybe", comment: "<strong>특수학교</strong> 간호사. 정신과는 아닌데 아동/청소년 경험 쌓을 수 있어." }, sarah: { verdict: "maybe", comment: "학교 세팅이라 <strong>정신과 임상과는 달라</strong>. 병원 먼저!" }, jennifer: { verdict: "maybe", comment: "학교 간호사는 정신과와는 좀 달라요. <strong>청소년 정신건강</strong> 관심 있으시면 고려." }, michael: { verdict: "skip", comment: "학교는 <strong>정신과 경력으로 안 쳐</strong>. 병원 먼저!" }, david: { verdict: "maybe", comment: "병원 경력이 우선이에요." }, emily: { verdict: "maybe", comment: "특수학교라 <strong>채용 쉬운 편</strong>. 근데 병원 경력이 더 중요해요!" } } },
+  { id: "stvincent-ct", title: "RN Adolescent/Adult Psych", company: "St. Vincent's Medical", location: "Westport, CT", lat: 41.1415, lng: -73.3579, advisors: { maggangi: { verdict: "maybe", comment: "CT는 뉴욕보다 경쟁 덜해서 <strong>경력 쌓기엔 좋을 수</strong> 있어." }, sarah: { verdict: "maybe", comment: "CT는 <strong>NYC보다 경쟁 덜해</strong>. 백업 옵션으로 괜찮아!" }, jennifer: { verdict: "maybe", comment: "CT 병원들도 괜찮아요. <strong>CT RN License</strong> 따로 필요." }, michael: { verdict: "maybe", comment: "CT 경력도 <strong>NYC 이직할 때 인정</strong>돼요. 백업으로!" }, david: { verdict: "maybe", comment: "NY가 메인 타겟이시니까 <strong>backup</strong>으로만." }, emily: { verdict: "maybe", comment: "CT는 <strong>라이선스 따로</strong> 필요해요. NY 먼저 집중!" } } },
+  { id: "stmary-nj", title: "RN Behavioral Health", company: "St. Mary's General Hospital", location: "Passaic, NJ", lat: 40.8568, lng: -74.1288, advisors: { maggangi: { verdict: "maybe", comment: "NJ 병원. Passaic은 뉴욕시에서 가까워. <strong>NJ 라이선스</strong> 필요." }, sarah: { verdict: "maybe", comment: "NJ라 <strong>NYC보다 연봉 낮을 수</strong> 있어. 백업 옵션으로!" }, jennifer: { verdict: "maybe", comment: "NJ도 좋은 옵션. 뉴욕보다 <strong>생활비 저렴</strong>하고 출퇴근 가능." }, michael: { verdict: "maybe", comment: "NJ 경력도 <strong>NYC 이직할 때 인정</strong>돼요." }, david: { verdict: "maybe", comment: "NJ 병원들도 인력 부족. <strong>NY와 함께 지원</strong>해도 좋아요." }, emily: { verdict: "maybe", comment: "NJ 병원들은 <strong>외국 간호사 채용 적극적</strong>!" } } },
+  { id: "hackensack", title: "RN - Behav Health", company: "Hackensack Meridian Health", location: "Perth Amboy, NJ", hospital: true, isNew: true, lat: 40.5068, lng: -74.2654, advisors: { maggangi: { verdict: "maybe", comment: "Hackensack은 <strong>뉴저지 대형 시스템</strong>. NJ면 출퇴근 1시간 넘을 수 있어." }, sarah: { verdict: "maybe", comment: "대형 시스템이라 <strong>안정적</strong>. 근데 NYC 출퇴근은 힘들어." }, jennifer: { verdict: "maybe", comment: "뉴저지도 좋은 옵션. <strong>NJ RN License</strong> 따로 필요." }, michael: { verdict: "maybe", comment: "Hackensack은 <strong>NJ 최대 시스템</strong>. 경력 쌓기엔 좋아!" }, david: { verdict: "maybe", comment: "NJ 병원들도 기회 많아요. <strong>Backup option</strong>으로." }, emily: { verdict: "maybe", comment: "대형 시스템이라 <strong>채용 프로세스 체계적</strong>. 서류 요건 명확해요!" } } },
+  { id: "greystone", title: "Charge Nurse - RN", company: "Greystone Park Psychiatric", location: "Morris Plains, NJ", union: true, state: true, lat: 40.8223, lng: -74.4800, advisors: { maggangi: { verdict: "maybe", comment: "Greystone은 <strong>NJ 주립 정신병원</strong>. Charge는 경력직이라 Staff RN 공고 확인해봐." }, sarah: { verdict: "maybe", comment: "NJ 주립이라 <strong>안정적</strong>. 근데 Charge는 미국 경력 후!" }, jennifer: { verdict: "maybe", comment: "주립 병원 안정적. <strong>Charge는 미국 경력 후</strong>가 현실적." }, michael: { verdict: "maybe", comment: "Charge는 <strong>경력직</strong>. Staff RN 공고 찾아봐!" }, david: { verdict: "maybe", comment: "State hospital이라 <strong>job security</strong> 좋아요." }, emily: { verdict: "maybe", comment: "NJ 주립은 <strong>NY와 별도 지원</strong> 필요해요. Staff RN 공고 확인!" } } },
+  { id: "rwjbarnabas", title: "Nursing Supervisor", company: "RWJBarnabas Health", location: "West Orange, NJ", hospital: true, lat: 40.7982, lng: -74.2390, advisors: { maggangi: { verdict: "wait", comment: "Supervisor는 <strong>관리직</strong>이라 미국 경력 필요해." }, sarah: { verdict: "wait", comment: "관리직은 <strong>미국 경력 후</strong>. Staff RN 먼저!" }, jennifer: { verdict: "wait", comment: "관리직은 2-3년 경력 후. <strong>Staff RN부터</strong> 시작하세요." }, michael: { verdict: "wait", comment: "Supervisor는 <strong>미국 경력 필수</strong>." }, david: { verdict: "wait", comment: "Staff RN 공고를 찾아보세요." }, emily: { verdict: "wait", comment: "관리직 서류는 <strong>미국 경력 중시</strong>!" } } },
+  { id: "navitas-adon", title: "Assistant Director of Nursing", company: "NavitasPartners (Agency)", location: "Kings County, NY", lat: 40.6501, lng: -73.9496, advisors: { maggangi: { verdict: "wait", comment: "NavitasPartners는 <strong>staffing agency</strong>. ADON은 agency 통한 건 좀 그래." }, sarah: { verdict: "wait", comment: "Agency는 <strong>불안정해</strong>. 병원 직접 채용 먼저!" }, jennifer: { verdict: "wait", comment: "Agency ADON은 <strong>권장하지 않아요</strong>. 병원 직접 채용을 찾으세요." }, michael: { verdict: "skip", comment: "Agency ADON은 <strong>패스</strong>. 직접 채용 Staff RN 먼저!" }, david: { verdict: "wait", comment: "Agency는 <strong>마지막 옵션</strong>. 직접 채용 우선!" }, emily: { verdict: "skip", comment: "Agency는 <strong>경력 인정/복지 불리</strong>. 직접 채용 우선!" } } },
+  { id: "navitas-don", title: "Director of Nursing (DON) - BH", company: "NavitasPartners (Agency)", location: "Kings County, NY", isNew: true, lat: 40.6510, lng: -73.9500, advisors: { maggangi: { verdict: "wait", comment: "DON은 <strong>최고 관리직</strong>. 미국 경력 5년 이상 필요해." }, sarah: { verdict: "skip", comment: "DON은 <strong>미국 경력 5년+</strong>. 완전 나중에!" }, jennifer: { verdict: "wait", comment: "DON은 나중에. <strong>Staff RN → Charge → Manager → DON</strong> 단계." }, michael: { verdict: "skip", comment: "Agency DON은 <strong>비현실적</strong>. 패스!" }, david: { verdict: "wait", comment: "Agency DON은 현실성 없어요. <strong>스킵</strong>하세요." }, emily: { verdict: "skip", comment: "DON급은 <strong>미국 경력 5년+ 필수</strong>. 나중에!" } } },
+  { id: "prosperity", title: "RN - Behavioral Health", company: "Prosperity (Agency)", location: "Belle Mead, NJ", isNew: true, lat: 40.4706, lng: -74.6445, advisors: { maggangi: { verdict: "wait", comment: "<strong>Staffing agency</strong> 공고. 경력 인정이나 베네핏 면에서 불리해." }, sarah: { verdict: "skip", comment: "Agency는 <strong>불안정 + 복지 없어</strong>. 패스!" }, jennifer: { verdict: "wait", comment: "Agency 취업은 <strong>마지막 옵션</strong>. 병원 직접 채용 먼저." }, michael: { verdict: "skip", comment: "Agency는 <strong>경력 인정 불리</strong>. 직접 채용 먼저!" }, david: { verdict: "wait", comment: "Agency라 <strong>패스</strong>. 직접 채용에 집중하세요." }, emily: { verdict: "skip", comment: "Agency는 <strong>베네핏/안정성 없어</strong>. 직접 채용 우선!" } } },
+  { id: "mountsinai-float", title: "Staff Nurse - Psych Float Pool", company: "Mount Sinai Rivington", location: "New York, NY (LES)", union: true, unionName: "1199SEIU", hospital: true, isNew: true, url: "https://careers.mountsinai.org/jobs/3033713", lat: 40.7210, lng: -73.9850, advisors: { maggangi: { verdict: "maybe", comment: "Mount Sinai Float Pool. <strong>Per Diem</strong>이라 풀타임 아니야. 베네핏 제한적." }, sarah: { verdict: "maybe", comment: "Per Diem은 <strong>스케줄 유연</strong>하지만 베네핏 제한적. 풀타임 먼저!" }, jennifer: { verdict: "maybe", comment: "Per Diem은 <strong>시간제</strong>. 처음엔 풀타임이 베네핏도 좋고 안정적." }, michael: { verdict: "maybe", comment: "Float Pool은 <strong>다양한 경험</strong> 쌓이지만 풀타임이 우선!" }, david: { verdict: "maybe", comment: "Float Pool은 경험 다양하게 쌓이는데, <strong>풀타임</strong>이 우선이에요." }, emily: { verdict: "maybe", comment: "Per Diem은 <strong>비자 스폰서십 어려울 수</strong> 있어요. 풀타임 먼저!" } } },
+  { id: "umh-np", title: "Psychiatric NP", company: "Upper Manhattan Mental Health", location: "New York, NY", lat: 40.8270, lng: -73.9481, advisors: { maggangi: { verdict: "wait", comment: "<strong>NP 포지션</strong>. 태권님은 아직 NP 아니니까 해당 안 돼. 나중에!" }, sarah: { verdict: "wait", comment: "NP 공고는 <strong>미래 참고용</strong>. 지금은 RN 집중!" }, jennifer: { verdict: "wait", comment: "NP 자격 취득 후에요. <strong>장기 목표</strong>로 기억해두세요!" }, michael: { verdict: "wait", comment: "NP 시장 좋아! <strong>3-5년 후 목표</strong>로!" }, david: { verdict: "wait", comment: "NP 공고는 <strong>참고용</strong>. 시장 보는 용도로!" }, emily: { verdict: "wait", comment: "NP 공고 참고만! <strong>RN 경력 쌓고</strong> 나중에!" } } },
+  { id: "curated-np", title: "Psychiatric NP", company: "Curated Mental Health", location: "Chelsea, NY", lat: 40.7465, lng: -74.0014, advisors: { maggangi: { verdict: "wait", comment: "<strong>NP 포지션</strong>. 지금은 해당 없지만 나중에 NP 되면 이런 곳 많아." }, sarah: { verdict: "wait", comment: "NP 공고는 <strong>미래 참고용</strong>. 지금은 RN 집중!" }, jennifer: { verdict: "wait", comment: "NP 자격 후에요. Chelsea 위치 좋네요. <strong>나중에 참고</strong>." }, michael: { verdict: "wait", comment: "NP 시장 좋아! <strong>3-5년 후 목표</strong>로!" }, david: { verdict: "wait", comment: "NP 시장 좋아요. <strong>미래 목표</strong>로!" }, emily: { verdict: "wait", comment: "NP 공고 참고만! <strong>RN 경력 쌓고</strong> 나중에!" } } },
+  // === 2026-02-03 신규 공고 ===
+  { id: "bellevue-psych-er-1", title: "Staff Nurse - Psychiatry (BH ER)", company: "NYC Health + Hospitals - Bellevue", location: "Manhattan, NY", union: true, unionName: "NYSNA", hospital: true, city: true, recommended: true, isNew: true, top5Rank: 1, settingType: "inpatient", dateFound: "2026-02-03", jobId: "129633", source: "NYC H+H Careers", lat: 40.7392, lng: -73.9750, advisors: { maggangi: { verdict: "go", comment: "Bellevue <strong>정신과 응급실</strong>! 미국 최고 오래된 공립병원. NYSNA 노조라 경력 인정 확실해." }, sarah: { verdict: "go", comment: "Psych ER은 <strong>급성기 경험 최고</strong>! 다양한 케이스 볼 수 있어. NP 진학에 큰 자산!" }, jennifer: { verdict: "go", comment: "<strong>노조 + 공립 + Psych ER</strong> = 황금 조합. 급성기 경험은 NP 갈 때 엄청난 스펙이에요." }, michael: { verdict: "go", comment: "NYC H+H는 <strong>경력 인정 규정 명확해</strong>. NYSNA 협약에 따라 14년 경력 상당 부분 인정!" }, david: { verdict: "go", comment: "마감 7월 26일이라 여유 있어요. 근데 인기 많으니 <strong>빨리 지원</strong>하세요!" }, emily: { verdict: "go", comment: "NYC H+H HR이에요! <strong>외국 간호사 적극 채용 중</strong>. Bellevue는 특히 다양성 중시해요!" } } },
+  { id: "bellevue-psych-er-2", title: "Staff Nurse - Psychiatry (BH ER)", company: "NYC Health + Hospitals - Bellevue", location: "Manhattan, NY", union: true, unionName: "NYSNA", hospital: true, city: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-03", lat: 40.7394, lng: -73.9752, advisors: { maggangi: { verdict: "go", comment: "같은 Bellevue Psych ER 2번째 포지션. <strong>2개 다 지원</strong>해도 돼!" }, sarah: { verdict: "go", comment: "2개 다 지원하면 <strong>합격 확률 2배</strong>! 같은 병원이라 면접 한번에 볼 수도 있어." }, jennifer: { verdict: "go", comment: "복수 지원 가능. <strong>경쟁률 높으니</strong> 둘 다 넣어보세요." }, michael: { verdict: "go", comment: "여러 포지션 열린 건 <strong>채용 의지 강하다</strong>는 뜻. 적극 지원!" }, david: { verdict: "go", comment: "2개 열렸다는 건 <strong>인력 많이 필요</strong>하다는 뜻. 기회!" }, emily: { verdict: "go", comment: "HR 입장에서 여러 포지션 = <strong>빨리 채우고 싶다</strong>는 뜻. 합격률 높아요!" } } },
+  { id: "manhattan-psych-rn2", title: "RN 2 Psychiatric (NY HELPS)", company: "Manhattan Psychiatric Center", location: "New York, NY", pay: "$123K-$133K/year", union: true, unionName: "PEF", state: true, recommended: true, isNew: true, dateFound: "2026-02-03", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=208460", source: "StateJobsNY", lat: 40.7920, lng: -73.9265, advisors: { maggangi: { verdict: "go", comment: "<strong>주정부 $123-133K</strong>! RN 2라 경력직인데, 14년 경력이면 Step 협상 가능해." }, sarah: { verdict: "go", comment: "맨해튼 위치라 <strong>출퇴근 편해</strong>. 주립 복지 + 좋은 위치 = 최고 조합!" }, jennifer: { verdict: "go", comment: "OMH 소속 주립병원. <strong>PEF 유니온</strong>이라 경력 인정 명확해요." }, michael: { verdict: "go", comment: "RN 2는 경력직이라 <strong>14년 경력 어필 포인트</strong>. Step 협상 유리!" }, david: { verdict: "go", comment: "NY HELPS라 시험 없이 지원. <strong>외국 간호사 환영</strong>!" }, emily: { verdict: "go", comment: "NYS OMH는 <strong>다양한 배경 환영</strong>. 해외 경력 인정에 열려있어요!" } } },
+  { id: "southbeach-psych-rn1", title: "RN 1 Psychiatric (NY HELPS)", company: "South Beach Psychiatric Center", location: "Staten Island, NY", union: true, unionName: "PEF", state: true, recommended: true, isNew: true, dateFound: "2026-02-03", lat: 40.5795, lng: -74.0972, advisors: { maggangi: { verdict: "go", comment: "<strong>Staten Island 주립병원</strong>. 위치는 좀 멀지만 주정부 복지는 동일해." }, sarah: { verdict: "go", comment: "Staten Island라 <strong>경쟁 덜해서 합격률 높아</strong>. 주정부 복지는 동일!" }, jennifer: { verdict: "go", comment: "Tuition reimbursement, 건강/치과/안과 다 있어요. <strong>NP 학비 지원</strong> 가능!" }, michael: { verdict: "go", comment: "주정부라 <strong>경력 인정 체계 명확해</strong>. 14년 경력이면 상위 Step 가능!" }, david: { verdict: "go", comment: "Staten Island라 경쟁 덜해요. <strong>합격 확률 높음</strong>!" }, emily: { verdict: "go", comment: "인기 적은 위치라 <strong>채용 의지 강해요</strong>. 서류 통과 확률 높음!" } } },
+  { id: "northwell-glenoaks-rn", title: "RN - Psych", company: "Northwell Health", location: "Glen Oaks, NY", pay: "$56-$85/hr", hospital: true, recommended: true, isNew: true, dateFound: "2026-02-03", lat: 40.7556, lng: -73.7168, advisors: { maggangi: { verdict: "go", comment: "Northwell은 <strong>NY 최대 민간 시스템</strong>. 시급 범위가 넓은데, 경력 많으면 중상위 받아." }, sarah: { verdict: "go", comment: "대형 시스템이라 <strong>내부 이동 쉬워</strong>. Queens/LI 사이 위치 괜찮아!" }, jennifer: { verdict: "go", comment: "14년 경력이면 <strong>$70/hr 이상</strong> 협상 가능해요." }, michael: { verdict: "go", comment: "Northwell은 노조 없지만 <strong>경력 인정 유연해</strong>. 14년이면 상위권 시급 가능!" }, david: { verdict: "go", comment: "대형 시스템이라 <strong>안정적</strong>. 이직할 때도 큰 자산!" }, emily: { verdict: "go", comment: "Northwell HR은 <strong>다양한 배경 환영</strong>. 해외 경력 인정 유연한 편!" } } },
+  { id: "bridgeway-hoboken-5k", title: "Psychiatric RN - $5K Sign-on Bonus", company: "Bridgeway Behavioral Health", location: "Hoboken, NJ", pay: "$80K-$90K/year", isNew: true, dateFound: "2026-02-03", lat: 40.7440, lng: -74.0324, advisors: { maggangi: { verdict: "maybe", comment: "$5K 사이닝 보너스! NJ라 라이선스 필요하지만 <strong>초기 정착 비용</strong> 커버 가능." }, sarah: { verdict: "maybe", comment: "사이닝 보너스 좋지만 <strong>연봉이 NYC보다 낮아</strong>. 백업 옵션으로!" }, jennifer: { verdict: "maybe", comment: "NJ도 괜찮은 옵션. 주정부/노조 먼저 보고 <strong>backup</strong>으로." }, michael: { verdict: "maybe", comment: "$5K 보너스 매력적이지만 <strong>연봉 $80K는 낮아</strong>." }, david: { verdict: "maybe", comment: "NJ 쪽이 요즘 <strong>간호사 모시기 경쟁</strong> 중이에요!" }, emily: { verdict: "maybe", comment: "사이닝 보너스는 <strong>정착 비용 커버</strong> 좋아요! 백업으로 고려!" } } },
+  { id: "woods-littlefalls-5k", title: "Psychiatric RN - $5K Sign-on Bonus", company: "Woods Services", location: "Little Falls, NJ", pay: "$80K-$90K/year", isNew: true, dateFound: "2026-02-03", lat: 40.8823, lng: -74.2210, advisors: { maggangi: { verdict: "maybe", comment: "또 $5K 보너스! <strong>BH 전문 시설</strong>이라 경험 쌓기 좋아." }, sarah: { verdict: "maybe", comment: "사이닝 보너스 좋지만 <strong>연봉이 NYC보다 낮아</strong>." }, jennifer: { verdict: "maybe", comment: "NJ 라이선스 필요. <strong>사이닝 보너스</strong>는 매력적이에요." }, michael: { verdict: "maybe", comment: "$5K 보너스 매력적이지만 <strong>연봉 $80K는 낮아</strong>." }, david: { verdict: "maybe", comment: "주정부 안 되면 <strong>좋은 대안</strong>!" }, emily: { verdict: "maybe", comment: "사이닝 보너스는 <strong>정착 비용 커버</strong> 좋아요!" } } },
+  { id: "rockland-supervisor", title: "RN Supervisor 1 Psychiatric (NY HELPS)", company: "Rockland Children's Psychiatric", location: "Orangeburg, NY", pay: "$132K-$143K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-03", lat: 41.0468, lng: -73.9473, advisors: { maggangi: { verdict: "wait", comment: "Supervisor $132-143K! 근데 <strong>관리직은 미국 경력 2-3년 후</strong>가 현실적." }, sarah: { verdict: "wait", comment: "Supervisor는 <strong>미국 경력 후</strong>. Staff RN 먼저!" }, jennifer: { verdict: "wait", comment: "Staff RN으로 시작해서 나중에 <strong>내부 승진</strong>이 더 좋아요." }, michael: { verdict: "wait", comment: "Supervisor는 <strong>경력직</strong>. Staff RN 먼저!" }, david: { verdict: "wait", comment: "좋은 목표예요! 일단 <strong>Staff RN부터</strong>." }, emily: { verdict: "wait", comment: "주립 Supervisor는 <strong>내부 승진</strong>이 더 쉬워요!" } } },
+  // === 2026-02-04 신규 공고 ===
+  { id: "zucker-hillside-179395", title: "RN – Psych (Part Time Nights)", company: "Northwell Health (Zucker Hillside Hospital)", location: "Glen Oaks, NY", pay: "$56-$85/hr", hospital: true, isNew: true, dateFound: "2026-02-04", url: "https://jobs.northwell.edu/job-3/22922050/registered-nurse-rn-psych-glen-oaks-ny/", lat: 40.7556, lng: -73.7165, advisors: { maggangi: { verdict: "maybe", comment: "Zucker Hillside는 <strong>정신과 전문병원</strong>으로 유명해! 근데 <strong>파트타임 나이트</strong>라 풀타임이 아니야." }, sarah: { verdict: "maybe", comment: "Zucker Hillside는 <strong>정신과 최고 전문병원</strong>! 파트타임이지만 경험 가치 있어." }, jennifer: { verdict: "maybe", comment: "파트타임이라 <strong>베네핏 제한적</strong>. BSN 5년 내 취득 필수 조건도 있어요." }, michael: { verdict: "maybe", comment: "파트타임은 <strong>베네핏 제한</strong>. 풀타임 먼저!" }, david: { verdict: "maybe", comment: "풀타임 찾으면서 <strong>백업 옵션</strong>으로. 미국 적응 + 경험 쌓기엔 괜찮아요." }, emily: { verdict: "maybe", comment: "파트타임은 <strong>비자 스폰서십 어려울 수</strong> 있어요. 풀타임 먼저!" } } },
+  { id: "southoaks-178436", title: "RN – Psych (Per Diem)", company: "Northwell Health (South Oaks Hospital)", location: "Amityville, NY", pay: "$63.82/hr", hospital: true, isNew: true, dateFound: "2026-02-04", url: "https://jobs.northwell.edu/job-3/22877403/registered-nurse-psych-amityville-ny/", lat: 40.6783, lng: -73.4171, advisors: { maggangi: { verdict: "maybe", comment: "South Oaks도 정신과 전문! 시급 $63.82 고정인데, <strong>⚠️ BSN 필수</strong>라고 명시돼있어." }, sarah: { verdict: "maybe", comment: "Per Diem은 <strong>스케줄 유연</strong>하지만 베네핏 없어. 풀타임 먼저!" }, jennifer: { verdict: "maybe", comment: "Per Diem이라 <strong>정규직 아님</strong>. 베네핏 거의 없고 스케줄 불규칙해요." }, michael: { verdict: "maybe", comment: "Per Diem은 <strong>베네핏 없어</strong>. 풀타임 먼저!" }, david: { verdict: "maybe", comment: "BSN 있으면 지원 가능. 없으면 <strong>다른 공고가 더 적합</strong>해요." }, emily: { verdict: "maybe", comment: "Per Diem은 <strong>비자 스폰서십 어려울 수</strong> 있어요. 풀타임 먼저!" } } },
+  // === 2026-02-04 신규 추가 (토론 후) ===
+  { id: "mountsinai-inpatient-psych-3033025", title: "Clinical Nurse - Inpatient Psychiatry (Nights)", company: "Mount Sinai Hospital", location: "New York, NY", pay: "$62.36/hr (~$130K)", union: true, unionName: "NYSNA", hospital: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-04", url: "https://careers.mountsinai.org/jobs/3033025", lat: 40.7903, lng: -73.9523, advisors: { maggangi: { verdict: "go", comment: "내가 일하는 곳! <strong>NYSNA 노조</strong>라 해외 경력 인정 협상 가능. $62.36 + night diff = <strong>시급 $70+</strong>" }, sarah: { verdict: "go", comment: "학술병원이라 교육 기회 많아. <strong>민간이라 주립보다 환자 중증도 낮아</strong>. Night이지만 경쟁 덜해." }, jennifer: { verdict: "go", comment: "NYSNA 노조면 <strong>경력 인정 그리드</strong> 있어. 14년이면 Step 5-7 협상 가능, 연봉 $140K까지!" }, michael: { verdict: "maybe", comment: "좋은 공고인데 <strong>Night shift</strong>가 걸려. Day 선호하면 나중에 바꾸기 어려울 수도." }, david: { verdict: "go", comment: "Mount Sinai 정신과 경력은 <strong>이직할 때 금</strong>이야. 1-2년 후 Day로 이직 가능!" }, emily: { verdict: "go", comment: "Mount Sinai는 <strong>외국 간호사 채용 경험 많아</strong>. WES + 추천서 잘 갖추면 서류 통과 가능성 높아." } } },
+  { id: "southoaks-177053", title: "RN – Psych (Full Time Days)", company: "Northwell Health (South Oaks Hospital)", location: "Amityville, NY", pay: "$53.34/hr (~$111K)", hospital: true, isNew: true, dateFound: "2026-02-04", url: "https://jobs.northwell.edu/job/south-oaks-hospital-registered-nurse-psych-amityville-ny-177053/", lat: 40.6785, lng: -73.4173, advisors: { maggangi: { verdict: "maybe", comment: "정신과 전문병원! <strong>Day shift</strong>라 워라밸 좋아. 근데 <strong>Long Island라 출퇴근 1시간+</strong>." }, sarah: { verdict: "go", comment: "Northwell 시스템이라 <strong>안정적</strong>. Long Island 힘들지만 경력 쌓고 Queens로 이직하면 돼." }, jennifer: { verdict: "maybe", comment: "괜찮은 공고인데 <strong>노조가 없어</strong>. 경력 인정 협상이 Northwell 자체 기준으로 가야 해." }, michael: { verdict: "go", comment: "Northwell은 <strong>NY 최대 민간 시스템</strong>. 내부 이동 쉬워서 나중에 Queens 쪽으로 transfer 가능!" }, david: { verdict: "maybe", comment: "$53.34/hr 괜찮은데 노조 없는 민간이라 <strong>협상력이 약해</strong>." }, emily: { verdict: "go", comment: "Northwell HR은 <strong>외국 경력 인정에 유연한 편</strong>. 14년 경력이면 충분히 어필 가능해." } } },
+  // === 2026-02-05 신규 공고 ===
+  { id: "nyp-gracie-square-mood", title: "RN - Affective Mood Disorder Unit (Nights)", company: "NewYork-Presbyterian (Gracie Square Hospital)", location: "Manhattan, NY", pay: "$117K-$125K/year", hospital: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-05", url: "https://careers.nyp.org/job/manhattan/registered-nurse-affective-mood-disorder-unit-full-time-nights/19715/90943587376", lat: 40.7729, lng: -73.9541, advisors: { maggangi: { verdict: "go", comment: "Gracie Square는 <strong>NYC 최고 정신과 전문병원</strong>! Mood Disorder Unit은 우울증/양극성 전문. NP 가려면 여기 경력 최고야." }, sarah: { verdict: "go", comment: "$117-125K 연봉 좋아. <strong>Magnet 인증</strong> 병원이라 교육 수준 높아. Weill Cornell 제휴라 학술적 환경." }, jennifer: { verdict: "maybe", comment: "NYP는 <strong>경쟁이 치열해</strong>. 미국 경력 없이 바로 들어가기 쉽지 않아. 정신과 전문병원이라 기회 있을 수도." }, michael: { verdict: "go", comment: "NYP Gracie Square 경력은 <strong>프리미엄</strong>이야. 2-3년 하면 어디든 갈 수 있어!" }, david: { verdict: "go", comment: "연봉 $125K면 <strong>NYC 정신과 RN 상위권</strong>. NYP 브랜드 가치도 높아. 적극 지원 추천!" }, emily: { verdict: "maybe", comment: "NYP HR은 <strong>까다로운 편</strong>. 미국 경력 없으면 서류에서 걸릴 수 있어. 정신과 전문병원이라 기회 있을 수도." } } },
+  { id: "nychhc-elmhurst-bh", title: "Staff Nurse - Behavioral Health Services", company: "NYC Health + Hospitals (Elmhurst)", location: "Queens, NY", pay: "$109K/year", union: true, unionName: "NYSNA", hospital: true, city: true, recommended: true, isNew: true, top5Rank: 2, top5New: true, settingType: "inpatient", dateFound: "2026-02-05", searchTip: "검색 후 왼쪽 'Staff Nurse (4)' 필터 클릭", source: "NYC H+H Careers", lat: 40.7442, lng: -73.8860, advisors: { maggangi: { verdict: "go", comment: "<strong>Queens + Day shift + 노조</strong> = 완벽한 조합! Elmhurst는 대형 3차병원이라 경험 다양하게 쌓을 수 있어." }, sarah: { verdict: "go", comment: "<strong>Day shift 8-4:30</strong>이면 워라밸 최고야. 노조라 야근 강요 못해. Queens 거주 예정이면 출퇴근도 편해!" }, jennifer: { verdict: "go", comment: "내가 일하는 NYC H+H! <strong>Loan Forgiveness 대상</strong>이고, 경력수당 최대 $8K/yr. 노조라 <strong>해외 경력 인정 규정</strong> 있어!" }, michael: { verdict: "go", comment: "시립이라 민간보다 연봉 낮을 수 있지만 <strong>안정성 + 복지</strong>는 최고야. Day shift 원하면 여기가 답!" }, david: { verdict: "go", comment: "$109K가 낮아 보여도 <strong>연금 + 복지 + job security</strong> 합치면 민간 $130K랑 비슷해!" }, emily: { verdict: "go", comment: "NYC H+H HR이야! 우리가 <strong>외국 간호사 많이 채용해</strong>. WES + NCLEX + 추천서 있으면 서류 통과 확률 높아. <strong>적극 지원해!</strong>" } } },
+  { id: "nychhc-bellevue-peds-psych", title: "Staff Nurse - Psychiatry (BH Pediatric 21N)", company: "NYC Health + Hospitals (Bellevue)", location: "Manhattan, NY", pay: "협의", union: true, unionName: "NYSNA", hospital: true, city: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-06", lat: 40.7392, lng: -73.9748, advisors: { maggangi: { verdict: "go", comment: "<strong>Bellevue 소아정신과!</strong> NYSNA 노조 + 시립. 소아 경험 쌓으면 NP 때 강점." }, sarah: { verdict: "go", comment: "소아/청소년 정신과는 <strong>인력 부족</strong>. 미국 경력 없어도 채용 가능성 높아." }, jennifer: { verdict: "go", comment: "NYC H+H 시립이라 <strong>경력 인정 규정</strong> 명확해. 노조 협상으로 Step 올릴 수 있어." }, michael: { verdict: "go", comment: "Bellevue는 <strong>미국 최초 공립병원</strong>. 여기 경력은 어디서든 인정받아." }, david: { verdict: "go", comment: "소아 정신과 경력은 <strong>희소가치</strong> 있어. NP 갈 때 큰 자산!" }, emily: { verdict: "go", comment: "NYC H+H HR은 <strong>외국 간호사 채용 적극적</strong>. 서류 요건 맞으면 면접 기회 높아!" } } },
+  // === 2026-02-06 6인 토론 - TOP 5 신규 진입 ===
+  { id: "nyspi-rn1-p26220", title: "RN 1 Psychiatric (NY HELPS) - NYSPI", company: "NYS Office of Mental Health", location: "Washington Heights, NY", pay: "$115K-$124K/year", state: true, recommended: true, isNew: true, top5Rank: 3, top5New: true, settingType: "inpatient", dateFound: "2026-02-06", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=207300", lat: 40.8421, lng: -73.9419, advisors: { maggangi: { verdict: "go", comment: "NYSPI는 <strong>Columbia 제휴 연구병원</strong>! NP 진학 목표라면 여기 경력이 최고야." }, sarah: { verdict: "go", comment: "주정부라 <strong>안정성 최고</strong>. 커뮤니티 아웃리치 프로그램도 있어서 보건진료직 경험이랑 시너지 가능!" }, jennifer: { verdict: "go", comment: "NYSPI는 <strong>Columbia PMHNP 지원할 때 추천서 최강</strong>. 연구 경험도 쌓을 수 있어." }, michael: { verdict: "maybe", comment: "주정부라 경력 인정 체계 명확한데, <strong>스케줄 정보가 없어</strong> Day인지 확인 필요." }, david: { verdict: "go", comment: "주정부 $115-124K + 연금 + 복지 = 실질 연봉 $140K+. <strong>장기적으로 가장 안정적!</strong>" }, emily: { verdict: "go", comment: "NYS OMH는 <strong>외국 경력 인정에 유연해</strong>. 주정부 HR 기준 따르니까 명확하게 협상 가능!" } } },
+  { id: "bridgeway-4day-5k", title: "Psychiatric RN - $5K Bonus + 4 Day Week", company: "Bridgeway Rehabilitation", location: "Little Falls, NJ", pay: "$80K-$90K/year", isNew: true, dateFound: "2026-02-05", lat: 40.8823, lng: -74.2210, advisors: { maggangi: { verdict: "maybe", comment: "주4일 + $5K 보너스 매력적인데, <strong>NJ라 NY 라이선스 따로 필요해</strong>. 연봉도 NYC보다 낮아." }, sarah: { verdict: "go", comment: "<strong>주4일 워라밸</strong> 끝판왕! CS 졸업도 병행해야 하잖아. 시간 여유 있으면 공부하기 좋아." }, jennifer: { verdict: "maybe", comment: "NJ 병원은 <strong>노조가 약한 편</strong>. 경력 인정 협상이 어려울 수 있어." }, michael: { verdict: "skip", comment: "연봉이 너무 낮아. $80K면 NYC $130K 대비 <strong>$50K 손해</strong>야." }, david: { verdict: "maybe", comment: "첫 직장으로는 <strong>NYC에서 경력 쌓는 게 나아</strong>. NJ 경력은 NYC 이직할 때 덜 인정받을 수 있어." }, emily: { verdict: "maybe", comment: "NJ는 NY와 <strong>별도 라이선스</strong> 필요해. 장기 계획이 NYC면 NYC에서 시작하는 게 나아." } } },
+  { id: "montefiore-bh-peds", title: "Staff Nurse I/II - Child & Adolescent BH", company: "Montefiore", location: "Bronx, NY", pay: "$60.22/hr (~$125K)", hospital: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-05", lat: 40.8531, lng: -73.8464, advisors: { maggangi: { verdict: "maybe", comment: "$60.22/hr 좋은데 <strong>소아/청소년 정신과 1-2년 경력 필수</strong>래. 경력 요구사항 확인해봐야 해." }, sarah: { verdict: "go", comment: "Montefiore는 <strong>학술병원</strong>이라 교육 기회 많아. 소아 경험 쌓으면 NP 할 때 강점이야." }, jennifer: { verdict: "maybe", comment: "소아/청소년은 <strong>인력 부족</strong>해서 채용 잘 돼. 근데 '필수'라고 하면 서류에서 걸릴 수 있어." }, michael: { verdict: "go", comment: "Teaching hospital이라 <strong>NP 추천서</strong> 받기 좋아. 장기 목표가 Psych NP면 여기 경력 도움 돼." }, david: { verdict: "maybe", comment: "경력 요구사항이 걸려. 근데 <strong>지원은 해봐</strong>. 요구사항 100% 안 맞아도 되는 경우 많아." }, emily: { verdict: "maybe", comment: "'1-2년 경력 필수'면 서류에서 걸릴 확률 높아. <strong>커버레터에서 우울증/치매 검사 경험 어필</strong>하면 가능성 있어." } } },
+  // === 2026-02-07 3인 토론 신규 공고 ===
+  { id: "kingsboro-rn1-p26261", title: "RN 1 Psychiatric (NY HELPS) - Kingsboro", company: "NYS Office of Mental Health", location: "Brooklyn, NY", pay: "$115K-$124K/year", state: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-07", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=207765", lat: 40.6340, lng: -73.9120, advisors: { maggangi: { verdict: "go", comment: "<strong>Brooklyn 주립병원</strong>! Queens에서 가까워. NYSPI랑 같은 주정부 베네핏. 연금 + 튜이션!" }, jennifer: { verdict: "go", comment: "RN 1은 엔트리 레벨. 1-2년 후 <strong>RN 2 ($123-133K)</strong>로 승진 가능. 경력 인정 체계 명확해." }, david: { verdict: "go", comment: "<strong>NYSPI 백업으로 같이 지원</strong> 추천. 같은 주정부 시스템이라 둘 다 지원 가능!" } } },
+  { id: "nyp-old-adult-nights", title: "RN - Inpatient Psychiatry-Old Adult Unit (Nights)", company: "NewYork-Presbyterian", location: "Manhattan, NY", pay: "협의", hospital: true, recommended: true, isNew: true, settingType: "inpatient", dateFound: "2026-02-07", lat: 40.7729, lng: -73.9541, advisors: { maggangi: { verdict: "maybe", comment: "NYP 노인정신과! <strong>Night shift</strong>라 Day 선호하면 걸려. 근데 1년 후 내부 이동 가능해." }, jennifer: { verdict: "go", comment: "태권님 <strong>노인 우울증 검사, 치매 CIST 경험</strong>이 여기서 완벽히 어필돼! 노인정신과랑 딱 맞아." }, david: { verdict: "go", comment: "NYP Magnet 인증 병원. <strong>노인 경험 + 명문병원 경력</strong> 조합 좋아. 적극 지원!" } } },
+  { id: "southoaks-admissions-pd", title: "RN – Psych Admissions (Per Diem)", company: "Northwell Health (South Oaks Hospital)", location: "Amityville, NY", pay: "$67/hr", hospital: true, isNew: true, dateFound: "2026-02-07", lat: 40.6783, lng: -73.4171, advisors: { maggangi: { verdict: "skip", comment: "<strong>Per Diem + ER/Admissions 경험 선호</strong>. 태권님 타겟 아니야. 패스!" }, jennifer: { verdict: "skip", comment: "Per Diem이라 <strong>베네핏 없어</strong>. Amityville도 Queens에서 1.5시간. 패스!" }, david: { verdict: "skip", comment: "첫 미국 직장으로 Per Diem + 원거리는 <strong>너무 힘들어</strong>. 다른 공고 집중!" } } },
+  // === 2026-02-09 6인 토론 Honorable Mentions ===
+  { id: "nyp-bh-11n-day-eve", title: "Staff Nurse - BH Medicine 11N Day/Evenings", company: "NewYork-Presbyterian", location: "Manhattan, NY", pay: "$128K-$147K/year", hospital: true, recommended: true, isNew: true, honorableMention: true, settingType: "inpatient", dateFound: "2026-02-09", url: "https://careers.nyp.org/job/manhattan/staff-nurse-bh-medicine-11n-day-evening/19715/90943587072", lat: 40.7729, lng: -73.9541, advisors: { maggangi: { verdict: "go", comment: "드디어 <strong>NYP Day/Eve shift</strong> 나왔어! $128-147K에 Magnet 인증. 미국 경력 쌓고 지원하면 승산 있어." }, sarah: { verdict: "go", comment: "그동안 NYP 정신과는 Night뿐이었는데 <strong>Day/Eve 옵션</strong>! 태권님 선호에 딱 맞아." }, jennifer: { verdict: "maybe", comment: "NYP는 <strong>경쟁 치열해</strong>. 미국 경력 없이 바로는 쉽지 않아. 6개월 후 타겟으로!" }, michael: { verdict: "go", comment: "Weill Cornell 제휴 + Magnet 인증. <strong>이 경력 있으면 어디든</strong> 갈 수 있어!" }, david: { verdict: "go", comment: "미국 경력 쌓고 지원하는 게 현실적. <strong>6개월 후 타겟</strong>으로 북마크!" }, emily: { verdict: "maybe", comment: "NYP HR은 <strong>미국 경력 중시</strong>. 지금 바로는 어렵고, 널싱홈 6개월 후 지원 추천!" } } },
+  { id: "cucs-community-rn", title: "RN - Community Mental Health", company: "Center for Urban Community Services", location: "Manhattan, NY", pay: "$97K-$107K/year", isNew: true, honorableMention: true, settingType: "community", dateFound: "2026-02-09", lat: 40.8116, lng: -73.9465, advisors: { maggangi: { verdict: "go", comment: "커뮤니티 정신건강! <strong>보건진료직 10년 경험이랑 시너지</strong> 좋아. 미국 경력 없어도 가능성 있어." }, sarah: { verdict: "go", comment: "비영리 커뮤니티라 <strong>대형병원보다 채용 유연해</strong>. 태권님 경험 어필하기 좋아!" }, jennifer: { verdict: "go", comment: "병원만큼 복지는 아니지만 <strong>미국 경력 쌓기</strong>엔 좋아. 1-2년 후 병원 이직 가능!" }, michael: { verdict: "go", comment: "$97-107K 괜찮아. <strong>지역사회 정신건강 경험</strong>은 NP 갈 때 차별화돼!" }, david: { verdict: "go", comment: "비영리라 <strong>외국 경력자 채용 열려있어</strong>. 보건진료직 경험 어필하면 가능성 높아!" }, emily: { verdict: "go", comment: "비영리는 <strong>다양한 배경 환영</strong>. 서류 요건 엄격하지 않아. 지원해볼 가치 있어!" } } }
+];
+
+let map;
+
+function showTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelector(`[onclick="showTab('${tab}')"]`).classList.add('active');
+  document.getElementById(tab + 'Tab').classList.add('active');
+  if (tab === 'map' && !map) initMap();
+}
+
+function initMap() {
+  map = L.map('map', { preferCanvas: false }).setView([40.7580, -73.9855], 10);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap, &copy; CARTO'
+  }).addTo(map);
+  
+  const colors = { go: '#22c55e', maybe: '#f59e0b', wait: '#ef4444' };
+  
+  jobs.forEach(job => {
+    if (!job.lat) return;
+    const verdict = job.advisors?.maggangi?.verdict || 'maybe';
+    const color = colors[verdict];
+    
+    const size = job.recommended ? 24 : 16;
+    const marker = L.marker([job.lat, job.lng], {
+      icon: L.divIcon({
+        className: 'custom-marker',
+        html: `<div style="width:${size}px;height:${size}px;background:${color};border:2px solid #fff;border-radius:50%;cursor:pointer;"></div>`,
+        iconSize: [size, size],
+        iconAnchor: [size/2, size/2]
+      })
+    }).addTo(map);
+    
+    const popupContent = `
+      <div class="popup-title">${job.title}</div>
+      <div class="popup-company">${job.company}</div>
+      <div>${job.location}</div>
+      ${job.pay ? `<div class="popup-pay">💰 ${job.pay}</div>` : ''}
+      ${job.union ? `<div>💪 ${job.unionName || 'Union'}</div>` : ''}
+      <button onclick="openModal('${job.id}')" style="margin-top:10px;padding:5px 10px;background:#3a7bd5;color:#fff;border:none;border-radius:5px;cursor:pointer;">상세보기</button>
+    `;
+    marker.bindPopup(popupContent);
+    marker.on('click', function() { this.openPopup(); });
+  });
+  
+  const legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function() {
+    const div = L.DomUtil.create('div', 'legend');
+    div.innerHTML = `
+      <h4>AI 추천</h4>
+      <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>적극 추천</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>조건부</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>나중에</div>
+    `;
+    return div;
+  };
+  legend.addTo(map);
+}
+
+function getDdayBadge(job) {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  
+  if (job.deadline) {
+    const deadline = new Date(job.deadline);
+    deadline.setHours(0,0,0,0);
+    const diff = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+    
+    if (diff < 0) return '<span class="badge badge-dday">마감됨</span>';
+    if (diff === 0) return '<span class="badge badge-dday">D-Day!</span>';
+    if (diff <= 3) return '<span class="badge badge-dday">D-' + diff + '</span>';
+    if (diff <= 7) return '<span class="badge badge-dday-soon">D-' + diff + '</span>';
+    if (diff <= 14) return '<span class="badge badge-dday-ok">D-' + diff + '</span>';
+    return '<span class="badge badge-posted">D-' + diff + '</span>';
+  }
+  
+  if (job.dateFound) {
+    const found = new Date(job.dateFound);
+    found.setHours(0,0,0,0);
+    const daysAgo = Math.floor((today - found) / (1000 * 60 * 60 * 24));
+    
+    if (daysAgo === 0) return '<span class="badge badge-new">오늘 발견</span>';
+    if (daysAgo <= 3) return '<span class="badge badge-dday-ok">' + daysAgo + '일 전</span>';
+    if (daysAgo <= 7) return '<span class="badge badge-dday-soon">' + daysAgo + '일 전</span>';
+    if (daysAgo <= 14) return '<span class="badge badge-posted">' + daysAgo + '일 전</span>';
+    return '<span class="badge badge-dday">오래됨</span>';
+  }
+  
+  return '';
+}
+
+function getStateBadge(loc) {
+  if (loc.includes('NY') || loc.includes('New York') || loc.includes('Harlem') || loc.includes('Brooklyn') || loc.includes('Bronx') || loc.includes('Queens') || loc.includes('LES')) return 'ny';
+  if (loc.includes('NJ') || loc.includes('New Jersey')) return 'nj';
+  if (loc.includes('CT')) return 'ct';
+  return 'ny';
+}
+
+function renderJob(job) {
+  const state = getStateBadge(job.location);
+  const ddayBadge = getDdayBadge(job);
+  const matchRate = calculateMatchRate(job);
+  
+  // 합격률 색상
+  let rateColor = '#ef4444'; // 빨강 (낮음)
+  if (matchRate >= 70) rateColor = '#22c55e'; // 초록 (높음)
+  else if (matchRate >= 50) rateColor = '#f59e0b'; // 노랑 (중간)
+  
+  // 병동 유형 배지
+  let settingBadge = '';
+  if (job.settingType === 'outpatient') settingBadge = '<span class="badge badge-outpatient">🏢 외래</span>';
+  else if (job.settingType === 'community') settingBadge = '<span class="badge badge-community">🏠 지역사회</span>';
+  else if (job.settingType === 'inpatient') settingBadge = '<span class="badge badge-inpatient">🏥 입원</span>';
+  
+  // 병원 유형 배지
+  let hospitalBadge = '';
+  if (job.federal) hospitalBadge = '<span class="badge badge-federal">🦅 연방(VA)</span>';
+  else if (job.city) hospitalBadge = '<span class="badge badge-city">🏙️ 시립</span>';
+  
+  return `
+    <div class="job-card ${job.recommended ? 'recommended' : ''}" onclick="openModal('${job.id}')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div class="job-title" style="flex:1;">${job.title}</div>
+        <div style="background:${rateColor};color:#fff;padding:4px 10px;border-radius:12px;font-size:0.85rem;font-weight:bold;margin-left:10px;">
+          ${matchRate}%
+        </div>
+      </div>
+      <div class="job-badges">
+        ${ddayBadge}
+        ${job.top5New ? '<span class="badge badge-new">🆕 TOP5 신규!</span>' : ''}
+        ${job.recommended ? '<span class="badge badge-rec">⭐ 추천</span>' : ''}
+        <span class="badge badge-${state}">${state.toUpperCase()}</span>
+        ${settingBadge}
+        ${hospitalBadge}
+        ${job.union ? '<span class="badge badge-union">💪 ' + (job.unionName || 'Union') + '</span>' : ''}
+        ${job.state ? '<span class="badge badge-state">🏛️ 주립</span>' : ''}
+        ${job.jobId ? '<span class="badge" style="background:#1e3a5f;color:#7ec8e3;">🔑 ID:' + job.jobId + '</span>' : ''}
+      </div>
+      <div class="job-company">${job.company}</div>
+      <div class="job-location">📍 ${job.location}</div>
+      ${job.pay ? `<div class="job-pay">💰 ${job.pay}</div>` : ''}
+    </div>
+  `;
+}
+
+function getVerdictClass(v) { return v === 'go' ? 'verdict-go' : v === 'maybe' ? 'verdict-maybe' : 'verdict-wait'; }
+function getVerdictText(v) { return v === 'go' ? '✅ 적극 추천!' : v === 'maybe' ? '🤔 조건부' : '⏳ 나중에'; }
+
+function openModal(jobId) {
+  const job = jobs.find(j => j.id === jobId);
+  if (!job) return;
+  document.getElementById('modalTitle').textContent = job.title;
+  document.getElementById('modalCompany').textContent = job.company + ' • ' + job.location;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="info-grid">
+      <div class="info-box"><div class="info-label">🎯 합격률</div><div class="info-value highlight" style="font-size:1.3rem;">${calculateMatchRate(job)}%</div></div>
+      <div class="info-box"><div class="info-label">💰 급여</div><div class="info-value highlight">${job.pay || '협의'}</div></div>
+      <div class="info-box"><div class="info-label">💪 노조</div><div class="info-value">${job.union ? job.unionName || 'Yes' : '없음'}</div></div>
+      <div class="info-box"><div class="info-label">🏛️ 병원유형</div><div class="info-value">${job.state ? '주립' : job.city ? '시립' : '민간'}</div></div>
+      <div class="info-box"><div class="info-label">🏥 병동</div><div class="info-value">${job.settingType === 'inpatient' ? '입원' : job.settingType === 'outpatient' ? '외래' : job.settingType === 'community' ? '지역사회' : '미분류'}</div></div>
+      <div class="info-box"><div class="info-label">📍 위치</div><div class="info-value">${job.location}</div></div>
+    </div>
+    ${job.lat ? `<p style="margin-bottom:15px;"><a href="https://www.google.com/maps?q=${job.lat},${job.lng}" target="_blank" style="color:#3a7bd5;">🗺️ Google Maps에서 보기</a></p>` : ''}
+    <div class="advisor-section">
+      <h3 class="advisor-title">🤖 6인 어드바이저 분석</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header"><div class="advisor-avatar">😎</div><div><div class="advisor-name">마깡이</div><div class="advisor-role">Mount Sinai 정신과 RN 5년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.maggangi?.verdict || 'wait')}">${getVerdictText(job.advisors.maggangi?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.maggangi?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card" style="border-color:#10b981;">
+          <div class="advisor-header"><div class="advisor-avatar" style="background:rgba(16,185,129,0.2);">🩺</div><div><div class="advisor-name">Sarah Lee</div><div class="advisor-role">Northwell→주립 RN 8년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.sarah?.verdict || 'wait')}">${getVerdictText(job.advisors.sarah?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.sarah?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card jennifer">
+          <div class="advisor-header"><div class="advisor-avatar">👩‍⚕️</div><div><div class="advisor-name">Jennifer Kim</div><div class="advisor-role">NYC H+H Manager 20년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.jennifer?.verdict || 'wait')}">${getVerdictText(job.advisors.jennifer?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.jennifer?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card" style="border-color:#8b5cf6;">
+          <div class="advisor-header"><div class="advisor-avatar" style="background:rgba(139,92,246,0.2);">👨‍⚕️</div><div><div class="advisor-name">Michael Chen</div><div class="advisor-role">NYP Nurse Director 15년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.michael?.verdict || 'wait')}">${getVerdictText(job.advisors.michael?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.michael?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card david">
+          <div class="advisor-header"><div class="advisor-avatar">🧑‍💼</div><div><div class="advisor-name">David Park</div><div class="advisor-role">MedStaff 리크루터</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.david?.verdict || 'wait')}">${getVerdictText(job.advisors.david?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.david?.comment || '(분석 예정)'}</div>
+        </div>
+        <div class="advisor-card" style="border-color:#ec4899;">
+          <div class="advisor-header"><div class="advisor-avatar" style="background:rgba(236,72,153,0.2);">👩‍💼</div><div><div class="advisor-name">Emily Rodriguez</div><div class="advisor-role">NYC H+H HR 12년</div></div></div>
+          <div class="advisor-verdict ${getVerdictClass(job.advisors.emily?.verdict || 'wait')}">${getVerdictText(job.advisors.emily?.verdict || 'wait')}</div>
+          <div class="advisor-comment">${job.advisors.emily?.comment || '(분석 예정)'}</div>
+        </div>
+      </div>
+    </div>
+    <div class="how-to-find" style="margin:20px 0;padding:15px;background:rgba(255,255,255,0.03);border-radius:12px;border-left:4px solid ${job.url ? '#22c55e' : job.jobId ? '#3a7bd5' : '#f59e0b'};">
+      <div style="font-weight:600;color:#fff;margin-bottom:8px;">📋 원문 공고 찾는 방법</div>
+      ${job.url ? `
+        <div style="color:#22c55e;">✅ <strong>직접 링크 있음!</strong></div>
+        <div style="color:#aaa;font-size:0.9rem;margin-top:5px;">아래 "원문 공고 보기" 버튼 클릭하면 바로 이동합니다.</div>
+      ` : job.jobId ? `
+        <div style="color:#3a7bd5;">🔑 <strong>NYC H+H Job ID: ${job.jobId}</strong></div>
+        <div style="color:#aaa;font-size:0.9rem;margin-top:5px;">
+          <strong>찾는 방법:</strong><br>
+          1️⃣ 아래 버튼 클릭 → NYC H+H 채용페이지 열림<br>
+          2️⃣ 검색창에 <span style="color:#00d2ff;font-weight:bold;">${job.jobId}</span> 입력<br>
+          3️⃣ 검색 결과에서 공고 클릭
+        </div>
+      ` : job.state ? `
+        <div style="color:#7ec8e3;">🏛️ <strong>주정부 공고 (StateJobsNY)</strong></div>
+        <div style="color:#aaa;font-size:0.9rem;margin-top:5px;">
+          <strong>찾는 방법:</strong><br>
+          1️⃣ 아래 버튼 클릭 → StateJobsNY 검색페이지<br>
+          2️⃣ Agency에서 "Mental Health, Office of" 선택<br>
+          3️⃣ "${job.title.split(' - ')[0]}" 검색
+        </div>
+      ` : `
+        <div style="color:#f59e0b;">🔍 <strong>검색 필요</strong></div>
+        <div style="color:#aaa;font-size:0.9rem;margin-top:5px;">
+          <strong>찾는 방법:</strong><br>
+          1️⃣ 아래 버튼 클릭 → 검색 페이지 열림<br>
+          2️⃣ "${job.company}"에서 "${job.title.split(' - ')[0]}" 검색<br>
+          ${job.searchTip ? `<span style="color:#00d2ff;">💡 ${job.searchTip}</span>` : '💡 공고가 마감됐을 수 있습니다'}
+        </div>
+      `}
+    </div>
+    <div class="action-buttons">
+      ${job.url 
+        ? `<button class="btn btn-primary" onclick="window.open('${job.url}', '_blank')">🔗 원문 공고 보기</button>` 
+        : job.jobId 
+          ? `<button class="btn btn-primary" onclick="window.open('https://careers.nychhc.org/psc/hrtam/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB&Action=U&FOCUS=Applicant&SiteId=1', '_blank')">🔍 NYC H+H 채용페이지 (Job ID: ${job.jobId})</button>`
+          : `<button class="btn btn-primary" onclick="searchJobBySource('${job.title.replace(/'/g, "\\'")}', '${job.company.replace(/'/g, "\\'")}', '${job.source || ''}')">🔍 공고 검색</button>`}
+      <button class="btn btn-secondary" onclick="window.open('https://www.glassdoor.com/Search/results.htm?keyword=' + encodeURIComponent('${job.company}'), '_blank')">📊 Glassdoor 리뷰</button>
+      ${job.lat ? `<button class="btn btn-secondary" onclick="window.open('https://www.google.com/maps?q=${job.lat},${job.lng}', '_blank')">🗺️ 지도</button>` : ''}
+      <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+// 소스별 검색 URL 생성 함수
+function searchJobBySource(title, company, source) {
+  const query = encodeURIComponent(`${title} ${company}`);
+  const companyQuery = encodeURIComponent(company);
+  
+  const sourceUrls = {
+    'Indeed': `https://www.indeed.com/jobs?q=${query}&l=New+York`,
+    'LinkedIn': `https://www.linkedin.com/jobs/search/?keywords=${query}&location=New%20York`,
+    'ZipRecruiter': `https://www.ziprecruiter.com/jobs-search?search=${query}&location=New+York`,
+    'Glassdoor': `https://www.glassdoor.com/Job/new-york-jobs-SRCH_IL.0,8_IC1132348.htm?keyword=${query}`,
+    'Health eCareers': `https://www.healthecareers.com/jobs?q=${query}&l=New+York`,
+    'Mount Sinai Careers': `https://careers.mountsinai.org/jobs?keywords=${companyQuery}+psychiatric+nurse`,
+    'NYC Health + Hospitals Careers': `https://careers.nychhc.org/psc/hrtam/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB&Action=U&FOCUS=Applicant&SiteId=1`,
+    'Northwell Health Careers': `https://jobs.northwell.edu/job-search-results/?keyword=psychiatric%20nurse`,
+    'Montefiore Careers': `https://www.montefiore.org/careers-search?keyword=psychiatric+nurse`,
+    'Columbia CUIMC Careers': `https://opportunities.columbia.edu/en-us/filter/?search-keyword=psychiatric+nurse`,
+    'NYU Langone Health Careers': `https://jobs.nyulangone.org/search-jobs?k=psychiatric%20nurse`,
+    'NewYork-Presbyterian Careers': `https://careers.nyp.org/jobs?keywords=psychiatric%20nurse`,
+    'StateJobsNY': `https://statejobs.ny.gov/public/vacancysearch.cfm?searchArg=psychiatric+nurse`,
+    'USAJobs': `https://www.usajobs.gov/Search/Results?k=psychiatric+nurse&l=New+York`,
+    'Maimonides Medical Center': `https://jobs.maimonides.org/?keywords=psychiatric+nurse`,
+    'SUNY Downstate': `https://sunysb.taleo.net/careersection/2/jobsearch.ftl?keyword=psychiatric`,
+    'Hackensack Meridian Health': `https://jobs.hackensackmeridianhealth.org/search-jobs/psychiatric%20nurse`
+  };
+  
+  // 소스에 맞는 URL 찾기, 없으면 Indeed
+  let url = sourceUrls['Indeed']; // 기본값
+  
+  for (const [key, value] of Object.entries(sourceUrls)) {
+    if (source && source.toLowerCase().includes(key.toLowerCase().split(' ')[0])) {
+      url = value;
+      break;
+    }
+  }
+  
+  window.open(url, '_blank');
+}
+document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
+
+// 현재 필터 상태
+let currentFilters = {
+  region: 'all',
+  setting: 'all',
+  hospital: 'all',
+  search: '',
+  sort: 'default'
+};
+
+function applyFilters() {
+  currentFilters.search = document.getElementById('searchInput').value.toLowerCase();
+  
+  let filtered = jobs.filter(job => {
+    // 검색 필터
+    if (currentFilters.search) {
+      const searchTarget = `${job.title} ${job.company} ${job.location}`.toLowerCase();
+      if (!searchTarget.includes(currentFilters.search)) return false;
+    }
+    
+    // 지역 필터
+    if (currentFilters.region !== 'all') {
+      const state = getStateBadge(job.location);
+      if (currentFilters.region !== state) return false;
+    }
+    
+    // 병동 유형 필터
+    if (currentFilters.setting !== 'all') {
+      if (job.settingType !== currentFilters.setting) return false;
+    }
+    
+    // 병원 유형 필터
+    if (currentFilters.hospital !== 'all') {
+      if (currentFilters.hospital === 'state' && !job.state) return false;
+      if (currentFilters.hospital === 'city' && !job.city) return false;
+      if (currentFilters.hospital === 'federal' && !job.federal) return false;
+      if (currentFilters.hospital === 'private' && (job.state || job.city || job.federal)) return false;
+    }
+    
+    // 퀵 필터 (토글)
+    if (isChipActive('union') && !job.union) return false;
+    if (isChipActive('recommended') && !job.recommended) return false;
+    if (isChipActive('new') && !job.isNew) return false;
+    
+    return true;
+  });
+  
+  // 정렬 적용
+  if (currentFilters.sort === 'matchRate') {
+    filtered.sort((a, b) => calculateMatchRate(b) - calculateMatchRate(a));
+  } else if (currentFilters.sort === 'pay') {
+    filtered.sort((a, b) => {
+      const getPay = (job) => {
+        if (!job.pay) return 0;
+        const match = job.pay.match(/\$(\d+)[Kk]|\$(\d{2,3}),?\d{3}/);
+        if (match) return match[1] ? parseInt(match[1]) * 1000 : parseInt(match[2]) * 1000;
+        const hourly = job.pay.match(/\$(\d+\.?\d*)/);
+        if (hourly) return parseFloat(hourly[1]) * 2080; // 시급 → 연봉 환산
+        return 0;
+      };
+      return getPay(b) - getPay(a);
+    });
+  } else if (currentFilters.sort === 'date') {
+    filtered.sort((a, b) => new Date(b.dateFound || '2020-01-01') - new Date(a.dateFound || '2020-01-01'));
+  }
+  
+  // TOP 5 추천 공고 (점수 기반)
+  const top5 = getTop5Jobs();
+  const top5Ids = top5.map(j => j.id);
+  const top5Filtered = top5.filter(j => filtered.some(f => f.id === j.id));
+  const otherFiltered = filtered.filter(j => !top5Ids.includes(j.id));
+  
+  document.getElementById('recommendedJobs').innerHTML = top5Filtered.length > 0 
+    ? top5Filtered.map(j => renderJob({...j, score: j.score})).join('') 
+    : '<p style="color:#666;">해당 조건의 추천 공고가 없습니다.</p>';
+  document.getElementById('allJobs').innerHTML = otherFiltered.length > 0 
+    ? otherFiltered.map(renderJob).join('') 
+    : '<p style="color:#666;">해당 조건의 공고가 없습니다.</p>';
+  
+  // 통계 업데이트
+  document.getElementById('totalJobs').textContent = filtered.length;
+  document.getElementById('nyJobs').textContent = filtered.filter(j => getStateBadge(j.location) === 'ny').length;
+  document.getElementById('njJobs').textContent = filtered.filter(j => getStateBadge(j.location) === 'nj').length;
+  document.getElementById('unionJobs').textContent = filtered.filter(j => j.union).length;
+}
+
+// 필터 버튼 이벤트
+// 퀵 필터 토글 함수
+function toggleChip(btn) {
+  btn.classList.toggle('active');
+  applyFilters();
+}
+
+// 퀵 필터 상태 체크 함수
+function isChipActive(filter) {
+  const chip = document.querySelector(`.filter-chip[data-filter="${filter}"]`);
+  return chip && chip.classList.contains('active');
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.dataset.group;
+    const filter = btn.dataset.filter;
+    
+    // 같은 그룹 내에서 active 토글
+    if (group) {
+      document.querySelectorAll(`.filter-btn[data-group="${group}"]`).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // 필터 상태 업데이트
+      if (group === 'region') currentFilters.region = filter;
+      if (group === 'setting') currentFilters.setting = filter;
+      if (group === 'hospital') currentFilters.hospital = filter;
+      if (group === 'sort') currentFilters.sort = filter;
+    } else {
+      // 토글 버튼 (union, recommended, new)
+      btn.classList.toggle('active');
+    }
+    
+    applyFilters();
+  });
+});
+
+// 합격률 계산 함수 (태권님 프로필 기준)
+// 프로필: NCLEX ✅, BLS ✅, Duolingo 105, 14년 경력, 정신과 관련 경험(우울증/치매검사), 추천서 2개, CPI ❌
+function calculateMatchRate(job) {
+  let rate = 60; // 기본 60% (NCLEX + BLS + 경력 있음)
+  
+  // 긍정 요소
+  if (job.union) rate += 12; // 노조 = 해외 경력 인정 가능성
+  if (job.city) rate += 8; // 시립 = 외국인 채용 열림
+  if (job.settingType === 'community') rate += 12; // 지역사회 = 보건진료직 경험 어필 (우울증/치매검사)
+  if (job.settingType === 'outpatient') rate += 8; // 외래 = 경쟁 덜함
+  if (job.newGradOk) rate += 10; // 신규 환영 = 미국 경력 없어도 OK
+  if (job.location?.includes('Queens')) rate += 5; // 퀸즈 = 출퇴근 편함
+  
+  // 근무 시간 (Day 선호)
+  if (job.schedule?.toLowerCase().includes('day')) rate += 5;
+  if (job.schedule?.toLowerCase().includes('night') || job.title?.toLowerCase().includes('night')) rate -= 5;
+  
+  // 부정 요소
+  if (job.psychExpRequired) rate -= 10; // 정신과 경력 필수 (관련 경험은 있음)
+  if (job.usExpRequired) rate -= 20; // 미국 경력 필수
+  if (job.cpiRequired) rate -= 8; // CPI 필수 (없음)
+  if (job.state && job.settingType === 'inpatient') rate -= 10; // 주립 입원 = 위험
+  if (job.immediateStart) rate -= 10; // 즉시 시작 (7월 가능)
+  
+  // 어드바이저 평가 반영
+  if (job.advisors) {
+    const verdicts = [job.advisors.maggangi?.verdict, job.advisors.jennifer?.verdict, job.advisors.david?.verdict,
+                      job.advisors.sarah?.verdict, job.advisors.michael?.verdict, job.advisors.emily?.verdict];
+    const goCount = verdicts.filter(v => v === 'go').length;
+    rate += goCount * 3; // go 하나당 +3%
+  }
+  
+  return Math.min(95, Math.max(15, rate)); // 15% ~ 95% 범위
+}
+
+// TOP 5 점수 계산 함수
+function calculateScore(job) {
+  let score = 0;
+  
+  // 어드바이저 "go" = 각 1점 (최대 3점)
+  if (job.advisors) {
+    const verdicts = [job.advisors.maggangi?.verdict, job.advisors.jennifer?.verdict, job.advisors.david?.verdict];
+    const goCount = verdicts.filter(v => v === 'go').length;
+    score += goCount;
+  }
+  
+  // 노조 = 1점
+  if (job.union) score += 1;
+  
+  // 시립 = 1점 (안정성)
+  if (job.city) score += 1;
+  
+  // 주립병원 조건부 점수
+  if (job.state) {
+    if (job.settingType === 'inpatient') {
+      score -= 4; // 주립 + 입원 = 중증 환자, 위험성 매우 높음
+    } else if (job.settingType === 'outpatient' || job.settingType === 'community') {
+      score += 2; // 주립 + 외래/지역사회 = 복지 좋고 안전
+    }
+  }
+  
+  // 외래/지역사회 = 1점 (워라밸 + 안전)
+  if (job.settingType === 'outpatient' || job.settingType === 'community') {
+    score += 1;
+  }
+  
+  // 연봉 $100K 이상 = 1점
+  if (job.pay) {
+    const payMatch = job.pay.match(/\$(\d+)[Kk]|\$(\d{2,3}),?\d{3}/);
+    if (payMatch) {
+      const amount = payMatch[1] ? parseInt(payMatch[1]) : parseInt(payMatch[2]);
+      if (amount >= 100) score += 1;
+    }
+  }
+  
+  return score;
+}
+
+// TOP 5 공고 가져오기 (top5Rank 필드 우선, 없으면 점수 계산)
+function getTop5Jobs() {
+  const scoredJobs = jobs.filter(j => j.recommended).map(job => ({
+    ...job,
+    score: job.top5Rank ? (100 - job.top5Rank) : calculateScore(job) // top5Rank 있으면 우선
+  }));
+  scoredJobs.sort((a, b) => b.score - a.score);
+  return scoredJobs.slice(0, 5);
+}
+
+// 초기 렌더링
+function render() { applyFilters(); }
+
+render();
+</script>
+</div> <!-- end main-content -->
+
+<!-- Password removed -->
+</body>
+</html>
