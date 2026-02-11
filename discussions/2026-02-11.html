@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📅 2026-02-11 6인 토론 | 뉴욕 정신과 RN</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #e0e0e0; line-height: 1.7; padding: 20px; min-height: 100vh; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { text-align: center; padding: 40px 20px; margin-bottom: 30px; }
+    h1 { font-size: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .subtitle { color: #888; font-size: 1rem; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: #667eea; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    .summary-box { background: linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.1) 100%); border: 1px solid rgba(102,126,234,0.3); border-radius: 16px; padding: 25px; margin-bottom: 30px; }
+    .summary-box h2 { color: #667eea; margin-bottom: 15px; font-size: 1.3rem; }
+    .summary-box ul { list-style: none; }
+    .summary-box li { margin: 10px 0; padding-left: 25px; position: relative; }
+    .summary-box li::before { content: "→"; position: absolute; left: 0; color: #667eea; }
+    .job-section { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1); }
+    .job-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .job-title { font-size: 1.3rem; color: #fff; }
+    .job-company { color: #667eea; font-size: 1rem; margin-top: 5px; }
+    .job-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .badge { font-size: 0.75rem; padding: 4px 12px; border-radius: 20px; font-weight: 500; }
+    .badge-go { background: #22c55e; color: #fff; }
+    .badge-maybe { background: #f59e0b; color: #000; }
+    .badge-skip { background: #ef4444; color: #fff; }
+    .badge-ny { background: #2d5a27; color: #8fdf82; }
+    .badge-nj { background: #5a4327; color: #dfb882; }
+    .badge-union { background: #5a2752; color: #df82d3; }
+    .badge-day { background: #0ea5e9; color: #fff; }
+    .badge-night { background: #6366f1; color: #fff; }
+    .badge-new { background: #c41e3a; color: #fff; }
+    .badge-featured { background: #ffd700; color: #000; }
+    .badge-magnet { background: #ec4899; color: #fff; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .info-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; }
+    .info-label { font-size: 0.75rem; color: #888; margin-bottom: 4px; }
+    .info-value { font-size: 0.95rem; color: #fff; }
+    .advisor-grid { display: grid; gap: 15px; }
+    .advisor-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; border-left: 4px solid; }
+    .advisor-card.maggangi { border-color: #ff6b6b; }
+    .advisor-card.sarah { border-color: #4ecdc4; }
+    .advisor-card.jennifer { border-color: #45b7d1; }
+    .advisor-card.michael { border-color: #96ceb4; }
+    .advisor-card.david { border-color: #ffeaa7; }
+    .advisor-card.emily { border-color: #dfe6e9; }
+    .advisor-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .advisor-avatar { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+    .advisor-card.maggangi .advisor-avatar { background: rgba(255,107,107,0.2); }
+    .advisor-card.sarah .advisor-avatar { background: rgba(78,205,196,0.2); }
+    .advisor-card.jennifer .advisor-avatar { background: rgba(69,183,209,0.2); }
+    .advisor-card.michael .advisor-avatar { background: rgba(150,206,180,0.2); }
+    .advisor-card.david .advisor-avatar { background: rgba(255,234,167,0.2); }
+    .advisor-card.emily .advisor-avatar { background: rgba(223,230,233,0.2); }
+    .advisor-info h4 { color: #fff; font-size: 0.95rem; }
+    .advisor-info span { color: #888; font-size: 0.8rem; }
+    .verdict { display: inline-block; padding: 3px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-bottom: 10px; }
+    .verdict-go { background: #22c55e; color: #fff; }
+    .verdict-maybe { background: #f59e0b; color: #000; }
+    .verdict-skip { background: #ef4444; color: #fff; }
+    .advisor-comment { color: #ccc; font-size: 0.9rem; line-height: 1.6; }
+    .advisor-comment strong { color: #667eea; }
+    .vote-summary { background: rgba(102,126,234,0.1); border-radius: 12px; padding: 15px; margin-top: 20px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+    .vote-item { text-align: center; }
+    .vote-count { font-size: 1.5rem; font-weight: bold; }
+    .vote-count.go { color: #22c55e; }
+    .vote-count.maybe { color: #f59e0b; }
+    .vote-count.skip { color: #ef4444; }
+    .vote-label { font-size: 0.8rem; color: #888; }
+    .final-verdict { margin-top: 30px; padding: 25px; background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(16,185,129,0.05) 100%); border: 1px solid rgba(34,197,94,0.3); border-radius: 16px; }
+    .final-verdict h2 { color: #22c55e; margin-bottom: 15px; }
+    .final-verdict .ranking { margin: 15px 0; }
+    .final-verdict .rank-item { display: flex; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .final-verdict .rank-medal { font-size: 1.5rem; }
+    .final-verdict .rank-info h4 { color: #fff; margin-bottom: 3px; }
+    .final-verdict .rank-info span { color: #888; font-size: 0.85rem; }
+    .action-items { margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; }
+    .action-items h3 { color: #ffd700; margin-bottom: 15px; }
+    .action-items ul { list-style: none; }
+    .action-items li { margin: 10px 0; padding-left: 25px; position: relative; }
+    .action-items li::before { content: "✓"; position: absolute; left: 0; color: #22c55e; }
+    footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.85rem; }
+    a { color: #667eea; }
+    .highlight-box { background: linear-gradient(135deg, rgba(236,72,153,0.15) 0%, rgba(139,92,246,0.1) 100%); border: 1px solid rgba(236,72,153,0.3); border-radius: 12px; padding: 15px; margin: 15px 0; }
+    .highlight-box strong { color: #ec4899; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="dashboard.html" class="back-link">← 대시보드로 돌아가기</a>
+    
+    <header>
+      <h1>📅 2026-02-11 6인 토론</h1>
+      <p class="subtitle">NYP Westchester BH Center 4개 공고 집중 분석! 🏥</p>
+    </header>
+    
+    <div class="summary-box">
+      <h2>📊 오늘의 핵심 요약</h2>
+      <ul>
+        <li><strong>분석 공고:</strong> 4건 (모두 NewYork-Presbyterian)</li>
+        <li><strong>🥇 1위:</strong> NYP Geriatrics BH (Day/Evening) - 6 GO 만장일치! 태권님 노인우울증 경험과 완벽 매칭</li>
+        <li><strong>🥈 2위:</strong> NYP Crisis Stabilization (Night) - 5 GO, 1 MAYBE - 급성기 경험 가능</li>
+        <li><strong>⭐ 특징:</strong> Westchester BH Center = Magnet 병원 + 정신과 전문 캠퍼스!</li>
+        <li><strong>⚠️ 주의:</strong> White Plains는 Queens에서 1시간+... 출퇴근 고려 필요</li>
+      </ul>
+    </div>
+
+    <!-- Job 1: Geriatrics BH (Day/Evening) -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Staff Nurse - RN - Behavioral Health - Geriatrics-4South- Day/Evening</div>
+          <div class="job-company">NewYork-Presbyterian (Westchester BH Center)</div>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+          <span class="badge badge-day">Day/Evening</span>
+          <span class="badge badge-magnet">⭐ Magnet</span>
+          <span class="badge badge-featured">⭐ 경험 매칭!</span>
+        </div>
+      </div>
+      
+      <div class="highlight-box">
+        <strong>🎯 태권님 경험과 완벽 매칭!</strong> 보건진료직에서 노인 우울증 검사 + 치매 CIST 시행 경험 → 노인정신과 23병상 유닛에 딱!
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">💰 연봉</div>
+          <div class="info-value">$128K-$147K/yr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">⏰ 근무</div>
+          <div class="info-value">Day/Evening Rotating</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">📍 위치</div>
+          <div class="info-value">White Plains, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">🏥 유닛</div>
+          <div class="info-value">4 South (노인 23병상)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">📋 자격</div>
+          <div class="info-value">BSN + BLS + ACLS</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">🔗 링크</div>
+          <div class="info-value"><a href="https://careers.nyp.org/job/white-plains/staff-nurse-rn-behavioral-health-geriatrics-4south-day-evening-rotating/19715/91552912432" target="_blank">NYP Careers →</a></div>
+        </div>
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            이거다!! 태권님 <strong>노인 우울증 + 치매 검사 경험</strong>이 여기서 완전 빛나! Geriatric psych는 치매 + 우울증 + delirium 섞인 복합 환자들인데, 바로 그 경험이잖아. Day/Evening이라 워라밸도 좋고, <strong>Magnet 병원</strong>이라 NP 지원할 때 추천서 빵빵해!
+          </p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년차</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            노인정신과는 <strong>희소 경험</strong>이야. 대부분 성인 일반 정신과만 하는데, 노인 전문이면 NP 때 엄청난 차별화 포인트! 보건진료직에서 <strong>노인 환자 primary care</strong> 했던 게 어필 포인트. 23병상이라 환자도 적당해서 퀄리티 케어 가능!
+          </p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            NYP Westchester BH Center는 <strong>정신과 전문 캠퍼스</strong>예요. 메인 병원과 분리되어 있어서 정신과에 집중할 수 있어요. Geriatric psychiatry 경험은 <strong>PMHNP-Gero track</strong>으로 갈 때 필수! Day/Evening 로테이션은 처음엔 적응 필요하지만 완전 Night보단 훨씬 나아요.
+          </p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            <strong>NYP는 경력 인정 협상 가능해</strong>. 14년 경력 중 노인 케어 관련 경험을 강조하면 상위 Step 시작 가능. $128K-$147K 범위에서 <strong>$135K+ 협상</strong> 노려봐! Magnet이라 교육 기회도 많고, 내부 이동도 활발해.
+          </p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터 10년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            이력서에 <strong>"노인 우울증 screening 월 50명"</strong> 이런 숫자 넣으면 바로 눈에 들어와요! Geriatric psych는 인력난 심해서 경험 있는 사람 찾기 어려운데, 태권님은 <strong>관련 경험이 실제로 있으니까</strong> 서류 통과 확률 높아요!
+          </p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            NYP HR은 <strong>specialty experience 중시</strong>해요. "노인 우울증 검사 + 치매 인지검사 경험 10년"을 커버레터에 강조하면 <strong>인터뷰 확정적</strong>이에요. Behavioral health + geriatric 조합은 희귀해서 경쟁자 적을 거예요!
+          </p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item">
+          <div class="vote-count go">6</div>
+          <div class="vote-label">GO</div>
+        </div>
+        <div class="vote-item">
+          <div class="vote-count maybe">0</div>
+          <div class="vote-label">MAYBE</div>
+        </div>
+        <div class="vote-item">
+          <div class="vote-count skip">0</div>
+          <div class="vote-label">SKIP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job 2: Crisis Stabilization (Night) -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Staff Nurse - RN - Crisis Stabilization - 6 North - Nights</div>
+          <div class="job-company">NewYork-Presbyterian (Westchester BH Center)</div>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+          <span class="badge badge-night">Night</span>
+          <span class="badge badge-magnet">⭐ Magnet</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">💰 연봉</div>
+          <div class="info-value">$128K-$147K/yr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">⏰ 근무</div>
+          <div class="info-value">Night Shift</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">📍 위치</div>
+          <div class="info-value">White Plains, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">🏥 유닛</div>
+          <div class="info-value">6 North (Crisis)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">🔗 링크</div>
+          <div class="info-value"><a href="https://careers.nyp.org/job/white-plains/staff-nurse-rn-crisis-stabilization-6-north-nights/19715/91506401136" target="_blank">NYP Careers →</a></div>
+        </div>
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            Crisis Stabilization은 <strong>급성기 정신과의 핵심</strong>! ER에서 올라온 환자들 안정화시키는 유닛인데, 빠른 assessment + de-escalation 스킬 배울 수 있어. Night이 아쉽지만 <strong>경험으로는 최고</strong>야!
+          </p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년차</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            Crisis unit은 <strong>턴오버 빠른 환자들</strong>이라 다양한 케이스 볼 수 있어. 1-2년 하면 정신과 전반적인 감 잡기 최고야! Night diff 받으면 <strong>$150K+ 가능</strong>할 듯.
+          </p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            Crisis Stabilization 경험은 <strong>어디서든 통해요</strong>. 급성기 환자 다루는 능력 증명되면 다른 병원에서도 우대받아요. Night인 게 단점이지만 경력 쌓기엔 좋아요.
+          </p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            6 North Crisis unit은 <strong>NYP BH 핵심 유닛</strong> 중 하나야. 경험 쌓고 1년 후 Day로 내부 이동 신청 가능해. NYP는 내부 이동 적극 지원해!
+          </p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터 10년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            Night shift는 <strong>경쟁 덜해요</strong>. Day보다 합격 확률 20-30% 높아요. 1년 경력 쌓고 Day 포지션 공고 나면 바로 지원하면 돼요!
+          </p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">
+            Crisis unit은 <strong>강도 높아요</strong>. 미국 첫 직장으로는 좀 빡셀 수 있어요. Geriatric BH가 더 적응하기 좋을 것 같아요. 하지만 도전 정신 있으면 GO!
+          </p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item">
+          <div class="vote-count go">5</div>
+          <div class="vote-label">GO</div>
+        </div>
+        <div class="vote-item">
+          <div class="vote-count maybe">1</div>
+          <div class="vote-label">MAYBE</div>
+        </div>
+        <div class="vote-item">
+          <div class="vote-count skip">0</div>
+          <div class="vote-label">SKIP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job 3: Young Adult/College Track (Night) -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Staff Nurse-RN - Young Adult/College Track Program - Full Time Nights</div>
+          <div class="job-company">NewYork-Presbyterian (Westchester BH Center)</div>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+          <span class="badge badge-night">Night</span>
+          <span class="badge badge-magnet">⭐ Magnet</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">💰 연봉</div>
+          <div class="info-value">$128K-$147K/yr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">⏰ 근무</div>
+          <div class="info-value">Night Shift</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">📍 위치</div>
+          <div class="info-value">White Plains, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">🏥 유닛</div>
+          <div class="info-value">Young Adult (18-29세)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">🔗 링크</div>
+          <div class="info-value"><a href="https://careers.nyp.org/job/white-plains/staff-nurse-rn-young-adult-college-track-program-full-time-nights/19715/89584908624" target="_blank">NYP Careers →</a></div>
+        </div>
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            Young Adult/College Track은 <strong>대학생 우울증, 불안, 섭식장애</strong> 전문 유닛! 환자 연령대가 젊어서 communication이 다르긴 해. 독특한 경험이 될 거야!
+          </p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년차</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">
+            Young adult psych는 <strong>아주 specialized</strong>해. 태권님 경험은 주로 노인 쪽이라 매칭은 덜 돼. 관심 있으면 GO지만, Geriatric이 더 맞아 보여!
+          </p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">
+            College track은 <strong>학기 중 바쁘고 방학 때 한가해요</strong>. 환자 특성이 달라서 적응 필요해요. 경험 매칭 측면에서 Geriatric이 더 추천!
+          </p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            다양한 연령대 경험하면 <strong>NP 때 범용성 높아져</strong>. 노인 + 청년 둘 다 경험하면 어디든 갈 수 있어. 백업으로 지원해둬!
+          </p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터 10년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">
+            Night이라 <strong>경쟁 덜해요</strong>. 같은 NYP Westchester 캠퍼스라 Geriatric이랑 동시 지원해서 하나 붙으면 좋잖아요!
+          </p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">
+            경험 매칭 측면에서 <strong>Geriatric이 서류 통과 확률 높아요</strong>. Young Adult는 관련 경험 없으면 어필 포인트가 부족할 수 있어요.
+          </p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item">
+          <div class="vote-count go">4</div>
+          <div class="vote-label">GO</div>
+        </div>
+        <div class="vote-item">
+          <div class="vote-count maybe">2</div>
+          <div class="vote-label">MAYBE</div>
+        </div>
+        <div class="vote-item">
+          <div class="vote-count skip">0</div>
+          <div class="vote-label">SKIP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job 4: Nurse Administrator (Night) -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">Nurse Administrator – Psychiatry-Medicine – 11N - Nights</div>
+          <div class="job-company">NewYork-Presbyterian (Manhattan)</div>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+          <span class="badge badge-night">Night</span>
+          <span class="badge badge-skip">관리직</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">💰 연봉</div>
+          <div class="info-value">$128K-$147K/yr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">⏰ 근무</div>
+          <div class="info-value">Night Shift</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">📍 위치</div>
+          <div class="info-value">Manhattan, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">📋 유형</div>
+          <div class="info-value">관리직 (Admin)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">🔗 링크</div>
+          <div class="info-value"><a href="https://careers.nyp.org/job/manhattan/nurse-administrator-psychiatry-medicine-11n-nights/19715/91506394096" target="_blank">NYP Careers →</a></div>
+        </div>
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">
+            Nurse Administrator는 <strong>관리직</strong>이야. 미국 경력 2-3년 필수. Staff RN부터 시작해!
+          </p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년차</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">
+            관리직은 <strong>미국 시스템 이해 후</strong>가 좋아. 2-3년 Staff RN 하고 도전!
+          </p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">
+            Nurse Admin은 <strong>야간 전체 유닛 총괄</strong>이에요. 미국 경력 없으면 무리. 나중에 목표로!
+          </p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">
+            <strong>미국 경력 2-3년 + Charge RN 경험</strong>이 필수야. Staff RN → Charge → Admin 단계로!
+          </p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터 10년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">
+            관리직은 <strong>미국 레퍼런스 필수</strong>. Staff RN 공고 집중하세요!
+          </p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">
+            Admin 포지션은 <strong>서류에서 미국 경력 확인</strong>해요. 없으면 자동 탈락. 2-3년 후 재도전!
+          </p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item">
+          <div class="vote-count go">0</div>
+          <div class="vote-label">GO</div>
+        </div>
+        <div class="vote-item">
+          <div class="vote-count maybe">0</div>
+          <div class="vote-label">MAYBE</div>
+        </div>
+        <div class="vote-item">
+          <div class="vote-count skip">6</div>
+          <div class="vote-label">SKIP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final Verdict -->
+    <div class="final-verdict">
+      <h2>🏆 오늘의 최종 판정</h2>
+      
+      <div class="ranking">
+        <div class="rank-item">
+          <span class="rank-medal">🥇</span>
+          <div class="rank-info">
+            <h4>NYP Geriatrics BH - Day/Evening (6 GO 만장일치!)</h4>
+            <span>태권님 노인우울증+치매 경험과 완벽 매칭! Day/Evening + Magnet + 노인정신과 희소 경험</span>
+          </div>
+        </div>
+        <div class="rank-item">
+          <span class="rank-medal">🥈</span>
+          <div class="rank-info">
+            <h4>NYP Crisis Stabilization - Night (5 GO / 1 MAYBE)</h4>
+            <span>급성기 정신과 핵심 경험! Night이지만 내부 이동 가능</span>
+          </div>
+        </div>
+        <div class="rank-item">
+          <span class="rank-medal">🥉</span>
+          <div class="rank-info">
+            <h4>NYP Young Adult/College Track - Night (4 GO / 2 MAYBE)</h4>
+            <span>백업 옵션! 경험 매칭은 덜 되지만 다양한 연령대 경험 가능</span>
+          </div>
+        </div>
+        <div class="rank-item">
+          <span class="rank-medal">⏳</span>
+          <div class="rank-info">
+            <h4>NYP Nurse Administrator - Night (6 SKIP)</h4>
+            <span>관리직이라 미국 경력 2-3년 후 도전!</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="action-items">
+        <h3>📝 Action Items</h3>
+        <ul>
+          <li><strong>NYP Geriatrics BH 즉시 지원!</strong> - 노인 우울증 + 치매 검사 경험 강조한 커버레터 작성</li>
+          <li><strong>Crisis Stabilization 동시 지원</strong> - 같은 캠퍼스라 하나 붙으면 나머지도 기회!</li>
+          <li><strong>출퇴근 확인:</strong> White Plains ↔ Queens는 1시간+. 초반엔 힘들 수 있음</li>
+          <li><strong>ACLS 취득:</strong> JD에서 요구함. 미국 도착 후 빠르게 취득 권장</li>
+          <li><strong>TOP 5 변동:</strong> NYP Geriatrics BH → Honorable Mention 추가 예정!</li>
+        </ul>
+      </div>
+    </div>
+    
+    <footer>
+      <p>🤖 Generated by 자비스 (Jarvis) | 6인 어드바이저 토론 시스템</p>
+      <p>마지막 업데이트: 2026-02-11 18:00 KST</p>
+    </footer>
+  </div>
+</body>
+</html>
