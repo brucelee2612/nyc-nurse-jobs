@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📅 2026-02-12 6인 토론 | 뉴욕 정신과 RN</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #e0e0e0; line-height: 1.7; padding: 20px; min-height: 100vh; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { text-align: center; padding: 40px 20px; margin-bottom: 30px; }
+    h1 { font-size: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .subtitle { color: #888; font-size: 1rem; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: #667eea; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    .summary-box { background: linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.1) 100%); border: 1px solid rgba(102,126,234,0.3); border-radius: 16px; padding: 25px; margin-bottom: 30px; }
+    .summary-box h2 { color: #667eea; margin-bottom: 15px; font-size: 1.3rem; }
+    .summary-box ul { list-style: none; }
+    .summary-box li { margin: 10px 0; padding-left: 25px; position: relative; }
+    .summary-box li::before { content: "→"; position: absolute; left: 0; color: #667eea; }
+    .job-section { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1); }
+    .job-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .job-title { font-size: 1.3rem; color: #fff; }
+    .job-company { color: #667eea; font-size: 1rem; margin-top: 5px; }
+    .job-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .badge { font-size: 0.75rem; padding: 4px 12px; border-radius: 20px; font-weight: 500; }
+    .badge-go { background: #22c55e; color: #fff; }
+    .badge-maybe { background: #f59e0b; color: #000; }
+    .badge-skip { background: #ef4444; color: #fff; }
+    .badge-ny { background: #2d5a27; color: #8fdf82; }
+    .badge-nj { background: #5a4327; color: #dfb882; }
+    .badge-union { background: #5a2752; color: #df82d3; }
+    .badge-day { background: #0ea5e9; color: #fff; }
+    .badge-night { background: #6366f1; color: #fff; }
+    .badge-new { background: #c41e3a; color: #fff; }
+    .badge-featured { background: #ffd700; color: #000; }
+    .badge-magnet { background: #ec4899; color: #fff; }
+    .badge-state { background: #1e3a5f; color: #7ec8e3; }
+    .badge-city { background: #701a75; color: #f5d0fe; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .info-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; }
+    .info-label { font-size: 0.75rem; color: #888; margin-bottom: 4px; }
+    .info-value { font-size: 0.95rem; color: #fff; }
+    .advisor-grid { display: grid; gap: 15px; }
+    .advisor-card { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; border-left: 4px solid; }
+    .advisor-card.maggangi { border-color: #ff6b6b; }
+    .advisor-card.sarah { border-color: #4ecdc4; }
+    .advisor-card.jennifer { border-color: #45b7d1; }
+    .advisor-card.michael { border-color: #96ceb4; }
+    .advisor-card.david { border-color: #ffeaa7; }
+    .advisor-card.emily { border-color: #dfe6e9; }
+    .advisor-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .advisor-avatar { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+    .advisor-card.maggangi .advisor-avatar { background: rgba(255,107,107,0.2); }
+    .advisor-card.sarah .advisor-avatar { background: rgba(78,205,196,0.2); }
+    .advisor-card.jennifer .advisor-avatar { background: rgba(69,183,209,0.2); }
+    .advisor-card.michael .advisor-avatar { background: rgba(150,206,180,0.2); }
+    .advisor-card.david .advisor-avatar { background: rgba(255,234,167,0.2); }
+    .advisor-card.emily .advisor-avatar { background: rgba(223,230,233,0.2); }
+    .advisor-info h4 { color: #fff; font-size: 0.95rem; }
+    .advisor-info span { color: #888; font-size: 0.8rem; }
+    .verdict { display: inline-block; padding: 3px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; margin-bottom: 10px; }
+    .verdict-go { background: #22c55e; color: #fff; }
+    .verdict-maybe { background: #f59e0b; color: #000; }
+    .verdict-skip { background: #ef4444; color: #fff; }
+    .verdict-wait { background: #6366f1; color: #fff; }
+    .advisor-comment { color: #ccc; font-size: 0.9rem; line-height: 1.6; }
+    .advisor-comment strong { color: #667eea; }
+    .vote-summary { background: rgba(102,126,234,0.1); border-radius: 12px; padding: 15px; margin-top: 20px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+    .vote-item { text-align: center; }
+    .vote-count { font-size: 1.5rem; font-weight: bold; }
+    .vote-count.go { color: #22c55e; }
+    .vote-count.maybe { color: #f59e0b; }
+    .vote-count.skip { color: #ef4444; }
+    .vote-label { font-size: 0.8rem; color: #888; }
+    .final-verdict { margin-top: 30px; padding: 25px; background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(16,185,129,0.05) 100%); border: 1px solid rgba(34,197,94,0.3); border-radius: 16px; }
+    .final-verdict h2 { color: #22c55e; margin-bottom: 15px; }
+    .final-verdict .ranking { margin: 15px 0; }
+    .final-verdict .rank-item { display: flex; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .final-verdict .rank-medal { font-size: 1.5rem; }
+    .final-verdict .rank-info h4 { color: #fff; margin-bottom: 3px; }
+    .final-verdict .rank-info span { color: #888; font-size: 0.85rem; }
+    .action-items { margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; }
+    .action-items h3 { color: #ffd700; margin-bottom: 15px; }
+    .action-items ul { list-style: none; }
+    .action-items li { margin: 10px 0; padding-left: 25px; position: relative; }
+    .action-items li::before { content: "✓"; position: absolute; left: 0; color: #22c55e; }
+    footer { text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.85rem; }
+    a { color: #667eea; }
+    .highlight-box { background: linear-gradient(135deg, rgba(236,72,153,0.15) 0%, rgba(139,92,246,0.1) 100%); border: 1px solid rgba(236,72,153,0.3); border-radius: 12px; padding: 15px; margin: 15px 0; }
+    .highlight-box strong { color: #ec4899; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="https://thfyd.github.io/nyc-nurse-jobs/" class="back-link">← 대시보드로 돌아가기</a>
+    
+    <header>
+      <h1>📅 2026-02-12 6인 토론</h1>
+      <p class="subtitle">7개 신규 공고 집중 분석! 🔥 NYP + 주정부 + 특수 분야</p>
+    </header>
+    
+    <div class="summary-box">
+      <h2>📊 오늘의 하이라이트</h2>
+      <ul>
+        <li><strong>NYP Gracie Square - Affective Mood Disorder Unit</strong> - 우울증 검사 경험과 직결!</li>
+        <li><strong>Kirby Forensic Psychiatric Center</strong> - 법의학 정신과, 주정부 복지</li>
+        <li><strong>NYS OASAS Bronx ATC</strong> - 주정부 중독치료 (NY HELPS)</li>
+        <li><strong>One Brooklyn Health</strong> - Brooklyn Flex 포지션</li>
+        <li>총 7개 공고 중 <strong>GO 2개, MAYBE 4개, WAIT 1개</strong></li>
+      </ul>
+    </div>
+
+    <!-- 공고 1: NYP Gracie Square - Affective Mood Disorder -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <h3 class="job-title">🏆 RN - Affective Mood Disorder Unit (Full Time Nights)</h3>
+          <p class="job-company">NewYork-Presbyterian (Gracie Square Hospital)</p>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+          <span class="badge badge-magnet">Magnet</span>
+          <span class="badge badge-night">Night</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">위치</div>
+          <div class="info-value">Manhattan, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">연봉</div>
+          <div class="info-value">$117K-$125K/yr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">근무</div>
+          <div class="info-value">Full-time Nights</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">유형</div>
+          <div class="info-value">정신과 전문병원</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>🎯 태권님 프로필 매칭:</strong> 노인 우울증 검사 경험이 Mood Disorder Unit과 직접 연결! 우울증/양극성 장애 전문 유닛.
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO!</span>
+          <p class="advisor-comment">Gracie Square는 <strong>NYC 정신과 전문병원 TOP 3</strong>! Mood Disorder Unit은 우울증/양극성 전문이라 태권님 검사 경험이랑 직결돼. Night이지만 <strong>Magnet 인증 병원</strong>이라 교육 수준 최고야!</p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO!</span>
+          <p class="advisor-comment">NYP Gracie Square 경력은 <strong>프리미엄</strong>이야! Weill Cornell 제휴라 학술적 환경 최고. 노인 우울증 검사 경험을 <strong>Mood Disorder assessment</strong>로 어필하면 강점!</p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">NYP는 <strong>경쟁 치열해</strong>. Magnet 병원이라 서류 요건 까다로워. 근데 Mood Disorder 유닛이라 우울증 검사 경험 어필하면 <strong>차별화 가능</strong>. 지원해볼 가치 있어!</p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO!</span>
+          <p class="advisor-comment">내부자로서 말하자면, Mood Disorder Unit은 <strong>전문성 있는 지원자</strong> 선호해. 우울증 검사 경험 + 지역사회 케어 경험이면 <strong>Cover Letter에서 승부</strong> 가능!</p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO!</span>
+          <p class="advisor-comment">$117-125K면 <strong>정신과 RN 상위권</strong>. NYP 브랜드 가치도 최고! Mood Disorder 경험 어필하면 <strong>면접 기회 높아</strong>. 적극 지원 추천!</p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">NYP HR은 <strong>까다로운 편</strong>. 근데 Mood Disorder Unit이라 우울증 관련 경험 강조하면 <strong>서류 통과 가능성 있어</strong>. 정신과 전문병원이라 기회!</p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item"><span class="vote-count go">4</span><span class="vote-label">GO</span></div>
+        <div class="vote-item"><span class="vote-count maybe">2</span><span class="vote-label">MAYBE</span></div>
+        <div class="vote-item"><span class="vote-count skip">0</span><span class="vote-label">SKIP</span></div>
+      </div>
+    </div>
+
+    <!-- 공고 2: Kirby Forensic Psychiatric Center -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <h3 class="job-title">🏛️ Registered Nurse (RN) - Kirby Forensics</h3>
+          <p class="job-company">Kirby Forensic Psychiatric Center (NYS OMH)</p>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+          <span class="badge badge-state">주정부</span>
+          <span class="badge badge-union">PEF</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">위치</div>
+          <div class="info-value">Wards Island, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">급여</div>
+          <div class="info-value">주정부 기준</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">복지</div>
+          <div class="info-value">연금 + 학비지원</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">유형</div>
+          <div class="info-value">법의학 정신과</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>⚠️ 특수 분야:</strong> Forensic Psychiatry = 법적 문제 있는 정신과 환자. 보안 철저, 환자 중증도 높음. 주정부 복지는 최고!
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Kirby는 <strong>법의학 정신과 최대 시설</strong>. 환자가 법적 이슈 있는 케이스라 <strong>위험도 높아</strong>. 근데 주정부 복지+연금은 최고! 첫 직장으론 좀 부담스러워.</p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Forensic은 <strong>특수 분야</strong>라 경험 독특해. 근데 환자 중증도 높고 보안 시설이라 <strong>스트레스 높아</strong>. 일반 정신과 먼저 경험하는 게 나을 수도.</p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">주정부라 <strong>복지는 최고</strong>. 근데 Forensic은 일반 정신과와 다르게 <strong>법적 프로세스</strong>가 많아. 첫 직장보단 경험 쌓고 도전하는 게 나아.</p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Forensic 경력은 <strong>희소가치</strong> 있어. 근데 첫 미국 직장으론 <strong>일반 정신과가 적응에 유리해</strong>. 2-3년 후 도전 추천!</p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Forensic은 인력 부족이라 <strong>채용 가능성 높아</strong>. 근데 특수 분야라 <strong>커리어 방향</strong> 잘 생각해야 해.</p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">주정부 HR은 <strong>해외 경력 인정에 유연해</strong>. Forensic이라 경쟁 덜하고 채용 빠를 수 있어. <strong>백업 옵션</strong>으로 고려!</p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item"><span class="vote-count go">0</span><span class="vote-label">GO</span></div>
+        <div class="vote-item"><span class="vote-count maybe">6</span><span class="vote-label">MAYBE</span></div>
+        <div class="vote-item"><span class="vote-count skip">0</span><span class="vote-label">SKIP</span></div>
+      </div>
+    </div>
+
+    <!-- 공고 3: St. John's Riverside Hospital -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <h3 class="job-title">🏥 Registered Nurse - Behavioral Health Inpatient</h3>
+          <p class="job-company">St. John's Riverside Hospital</p>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">위치</div>
+          <div class="info-value">Yonkers, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">시급</div>
+          <div class="info-value">$47.14/hr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">유형</div>
+          <div class="info-value">입원 정신과</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">통근</div>
+          <div class="info-value">Queens→1시간+</div>
+        </div>
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Yonkers는 Westchester라 <strong>Queens에서 1시간+</strong> 걸려. 시급 $47.14 괜찮은데 통근이 문제야. NYC 내 공고가 더 좋아.</p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">St. John's는 지역 병원이라 <strong>경쟁 덜해</strong>. 근데 Queens 거주 예정이면 <strong>통근 힘들어</strong>. NYC/Queens 공고 우선!</p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">Westchester 병원은 <strong>NYC 취업 후 백업</strong>으로. Queens 거주 예정이면 <strong>통근 1시간+</strong>는 현실적으로 힘들어요.</p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">NYC 내 공고가 많은데 굳이 <strong>Yonkers까지 갈 필요 없어</strong>. NYC/Queens 집중!</p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">지역 병원이라 <strong>채용 빠를 수 있어</strong>. NYC 안 되면 백업으로 고려해볼 만해요.</p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">통근 1시간+는 <strong>첫 직장으로 힘들어</strong>. NYC 내 공고가 많으니 그쪽 집중하세요!</p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item"><span class="vote-count go">0</span><span class="vote-label">GO</span></div>
+        <div class="vote-item"><span class="vote-count maybe">3</span><span class="vote-label">MAYBE</span></div>
+        <div class="vote-item"><span class="vote-count skip">3</span><span class="vote-label">SKIP</span></div>
+      </div>
+    </div>
+
+    <!-- 공고 4: One Brooklyn Health -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <h3 class="job-title">🏥 Registered Nurse (Flex) - Behavioral Health</h3>
+          <p class="job-company">One Brooklyn Health</p>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">위치</div>
+          <div class="info-value">Brooklyn, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">시급</div>
+          <div class="info-value">$49.95-$56.61/hr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">근무</div>
+          <div class="info-value">Flex (유동적)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">통근</div>
+          <div class="info-value">Queens→30-40분</div>
+        </div>
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Brooklyn이라 Queens에서 <strong>접근성 괜찮아</strong>. 근데 "Flex"는 <strong>스케줄 불규칙</strong>할 수 있어. 풀타임 고정이 나아.</p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">One Brooklyn Health는 <strong>지역 안전망 병원</strong>. 다양한 케이스 볼 수 있어. Flex가 걸리지만 <strong>경험 쌓기엔 좋아</strong>.</p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Flex는 <strong>베네핏 제한적</strong>일 수 있어요. 풀타임 고정 스케줄이 처음엔 더 좋아요.</p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">시급 $50-56 괜찮아. Flex라 <strong>스케줄 유연</strong>할 수 있지만, 첫 직장은 <strong>고정 스케줄이 적응에 유리해</strong>.</p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">Brooklyn 위치 좋고 시급 괜찮아요. <strong>지역 병원이라 채용 빠를 수</strong> 있어요!</p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Flex 포지션은 <strong>채용 빠른 편</strong>. 근데 풀타임 고정이 첫 직장엔 더 나아요. 백업으로!</p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item"><span class="vote-count go">1</span><span class="vote-label">GO</span></div>
+        <div class="vote-item"><span class="vote-count maybe">5</span><span class="vote-label">MAYBE</span></div>
+        <div class="vote-item"><span class="vote-count skip">0</span><span class="vote-label">SKIP</span></div>
+      </div>
+    </div>
+
+    <!-- 공고 5: Richmond University Medical Center -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <h3 class="job-title">🚨 RN - CPEP Psych ER</h3>
+          <p class="job-company">Richmond University Medical Center</p>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">위치</div>
+          <div class="info-value">Staten Island, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">시급</div>
+          <div class="info-value">$54.65-$56.82/hr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">유형</div>
+          <div class="info-value">Psych ER (CPEP)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">통근</div>
+          <div class="info-value">Queens→1시간+</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>📍 CPEP (Comprehensive Psychiatric Emergency Program):</strong> 정신과 응급실! 급성기 경험 쌓기 최고지만 스트레스 높음.
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">CPEP(Psych ER)는 <strong>급성기 경험 최고</strong>! 근데 Staten Island라 <strong>Queens에서 1시간+</strong>. 위치가 아쉬워.</p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">Psych ER 경험은 <strong>NP 때 큰 자산</strong>! 근데 Staten Island 통근이 힘들어. Bellevue Psych ER이 더 좋아.</p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">Staten Island는 <strong>Queens에서 접근성 최악</strong>. 페리 타거나 브루클린 돌아야 해. Bellevue Psych ER이 훨씬 나아요.</p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">CPEP 경험 좋지만 <strong>통근이 너무 힘들어</strong>. Manhattan/Queens/Brooklyn에 Psych ER 공고 많아. 그쪽 집중!</p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터</span>
+            </div>
+          </div>
+          <span class="verdict verdict-maybe">MAYBE</span>
+          <p class="advisor-comment">시급 $54-56 괜찮아요. Staten Island라 <strong>경쟁 덜해서 합격 쉬울 수</strong> 있어요. 근데 통근이...</p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-skip">SKIP</span>
+          <p class="advisor-comment">Staten Island는 <strong>통근 현실적으로 힘들어요</strong>. Queens 거주 예정이면 Manhattan/Brooklyn 공고가 더 나아요.</p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item"><span class="vote-count go">0</span><span class="vote-label">GO</span></div>
+        <div class="vote-item"><span class="vote-count maybe">3</span><span class="vote-label">MAYBE</span></div>
+        <div class="vote-item"><span class="vote-count skip">3</span><span class="vote-label">SKIP</span></div>
+      </div>
+    </div>
+
+    <!-- 공고 6: NYS OASAS Bronx ATC -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <h3 class="job-title">🏛️ Registered Nurse 1 (Psychiatric) - Bronx ATC</h3>
+          <p class="job-company">NYS Office of Addiction Services and Supports (OASAS)</p>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+          <span class="badge badge-state">주정부</span>
+          <span class="badge badge-union">PEF</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">위치</div>
+          <div class="info-value">Bronx, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">시급</div>
+          <div class="info-value">$55.51/hr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">복지</div>
+          <div class="info-value">연금 + 학비지원</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">유형</div>
+          <div class="info-value">중독치료센터</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>🏛️ NYS OASAS:</strong> 주정부 중독치료 기관. OMH와 비슷한 복지. 정신과 + 중독 dual 경험 가능!
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">OASAS도 <strong>주정부라 복지 최고</strong>! 중독치료는 정신과랑 많이 겹쳐. <strong>Dual diagnosis</strong> 경험 쌓으면 NP 때 강점!</p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">주정부라 <strong>연금 + 학비지원 + Job Security</strong> 최고! Bronx라 Queens에서 <strong>접근성도 괜찮아</strong>. OMH 안 되면 OASAS도 좋아!</p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">OASAS는 <strong>OMH랑 비슷한 주정부 복지</strong>. 중독치료 경험은 정신과에서도 필요해요. NY HELPS라 시험 없이 지원!</p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">시급 $55.51 + 주정부 복지 = <strong>실질 연봉 $130K+</strong>. 연금까지 합치면 민간보다 나아!</p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">주정부 중독치료는 <strong>인력 부족</strong>. 채용 가능성 높고, NY HELPS라 <strong>시험 없이 지원</strong> 가능!</p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-go">GO</span>
+          <p class="advisor-comment">주정부 HR은 <strong>해외 경력 인정에 유연해</strong>. NY HELPS 프로그램으로 외국 간호사 채용 적극적. 적극 지원!</p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item"><span class="vote-count go">6</span><span class="vote-label">GO</span></div>
+        <div class="vote-item"><span class="vote-count maybe">0</span><span class="vote-label">MAYBE</span></div>
+        <div class="vote-item"><span class="vote-count skip">0</span><span class="vote-label">SKIP</span></div>
+      </div>
+    </div>
+
+    <!-- 공고 7: BRC Chemical Dependency -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <h3 class="job-title">👔 RN Leader - Chemical Dependency Crisis Center</h3>
+          <p class="job-company">BRC (Bowery Residents Committee)</p>
+        </div>
+        <div class="job-meta">
+          <span class="badge badge-new">🆕 NEW</span>
+          <span class="badge badge-ny">NY</span>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">위치</div>
+          <div class="info-value">Manhattan, NY</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">연봉</div>
+          <div class="info-value">$100K/yr</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">유형</div>
+          <div class="info-value">리더십</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">기관</div>
+          <div class="info-value">비영리</div>
+        </div>
+      </div>
+      
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <h4>마깡이</h4>
+              <span>Mount Sinai 정신과 RN 5년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-wait">WAIT</span>
+          <p class="advisor-comment">"Leader" 포지션은 <strong>관리직</strong>. 미국 경력 없이 바로 리더십은 어려워. Staff RN부터!</p>
+        </div>
+        
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <h4>Sarah</h4>
+              <span>Northwell→주립 8년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-wait">WAIT</span>
+          <p class="advisor-comment">리더십은 <strong>미국 시스템 파악 후</strong>가 현실적. 2-3년 경력 쌓고 도전!</p>
+        </div>
+        
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Jennifer</h4>
+              <span>NYC H+H Manager 20년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-wait">WAIT</span>
+          <p class="advisor-comment">Leader급은 <strong>미국 경력 2-3년 후</strong>. Staff RN → Charge → Leader 단계로!</p>
+        </div>
+        
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <h4>Michael</h4>
+              <span>NYP Director 15년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-wait">WAIT</span>
+          <p class="advisor-comment">리더십은 <strong>미국 경력 필수</strong>. 좋은 목표지만 지금은 Staff RN 집중!</p>
+        </div>
+        
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <h4>David</h4>
+              <span>헬스케어 리크루터</span>
+            </div>
+          </div>
+          <span class="verdict verdict-wait">WAIT</span>
+          <p class="advisor-comment">비영리 리더십은 <strong>미국 경력 후</strong>. 지금은 Staff RN 공고에 집중하세요!</p>
+        </div>
+        
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <h4>Emily</h4>
+              <span>NYC H+H HR 12년</span>
+            </div>
+          </div>
+          <span class="verdict verdict-wait">WAIT</span>
+          <p class="advisor-comment">리더십 서류는 <strong>미국 경력 중시</strong>. Staff RN부터 시작해서 내부 승진이 더 빨라요!</p>
+        </div>
+      </div>
+      
+      <div class="vote-summary">
+        <div class="vote-item"><span class="vote-count go">0</span><span class="vote-label">GO</span></div>
+        <div class="vote-item"><span class="vote-count maybe">0</span><span class="vote-label">MAYBE</span></div>
+        <div class="vote-item"><span class="vote-count skip">0</span><span class="vote-label">WAIT</span></div>
+      </div>
+    </div>
+
+    <!-- 최종 결론 -->
+    <div class="final-verdict">
+      <h2>🏆 오늘의 결론</h2>
+      
+      <div class="ranking">
+        <div class="rank-item">
+          <span class="rank-medal">🥇</span>
+          <div class="rank-info">
+            <h4>NYS OASAS - Bronx ATC</h4>
+            <span>6 GO | 주정부 + 연금 + 학비지원 + Bronx 위치</span>
+          </div>
+        </div>
+        <div class="rank-item">
+          <span class="rank-medal">🥈</span>
+          <div class="rank-info">
+            <h4>NYP Gracie Square - Affective Mood Disorder Unit</h4>
+            <span>4 GO, 2 MAYBE | 우울증 경험 매칭 + Magnet 병원 + $117-125K</span>
+          </div>
+        </div>
+        <div class="rank-item">
+          <span class="rank-medal">🥉</span>
+          <div class="rank-info">
+            <h4>Kirby Forensic Psychiatric Center</h4>
+            <span>6 MAYBE | 주정부 복지 + 희소 경험 (백업)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="action-items">
+        <h3>📝 액션 아이템</h3>
+        <ul>
+          <li><strong>NYS OASAS Bronx ATC</strong> - NY HELPS로 지원 준비! 주정부 공고 적극 공략</li>
+          <li><strong>NYP Gracie Square Mood Disorder</strong> - Cover Letter에 우울증 검사 경험 강조!</li>
+          <li><strong>현재 TOP 5 유지:</strong> Bellevue Psych ER, Elmhurst Day Shift, NYSPI, Kingsboro, Manhattan PC</li>
+          <li><strong>신규 추가 고려:</strong> NYS OASAS Bronx ATC (주정부 백업으로 추가)</li>
+        </ul>
+      </div>
+    </div>
+    
+    <footer>
+      <p>Generated by 자비스 🤖 | 2026-02-12 18:00 KST</p>
+      <p><a href="https://thfyd.github.io/nyc-nurse-jobs/">대시보드로 돌아가기</a></p>
+    </footer>
+  </div>
+</body>
+</html>
