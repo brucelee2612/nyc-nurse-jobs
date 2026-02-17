@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6인 토론 - 2026년 2월 17일</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        header h1 {
+            font-size: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header .date {
+            color: #888;
+            margin-top: 5px;
+        }
+        .new-job {
+            background: linear-gradient(135deg, #2d3436 0%, #1e272e 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #d63031;
+        }
+        .new-job h2 {
+            color: #d63031;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .job-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .job-detail {
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .job-detail .label {
+            color: #888;
+            font-size: 0.8rem;
+        }
+        .job-detail .value {
+            font-weight: 600;
+            color: #fff;
+        }
+        .highlight {
+            background: linear-gradient(90deg, #d63031, #e17055);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .advisor-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .advisor-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .advisor-avatar {
+            font-size: 2.5rem;
+        }
+        .advisor-info h3 {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .advisor-info .title {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .advisor-opinion {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            line-height: 1.6;
+            font-style: italic;
+            color: #ddd;
+        }
+        .vote {
+            margin-top: 15px;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .vote.go {
+            background: #00b894;
+            color: #fff;
+        }
+        .vote.maybe {
+            background: #fdcb6e;
+            color: #2d3436;
+        }
+        .vote.skip {
+            background: #d63031;
+            color: #fff;
+        }
+        .voting-summary {
+            background: linear-gradient(135deg, #d63031 0%, #e17055 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .voting-summary h2 {
+            margin-bottom: 15px;
+        }
+        .vote-result {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .recommendations {
+            background: rgba(253,203,110,0.1);
+            border: 1px solid #fdcb6e;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .recommendations h2 {
+            color: #fdcb6e;
+            margin-bottom: 15px;
+        }
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+        .recommendations li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .recommendations li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #fdcb6e;
+        }
+        .top5-reminder {
+            background: rgba(0,184,148,0.1);
+            border: 1px solid #00b894;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .top5-reminder h2 {
+            color: #00b894;
+            margin-bottom: 15px;
+        }
+        .top5-reminder ul {
+            list-style: none;
+            padding: 0;
+        }
+        .top5-reminder li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .top5-reminder li::before {
+            content: "⭐";
+            position: absolute;
+            left: 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        footer a {
+            color: #00b894;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗣️ 6인 어드바이저 토론</h1>
+            <div class="date">2026년 2월 17일 월요일</div>
+        </header>
+
+        <section class="new-job">
+            <h2>🆕 오늘의 새 공고 (1건)</h2>
+            <h3>Trinitas Regional Medical Center - RN Psych Mental Health Unit</h3>
+            <p style="color: #888; margin-top: 5px;">📍 Elizabeth, NJ</p>
+            
+            <div class="job-details">
+                <div class="job-detail">
+                    <div class="label">💰 급여</div>
+                    <div class="value">$46.90-$63.09/hr</div>
+                </div>
+                <div class="job-detail">
+                    <div class="label">🕐 근무형태</div>
+                    <div class="value">Full-time Day Shift</div>
+                </div>
+                <div class="job-detail">
+                    <div class="label">📍 위치</div>
+                    <div class="value"><span class="highlight">NJ (NY 아님!)</span></div>
+                </div>
+                <div class="job-detail">
+                    <div class="label">📋 필요 라이선스</div>
+                    <div class="value">NJ RN License 필요</div>
+                </div>
+                <div class="job-detail">
+                    <div class="label">⭐ 회사 평점</div>
+                    <div class="value">3.5/5 (평균)</div>
+                </div>
+                <div class="job-detail">
+                    <div class="label">🚗 출퇴근</div>
+                    <div class="value">Queens→Elizabeth 1시간+</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="advisors">
+            <div class="advisor-card">
+                <div class="advisor-header">
+                    <div class="advisor-avatar">😎</div>
+                    <div class="advisor-info">
+                        <h3>마깡이</h3>
+                        <div class="title">Mount Sinai 정신과 RN 5년</div>
+                    </div>
+                </div>
+                <div class="advisor-opinion">
+                    "Trinitas... NJ 병원인데 정신과 프로그램 괜찮아. <strong>Full-time Day shift</strong>라니 일단 그건 좋아. 근데 NJ 라이선스가 따로 필요하고, 태권님이 Queens에 정착할 거잖아? Elizabeth에서 Queens 출퇴근이면... <strong>1시간 넘게 걸릴 거야</strong>. 급여도 $46.90-$63.09면 시간당으로는 나쁘지 않은데 연봉 환산하면 NYC 노조병원보다 낮아. 입문용으로는 괜찮지만 primary target은 아니야."
+                </div>
+                <div class="vote maybe">MAYBE ⚠️</div>
+            </div>
+
+            <div class="advisor-card">
+                <div class="advisor-header">
+                    <div class="advisor-avatar">🩺</div>
+                    <div class="advisor-info">
+                        <h3>Sarah</h3>
+                        <div class="title">Northwell→주립 8년 경력</div>
+                    </div>
+                </div>
+                <div class="advisor-opinion">
+                    "NJ endorsement 받는 건 어렵지 않아, 온라인 신청이고 몇 주면 돼. 근데 문제는 <strong>geography</strong>야. Trinitas는 New Jersey의 Elizabeth - 통근 고려하면 realistic하지 않아. 또한 회사 평점 3.5/5는 그냥 평균이야. <strong>NYC나 Queens에 더 좋은 옵션들 많으니까</strong> 이건 백업으로 두는 게 맞아."
+                </div>
+                <div class="vote skip">SKIP ❌</div>
+            </div>
+
+            <div class="advisor-card">
+                <div class="advisor-header">
+                    <div class="advisor-avatar">👩‍⚕️</div>
+                    <div class="advisor-info">
+                        <h3>Jennifer</h3>
+                        <div class="title">NYC H+H Manager 20년</div>
+                    </div>
+                </div>
+                <div class="advisor-opinion">
+                    "솔직히 말할게. NJ 병원은 <strong>NYC H+H 노조 혜택이랑 비교가 안 돼</strong>. Loan forgiveness, step increase, 연금... 이런 게 NJ 사립병원에는 없어. Day shift인 건 좋은데, 태권님 조건으로는 NYC 공립병원이 훨씬 유리해. Trinitas 가려면 <strong>NJ 라이선스도 추가로 받아야 하고</strong>, 굳이?"
+                </div>
+                <div class="vote skip">SKIP ❌</div>
+            </div>
+
+            <div class="advisor-card">
+                <div class="advisor-header">
+                    <div class="advisor-avatar">👨‍⚕️</div>
+                    <div class="advisor-info">
+                        <h3>Michael</h3>
+                        <div class="title">NYP Director 15년</div>
+                    </div>
+                </div>
+                <div class="advisor-opinion">
+                    "Community hospital 경험은 나쁘지 않아. 하지만 태권님 목표가 <strong>NYC 대형 병원 진입</strong>이잖아? NJ에서 경력 쌓으면 나중에 NYC 병원으로 옮길 때 '왜 NJ에서 일했나' 설명해야 할 수도 있어. <strong>Geography가 맞는 병원에서 시작</strong>하는 게 이력서 관리에도 좋아."
+                </div>
+                <div class="vote skip">SKIP ❌</div>
+            </div>
+
+            <div class="advisor-card">
+                <div class="advisor-header">
+                    <div class="advisor-avatar">🧑‍💼</div>
+                    <div class="advisor-info">
+                        <h3>David</h3>
+                        <div class="title">헬스케어 리크루터</div>
+                    </div>
+                </div>
+                <div class="advisor-opinion">
+                    "Trinitas는 계속 정신과 RN 뽑고 있어. 회전율 문제인지는 모르겠는데, 같은 병원에서 <strong>Supervisor 포지션도 최근에 올렸잖아</strong> (Evening/Night). 그게 좀 red flag일 수 있어. 급하게 지원할 필요 없고, NYC 공고들 먼저 공략하자."
+                </div>
+                <div class="vote skip">SKIP ❌</div>
+            </div>
+
+            <div class="advisor-card">
+                <div class="advisor-header">
+                    <div class="advisor-avatar">👩‍💼</div>
+                    <div class="advisor-info">
+                        <h3>Emily</h3>
+                        <div class="title">NYC H+H HR 12년</div>
+                    </div>
+                </div>
+                <div class="advisor-opinion">
+                    "NJ 라이선스 endorsement는 <strong>비용이랑 시간이 들어</strong>. 태권님이 2026년 3월에 도착해서 4월부터 널싱홈 시작 예정이잖아? 첫 미국 경력은 최대한 간단하게, <strong>이미 가진 NY 라이선스로 시작</strong>하는 게 맞아. NJ 확장은 나중에 경력 쌓고 생각해도 늦지 않아."
+                </div>
+                <div class="vote skip">SKIP ❌</div>
+            </div>
+        </section>
+
+        <section class="voting-summary">
+            <h2>📊 최종 투표 결과</h2>
+            <div class="vote-result">
+                <span style="color: #fdcb6e;">MAYBE 1표</span> : <span style="color: #fff;">SKIP 5표</span>
+            </div>
+            <p style="margin-top: 10px;">❌ Trinitas Day RN → <strong>SKIP</strong> (NJ 위치 + 출퇴근 비효율)</p>
+        </section>
+
+        <section class="recommendations">
+            <h2>💡 오늘의 결론</h2>
+            <ul>
+                <li>오늘 새 공고는 NJ라서 우선순위 낮음</li>
+                <li>Day shift인 건 좋지만 NJ 라이선스 + 긴 출퇴근이 단점</li>
+                <li>NYC 노조병원 대비 복지 혜택 부족</li>
+                <li>기존 TOP 5에 집중하는 것이 현명</li>
+            </ul>
+        </section>
+
+        <section class="top5-reminder">
+            <h2>⭐ 기존 TOP 5 (여전히 활성!)</h2>
+            <ul>
+                <li><strong>NYC H+H Elmhurst</strong> - Queens + Day + 노조 = 완벽 매칭!</li>
+                <li><strong>NYSPI (Columbia 제휴)</strong> - 연구 정신과 + NP 준비 최적</li>
+                <li><strong>Mount Sinai Rivington</strong> - 노조 + $62/hr + 명성</li>
+                <li><strong>NYP Geriatrics BH</strong> - 노인정신과 + Day/Evening</li>
+                <li><strong>Kingsboro Canarsie</strong> - 커뮤니티 기반 + $123K+</li>
+            </ul>
+            <p style="margin-top: 15px; color: #888;">→ 이 공고들 계속 모니터링 중! 마감 전에 지원 전략 세우기</p>
+        </section>
+
+        <footer>
+            <p>Generated by 🤖 자비스 | <a href="../index.html">← 대시보드로 돌아가기</a></p>
+            <p style="margin-top: 10px;">내일 Health eCareers 체크 예정 🔍</p>
+        </footer>
+    </div>
+</body>
+</html>
