@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📅 2026-02-20 6인 토론 | NYC 정신과 RN</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); min-height: 100vh; color: #e8e8e8; padding: 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    header { text-align: center; padding: 40px 20px; margin-bottom: 30px; }
+    h1 { font-size: 2rem; background: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 50%, #ff6b6b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .subtitle { color: #888; font-size: 1rem; }
+    .summary-box { background: linear-gradient(135deg, rgba(0,212,255,0.15) 0%, rgba(123,44,191,0.1) 100%); border: 1px solid rgba(0,212,255,0.3); border-radius: 16px; padding: 25px; margin-bottom: 30px; }
+    .summary-box h2 { color: #00d4ff; margin-bottom: 15px; font-size: 1.3rem; }
+    .summary-stats { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .stat { background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 12px; text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: bold; color: #00d4ff; }
+    .stat-label { font-size: 0.85rem; color: #888; }
+    .job-section { background: rgba(255,255,255,0.03); border-radius: 20px; padding: 30px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); }
+    .job-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .job-title { font-size: 1.4rem; color: #fff; margin-bottom: 8px; }
+    .job-company { color: #00d4ff; font-size: 1.1rem; margin-bottom: 5px; }
+    .job-meta { color: #888; font-size: 0.9rem; }
+    .job-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .badge { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .badge-queens { background: #7c3aed; color: #fff; }
+    .badge-state { background: #1e3a5f; color: #7ec8e3; }
+    .badge-supervisor { background: #f59e0b; color: #000; }
+    .badge-night { background: #6b7280; color: #fff; }
+    .badge-agency { background: #dc2626; color: #fff; }
+    .badge-skip { background: #ef4444; color: #fff; }
+    .verdict-box { background: rgba(0,0,0,0.3); padding: 15px 20px; border-radius: 12px; text-align: center; min-width: 150px; }
+    .verdict-title { font-size: 0.8rem; color: #888; margin-bottom: 8px; }
+    .verdict-result { font-size: 1.5rem; font-weight: bold; }
+    .verdict-go { color: #22c55e; }
+    .verdict-maybe { color: #f59e0b; }
+    .verdict-skip { color: #ef4444; }
+    .advisor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .advisor-card { background: rgba(255,255,255,0.05); border-radius: 14px; padding: 18px; border-left: 4px solid; transition: transform 0.2s; }
+    .advisor-card:hover { transform: translateY(-3px); }
+    .advisor-card.maggangi { border-color: #ff6b6b; }
+    .advisor-card.sarah { border-color: #4ecdc4; }
+    .advisor-card.jennifer { border-color: #45b7d1; }
+    .advisor-card.michael { border-color: #96ceb4; }
+    .advisor-card.david { border-color: #ffe66d; }
+    .advisor-card.emily { border-color: #dda0dd; }
+    .advisor-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .advisor-avatar { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+    .advisor-card.maggangi .advisor-avatar { background: rgba(255,107,107,0.2); }
+    .advisor-card.sarah .advisor-avatar { background: rgba(78,205,196,0.2); }
+    .advisor-card.jennifer .advisor-avatar { background: rgba(69,183,209,0.2); }
+    .advisor-card.michael .advisor-avatar { background: rgba(150,206,180,0.2); }
+    .advisor-card.david .advisor-avatar { background: rgba(255,230,109,0.2); }
+    .advisor-card.emily .advisor-avatar { background: rgba(221,160,221,0.2); }
+    .advisor-info { flex: 1; }
+    .advisor-name { font-weight: 600; color: #fff; font-size: 0.95rem; }
+    .advisor-role { font-size: 0.75rem; color: #888; }
+    .advisor-verdict { padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; }
+    .verdict-tag-go { background: #22c55e; color: #fff; }
+    .verdict-tag-maybe { background: #f59e0b; color: #000; }
+    .verdict-tag-skip { background: #ef4444; color: #fff; }
+    .advisor-comment { color: #ccc; line-height: 1.6; font-size: 0.9rem; margin-top: 10px; }
+    .advisor-comment strong { color: #00d4ff; }
+    .conclusion-box { background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(16,185,129,0.1) 100%); border: 1px solid rgba(34,197,94,0.3); border-radius: 16px; padding: 25px; margin-top: 30px; }
+    .conclusion-box.skip { background: linear-gradient(135deg, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.1) 100%); border-color: rgba(239,68,68,0.3); }
+    .conclusion-box h3 { color: #22c55e; margin-bottom: 15px; font-size: 1.2rem; }
+    .conclusion-box.skip h3 { color: #ef4444; }
+    .conclusion-box p { color: #ccc; line-height: 1.7; }
+    .back-link { display: inline-block; margin-top: 30px; padding: 12px 24px; background: rgba(0,212,255,0.2); color: #00d4ff; text-decoration: none; border-radius: 12px; transition: all 0.3s; }
+    .back-link:hover { background: rgba(0,212,255,0.3); transform: translateY(-2px); }
+    .highlight-box { background: linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(139,92,246,0.1) 100%); border: 1px solid rgba(124,58,237,0.4); border-radius: 12px; padding: 20px; margin: 20px 0; }
+    .highlight-box h4 { color: #a78bfa; margin-bottom: 10px; }
+    .highlight-box ul { color: #ccc; padding-left: 20px; }
+    .highlight-box li { margin: 8px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📅 2026-02-20 6인 토론</h1>
+      <p class="subtitle">오늘 발견된 채용공고 2건에 대한 AI 어드바이저 분석</p>
+    </header>
+
+    <div class="summary-box">
+      <h2>📊 오늘의 요약</h2>
+      <div class="summary-stats">
+        <div class="stat">
+          <div class="stat-num">2</div>
+          <div class="stat-label">새 공고</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1</div>
+          <div class="stat-label">MAYBE</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1</div>
+          <div class="stat-label">SKIP</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" style="color: #7c3aed;">Queens!</div>
+          <div class="stat-label">주목 포인트</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공고 1: Creedmoor PC RN Supervisor -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">🔥 Registered Nurse Supervisor 1 Psychiatric (NY HELPS)</div>
+          <div class="job-company">NYS Office of Mental Health - Creedmoor Psychiatric Center</div>
+          <div class="job-meta">📍 Queens, NY 11427 | 💰 $132K-$143K/yr | 📅 M-F</div>
+          <div class="job-badges">
+            <span class="badge badge-queens">👑 Queens!</span>
+            <span class="badge badge-state">🏛️ 주정부</span>
+            <span class="badge badge-supervisor">⭐ Supervisor</span>
+          </div>
+        </div>
+        <div class="verdict-box">
+          <div class="verdict-title">최종 투표</div>
+          <div class="verdict-result verdict-maybe">0 GO : 4 MAYBE : 2 SKIP</div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h4>💡 핵심 포인트</h4>
+        <ul>
+          <li><strong>위치:</strong> Queens NY 11427 - 태권님 예정 거주지와 가까움!</li>
+          <li><strong>자격:</strong> 3년 정신과 경력 필요 (BSN으로 1년 대체 → 2년 필요)</li>
+          <li><strong>문제:</strong> 태권님은 보건진료직 10년이지만 "정신과" 경력이 아님</li>
+          <li><strong>복지:</strong> 주정부 풀패키지 (연금, 건강보험, 유급휴가, 학자금 지원)</li>
+        </ul>
+      </div>
+
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <div class="advisor-name">마깡이</div>
+              <div class="advisor-role">Mount Sinai 정신과 RN 5년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            오 <strong>Queens 주정부</strong>? 위치 끝판왕이지! 근데 Supervisor는 <strong>정신과 3년</strong> 필요해. 보건진료직에서 우울증 검사, 치매 스크리닝 했다고 어필하면... 될 수도? 주정부라 융통성 있을 수 있어. <strong>일단 지원해보고</strong> 반응 보자!
+          </div>
+        </div>
+
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <div class="advisor-name">Sarah</div>
+              <div class="advisor-role">Northwell→주립 8년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            주립 Supervisor는 <strong>엄격해</strong>. "mental illness 관련 nursing experience"가 명시되어 있어서 보건진료직은 인정 안 될 가능성 높아. 솔직히 <strong>Staff RN (RN 1)부터</strong> 시작하는 게 현실적이야. Creedmoor RN 1 공고 나오면 그때 GO!
+          </div>
+        </div>
+
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <div class="advisor-name">Jennifer</div>
+              <div class="advisor-role">NYC H+H Manager 20년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            주정부 HR은 <strong>규정대로</strong> 가요. "정신과 3년"이 요건인데 보건진료직은 primary care라 정신과로 인정하기 어려워요. 하지만 <strong>노인 우울증 검사, 치매 CIST</strong> 경험을 부각하면 인터뷰 기회 받을 수도 있어요. 지원해서 <strong>가능성 테스트</strong>해보세요!
+          </div>
+        </div>
+
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <div class="advisor-name">Michael</div>
+              <div class="advisor-role">NYP Director 15년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            Supervisor급은 <strong>미국 정신과 경력 필수</strong>야. 주정부는 규정이 명확해서 예외 인정 어려워. Queens RN 1 포지션 기다리거나, <strong>NYC H+H 같은 시립</strong>에서 1-2년 쌓고 재도전하는 게 전략적이야. 지금 TOP 5에 집중!
+          </div>
+        </div>
+
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <div class="advisor-name">David</div>
+              <div class="advisor-role">리크루터</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            리크루터 관점에서 - <strong>지원은 공짜</strong>야! Queens 주정부 Supervisor에 지원 기록 남기면 나중에 RN 1 지원할 때도 <strong>"이 후보 관심 있구나"</strong> 인상 줄 수 있어. 탈락해도 손해 없으니 <strong>시도해봐</strong>!
+          </div>
+        </div>
+
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <div class="advisor-name">Emily</div>
+              <div class="advisor-role">NYC H+H HR 12년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            HR 입장에서 - 주정부 서류 심사는 <strong>체크리스트</strong> 방식이에요. "정신과 3년" 칸에 체크 안 되면 다음 단계 진행 어려워요. 하지만 <strong>커버레터에서 노인 우울증/치매 경험</strong> 강조하면 예외 검토 요청할 수 있어요. 50:50!
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion-box">
+        <h3>📋 결론: MAYBE (조건부 지원)</h3>
+        <p>
+          <strong>Queens 위치 + 주정부 복지</strong>는 완벽하지만, Supervisor 포지션의 "정신과 3년" 요건이 걸림돌.<br><br>
+          👉 <strong>전략:</strong> 일단 지원해서 반응 보기. 커버레터에 노인 우울증 검사, 치매 CIST 경험 강조.<br>
+          👉 <strong>현실:</strong> 탈락 가능성 높음. 하지만 지원 비용 0원이니 시도할 가치 있음.<br>
+          👉 <strong>대안:</strong> Creedmoor RN 1 (Staff) 공고 나오면 그때 GO! 기존 TOP 5 우선.
+        </p>
+      </div>
+    </div>
+
+    <!-- 공고 2: Prismagic Solutions -->
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <div class="job-title">⚠️ Registered Nurse - Psychiatric</div>
+          <div class="job-company">Prismagic Solutions Inc. (에이전시)</div>
+          <div class="job-meta">📍 New York, NY (45 Rivington St) | 🌙 Night 6:45pm-7:15am</div>
+          <div class="job-badges">
+            <span class="badge badge-agency">🏢 에이전시</span>
+            <span class="badge badge-night">🌙 Night Shift</span>
+            <span class="badge badge-skip">❌ CPI 필요</span>
+          </div>
+        </div>
+        <div class="verdict-box">
+          <div class="verdict-title">최종 투표</div>
+          <div class="verdict-result verdict-skip">0 GO : 0 MAYBE : 6 SKIP</div>
+        </div>
+      </div>
+
+      <div class="highlight-box" style="border-color: rgba(239,68,68,0.4); background: linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(220,38,38,0.05) 100%);">
+        <h4 style="color: #f87171;">⚠️ 불일치 사유</h4>
+        <ul>
+          <li><strong>Night shift:</strong> 태권님은 Day shift 선호</li>
+          <li><strong>CPI 필요:</strong> 태권님은 CPI 인증 없음</li>
+          <li><strong>에이전시:</strong> 정규직 아님, 불안정</li>
+          <li><strong>정신과 2년:</strong> 미국 정신과 경력 요구</li>
+        </ul>
+      </div>
+
+      <div class="advisor-grid">
+        <div class="advisor-card maggangi">
+          <div class="advisor-header">
+            <div class="advisor-avatar">😎</div>
+            <div class="advisor-info">
+              <div class="advisor-name">마깡이</div>
+              <div class="advisor-role">Mount Sinai 정신과 RN 5년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            야간에 에이전시? <strong>패스</strong>. 태권님 Day shift 원하는데 왜 야간 보고 있어. CPI도 없잖아. 시간 낭비야!
+          </div>
+        </div>
+
+        <div class="advisor-card sarah">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🩺</div>
+            <div class="advisor-info">
+              <div class="advisor-name">Sarah</div>
+              <div class="advisor-role">Northwell→주립 8년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            에이전시는 <strong>첫 직장으로 비추</strong>. 교육/서포트 없고, 바로 현장 투입이야. Night shift + CPI 없으면 지원 자격도 안 돼.
+          </div>
+        </div>
+
+        <div class="advisor-card jennifer">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍⚕️</div>
+            <div class="advisor-info">
+              <div class="advisor-name">Jennifer</div>
+              <div class="advisor-role">NYC H+H Manager 20년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            에이전시 간호사는 <strong>오리엔테이션 최소</strong>예요. 미국 시스템에 익숙하지 않은 상태에서 힘들어요. 정규직 노조 병원이 맞아요.
+          </div>
+        </div>
+
+        <div class="advisor-card michael">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👨‍⚕️</div>
+            <div class="advisor-info">
+              <div class="advisor-name">Michael</div>
+              <div class="advisor-role">NYP Director 15년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            <strong>CPI 없으면 지원 불가</strong>야. 정신과 필수 인증이거든. 그리고 에이전시는 경력 인정도 애매해. 시간 낭비!
+          </div>
+        </div>
+
+        <div class="advisor-card david">
+          <div class="advisor-header">
+            <div class="advisor-avatar">🧑‍💼</div>
+            <div class="advisor-info">
+              <div class="advisor-name">David</div>
+              <div class="advisor-role">리크루터</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            에이전시 공고는 <strong>급하게 사람 구할 때</strong> 올라와. 조건 안 맞으면 지원해도 연락 안 와요. 기존 TOP 5 집중!
+          </div>
+        </div>
+
+        <div class="advisor-card emily">
+          <div class="advisor-header">
+            <div class="advisor-avatar">👩‍💼</div>
+            <div class="advisor-info">
+              <div class="advisor-name">Emily</div>
+              <div class="advisor-role">NYC H+H HR 12년</div>
+            </div>
+            <span class="advisor-verdict verdict-tag-skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            에이전시 경력은 <strong>병원 직접 고용보다 가치가 낮아요</strong>. 첫 직장은 정규직으로! 노조 병원 우선!
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion-box skip">
+        <h3>❌ 결론: SKIP (만장일치)</h3>
+        <p>
+          <strong>Night shift + CPI 필요 + 에이전시</strong> = 태권님 조건과 완전 불일치.<br><br>
+          👉 에이전시는 첫 직장으로 비추천 (오리엔테이션/서포트 부족)<br>
+          👉 CPI 인증 없으면 지원 자격 미달<br>
+          👉 기존 TOP 5 (Elmhurst, NYSPI, Mount Sinai 등)에 집중!
+        </p>
+      </div>
+    </div>
+
+    <!-- 오늘의 결론 -->
+    <div class="summary-box" style="border-color: rgba(124,58,237,0.4); background: linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(139,92,246,0.1) 100%);">
+      <h2 style="color: #a78bfa;">🎯 2/20 최종 결론</h2>
+      <p style="color: #ccc; line-height: 1.8; margin-top: 15px;">
+        오늘 발견된 2개 공고 중 <strong>Creedmoor Supervisor는 조건부 MAYBE</strong>, <strong>Prismagic은 만장일치 SKIP</strong>.<br><br>
+        
+        <strong>Creedmoor PC 전략:</strong><br>
+        - 지원해서 주정부 반응 테스트 (비용 0원)<br>
+        - 커버레터에 노인 우울증/치매 경험 강조<br>
+        - 탈락해도 Creedmoor RN 1 공고 나오면 재도전!<br><br>
+        
+        <strong>기존 TOP 5 유지:</strong><br>
+        1. NYC H+H Elmhurst BH ⭐ (Queens + Day + 노조)<br>
+        2. NYSPI RN 1 ⭐ (Columbia 제휴 + $115K-$124K)<br>
+        3. Mount Sinai Ambulatory ⭐ (M-F 8-4 + 노조)<br>
+        4. Source EQ Harlem ⭐ (커뮤니티 + Day only)<br>
+        5. NYP Geriatrics BH ⭐ (노인정신과 경험 매칭)<br><br>
+        
+        💪 <strong>오늘 할 일:</strong> 기존 TOP 5 지원 준비에 집중! Creedmoor Supervisor는 "보너스" 지원으로 생각.
+      </p>
+    </div>
+
+    <a href="../dashboard.html" class="back-link">← 대시보드로 돌아가기</a>
+  </div>
+</body>
+</html>

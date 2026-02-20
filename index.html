@@ -239,10 +239,22 @@
       <h2 class="section-title">💬 AI 어드바이저 6인 토론 기록</h2>
       <p style="color: #888; margin-bottom: 20px;">매일 18:00에 새로 발견된 채용공고에 대해 <strong>6인 어드바이저</strong>(마깡이, Sarah, Jennifer, Michael, David, Emily)가 <strong>태권님 경력에 맞춰</strong> 토론합니다.</p>
       <div class="job-grid">
+        <div class="job-card" style="border-color: #7c3aed; background: linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(139,92,246,0.1) 100%);" onclick="window.open('discussions/2026-02-20.html', '_blank')">
+          <div class="job-title">📅 2026-02-20 6인 토론 (2건 분석)</div>
+          <div class="job-badges">
+            <span class="badge badge-new">🆕 오늘</span>
+            <span class="badge" style="background:#7c3aed;color:#fff;">👑 Queens!</span>
+            <span class="badge" style="background:#f59e0b;color:#000;">⚠️ Supervisor</span>
+          </div>
+          <div class="job-company">🔸 Creedmoor Supervisor (0 GO : 4 MAYBE : 2 SKIP) | Prismagic 만장일치 SKIP</div>
+          <div class="job-location">Queens 주정부 $132K-$143K (Supervisor) vs Night+Agency (SKIP)</div>
+          <div style="color: #a78bfa; font-size: 0.9rem; margin-top: 5px;">Creedmoor RN 1 나오면 GO! 지금은 기존 TOP 5 우선</div>
+          <div class="job-pay" style="color: #7c3aed;">💬 6인 토론 전체 보기 →</div>
+        </div>
         <div class="job-card" style="border-color: #d63031; background: linear-gradient(135deg, rgba(214,48,49,0.12) 0%, rgba(139,92,246,0.08) 100%);" onclick="window.open('discussions/2026-02-17.html', '_blank')">
           <div class="job-title">📅 2026-02-17 6인 토론 (1건 분석)</div>
           <div class="job-badges">
-            <span class="badge badge-new">🆕 오늘</span>
+            <span class="badge badge-posted">완료</span>
             <span class="badge" style="background:#d63031;color:#fff;">❌ NJ 위치</span>
           </div>
           <div class="job-company">Trinitas Day RN → SKIP (0 GO : 1 MAYBE : 5 SKIP)</div>
@@ -375,7 +387,7 @@
       </p>
     </div>
     
-    <div class="last-updated">마지막 업데이트: 2026-02-17 18:03 (1개 새 공고 - Trinitas Day RN NJ → SKIP) | 다음: 2/18 09:00</div>
+    <div class="last-updated">마지막 업데이트: 2026-02-20 18:04 (2개 새 공고 - Creedmoor Supervisor MAYBE, Prismagic SKIP) | 다음: 2/21 09:00</div>
   </div>
   
   <div class="modal-overlay" id="modalOverlay">
@@ -391,6 +403,8 @@
 
 <script>
 const jobs = [
+  // === 2026-02-20 새 공고 (2건) ===
+  { id: "creedmoor-rn-supervisor-p26481", title: "RN Supervisor 1 Psychiatric (NY HELPS) - Creedmoor", company: "NYS Office of Mental Health", location: "Queens, NY 11427", pay: "$132K-$143K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-20", lat: 40.7405, lng: -73.7376, advisors: { maggangi: { verdict: "maybe", comment: "오 <strong>Queens 주정부</strong>? 위치 끝판왕! 근데 Supervisor는 <strong>정신과 3년</strong> 필요해. 지원해보고 반응 보자!" }, sarah: { verdict: "skip", comment: "주립 Supervisor는 <strong>엄격해</strong>. 보건진료직은 정신과로 인정 안 될 가능성 높아. Staff RN (RN 1)부터 시작!" }, jennifer: { verdict: "maybe", comment: "정신과 3년 요건인데 <strong>노인 우울증/치매 경험</strong> 부각하면 가능성 테스트 해볼 만해요. 50:50!" }, michael: { verdict: "skip", comment: "Supervisor급은 <strong>미국 정신과 경력 필수</strong>. 기존 TOP 5에 집중!" }, david: { verdict: "maybe", comment: "지원은 공짜! Queens 주정부에 <strong>관심 표시</strong>하면 나중에 RN 1 지원할 때도 도움 돼." }, emily: { verdict: "maybe", comment: "HR 서류심사는 체크리스트 방식. 커버레터에 <strong>노인 우울증/치매 경험</strong> 강조하면 예외 검토 가능!" } } },
   // === 2026-02-02 새 공고 (11건) ===
   { id: "nysomh-nycc-bronx", title: "RN 1 Psychiatric (NY HELPS) - NYC Children's Center", company: "NYS Office of Mental Health", location: "Bronx, NY", pay: "$115K-$124K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, dateFound: "2026-02-02", lat: 40.8448, lng: -73.8648, advisors: { maggangi: { verdict: "go", comment: "<strong>아동/청소년 정신과</strong> 주립병원! 연봉 $115K-$124K + NY HELPS라 시험 없이 지원 가능. 복지 끝판왕." }, sarah: { verdict: "go", comment: "아동/청소년 정신과는 <strong>희소 경험</strong>. 보건진료직에서 치매/우울증 검사 경험이 어필 포인트!" }, jennifer: { verdict: "go", comment: "Children's Center라 <strong>소아 청소년 정신과 경험</strong> 쌓기 좋아요. 주립이라 안정적!" }, michael: { verdict: "go", comment: "주정부라 <strong>경력 인정 체계 명확해</strong>. PEF 노조 협약에 따라 Step 협상 가능!" }, david: { verdict: "go", comment: "State job + 아동 정신과 경험은 <strong>NP 때 큰 자산</strong>이 돼요!" }, emily: { verdict: "go", comment: "NYS OMH는 <strong>외국 경력 인정에 열려있어</strong>. 서류 잘 갖추면 합격 확률 높아요!" } } },
   { id: "nysomh-kingsboro", title: "RN 1 Psychiatric (NY HELPS) - Kingsboro", company: "NYS Office of Mental Health", location: "Brooklyn, NY", pay: "$115K-$124K/year", union: true, unionName: "PEF", recommended: true, state: true, isNew: true, dateFound: "2026-02-02", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=207765", source: "StateJobsNY", lat: 40.6340, lng: -73.9120, advisors: { maggangi: { verdict: "go", comment: "<strong>Brooklyn 주립 정신병원</strong>! RN 2라 경력직인데 연봉 $123K-$133K. Rockland만큼 좋아." }, sarah: { verdict: "go", comment: "주립이라 <strong>중증 환자 많지만</strong> 팀 서포트 좋아. 14년 경력이면 충분히 대응 가능!" }, jennifer: { verdict: "go", comment: "RN 2는 경력 인정해주는 포지션. <strong>해외 경력으로 Step 협상</strong> 가능!" }, michael: { verdict: "go", comment: "$123-133K는 <strong>NYC 정신과 RN 최상위권</strong>. 경력 인정 받으면 상단 근처 시작 가능!" }, david: { verdict: "go", comment: "Brooklyn 위치라 출퇴근도 편해요. <strong>주립 + 고연봉</strong> 조합!" }, emily: { verdict: "go", comment: "RN 2라 경력직인데, <strong>14년 경력 어필</strong>하면 서류 통과 확률 높아요!" } } },
