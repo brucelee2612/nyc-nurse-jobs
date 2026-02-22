@@ -239,10 +239,22 @@
       <h2 class="section-title">💬 AI 어드바이저 6인 토론 기록</h2>
       <p style="color: #888; margin-bottom: 20px;">매일 18:00에 새로 발견된 채용공고에 대해 <strong>6인 어드바이저</strong>(마깡이, Sarah, Jennifer, Michael, David, Emily)가 <strong>태권님 경력에 맞춰</strong> 토론합니다.</p>
       <div class="job-grid">
+        <div class="job-card" style="border-color: #dc2626; background: linear-gradient(135deg, rgba(220,38,38,0.15) 0%, rgba(139,92,246,0.1) 100%);" onclick="window.open('discussions/2026-02-22.html', '_blank')">
+          <div class="job-title">📅 2026-02-22 6인 토론 (6건 분석)</div>
+          <div class="job-badges">
+            <span class="badge badge-new">🆕 오늘</span>
+            <span class="badge" style="background:#dc2626;color:#fff;">🚨 D-1 마감!</span>
+            <span class="badge" style="background:#db2777;color:#fff;">👶 아동정신과</span>
+          </div>
+          <div class="job-company">🔸 Sing Sing 교도소 RN (내일 마감!) | Sagamore 아동 정신과 | ADON 3건 (미래 목표)</div>
+          <div class="job-location">긴급: CNYPC Sing Sing D-1 마감 → 교도소 정신과 관심시 오늘 밤 지원!</div>
+          <div style="color: #dc2626; font-size: 0.9rem; margin-top: 5px;">1 GO (긴급) | 1 MAYBE | 4 SKIP (관리직)</div>
+          <div class="job-pay" style="color: #dc2626;">💬 6인 토론 전체 보기 →</div>
+        </div>
         <div class="job-card" style="border-color: #f59e0b; background: linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(139,92,246,0.1) 100%);" onclick="window.open('discussions/2026-02-21.html', '_blank')">
           <div class="job-title">📅 2026-02-21 주간 리뷰 & 전략 점검</div>
           <div class="job-badges">
-            <span class="badge badge-new">🆕 오늘</span>
+            <span class="badge badge-posted">완료</span>
             <span class="badge" style="background:#f59e0b;color:#000;">📊 리뷰</span>
             <span class="badge" style="background:#ef4444;color:#fff;">⏰ D-6</span>
           </div>
@@ -399,7 +411,7 @@
       </p>
     </div>
     
-    <div class="last-updated">마지막 업데이트: 2026-02-21 18:03 (주간 리뷰 - 새 공고 0건, 마감 임박 5건 체크) | 다음 체크: 2/22 09:00</div>
+    <div class="last-updated">마지막 업데이트: 2026-02-22 18:04 (6인 토론 - 새 공고 6건: Sagamore 아동정신과, Sing Sing 교도소 등) | 다음 체크: 2/23 09:00</div>
   </div>
   
   <div class="modal-overlay" id="modalOverlay">
@@ -415,6 +427,9 @@
 
 <script>
 const jobs = [
+  // === 2026-02-22 새 공고 (6건) ===
+  { id: "sagamore-children-rn1-p26461", title: "RN 1 Psychiatric (NY HELPS) - Sagamore Children's", company: "NYS Office of Mental Health", location: "Dix Hills, NY (Suffolk County)", pay: "$115K-$124K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-22", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=209727", deadline: "03/04/26", lat: 40.8045, lng: -73.3385, advisors: { maggangi: { verdict: "maybe", comment: "아동 정신과 자체는 좋은데... <strong>Dix Hills가 Long Island 한참</strong> 들어가야 해요. Queens에서 출퇴근 1시간 넘게 걸릴 거예요." }, sarah: { verdict: "maybe", comment: "주정부 복지가 진짜 좋아요. 연금, PEF 노조, 안정성... 근데 <strong>Sagamore가 Long Island 끝자락</strong>이라 Queens에서 통근이 좀 빡세요." }, jennifer: { verdict: "skip", comment: "아동 정신과는 태권님 CIST 경험하고 어느 정도 연결점이 있어요. 하지만 <strong>성인 정신과 경력 쌓는 게 NP 때 더 유리</strong>해요." }, michael: { verdict: "skip", comment: "주정부 아동 정신과는 특수한 영역이에요. <strong>처음 미국 경력은 성인 일반 정신과</strong>에서 시작하는 게 좋아요." }, david: { verdict: "maybe", comment: "NY HELPS라 진입장벽이 낮아서 지원하기 좋아요. <strong>2개 vacancy</strong>가 있으니 경쟁률은 좀 낮을 수 있어요." }, emily: { verdict: "skip", comment: "솔직히 <strong>출퇴근 거리가 삶의 질에 엄청 영향</strong> 줘요. 1시간 넘는 출퇴근은 번아웃 원인 1순위예요." } } },
+  { id: "cnypc-singsing-rn1-p26105", title: "RN 1 Psychiatric (NY HELPS) - CNYPC Sing Sing Satellite", company: "NYS Office of Mental Health", location: "Ossining, NY (Westchester County)", pay: "$115K-$124K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-22", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=206417", deadline: "02/23/26", urgentDeadline: true, lat: 41.1626, lng: -73.8629, advisors: { maggangi: { verdict: "go", comment: "교도소 정신과는 특수한 환경이에요. <strong>Forensic psych 경험은 이력서에 강력한 차별점</strong>이 될 수 있어요." }, sarah: { verdict: "go", comment: "<strong>Metro-North로 갈 수 있어요</strong>. Grand Central에서 1시간 정도. Sing Sing 교도소는 역사적으로 유명하고, forensic psych 경험은 전문성!" }, jennifer: { verdict: "maybe", comment: "⚠️ <strong>내일 마감이라 시간이 촉박해요</strong>. 관심 있으시면 오늘 밤에라도 지원하셔야 해요." }, michael: { verdict: "go", comment: "Forensic psychiatry는 <strong>높은 수요와 적은 공급</strong>으로 잡 시큐리티가 좋아요. 도전정신 있으시다면 좋은 선택!" }, david: { verdict: "go", comment: "NY HELPS + 주정부 + 특수 환경 = <strong>경쟁률 낮을 가능성</strong> 높아요. 지원만 해두세요!" }, emily: { verdict: "go", comment: "교도소 정신과는 <strong>특수수당 있을 수 있어요</strong>. 환경이 맞으면 오래 근무하는 분들 많아요!" } } },
   // === 2026-02-20 새 공고 (2건) ===
   { id: "creedmoor-rn-supervisor-p26481", title: "RN Supervisor 1 Psychiatric (NY HELPS) - Creedmoor", company: "NYS Office of Mental Health", location: "Queens, NY 11427", pay: "$132K-$143K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-20", lat: 40.7405, lng: -73.7376, advisors: { maggangi: { verdict: "maybe", comment: "오 <strong>Queens 주정부</strong>? 위치 끝판왕! 근데 Supervisor는 <strong>정신과 3년</strong> 필요해. 지원해보고 반응 보자!" }, sarah: { verdict: "skip", comment: "주립 Supervisor는 <strong>엄격해</strong>. 보건진료직은 정신과로 인정 안 될 가능성 높아. Staff RN (RN 1)부터 시작!" }, jennifer: { verdict: "maybe", comment: "정신과 3년 요건인데 <strong>노인 우울증/치매 경험</strong> 부각하면 가능성 테스트 해볼 만해요. 50:50!" }, michael: { verdict: "skip", comment: "Supervisor급은 <strong>미국 정신과 경력 필수</strong>. 기존 TOP 5에 집중!" }, david: { verdict: "maybe", comment: "지원은 공짜! Queens 주정부에 <strong>관심 표시</strong>하면 나중에 RN 1 지원할 때도 도움 돼." }, emily: { verdict: "maybe", comment: "HR 서류심사는 체크리스트 방식. 커버레터에 <strong>노인 우울증/치매 경험</strong> 강조하면 예외 검토 가능!" } } },
   // === 2026-02-02 새 공고 (11건) ===
