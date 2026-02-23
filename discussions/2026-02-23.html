@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🗳️ 6인 어드바이저 토론 - 2026-02-23</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 50%, #e0e7ff 100%); min-height: 100vh; color: #1e1b4b; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { text-align: center; padding: 30px; margin-bottom: 30px; background: rgba(255,255,255,0.8); border-radius: 20px; backdrop-filter: blur(10px); }
+    h1 { font-size: 2rem; background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .date { color: #6b7280; font-size: 1.1rem; }
+    .summary-box { background: linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(239,68,68,0.05) 100%); border: 1px solid rgba(239,68,68,0.3); border-radius: 16px; padding: 20px; margin-bottom: 30px; }
+    .summary-box h2 { color: #dc2626; margin-bottom: 15px; }
+    .summary-box p { color: #6b7280; line-height: 1.6; }
+    .job-section { background: rgba(255,255,255,0.8); border-radius: 20px; padding: 25px; margin-bottom: 25px; backdrop-filter: blur(10px); }
+    .job-header { border-bottom: 2px solid #e5e7eb; padding-bottom: 15px; margin-bottom: 20px; }
+    .job-title { font-size: 1.3rem; color: #1e1b4b; font-weight: 700; }
+    .job-company { color: #7c3aed; font-weight: 600; margin-top: 5px; }
+    .job-meta { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px; color: #6b7280; font-size: 0.9rem; }
+    .job-meta span { display: flex; align-items: center; gap: 5px; }
+    .advisor-comment { background: rgba(255,255,255,0.6); border-radius: 12px; padding: 15px; margin-bottom: 12px; border-left: 4px solid; }
+    .advisor-comment.magang { border-color: #f59e0b; }
+    .advisor-comment.sarah { border-color: #3b82f6; }
+    .advisor-comment.jennifer { border-color: #ec4899; }
+    .advisor-comment.michael { border-color: #10b981; }
+    .advisor-comment.david { border-color: #8b5cf6; }
+    .advisor-comment.emily { border-color: #f97316; }
+    .advisor-name { font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .advisor-name .emoji { font-size: 1.3rem; }
+    .advisor-text { color: #4b5563; line-height: 1.6; }
+    .vote { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-left: 10px; }
+    .vote-go { background: #dcfce7; color: #166534; }
+    .vote-maybe { background: #fef3c7; color: #92400e; }
+    .vote-skip { background: #fee2e2; color: #991b1b; }
+    .vote-result { background: linear-gradient(135deg, rgba(239,68,68,0.1) 0%, rgba(239,68,68,0.05) 100%); border: 1px solid rgba(239,68,68,0.2); border-radius: 12px; padding: 15px; margin-top: 20px; text-align: center; }
+    .vote-counts { display: flex; justify-content: center; gap: 30px; margin-top: 10px; }
+    .vote-count { text-align: center; }
+    .vote-count .num { font-size: 1.8rem; font-weight: 700; }
+    .vote-count .label { font-size: 0.85rem; color: #6b7280; }
+    .final-verdict { margin-top: 15px; font-size: 1.1rem; font-weight: 600; }
+    .verdict-skip { color: #dc2626; }
+    .conclusion { background: linear-gradient(135deg, rgba(139,92,246,0.1) 0%, rgba(236,72,153,0.05) 100%); border: 1px solid rgba(139,92,246,0.2); border-radius: 16px; padding: 25px; margin-top: 30px; }
+    .conclusion h2 { color: #7c3aed; margin-bottom: 15px; }
+    .conclusion ul { margin-left: 20px; color: #4b5563; line-height: 1.8; }
+    .back-link { display: inline-block; margin-top: 30px; padding: 12px 24px; background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); color: #fff; text-decoration: none; border-radius: 12px; font-weight: 600; }
+    .back-link:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139,92,246,0.4); }
+    .future-goal { background: linear-gradient(135deg, rgba(251,191,36,0.1) 0%, rgba(251,191,36,0.05) 100%); border: 1px solid rgba(251,191,36,0.3); border-radius: 12px; padding: 15px; margin-top: 15px; }
+    .future-goal h4 { color: #b45309; margin-bottom: 8px; }
+    .future-goal p { color: #6b7280; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🗳️ 6인 어드바이저 토론</h1>
+      <p class="date">2026년 2월 23일 (일) 18:00</p>
+    </header>
+
+    <div class="summary-box">
+      <h2>📋 오늘의 요약</h2>
+      <p><strong>새 공고:</strong> 1건 (관리직)</p>
+      <p><strong>결과:</strong> 만장일치 SKIP — 관리직이라 현재 조건 불일치</p>
+      <p><strong>GO 공고:</strong> 0건 | <strong>MAYBE:</strong> 0건 | <strong>SKIP:</strong> 1건</p>
+    </div>
+
+    <div class="job-section">
+      <div class="job-header">
+        <div class="job-title">Nurse Manager, RN - Behavioral Health Unit</div>
+        <div class="job-company">🏥 Mount Sinai Morningside</div>
+        <div class="job-meta">
+          <span>📍 Upper West Side, NY 10025</span>
+          <span>💰 $115,494-$173,241/yr</span>
+          <span>⏰ Full-time Days (M-F)</span>
+        </div>
+      </div>
+
+      <div class="advisor-comment magang">
+        <div class="advisor-name"><span class="emoji">😎</span> 마깡이 (Mount Sinai 정신과 RN 5년) <span class="vote vote-skip">SKIP</span></div>
+        <p class="advisor-text">"오 Mount Sinai Morningside! 여기 BH 유닛 괜찮은 곳이야. Upper West Side라 위치도 좋고. 근데... <strong>Nurse Manager 자리잖아.</strong> 3-5년 정신과 경력 + 3-5년 관리 경력 요구해. 태권님 한국 경력 14년이지만 미국 정신과 경력은 없으니까 지금 바로는 무리야. <strong>미래 목표로 저장해두자!</strong>"</p>
+      </div>
+
+      <div class="advisor-comment sarah">
+        <div class="advisor-name"><span class="emoji">🩺</span> Sarah (Northwell→주립 8년) <span class="vote vote-skip">SKIP</span></div>
+        <p class="advisor-text">"솔직히 말해서, 매니저 포지션은 미국에서 최소 3-5년 일해야 넣을 수 있어. 그리고 MSN 필수 또는 진행중이라고 되어있네. 태권님 BSN만 있으시니까... 2-3년 뒤에 경력 쌓고 MSN 시작하면 도전해볼만 해. <strong>장기 목표 리스트에 올려두자.</strong>"</p>
+      </div>
+
+      <div class="advisor-comment jennifer">
+        <div class="advisor-name"><span class="emoji">👩‍⚕️</span> Jennifer (NYC H+H Manager 20년) <span class="vote vote-skip">SKIP</span></div>
+        <p class="advisor-text">"내가 매니저 20년 해봤는데, 관리직은 정말 미국 현지 경험이 중요해. EMR 시스템, union 관계, compliance, staffing... 한국에서 아무리 잘 했어도 미국 병원 시스템 모르면 힘들어. <strong>일단 Staff RN으로 1-2년 하고, 그 다음에 노려.</strong> Mount Sinai는 내부 승진 문화 있으니까 일단 들어가면 기회 있어."</p>
+      </div>
+
+      <div class="advisor-comment michael">
+        <div class="advisor-name"><span class="emoji">👨‍⚕️</span> Michael (NYP Director 15년) <span class="vote vote-skip">SKIP</span></div>
+        <p class="advisor-text">"$115K-$173K면 매니저 급여로는 적당한 편이야. Day shift M-F라 워라밸 좋고. 근데 CPI 선호라고 되어있네. 태권님 CPI 없으시잖아. 그리고 BSN 필수에 MSN 필수(또는 진행중)... 지금은 자격 안 맞아. <strong>3-5년 후 목표로!</strong>"</p>
+      </div>
+
+      <div class="advisor-comment david">
+        <div class="advisor-name"><span class="emoji">🧑‍💼</span> David (리크루터) <span class="vote vote-skip">SKIP</span></div>
+        <p class="advisor-text">"관리직 공고는 보통 내부 승진 우선이야. 외부에서 바로 매니저로 들어가려면 정말 강력한 미국 경력이 있어야 해. 태권님은 먼저 Staff RN으로 들어가서 실력 보여주고, 1-2년 후 internal transfer 노리는 게 현실적이야. <strong>이 공고는 미래 참고용!</strong>"</p>
+      </div>
+
+      <div class="advisor-comment emily">
+        <div class="advisor-name"><span class="emoji">👩‍💼</span> Emily (NYC H+H HR 12년) <span class="vote vote-skip">SKIP</span></div>
+        <p class="advisor-text">"HR 관점에서 보면, 매니저 채용할 때 미국 경력 없으면 서류 통과 자체가 어려워. 한국 14년 경력 인정해줘도 'US Psych experience required'라고 되어있으면 자동 탈락이야. 태권님은 지금은 Staff RN 공고에 집중하시고, <strong>2-3년 후에 이런 매니저 자리 도전하세요!</strong>"</p>
+      </div>
+
+      <div class="vote-result">
+        <h3>🗳️ 투표 결과</h3>
+        <div class="vote-counts">
+          <div class="vote-count"><div class="num" style="color:#166534">0</div><div class="label">GO</div></div>
+          <div class="vote-count"><div class="num" style="color:#92400e">0</div><div class="label">MAYBE</div></div>
+          <div class="vote-count"><div class="num" style="color:#dc2626">6</div><div class="label">SKIP</div></div>
+        </div>
+        <div class="final-verdict verdict-skip">❌ 만장일치 SKIP</div>
+      </div>
+
+      <div class="future-goal">
+        <h4>💡 장기 목표로 저장</h4>
+        <p>Mount Sinai에 Staff RN으로 입사 → 2-3년 경력 → MSN 시작 → Nurse Manager 내부 승진 도전!</p>
+      </div>
+    </div>
+
+    <div class="conclusion">
+      <h2>📊 오늘의 결론</h2>
+      <ul>
+        <li><strong>새 공고 1건:</strong> Mount Sinai Morningside Nurse Manager (관리직)</li>
+        <li><strong>투표:</strong> 만장일치 SKIP (6/6)</li>
+        <li><strong>사유:</strong> 3-5년 미국 정신과 경력 + 3-5년 관리 경력 + MSN 필요 — 현재 조건 불일치</li>
+        <li><strong>액션:</strong> 장기 목표 리스트에 추가. Staff RN 공고 우선 집중!</li>
+      </ul>
+    </div>
+
+    <a href="dashboard.html" class="back-link">← 대시보드로 돌아가기</a>
+  </div>
+</body>
+</html>
