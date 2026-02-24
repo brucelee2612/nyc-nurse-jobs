@@ -250,6 +250,19 @@
           <div style="color: #6b7280; font-size: 0.9rem; margin-top: 5px;">0 GO | 0 MAYBE | 6 SKIP (관리직)</div>
           <div class="job-pay" style="color: #6b7280;">💬 6인 토론 전체 보기 →</div>
         </div>
+        <div class="job-card" style="border-color: #10b981; background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(139,92,246,0.1) 100%);" onclick="window.open('discussions/2026-02-24.html', '_blank')">
+          <div class="job-title">📅 2026-02-24 6인 토론 (1건 분석)</div>
+          <div class="job-badges">
+            <span class="badge badge-new">🆕 오늘</span>
+            <span class="badge" style="background:#5a4327;color:#dfb882;">🚗 NJ</span>
+            <span class="badge" style="background:#dc2626;color:#fff;">🔥 $5K Bonus</span>
+            <span class="badge" style="background:#3730a3;color:#c7d2fe;">🏘️ Community</span>
+          </div>
+          <div class="job-company">🔸 Bridgeway PACT RN (3 GO : 3 MAYBE) - Day shift 4일 근무!</div>
+          <div class="job-location">West Orange, NJ | $85.6K-$96.3K | NJ 라이선스 필요</div>
+          <div style="color: #10b981; font-size: 0.9rem; margin-top: 5px;">⭐ PACT 커뮤니티 = 보건진료직 경험과 매칭! NJ 라이선스 취득 계획 시 추천</div>
+          <div class="job-pay" style="color: #10b981;">💬 6인 토론 전체 보기 →</div>
+        </div>
         <div class="job-card" style="border-color: #dc2626; background: linear-gradient(135deg, rgba(220,38,38,0.15) 0%, rgba(139,92,246,0.1) 100%);" onclick="window.open('discussions/2026-02-22.html', '_blank')">
           <div class="job-title">📅 2026-02-22 6인 토론 (6건 분석)</div>
           <div class="job-badges">
@@ -422,7 +435,7 @@
       </p>
     </div>
     
-    <div class="last-updated">마지막 업데이트: 2026-02-22 18:04 (6인 토론 - 새 공고 6건: Sagamore 아동정신과, Sing Sing 교도소 등) | 다음 체크: 2/23 09:00</div>
+    <div class="last-updated">마지막 업데이트: 2026-02-24 18:04 (6인 토론 - 새 공고 1건: Bridgeway PACT RN $5K Bonus + 4일 근무!) | 다음 체크: 2/25 09:00</div>
   </div>
   
   <div class="modal-overlay" id="modalOverlay">
@@ -438,6 +451,8 @@
 
 <script>
 const jobs = [
+  // === 2026-02-24 새 공고 (1건) ===
+  { id: "bridgeway-pact-westorange", title: "Psychiatric RN - PACT Program", company: "Bridgeway Behavioral Health Services", location: "West Orange, NJ (Essex County)", pay: "$85.6K-$96.3K/year", bonus: "$5K Sign-on", isNew: true, dateFound: "2026-02-24", settingType: "community", schedule: "4-day week", url: "https://www.linkedin.com/jobs/view/4376899508/", lat: 40.7982, lng: -74.2390, advisors: { maggangi: { verdict: "go", comment: "PACT = 커뮤니티 기반! <strong>보건진료직 10년</strong>이면 이미 독립적으로 일해본 경험 있잖아. 4일 근무 + $5K 사이닝 보너스? 괜찮은 조건!" }, sarah: { verdict: "maybe", comment: "커뮤니티 정신건강은 미래 트렌드. 근데 <strong>차량 필수 + NJ 라이선스</strong> 해결해야 해. 장기적으로 PMHNP 목표면 좋은 기회!" }, jennifer: { verdict: "maybe", comment: "PACT RN은 <strong>독립적으로 판단할 수 있는 사람</strong> 찾아. 보건진료직 경험 어필 포인트! 근데 NJ 라이선스 + 차량 세팅 시간 필요." }, michael: { verdict: "go", comment: "$85-96K 시작 급여 + 4일 근무 + Day shift + $5K 보너스. 보건진료직 경험 '독립적 일차의료 제공자' 프레임으로 어필!" }, david: { verdict: "go", comment: "Bridgeway는 NJ 북부에서 안정적인 비영리 기관. <strong>오늘 게시된 신선한 공고</strong>. 관심 있으면 빨리 지원!" }, emily: { verdict: "maybe", comment: "첫 미국 직장으로 커뮤니티 PACT는 challenging할 수 있어. 근데 <strong>10년간 독립적으로 일해본 경험</strong>이면 적응 빠를 거야." } } },
   // === 2026-02-22 새 공고 (6건) ===
   { id: "sagamore-children-rn1-p26461", title: "RN 1 Psychiatric (NY HELPS) - Sagamore Children's", company: "NYS Office of Mental Health", location: "Dix Hills, NY (Suffolk County)", pay: "$115K-$124K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-22", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=209727", deadline: "03/04/26", lat: 40.8045, lng: -73.3385, advisors: { maggangi: { verdict: "maybe", comment: "아동 정신과 자체는 좋은데... <strong>Dix Hills가 Long Island 한참</strong> 들어가야 해요. Queens에서 출퇴근 1시간 넘게 걸릴 거예요." }, sarah: { verdict: "maybe", comment: "주정부 복지가 진짜 좋아요. 연금, PEF 노조, 안정성... 근데 <strong>Sagamore가 Long Island 끝자락</strong>이라 Queens에서 통근이 좀 빡세요." }, jennifer: { verdict: "skip", comment: "아동 정신과는 태권님 CIST 경험하고 어느 정도 연결점이 있어요. 하지만 <strong>성인 정신과 경력 쌓는 게 NP 때 더 유리</strong>해요." }, michael: { verdict: "skip", comment: "주정부 아동 정신과는 특수한 영역이에요. <strong>처음 미국 경력은 성인 일반 정신과</strong>에서 시작하는 게 좋아요." }, david: { verdict: "maybe", comment: "NY HELPS라 진입장벽이 낮아서 지원하기 좋아요. <strong>2개 vacancy</strong>가 있으니 경쟁률은 좀 낮을 수 있어요." }, emily: { verdict: "skip", comment: "솔직히 <strong>출퇴근 거리가 삶의 질에 엄청 영향</strong> 줘요. 1시간 넘는 출퇴근은 번아웃 원인 1순위예요." } } },
   { id: "cnypc-singsing-rn1-p26105", title: "RN 1 Psychiatric (NY HELPS) - CNYPC Sing Sing Satellite", company: "NYS Office of Mental Health", location: "Ossining, NY (Westchester County)", pay: "$115K-$124K/year", union: true, unionName: "PEF", state: true, isNew: true, dateFound: "2026-02-22", url: "https://statejobs.ny.gov/public/vacancyDetailsView.cfm?id=206417", deadline: "02/23/26", urgentDeadline: true, lat: 41.1626, lng: -73.8629, advisors: { maggangi: { verdict: "go", comment: "교도소 정신과는 특수한 환경이에요. <strong>Forensic psych 경험은 이력서에 강력한 차별점</strong>이 될 수 있어요." }, sarah: { verdict: "go", comment: "<strong>Metro-North로 갈 수 있어요</strong>. Grand Central에서 1시간 정도. Sing Sing 교도소는 역사적으로 유명하고, forensic psych 경험은 전문성!" }, jennifer: { verdict: "maybe", comment: "⚠️ <strong>내일 마감이라 시간이 촉박해요</strong>. 관심 있으시면 오늘 밤에라도 지원하셔야 해요." }, michael: { verdict: "go", comment: "Forensic psychiatry는 <strong>높은 수요와 적은 공급</strong>으로 잡 시큐리티가 좋아요. 도전정신 있으시다면 좋은 선택!" }, david: { verdict: "go", comment: "NY HELPS + 주정부 + 특수 환경 = <strong>경쟁률 낮을 가능성</strong> 높아요. 지원만 해두세요!" }, emily: { verdict: "go", comment: "교도소 정신과는 <strong>특수수당 있을 수 있어요</strong>. 환경이 맞으면 오래 근무하는 분들 많아요!" } } },
