@@ -239,10 +239,22 @@
       <h2 class="section-title">💬 AI 어드바이저 6인 토론 기록</h2>
       <p style="color: #888; margin-bottom: 20px;">매일 18:00에 새로 발견된 채용공고에 대해 <strong>6인 어드바이저</strong>(마깡이, Sarah, Jennifer, Michael, David, Emily)가 <strong>태권님 경력에 맞춰</strong> 토론합니다.</p>
       <div class="job-grid">
+        <div class="job-card" style="border-color: #ef4444; background: linear-gradient(135deg, rgba(239,68,68,0.15) 0%, rgba(139,92,246,0.1) 100%);" onclick="window.open('discussions/2026-02-26.html', '_blank')">
+          <div class="job-title">📅 2026-02-26 6인 토론 (1건 분석)</div>
+          <div class="job-badges">
+            <span class="badge badge-new">🆕 오늘</span>
+            <span class="badge" style="background:#1e1b4b;color:#c7d2fe;">🌙 Night</span>
+            <span class="badge" style="background:#5a2752;color:#df82d3;">🤝 Union</span>
+            <span class="badge" style="background:#701a75;color:#f5d0fe;">🏛️ City</span>
+          </div>
+          <div class="job-company">🔸 NYC H+H Bellevue BH 20W (0 GO : 3 MAYBE : 3 SKIP)</div>
+          <div class="job-location">Manhattan, NY | $109K + 추가수당 ~$122K | Night shift</div>
+          <div style="color: #ef4444; font-size: 0.9rem; margin-top: 5px;">⚠️ Night shift = Day 선호 불일치. 백업으로 저장!</div>
+          <div class="job-pay" style="color: #ef4444;">💬 6인 토론 전체 보기 →</div>
+        </div>
         <div class="job-card" style="border-color: #6b7280; background: linear-gradient(135deg, rgba(107,114,128,0.15) 0%, rgba(139,92,246,0.1) 100%);" onclick="window.open('discussions/2026-02-23.html', '_blank')">
           <div class="job-title">📅 2026-02-23 6인 토론 (1건 분석)</div>
           <div class="job-badges">
-            <span class="badge badge-new">🆕 오늘</span>
             <span class="badge" style="background:#6b7280;color:#fff;">⏭️ 관리직</span>
           </div>
           <div class="job-company">🔸 Mount Sinai Morningside Nurse Manager (만장일치 SKIP)</div>
@@ -253,7 +265,6 @@
         <div class="job-card" style="border-color: #10b981; background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(139,92,246,0.1) 100%);" onclick="window.open('discussions/2026-02-24.html', '_blank')">
           <div class="job-title">📅 2026-02-24 6인 토론 (1건 분석)</div>
           <div class="job-badges">
-            <span class="badge badge-new">🆕 오늘</span>
             <span class="badge" style="background:#5a4327;color:#dfb882;">🚗 NJ</span>
             <span class="badge" style="background:#dc2626;color:#fff;">🔥 $5K Bonus</span>
             <span class="badge" style="background:#3730a3;color:#c7d2fe;">🏘️ Community</span>
@@ -451,6 +462,8 @@
 
 <script>
 const jobs = [
+  // === 2026-02-26 새 공고 (1건) ===
+  { id: "nychhc-bellevue-20w-128509", title: "Staff Nurse-Psychiatry (Inpatient BH 20W)", company: "NYC Health + Hospitals (Bellevue)", location: "Manhattan, NY", pay: "$109K/year (+BSN/BH/경력수당)", union: true, unionName: "DC37", city: true, isNew: true, dateFound: "2026-02-26", settingType: "inpatient", schedule: "Night 7PM-7:30AM", deadline: "04/12/26", lat: 40.7390, lng: -73.9760, advisors: { maggangi: { verdict: "skip", comment: "Bellevue는 레전드 병원이지, 정신과 역사 자체야. <strong>근데 Night shift라니...</strong> 태권님은 Day 선호잖아. 3년 밤근무 하고 나니까 몸이 망가지더라." }, sarah: { verdict: "maybe", comment: "잠깐, <strong>모든 NYC H+H는 유니온이고 shift bidding 있어.</strong> 처음에 Night로 들어가도 seniority 쌓이면 Day로 옮길 수 있어." }, jennifer: { verdict: "maybe", comment: "내가 H+H에서 20년 일했잖아. <strong>20W 유닛은 acute inpatient야.</strong> base $109K + 추가수당 = <strong>최대 $122K 가능</strong>. 근데 Day 원하면 저장해두고 Day 공고 기다리자." }, michael: { verdict: "skip", comment: "전략적으로 보자. 태권님은 2026년 7월에 미국 와서 <strong>첫 1년은 적응기</strong>야. Night shift로 시작하면 생활 리듬 망가져." }, david: { verdict: "skip", comment: "솔직히 NYC H+H는 Day 공고도 꾸준히 나와요. Elmhurst Queens 위치도 더 좋고. <strong>더 좋은 Day 공고 기다리세요.</strong>" }, emily: { verdict: "maybe", comment: "HR 관점에서 - Bellevue 20W는 <strong>항상 채용 중</strong>이에요. 6개월 후 internal transfer 신청 가능해요. 백업으로 저장해두세요." } } },
   // === 2026-02-24 새 공고 (1건) ===
   { id: "bridgeway-pact-westorange", title: "Psychiatric RN - PACT Program", company: "Bridgeway Behavioral Health Services", location: "West Orange, NJ (Essex County)", pay: "$85.6K-$96.3K/year", bonus: "$5K Sign-on", isNew: true, dateFound: "2026-02-24", settingType: "community", schedule: "4-day week", url: "https://www.linkedin.com/jobs/view/4376899508/", lat: 40.7982, lng: -74.2390, advisors: { maggangi: { verdict: "go", comment: "PACT = 커뮤니티 기반! <strong>보건진료직 10년</strong>이면 이미 독립적으로 일해본 경험 있잖아. 4일 근무 + $5K 사이닝 보너스? 괜찮은 조건!" }, sarah: { verdict: "maybe", comment: "커뮤니티 정신건강은 미래 트렌드. 근데 <strong>차량 필수 + NJ 라이선스</strong> 해결해야 해. 장기적으로 PMHNP 목표면 좋은 기회!" }, jennifer: { verdict: "maybe", comment: "PACT RN은 <strong>독립적으로 판단할 수 있는 사람</strong> 찾아. 보건진료직 경험 어필 포인트! 근데 NJ 라이선스 + 차량 세팅 시간 필요." }, michael: { verdict: "go", comment: "$85-96K 시작 급여 + 4일 근무 + Day shift + $5K 보너스. 보건진료직 경험 '독립적 일차의료 제공자' 프레임으로 어필!" }, david: { verdict: "go", comment: "Bridgeway는 NJ 북부에서 안정적인 비영리 기관. <strong>오늘 게시된 신선한 공고</strong>. 관심 있으면 빨리 지원!" }, emily: { verdict: "maybe", comment: "첫 미국 직장으로 커뮤니티 PACT는 challenging할 수 있어. 근데 <strong>10년간 독립적으로 일해본 경험</strong>이면 적응 빠를 거야." } } },
   // === 2026-02-22 새 공고 (6건) ===
