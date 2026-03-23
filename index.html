@@ -153,8 +153,11 @@
     <h2 class="section-title">✅ 지원 완료</h2>
     <div class="job-grid" id="appliedGrid"></div>
 
-    <h2 class="section-title">🏆 TOP 추천 공고 (Day + Full-time)</h2>
+    <h2 class="section-title">🏆 TOP 추천 - NJ (Day + Full-time)</h2>
     <div class="job-grid" id="jobGrid"></div>
+
+    <h2 class="section-title">🏆 TOP 추천 - NYC (Day + Full-time)</h2>
+    <div class="job-grid" id="nycGrid"></div>
 
     <h2 class="section-title">🌙 참고용 (Night/Rotating)</h2>
     <div class="job-grid" id="otherGrid"></div>
@@ -187,8 +190,8 @@
   </div>
 
   <div class="last-updated">
-    <strong>마지막 업데이트:</strong> 2026-03-22 20:40 EDT<br>
-    <strong>업데이트 내용:</strong> NYC H+H 공고 추가 (Harlem 지원완료 + Elmhurst/Bellevue/Jacobi/Metropolitan) + NJ TOP 4<br>
+    <strong>마지막 업데이트:</strong> 2026-03-22 21:22 EDT<br>
+    <strong>업데이트 내용:</strong> TOP 섹션 NJ/NYC 분리 + Lincoln Medical Center 추가<br>
     <strong>다음 체크:</strong> 하트비트 시 로테이션 검색 계속
   </div>
 </div>
@@ -334,7 +337,7 @@ const jobs = [
   }
 ];
 
-const otherJobs = [
+const nycJobs = [
   {
     id: "elmhurst-behavioral",
     title: "Staff Nurse - Behavioral Health Services",
@@ -343,22 +346,51 @@ const otherJobs = [
     pay: "$109,490/year",
     shift: "Day 8AM-4:30PM",
     type: "Temporary",
+    top: true,
+    rank: 1,
     lat: 40.7441,
     lng: -73.8860,
     dateFound: "2026-03-22",
     source: "NYC H+H Careers",
     jobId: "128130",
     deadline: "2026-09-13",
-    note: "임시직이지만 Day shift",
+    note: "임시직",
     advisors: {
       maggangi: { verdict: "maybe", comment: "Day shift지만 <strong>Temporary</strong>가 아쉬워. 정규직 전환 가능한지 확인 필요." },
-      sarah: { verdict: "maybe", comment: "Behavioral Health면 <strong>정신과 경험</strong> 쌓기 좋아. 장기 목표랑 맞아!" },
-      jennifer: { verdict: "maybe", comment: "Temporary라도 <strong>내부 전환</strong> 기회 많아요. 일단 들어가면 정규직 공고 먼저 볼 수 있어요." },
-      michael: { verdict: "maybe", comment: "Queens라 출퇴근 편해. <strong>백업 옵션</strong>으로 고려!" },
-      david: { verdict: "maybe", comment: "마감 09/13이니까 시간 있어요. <strong>정규직 먼저</strong> 도전하고 안 되면 지원!" },
-      emily: { verdict: "maybe", comment: "임시직도 <strong>미국 경력</strong>은 경력. 나중에 이직할 때 도움 돼요!" }
+      sarah: { verdict: "go", comment: "Behavioral Health면 <strong>정신과 경험</strong> 쌓기 좋아. 장기 목표(Psych NP)랑 맞아!" },
+      jennifer: { verdict: "go", comment: "Temporary라도 <strong>내부 전환</strong> 기회 많아요. 일단 들어가면 정규직 공고 먼저 볼 수 있어요." },
+      michael: { verdict: "go", comment: "Queens라 출퇴근 편해. Day shift면 <strong>워라밸</strong> 괜찮아!" },
+      david: { verdict: "maybe", comment: "마감 09/13이니까 시간 있어요. 정규직 결과 보고 결정해도 돼요." },
+      emily: { verdict: "go", comment: "NYC H+H 임시직은 <strong>정규직 전환율 높아요</strong>. 내부 지원이 유리!" }
     }
   },
+  {
+    id: "lincoln-surgical",
+    title: "Staff Nurse - Surgery",
+    company: "Lincoln Medical Center (NYC H+H)",
+    location: "Bronx, NY (~35min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 2,
+    lat: 40.8168,
+    lng: -73.9246,
+    dateFound: "2026-03-22",
+    source: "NYC H+H Careers",
+    jobId: "TBD",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Surgery unit이면 <strong>외과 경력 직접 활용</strong>! Lincoln은 Level 1 Trauma Center야!" },
+      sarah: { verdict: "go", comment: "Lincoln은 <strong>Bronx 핵심 병원</strong>. 바쁘지만 경험 쌓기 최고!" },
+      jennifer: { verdict: "go", comment: "NYC H+H라 <strong>베네핏 좋고</strong> 공무원급 안정성!" },
+      michael: { verdict: "go", comment: "Day shift + Surgery면 <strong>외과 배경</strong>에 딱 맞아!" },
+      david: { verdict: "go", comment: "Fort Lee에서 35분이면 <strong>출퇴근 가능</strong>!" },
+      emily: { verdict: "go", comment: "Lincoln은 <strong>다양한 환자층</strong>. 경험 풍부하게 쌓을 수 있어요!" }
+    }
+  }
+];
+
+const otherJobs = [
   {
     id: "bellevue-medsurg",
     title: "Staff Nurse - Medicine/Surgery",
@@ -525,6 +557,27 @@ function renderJobs() {
     </div>
   `).join('');
   
+  // TOP recommended jobs (NYC Day shift)
+  const nycGrid = document.getElementById('nycGrid');
+  nycGrid.innerHTML = nycJobs.map(job => `
+    <div class="job-card ${job.top ? 'top' : ''}" onclick="openModal('${job.id}')">
+      <div class="job-badges">
+        ${job.rank ? `<span class="badge badge-top">⭐ TOP ${job.rank}</span>` : ''}
+        <span class="badge badge-day">${job.shift}</span>
+        <span class="badge badge-ft">${job.type}</span>
+        <span class="badge badge-ny">NYC</span>
+        ${job.note ? `<span class="badge" style="background:#f59e0b;color:#fff;">${job.note}</span>` : ''}
+      </div>
+      <div class="job-title">${job.title}</div>
+      <div class="job-company">🏥 ${job.company}</div>
+      <div class="job-location">📍 ${job.location}</div>
+      <div class="job-pay">💰 ${job.pay}</div>
+      <div class="job-details">
+        <strong>Job ID:</strong> ${job.jobId} | ${job.deadline ? `<strong>마감:</strong> ${job.deadline}` : `<strong>소스:</strong> ${job.source}`}
+      </div>
+    </div>
+  `).join('');
+  
   // Other jobs (Night/Rotating)
   otherGrid.innerHTML = otherJobs.map(job => `
     <div class="job-card ${job.night ? 'night' : job.rotating ? 'rotating' : ''}" onclick="openModal('${job.id}')">
@@ -561,7 +614,7 @@ function renderJobs() {
 
 // Modal
 function openModal(jobId) {
-  const job = [...appliedJobs, ...jobs, ...otherJobs, ...events].find(j => j.id === jobId);
+  const job = [...appliedJobs, ...jobs, ...nycJobs, ...otherJobs, ...events].find(j => j.id === jobId);
   if (!job) return;
   
   document.getElementById('modalTitle').textContent = job.title;
@@ -639,7 +692,7 @@ function initMap() {
   }).addTo(map);
   
   // Job markers
-  const allJobs = [...appliedJobs, ...jobs, ...otherJobs, ...events];
+  const allJobs = [...appliedJobs, ...jobs, ...nycJobs, ...otherJobs, ...events];
   allJobs.forEach(job => {
     const color = job.applied ? '#22c55e' : job.top ? '#22c55e' : job.night ? '#ef4444' : job.rotating ? '#f59e0b' : job.event ? '#8b5cf6' : '#0ea5e9';
     L.circleMarker([job.lat, job.lng], {
