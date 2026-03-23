@@ -40,6 +40,7 @@
     .job-card.night { border-left-color: #ef4444; background: linear-gradient(135deg, rgba(239,68,68,0.08) 0%, rgba(255,255,255,0.95) 100%); }
     .job-card.rotating { border-left-color: #f59e0b; background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(255,255,255,0.95) 100%); }
     .job-card.event { border-left-color: #8b5cf6; background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(255,255,255,0.95) 100%); }
+    .job-card.new { border-left-color: #06b6d4; background: linear-gradient(135deg, rgba(6,182,212,0.12) 0%, rgba(255,255,255,0.95) 100%); }
     .job-title { font-size: 1.1rem; font-weight: 600; color: #0c4a6e; margin-bottom: 8px; }
     .job-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
     .badge { font-size: 0.7rem; padding: 4px 10px; border-radius: 12px; font-weight: 500; }
@@ -50,6 +51,7 @@
     .badge-ny { background: #e0e7ff; color: #3730a3; }
     .badge-event { background: #8b5cf6; color: #fff; }
     .badge-future { background: #94a3b8; color: #fff; }
+    .badge-new { background: #06b6d4; color: #fff; }
     .job-company { color: #0284c7; font-weight: 600; margin-bottom: 6px; }
     .job-location { color: #64748b; font-size: 0.9rem; }
     .job-pay { color: #059669; font-weight: 600; margin-top: 10px; font-size: 1.1rem; }
@@ -137,8 +139,8 @@
     </div>
     <div class="stats">
       <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">✅ 지원완료</div></div>
-      <div class="stat-box"><div class="stat-number">10</div><div class="stat-label">📋 총 공고</div></div>
-      <div class="stat-box"><div class="stat-number">5</div><div class="stat-label">🌞 Day Shift</div></div>
+      <div class="stat-box"><div class="stat-number">15</div><div class="stat-label">📋 총 공고</div></div>
+      <div class="stat-box"><div class="stat-number">9</div><div class="stat-label">🌞 Day Shift</div></div>
       <div class="stat-box"><div class="stat-number">$48-119K</div><div class="stat-label">💰 급여 범위</div></div>
     </div>
   </header>
@@ -153,11 +155,11 @@
     <h2 class="section-title">✅ 지원 완료</h2>
     <div class="job-grid" id="appliedGrid"></div>
 
+    <h2 class="section-title">🏆 TOP 추천 - Northwell / NYC (Day + Full-time)</h2>
+    <div class="job-grid" id="nycGrid"></div>
+
     <h2 class="section-title">🏆 TOP 추천 - NJ (Day + Full-time)</h2>
     <div class="job-grid" id="jobGrid"></div>
-
-    <h2 class="section-title">🏆 TOP 추천 - NYC (Day + Full-time)</h2>
-    <div class="job-grid" id="nycGrid"></div>
 
     <h2 class="section-title">🌙 참고용 (Night/Rotating)</h2>
     <div class="job-grid" id="otherGrid"></div>
@@ -190,8 +192,8 @@
   </div>
 
   <div class="last-updated">
-    <strong>마지막 업데이트:</strong> 2026-03-22 21:22 EDT<br>
-    <strong>업데이트 내용:</strong> TOP 섹션 NJ/NYC 분리 + Lincoln Medical Center 추가<br>
+    <strong>마지막 업데이트:</strong> 2026-03-23 18:30 EDT<br>
+    <strong>업데이트 내용:</strong> 6인 토론 완료! 신규 5개 공고 추가 (Northwell 2, Mount Sinai 1, NYC H+H 2)<br>
     <strong>다음 체크:</strong> 하트비트 시 로테이션 검색 계속
   </div>
 </div>
@@ -238,6 +240,192 @@ const appliedJobs = [
       michael: { verdict: "go", comment: "Day shift 8:30-5PM이면 <strong>워라밸 완벽</strong>. 야근 스트레스 없어!" },
       david: { verdict: "go", comment: "$109K 시작이면 <strong>경력 가산</strong>받으면 더 올라가요!" },
       emily: { verdict: "go", comment: "NYC H+H는 <strong>비자 스폰서십</strong>도 해주는 곳. 태권님은 영주권이라 더 유리!" }
+    }
+  }
+];
+
+const nycJobs = [
+  // ⭐ NEW 2026-03-23 - Mount Sinai Phillips Surgery
+  {
+    id: "mountsinai-union-square",
+    title: "Staff RN I - Union Square - Phillips Surgery ⭐⭐",
+    company: "Mount Sinai",
+    location: "Manhattan, NY (~50min from Fort Lee)",
+    pay: "TBD",
+    shift: "Day M-F 8am-4pm ✨",
+    type: "Full-time",
+    top: true,
+    isNew: true,
+    rank: 1,
+    lat: 40.7362,
+    lng: -73.9903,
+    dateFound: "2026-03-23",
+    source: "Mount Sinai Careers",
+    reqId: "3033191",
+    advisors: {
+      maggangi: { verdict: "go", comment: "월금 8-4?! <strong>꿈의 스케줄</strong>이야! 주말 없고 저녁 없고..." },
+      sarah: { verdict: "go", comment: "Union Square는 <strong>Ambulatory Surgery Center</strong>. outpatient 위주라 강도 낮아." },
+      jennifer: { verdict: "go", comment: "스케줄 최고. 근데 <strong>경쟁 치열</strong>할 거야. 이런 자리는 내부 이동이 많아서." },
+      michael: { verdict: "go", comment: "Phillips Surgery면 <strong>Ambulatory/Outpatient</strong>. 외과 배경이랑 맞아." },
+      david: { verdict: "go", comment: "Mount Sinai는 <strong>명문</strong>이야. 여기 들어가면 커리어에 큰 플러스." },
+      emily: { verdict: "maybe", comment: "Union Square는 Manhattan 남쪽이라 <strong>50분</strong> 정도. 괜찮은 편." }
+    }
+  },
+  // ⭐ NEW 2026-03-23 - Northwell Ambulatory (Great Neck)
+  {
+    id: "northwell-ambulatory-great-neck",
+    title: "Registered Nurse - Ambulatory (Surgical) ⭐",
+    company: "Northwell Health",
+    location: "Great Neck, NY (~35-40min from Fort Lee)",
+    pay: "$68K-$115K/yr",
+    shift: "Day (Ambulatory typical)",
+    type: "Full-time",
+    top: true,
+    isNew: true,
+    rank: 2,
+    lat: 40.7868,
+    lng: -73.7284,
+    dateFound: "2026-03-23",
+    source: "ZipRecruiter",
+    url: "https://jobs.northwell.edu/job-3/22673495/",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Northwell 좋아! <strong>대형 시스템</strong>이라 안정적이고 Ambulatory는 Day 위주야." },
+      sarah: { verdict: "go", comment: "내가 Northwell 출신인데, 여기 진짜 좋아. Breakroom 평점 <strong>7.9는 99%ile</strong>!" },
+      jennifer: { verdict: "go", comment: "외래 수술은 입원 병동보다 <strong>영어 부담 적어</strong>. 프로토콜 중심이라 딱이야." },
+      michael: { verdict: "go", comment: "급여 범위 $68K-$115K면 경력에 따라 괜찮은 편. <strong>BSN preferred</strong>라 플러스." },
+      david: { verdict: "go", comment: "Northwell은 <strong>신규 채용 적극적</strong>. 6개월 후면 타이밍 좋아." },
+      emily: { verdict: "go", comment: "통근만 괜찮으면 추천. GWB → Cross Bronx → 135 North로 <strong>35-40분</strong>." }
+    }
+  },
+  // ⭐ NEW 2026-03-23 - Northwell Ambulatory Surgery (New Hyde Park)
+  {
+    id: "northwell-ambulatory-nhp",
+    title: "RN Ambulatory Surgery",
+    company: "Northwell Health",
+    location: "New Hyde Park, NY (~45min from Fort Lee)",
+    pay: "TBD",
+    shift: "Day (Ambulatory typical)",
+    type: "Full-time",
+    top: true,
+    isNew: true,
+    rank: 3,
+    lat: 40.7351,
+    lng: -73.6879,
+    dateFound: "2026-03-23",
+    source: "Northwell Careers",
+    jobId: "177157",
+    advisors: {
+      maggangi: { verdict: "go", comment: "New Hyde Park면 <strong>45분대</strong>? 나쁘지 않아." },
+      sarah: { verdict: "go", comment: "Ambulatory Surgery! Day shift 위주에 주말 적고. <strong>Northwell 본사</strong>도 거기야." },
+      jennifer: { verdict: "go", comment: "직접적으로 <strong>외과 경력 활용</strong> 가능." },
+      michael: { verdict: "go", comment: "3/19에 올라온 거면 아직 신선해. 빨리 움직이면 좋아." },
+      david: { verdict: "go", comment: "Northwell 본사 캠퍼스라 <strong>기회 많아</strong>." },
+      emily: { verdict: "maybe", comment: "Great Neck이 더 가깝긴 해. 근데 둘 다 좋아." }
+    }
+  },
+  // ⭐ NEW 2026-03-23 - NYC H+H Harlem PACU
+  {
+    id: "nychh-harlem-pacu",
+    title: "Staff Nurse - PACU",
+    company: "NYC H+H Harlem",
+    location: "Harlem, Manhattan (~30min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day (PACU typical)",
+    type: "Full-time",
+    top: true,
+    isNew: true,
+    rank: 4,
+    lat: 40.8140,
+    lng: -73.9422,
+    dateFound: "2026-03-23",
+    source: "NYC H+H Careers",
+    jobId: "133023",
+    deadline: "2026-05-07",
+    advisors: {
+      maggangi: { verdict: "go", comment: "PACU! 이건 <strong>외과 경력 직접 활용</strong>할 수 있어. Harlem은 30분대." },
+      sarah: { verdict: "go", comment: "NYC H+H는 <strong>union</strong>이라 job security 좋고, 연금도 괜찮아." },
+      jennifer: { verdict: "go", comment: "우리 병원이야! H+H PACU면 <strong>Day shift 많아</strong>. 마감 5/7이니까 시간 여유 있어." },
+      michael: { verdict: "maybe", comment: "NYC H+H 급여가 private보다 낮긴 한데, <strong>베네핏이랑 안정성</strong>으로 상쇄돼." },
+      david: { verdict: "maybe", comment: "PACU 경험 없으면 바로 지원은 좀 어려울 수 있어. 근데 외과 배경이 있으니 가능성은 있어." },
+      emily: { verdict: "go", comment: "H+H는 경력 요구가 <strong>상대적으로 유연</strong>해. 인터뷰까지 갈 수 있어." }
+    }
+  },
+  // ⭐ NEW 2026-03-23 - NYC H+H Bellevue Med/Surg
+  {
+    id: "nychh-bellevue-medsurg-new",
+    title: "Staff Nurse - Medicine/Surgery ⭐⭐",
+    company: "NYC H+H Bellevue",
+    location: "Manhattan, NY (~40min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "TBD (verify)",
+    type: "Full-time",
+    top: true,
+    isNew: true,
+    rank: 5,
+    lat: 40.7392,
+    lng: -73.9751,
+    dateFound: "2026-03-23",
+    source: "NYC H+H Careers",
+    jobId: "133184",
+    deadline: "2026-09-08",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Bellevue는 <strong>레전드</strong>야. Level 1 Trauma Center!" },
+      sarah: { verdict: "go", comment: "마감 <strong>9/8</strong>이면 아직 6개월 가까이 남았네. 타이밍 완벽해." },
+      jennifer: { verdict: "go", comment: "Bellevue Med-Surg는 busy하지만 <strong>배우는 것도 많아</strong>. 좋은 경험 될 거야." },
+      michael: { verdict: "go", comment: "Bellevue <strong>이름값</strong> 있어. 여기서 1년 일하면 어디든 갈 수 있어." },
+      david: { verdict: "go", comment: "NYC H+H는 <strong>international nurse 환영</strong>하는 분위기야." },
+      emily: { verdict: "go", comment: "마감 여유 있으니까 널싱홈 6개월 경력 쌓고 딱 지원하기 좋아. <strong>강추!</strong>" }
+    }
+  },
+  // Existing - Lincoln Surgical
+  {
+    id: "lincoln-surgical",
+    title: "Staff Nurse - Surgery",
+    company: "Lincoln Medical Center (NYC H+H)",
+    location: "Bronx, NY (~35min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 6,
+    lat: 40.8168,
+    lng: -73.9246,
+    dateFound: "2026-03-22",
+    source: "NYC H+H Careers",
+    jobId: "TBD",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Surgery unit이면 <strong>외과 경력 직접 활용</strong>! Lincoln은 Level 1 Trauma Center야!" },
+      sarah: { verdict: "go", comment: "Lincoln은 <strong>Bronx 핵심 병원</strong>. 바쁘지만 경험 쌓기 최고!" },
+      jennifer: { verdict: "go", comment: "NYC H+H라 <strong>베네핏 좋고</strong> 공무원급 안정성!" },
+      michael: { verdict: "go", comment: "Day shift + Surgery면 <strong>외과 배경</strong>에 딱 맞아!" },
+      david: { verdict: "go", comment: "Fort Lee에서 35분이면 <strong>출퇴근 가능</strong>!" },
+      emily: { verdict: "go", comment: "Lincoln은 <strong>다양한 환자층</strong>. 경험 풍부하게 쌓을 수 있어요!" }
+    }
+  },
+  // Existing - Elmhurst Behavioral
+  {
+    id: "elmhurst-behavioral",
+    title: "Staff Nurse - Behavioral Health Services",
+    company: "Elmhurst Hospital (NYC H+H)",
+    location: "Queens, NY (~30min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day 8AM-4:30PM",
+    type: "Temporary",
+    top: false,
+    lat: 40.7441,
+    lng: -73.8860,
+    dateFound: "2026-03-22",
+    source: "NYC H+H Careers",
+    jobId: "128130",
+    deadline: "2026-09-13",
+    note: "임시직",
+    advisors: {
+      maggangi: { verdict: "maybe", comment: "Day shift지만 <strong>Temporary</strong>가 아쉬워. 정규직 전환 가능한지 확인 필요." },
+      sarah: { verdict: "go", comment: "Behavioral Health면 <strong>정신과 경험</strong> 쌓기 좋아. 장기 목표(Psych NP)랑 맞아!" },
+      jennifer: { verdict: "go", comment: "Temporary라도 <strong>내부 전환</strong> 기회 많아요. 일단 들어가면 정규직 공고 먼저 볼 수 있어요." },
+      michael: { verdict: "go", comment: "Queens라 출퇴근 편해. Day shift면 <strong>워라밸</strong> 괜찮아!" },
+      david: { verdict: "maybe", comment: "마감 09/13이니까 시간 있어요. 정규직 결과 보고 결정해도 돼요." },
+      emily: { verdict: "go", comment: "NYC H+H 임시직은 <strong>정규직 전환율 높아요</strong>. 내부 지원이 유리!" }
     }
   }
 ];
@@ -337,63 +525,10 @@ const jobs = [
   }
 ];
 
-const nycJobs = [
-  {
-    id: "elmhurst-behavioral",
-    title: "Staff Nurse - Behavioral Health Services",
-    company: "Elmhurst Hospital (NYC H+H)",
-    location: "Queens, NY (~30min from Fort Lee)",
-    pay: "$109,490/year",
-    shift: "Day 8AM-4:30PM",
-    type: "Temporary",
-    top: true,
-    rank: 1,
-    lat: 40.7441,
-    lng: -73.8860,
-    dateFound: "2026-03-22",
-    source: "NYC H+H Careers",
-    jobId: "128130",
-    deadline: "2026-09-13",
-    note: "임시직",
-    advisors: {
-      maggangi: { verdict: "maybe", comment: "Day shift지만 <strong>Temporary</strong>가 아쉬워. 정규직 전환 가능한지 확인 필요." },
-      sarah: { verdict: "go", comment: "Behavioral Health면 <strong>정신과 경험</strong> 쌓기 좋아. 장기 목표(Psych NP)랑 맞아!" },
-      jennifer: { verdict: "go", comment: "Temporary라도 <strong>내부 전환</strong> 기회 많아요. 일단 들어가면 정규직 공고 먼저 볼 수 있어요." },
-      michael: { verdict: "go", comment: "Queens라 출퇴근 편해. Day shift면 <strong>워라밸</strong> 괜찮아!" },
-      david: { verdict: "maybe", comment: "마감 09/13이니까 시간 있어요. 정규직 결과 보고 결정해도 돼요." },
-      emily: { verdict: "go", comment: "NYC H+H 임시직은 <strong>정규직 전환율 높아요</strong>. 내부 지원이 유리!" }
-    }
-  },
-  {
-    id: "lincoln-surgical",
-    title: "Staff Nurse - Surgery",
-    company: "Lincoln Medical Center (NYC H+H)",
-    location: "Bronx, NY (~35min from Fort Lee)",
-    pay: "$109,490/year",
-    shift: "Day",
-    type: "Full-time",
-    top: true,
-    rank: 2,
-    lat: 40.8168,
-    lng: -73.9246,
-    dateFound: "2026-03-22",
-    source: "NYC H+H Careers",
-    jobId: "TBD",
-    advisors: {
-      maggangi: { verdict: "go", comment: "Surgery unit이면 <strong>외과 경력 직접 활용</strong>! Lincoln은 Level 1 Trauma Center야!" },
-      sarah: { verdict: "go", comment: "Lincoln은 <strong>Bronx 핵심 병원</strong>. 바쁘지만 경험 쌓기 최고!" },
-      jennifer: { verdict: "go", comment: "NYC H+H라 <strong>베네핏 좋고</strong> 공무원급 안정성!" },
-      michael: { verdict: "go", comment: "Day shift + Surgery면 <strong>외과 배경</strong>에 딱 맞아!" },
-      david: { verdict: "go", comment: "Fort Lee에서 35분이면 <strong>출퇴근 가능</strong>!" },
-      emily: { verdict: "go", comment: "Lincoln은 <strong>다양한 환자층</strong>. 경험 풍부하게 쌓을 수 있어요!" }
-    }
-  }
-];
-
 const otherJobs = [
   {
-    id: "bellevue-medsurg",
-    title: "Staff Nurse - Medicine/Surgery",
+    id: "bellevue-medsurg-night",
+    title: "Staff Nurse - Medicine/Surgery (Night)",
     company: "Bellevue Hospital (NYC H+H)",
     location: "Manhattan, NY (~40min from Fort Lee)",
     pay: "$109,490/year + 경력수당",
@@ -404,7 +539,6 @@ const otherJobs = [
     lng: -73.9751,
     dateFound: "2026-03-22",
     source: "NYC H+H Careers",
-    jobId: "133184",
     advisors: {
       maggangi: { verdict: "wait", comment: "Bellevue는 <strong>NYC 명문</strong>! 근데 Night shift라 패스. Day 공고 뜨면 바로 지원!" },
       sarah: { verdict: "wait", comment: "Night 7PM-7:30AM은 <strong>건강에 부담</strong>. Day shift 기다리는 게 좋아." },
@@ -538,6 +672,28 @@ function renderJobs() {
     </div>
   `).join('');
   
+  // TOP recommended jobs (NYC/Northwell Day shift)
+  const nycGrid = document.getElementById('nycGrid');
+  nycGrid.innerHTML = nycJobs.map(job => `
+    <div class="job-card ${job.top ? 'top' : ''} ${job.isNew ? 'new' : ''}" onclick="openModal('${job.id}')">
+      <div class="job-badges">
+        ${job.isNew ? `<span class="badge badge-new">🆕 NEW 3/23</span>` : ''}
+        ${job.rank ? `<span class="badge badge-top">⭐ TOP ${job.rank}</span>` : ''}
+        <span class="badge badge-day">${job.shift}</span>
+        <span class="badge badge-ft">${job.type}</span>
+        <span class="badge badge-ny">NYC/LI</span>
+        ${job.note ? `<span class="badge" style="background:#f59e0b;color:#fff;">${job.note}</span>` : ''}
+      </div>
+      <div class="job-title">${job.title}</div>
+      <div class="job-company">🏥 ${job.company}</div>
+      <div class="job-location">📍 ${job.location}</div>
+      <div class="job-pay">💰 ${job.pay}</div>
+      <div class="job-details">
+        ${job.jobId ? `<strong>Job ID:</strong> ${job.jobId} | ` : ''}${job.deadline ? `<strong>마감:</strong> ${job.deadline}` : `<strong>소스:</strong> ${job.source}`}
+      </div>
+    </div>
+  `).join('');
+  
   // TOP recommended jobs (NJ Day shift)
   jobGrid.innerHTML = jobs.map(job => `
     <div class="job-card ${job.top ? 'top' : ''}" onclick="openModal('${job.id}')">
@@ -557,27 +713,6 @@ function renderJobs() {
     </div>
   `).join('');
   
-  // TOP recommended jobs (NYC Day shift)
-  const nycGrid = document.getElementById('nycGrid');
-  nycGrid.innerHTML = nycJobs.map(job => `
-    <div class="job-card ${job.top ? 'top' : ''}" onclick="openModal('${job.id}')">
-      <div class="job-badges">
-        ${job.rank ? `<span class="badge badge-top">⭐ TOP ${job.rank}</span>` : ''}
-        <span class="badge badge-day">${job.shift}</span>
-        <span class="badge badge-ft">${job.type}</span>
-        <span class="badge badge-ny">NYC</span>
-        ${job.note ? `<span class="badge" style="background:#f59e0b;color:#fff;">${job.note}</span>` : ''}
-      </div>
-      <div class="job-title">${job.title}</div>
-      <div class="job-company">🏥 ${job.company}</div>
-      <div class="job-location">📍 ${job.location}</div>
-      <div class="job-pay">💰 ${job.pay}</div>
-      <div class="job-details">
-        <strong>Job ID:</strong> ${job.jobId} | ${job.deadline ? `<strong>마감:</strong> ${job.deadline}` : `<strong>소스:</strong> ${job.source}`}
-      </div>
-    </div>
-  `).join('');
-  
   // Other jobs (Night/Rotating)
   otherGrid.innerHTML = otherJobs.map(job => `
     <div class="job-card ${job.night ? 'night' : job.rotating ? 'rotating' : ''}" onclick="openModal('${job.id}')">
@@ -585,14 +720,13 @@ function renderJobs() {
         <span class="badge" style="background:${job.night ? '#ef4444' : '#f59e0b'};color:#fff;">${job.shift}</span>
         <span class="badge badge-ft">${job.type}</span>
         <span class="badge badge-ny">NYC</span>
-        ${job.note ? `<span class="badge" style="background:#94a3b8;color:#fff;">${job.note}</span>` : ''}
       </div>
       <div class="job-title">${job.title}</div>
       <div class="job-company">🏥 ${job.company}</div>
       <div class="job-location">📍 ${job.location}</div>
       <div class="job-pay">💰 ${job.pay}</div>
       <div class="job-details">
-        <strong>Job ID:</strong> ${job.jobId} | ${job.deadline ? `<strong>마감:</strong> ${job.deadline}` : `<strong>소스:</strong> ${job.source}`}
+        ${job.jobId ? `<strong>Job ID:</strong> ${job.jobId}` : `<strong>소스:</strong> ${job.source}`}
       </div>
     </div>
   `).join('');
@@ -694,7 +828,7 @@ function initMap() {
   // Job markers
   const allJobs = [...appliedJobs, ...jobs, ...nycJobs, ...otherJobs, ...events];
   allJobs.forEach(job => {
-    const color = job.applied ? '#22c55e' : job.top ? '#22c55e' : job.night ? '#ef4444' : job.rotating ? '#f59e0b' : job.event ? '#8b5cf6' : '#0ea5e9';
+    const color = job.applied ? '#22c55e' : job.isNew ? '#06b6d4' : job.top ? '#22c55e' : job.night ? '#ef4444' : job.rotating ? '#f59e0b' : job.event ? '#8b5cf6' : '#0ea5e9';
     L.circleMarker([job.lat, job.lng], {
       radius: 10,
       fillColor: color,
@@ -716,6 +850,7 @@ function initMap() {
     div.innerHTML = `
       <h4>범례</h4>
       <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div> Fort Lee (집)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#06b6d4"></div> 🆕 NEW 공고</div>
       <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div> 지원완료 / TOP 추천</div>
       <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Rotating</div>
       <div class="legend-item"><div class="legend-dot" style="background:#0ea5e9"></div> NYC 공고</div>
