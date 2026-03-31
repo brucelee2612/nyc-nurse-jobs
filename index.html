@@ -139,9 +139,9 @@
     </div>
     <div class="stats">
       <div class="stat-box"><div class="stat-number">1</div><div class="stat-label">✅ 지원완료</div></div>
-      <div class="stat-box"><div class="stat-number">15</div><div class="stat-label">📋 총 공고</div></div>
-      <div class="stat-box"><div class="stat-number">9</div><div class="stat-label">🌞 Day Shift</div></div>
-      <div class="stat-box"><div class="stat-number">$48-119K</div><div class="stat-label">💰 급여 범위</div></div>
+      <div class="stat-box"><div class="stat-number">18</div><div class="stat-label">📋 총 공고</div></div>
+      <div class="stat-box"><div class="stat-number">12</div><div class="stat-label">🌞 Day Shift</div></div>
+      <div class="stat-box"><div class="stat-number">$48-147K</div><div class="stat-label">💰 급여 범위</div></div>
     </div>
   </header>
 
@@ -192,9 +192,9 @@
   </div>
 
   <div class="last-updated">
-    <strong>마지막 업데이트:</strong> 2026-03-23 18:30 EDT<br>
-    <strong>업데이트 내용:</strong> 6인 토론 완료! 신규 5개 공고 추가 (Northwell 2, Mount Sinai 1, NYC H+H 2)<br>
-    <strong>다음 체크:</strong> 하트비트 시 로테이션 검색 계속
+    <strong>마지막 업데이트:</strong> 2026-03-31 18:30 EDT<br>
+    <strong>업데이트 내용:</strong> 6인 토론 완료! Mount Sinai 3개(3/30), NYP Breast Surgery(3/29) 추가. TOP: Jacobi Amb Surgery, Jacobi PACU, NYP Breast Surgery<br>
+    <strong>다음 체크:</strong> 하트비트 시 로테이션 검색 계속 | 🎉 태권님 Isabella 첫 출근!
   </div>
 </div>
 
@@ -245,6 +245,85 @@ const appliedJobs = [
 ];
 
 const nycJobs = [
+  // ⭐⭐⭐ NEW 2026-03-30 - Mount Sinai Step Down 9 West (TOP 4)
+  {
+    id: "mountsinai-stepdown-9w",
+    title: "Clinical Nurse - Medicine Step Down - 9 West - FT Days ⭐⭐⭐",
+    company: "Mount Sinai Hospital",
+    location: "Manhattan, NY (~50min from Fort Lee)",
+    pay: "$64.85/hr (~$135K/yr) 💰",
+    shift: "Day FT",
+    type: "Full-time",
+    top: true,
+    isNew: true,
+    rank: 4,
+    lat: 40.7903,
+    lng: -73.9523,
+    dateFound: "2026-03-30",
+    source: "Mount Sinai Careers",
+    reqId: "3035067",
+    note: "ACLS 필요",
+    advisors: {
+      maggangi: { verdict: "go", comment: "<strong>$135K!</strong> NYSNA 노조라 급여 보장. Step-down은 ICU 다음 단계라 <strong>중증도 적당</strong>해!" },
+      sarah: { verdict: "go", comment: "Step-down 경험은 <strong>커리어에 큰 플러스</strong>. ICU 가고 싶을 때도 유리해!" },
+      jennifer: { verdict: "maybe", comment: "급여 최고! 근데 <strong>ACLS 필요</strong>하니까 취득하고 지원해야 해." },
+      michael: { verdict: "maybe", comment: "Mount Sinai는 <strong>면접 2-3라운드</strong>. 준비 철저히!" },
+      david: { verdict: "maybe", comment: "6개월 경력 + ACLS 취득 후 지원하면 <strong>합격률 높아</strong>!" },
+      emily: { verdict: "maybe", comment: "노조라 <strong>급여 협상 없이 경력 스텝대로</strong>. 14년이면 상위 스텝!" }
+    }
+  },
+  // ⭐⭐ NEW 2026-03-30 - Mount Sinai Neurosciences
+  {
+    id: "mountsinai-neurosciences-8w",
+    title: "Clinical Nurse - 8 West Neurosciences - FT Days",
+    company: "Mount Sinai Hospital",
+    location: "Manhattan, NY (~50min from Fort Lee)",
+    pay: "~$64.85/hr (~$135K/yr)",
+    shift: "Day FT",
+    type: "Full-time",
+    top: true,
+    isNew: true,
+    rank: 7,
+    lat: 40.7903,
+    lng: -73.9523,
+    dateFound: "2026-03-30",
+    source: "Mount Sinai Careers",
+    reqId: "3035043",
+    advisors: {
+      maggangi: { verdict: "maybe", comment: "Neurosciences는 <strong>전문 분야</strong>. stroke, TBI 환자 케어. 배울 게 많아!" },
+      sarah: { verdict: "maybe", comment: "Neuro 경험 없으면 <strong>러닝 커브</strong> 있어. 근데 Day FT라 좋아!" },
+      jennifer: { verdict: "maybe", comment: "Mount Sinai Neuro는 <strong>연구도 활발</strong>. 학술적 환경 좋아해면 맞아!" },
+      michael: { verdict: "maybe", comment: "Neuro assessment skill 필요해. <strong>외과 배경</strong>이랑 좀 달라." },
+      david: { verdict: "skip", comment: "Step Down이 더 <strong>외과 경력</strong>이랑 맞아. 이건 backup으로!" },
+      emily: { verdict: "maybe", comment: "NYSNA 노조, 베네핏 좋아. <strong>관심 있으면 지원</strong>해봐!" }
+    }
+  },
+  // ⭐⭐ NEW 2026-03-29 - NYP Breast Surgery (TOP 3!)
+  {
+    id: "nyp-breast-surgery-koch",
+    title: "Staff Nurse (RN) - Breast Surgery - Koch Center ⭐⭐⭐",
+    company: "NewYork-Presbyterian Hospital",
+    location: "Manhattan, NY (~40min from Fort Lee)",
+    pay: "$128,149-146,972/yr 💰💰",
+    shift: "Day (Ambulatory M-F)",
+    type: "Full-time",
+    top: true,
+    isNew: true,
+    rank: 3,
+    lat: 40.7648,
+    lng: -73.9548,
+    dateFound: "2026-03-29",
+    source: "NYP Careers",
+    url: "https://careers.nyp.org/job/manhattan/staff-nurse-rn-breast-surgery-david-h-koch-center-dhk/19715/91879434272",
+    advisors: {
+      maggangi: { verdict: "go", comment: "<strong>$147K!</strong> NYP 급여 최고! Ambulatory Breast Surgery라 <strong>외과 경력 직접 활용</strong>!" },
+      sarah: { verdict: "go", comment: "Koch Center는 <strong>최신 시설</strong>. Ambulatory라 M-F Day, 주말 없어!" },
+      jennifer: { verdict: "maybe", comment: "NYP는 <strong>경쟁 치열</strong>. 근데 외과 3년 + BSN이면 기회 있어!" },
+      michael: { verdict: "go", comment: "Breast Surgery는 <strong>Pre-op/Post-op care</strong> 중심. 영어 부담 적어!" },
+      david: { verdict: "go", comment: "이 급여면 <strong>NJ 대비 $30K+ 높아</strong>. 출퇴근 40분 감수할 만해!" },
+      emily: { verdict: "maybe", comment: "NYP 경력은 <strong>프리미엄</strong>. NP 진학할 때도 유리해!" }
+    }
+  },
   // ⭐ NEW 2026-03-23 - Mount Sinai Phillips Surgery
   {
     id: "mountsinai-union-square",
@@ -255,8 +334,8 @@ const nycJobs = [
     shift: "Day M-F 8am-4pm ✨",
     type: "Full-time",
     top: true,
-    isNew: true,
-    rank: 1,
+    isNew: false,
+    rank: 5,
     lat: 40.7362,
     lng: -73.9903,
     dateFound: "2026-03-23",
