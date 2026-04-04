@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDS Coordinator 채용공고 대시보드</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    
+    header {
+      text-align: center;
+      padding: 30px 0;
+      border-bottom: 2px solid #4a90d9;
+      margin-bottom: 30px;
+    }
+    h1 { font-size: 2.5rem; color: #4a90d9; margin-bottom: 10px; }
+    .subtitle { color: #888; font-size: 1.1rem; }
+    
+    .info-banner {
+      background: linear-gradient(135deg, #2d5a87 0%, #1e3a5f 100%);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 30px;
+      border: 1px solid #4a90d9;
+    }
+    .info-banner h2 { color: #4a90d9; margin-bottom: 15px; }
+    .info-banner ul { list-style: none; }
+    .info-banner li { padding: 8px 0; border-bottom: 1px solid #3a3a5a; }
+    .info-banner li:last-child { border-bottom: none; }
+    
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: rgba(74, 144, 217, 0.1);
+      border: 1px solid #4a90d9;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-card .number { font-size: 2rem; color: #4a90d9; font-weight: bold; }
+    .stat-card .label { color: #888; font-size: 0.9rem; }
+    
+    .section-title {
+      font-size: 1.5rem;
+      color: #4a90d9;
+      margin: 30px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #3a3a5a;
+    }
+    
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+    .job-card {
+      background: linear-gradient(135deg, #2a2a4a 0%, #1a1a3a 100%);
+      border-radius: 15px;
+      padding: 20px;
+      border: 1px solid #3a3a5a;
+      transition: all 0.3s ease;
+    }
+    .job-card:hover {
+      transform: translateY(-5px);
+      border-color: #4a90d9;
+      box-shadow: 0 10px 30px rgba(74, 144, 217, 0.2);
+    }
+    .job-card.hot { border-color: #ff6b6b; }
+    .job-card.hot::before {
+      content: '🔥 HOT';
+      background: #ff6b6b;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      position: absolute;
+      top: -10px;
+      right: 20px;
+    }
+    .job-card { position: relative; }
+    
+    .job-title { font-size: 1.2rem; color: #fff; margin-bottom: 10px; }
+    .job-company { color: #4a90d9; margin-bottom: 5px; }
+    .job-location { color: #888; font-size: 0.9rem; margin-bottom: 10px; }
+    
+    .job-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 15px 0;
+      padding: 15px 0;
+      border-top: 1px solid #3a3a5a;
+      border-bottom: 1px solid #3a3a5a;
+    }
+    .detail { font-size: 0.9rem; }
+    .detail-label { color: #888; }
+    .detail-value { color: #fff; }
+    
+    .job-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .tag {
+      background: rgba(74, 144, 217, 0.2);
+      color: #4a90d9;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+    }
+    .tag.good { background: rgba(75, 181, 67, 0.2); color: #4bb543; }
+    .tag.warning { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+    
+    .apply-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #4a90d9 0%, #357abd 100%);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+    .apply-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(74, 144, 217, 0.4);
+    }
+    
+    .cert-section {
+      background: linear-gradient(135deg, #2d4a2d 0%, #1e3a1e 100%);
+      border: 1px solid #4bb543;
+      border-radius: 15px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+    .cert-section h2 { color: #4bb543; margin-bottom: 15px; }
+    
+    .empty-state {
+      text-align: center;
+      padding: 50px;
+      color: #888;
+    }
+    .empty-state .icon { font-size: 4rem; margin-bottom: 20px; }
+    
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 50px;
+      border-top: 1px solid #3a3a5a;
+      color: #888;
+    }
+    footer a { color: #4a90d9; text-decoration: none; }
+    
+    @media (max-width: 768px) {
+      h1 { font-size: 1.8rem; }
+      .job-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📋 MDS Coordinator 채용공고</h1>
+      <p class="subtitle">NJ/NY 지역 MDS Coordinator 포지션 모니터링</p>
+      <p style="margin-top: 10px; color: #4a90d9;">
+        <strong>마지막 업데이트:</strong> 2026-04-04 | 
+        <a href="index.html" style="color: #4a90d9;">← 병원 공고로 돌아가기</a>
+      </p>
+    </header>
+
+    <div class="info-banner">
+      <h2>🎯 MDS Coordinator란?</h2>
+      <ul>
+        <li>📝 <strong>역할:</strong> SNF/Nursing Home에서 환자 평가(MDS 3.0) 및 문서화 담당</li>
+        <li>💰 <strong>급여:</strong> $70,000 - $95,000/년 (경력에 따라)</li>
+        <li>⏰ <strong>근무:</strong> 주로 Day Shift, 주말 적음, 독립적 업무</li>
+        <li>📜 <strong>자격증:</strong> RAC-CT (Resident Assessment Coordinator-Certified) 우대</li>
+        <li>✅ <strong>장점:</strong> 환자 직접 케어 아님, 데이터/문서 중심, 워라밸 좋음</li>
+      </ul>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="number" id="totalJobs">0</div>
+        <div class="label">총 공고</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="njJobs">0</div>
+        <div class="label">NJ 지역</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="nyJobs">0</div>
+        <div class="label">NY 지역</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="avgSalary">$0K</div>
+        <div class="label">평균 급여</div>
+      </div>
+    </div>
+
+    <div class="cert-section">
+      <h2>📜 RAC-CT 자격증 정보</h2>
+      <ul style="list-style: none;">
+        <li>🏛️ <strong>발급기관:</strong> AANAC (American Association of Nurse Assessment Coordination)</li>
+        <li>💵 <strong>비용:</strong> ~$300-400</li>
+        <li>📚 <strong>준비기간:</strong> 2-3개월</li>
+        <li>🌐 <strong>방식:</strong> 온라인 시험 가능</li>
+        <li>🔗 <strong>링크:</strong> <a href="https://www.aanac.org" target="_blank" style="color: #4bb543;">aanac.org</a></li>
+      </ul>
+    </div>
+
+    <h2 class="section-title">🔥 현재 채용 중인 MDS 공고</h2>
+    
+    <div class="job-grid" id="jobGrid">
+      <!-- Jobs will be populated by JavaScript -->
+    </div>
+
+    <footer>
+      <p>🤖 자비스가 매일 업데이트합니다</p>
+      <p style="margin-top: 10px;">
+        <a href="index.html">병원 공고</a> | 
+        <a href="mds.html">MDS 공고</a>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    const mdsJobs = [
+      // 🔥 HOT - 고급여/좋은 조건
+      {
+        id: "village-point-monroe",
+        title: "MDS Coordinator ⭐⭐⭐",
+        company: "Village Point",
+        location: "Township of Monroe, NJ",
+        salary: "$105,000 - $110,000/yr",
+        salaryNum: 107500,
+        shift: "Day, Full-time",
+        posted: "Recent",
+        experience: "MDS 경험 우대",
+        hot: true,
+        tags: [
+          {text: "최고급여", type: "good"},
+          {text: "401k 매칭", type: "good"},
+          {text: "Tuition Reimb", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Coordinator&l=Monroe+Township+NJ"
+      },
+      {
+        id: "kresson-view-voorhees",
+        title: "RN MDS Coordinator ⭐⭐⭐",
+        company: "Complete Care at Kresson View",
+        location: "Voorhees, NJ",
+        salary: "$100,000 - $115,000/yr",
+        salaryNum: 107500,
+        shift: "Day shift, Full-time",
+        posted: "Recent",
+        experience: "MDS 경험",
+        hot: true,
+        tags: [
+          {text: "고급여", type: "good"},
+          {text: "Day Shift", type: "good"},
+          {text: "Easily Apply", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Coordinator+Kresson"
+      },
+      {
+        id: "lawrence-rehab",
+        title: "MDS Coordinator (RN) 🆕",
+        company: "Lawrence Rehabilitation Hospital",
+        location: "Township of Lawrence, NJ",
+        salary: "$80,000 - $105,000/yr",
+        salaryNum: 92500,
+        shift: "Mon-Fri, Full-time",
+        posted: "New",
+        experience: "RN 필수",
+        tags: [
+          {text: "신규공고", type: "good"},
+          {text: "Mon-Fri", type: "good"},
+          {text: "Tuition Reimb", type: "good"},
+          {text: "Easily Apply", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Coordinator+Lawrence+NJ"
+      },
+      {
+        id: "crest-pointe",
+        title: "MDS Coordinator (RN) 🆕",
+        company: "Crest Pointe Rehabilitation",
+        location: "Point Pleasant, NJ",
+        salary: "$80,000 - $105,000/yr",
+        salaryNum: 92500,
+        shift: "Mon-Fri, Full-time",
+        posted: "New",
+        experience: "RN 필수",
+        tags: [
+          {text: "신규공고", type: "good"},
+          {text: "Mon-Fri", type: "good"},
+          {text: "Easily Apply", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Coordinator+Point+Pleasant"
+      },
+      {
+        id: "rolling-hills",
+        title: "MDS RN Coordinator 🆕",
+        company: "Rolling Hills Healthcare Center",
+        location: "Lebanon, NJ",
+        salary: "$90,000 - $105,000/yr",
+        salaryNum: 97500,
+        shift: "Full-time",
+        posted: "New",
+        experience: "RN 필수",
+        tags: [
+          {text: "신규공고", type: "good"},
+          {text: "고급여", type: "good"},
+          {text: "Easily Apply", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Coordinator+Lebanon+NJ"
+      },
+      {
+        id: "spring-grove",
+        title: "MDS Coordinator",
+        company: "Spring Grove Rehabilitation",
+        location: "New Providence, NJ",
+        salary: "$38 - $60/hr (~$79K-$125K)",
+        salaryNum: 100000,
+        shift: "Mon-Fri, Full-time",
+        posted: "Recent",
+        experience: "경험 우대",
+        tags: [
+          {text: "Mon-Fri", type: "good"},
+          {text: "빠른 응답", type: "good"},
+          {text: "Easily Apply", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Spring+Grove"
+      },
+      {
+        id: "harrogate-lakewood",
+        title: "Full Time MDS Coordinator (RN)",
+        company: "Harrogate",
+        location: "Lakewood, NJ",
+        salary: "From $50/hr (~$104K)",
+        salaryNum: 104000,
+        shift: "Full-time",
+        posted: "Recent",
+        experience: "RN 필수",
+        tags: [
+          {text: "403b 매칭", type: "good"},
+          {text: "Tuition Reimb", type: "good"},
+          {text: "Easily Apply", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Harrogate"
+      },
+      {
+        id: "millville-center",
+        title: "Clinical Reimbursement Coordinator, RN",
+        company: "Millville Center",
+        location: "Millville, NJ 08332",
+        salary: "$90,000 - $100,000/yr",
+        salaryNum: 95000,
+        shift: "Full-time",
+        posted: "Recent",
+        experience: "MDS/Reimbursement 경험",
+        tags: [
+          {text: "Pet Insurance", type: "good"},
+          {text: "401k", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=Clinical+Reimbursement+Millville"
+      },
+      {
+        id: "seacrest-little-egg",
+        title: "MDS Coordinator 🆕",
+        company: "Seacrest Rehabilitation",
+        location: "Little Egg Harbor, NJ",
+        salary: "$80,000 - $105,000/yr",
+        salaryNum: 92500,
+        shift: "Mon-Fri, Full-time",
+        posted: "New",
+        experience: "RN 필수",
+        tags: [
+          {text: "신규공고", type: "good"},
+          {text: "Mon-Fri", type: "good"},
+          {text: "Easily Apply", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Seacrest"
+      },
+      {
+        id: "greenwood-ewing",
+        title: "MDS Coordinator",
+        company: "Greenwood House",
+        location: "Ewing, NJ",
+        salary: "$90,000 - $95,000/yr",
+        salaryNum: 92500,
+        shift: "Full-time",
+        posted: "Recent",
+        experience: "MDS 경험",
+        tags: [
+          {text: "401k 매칭", type: "good"},
+          {text: "Easily Apply", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=MDS+Greenwood+Ewing"
+      },
+      // 관련 포지션
+      {
+        id: "njcri-qa-rn",
+        title: "Quality Assurance RN 🆕",
+        company: "NJCRI",
+        location: "Newark, NJ (Fort Lee 30분)",
+        salary: "$80,000 - $100,000/yr",
+        salaryNum: 90000,
+        shift: "Full-time",
+        posted: "New",
+        experience: "QA 경험 우대",
+        tags: [
+          {text: "신규공고", type: "good"},
+          {text: "QA/품질관리", type: ""},
+          {text: "Tuition Reimb", type: "good"}
+        ],
+        url: "https://www.indeed.com/jobs?q=Quality+Assurance+RN+Newark"
+      },
+      {
+        id: "capital-health-ur",
+        title: "Utilization Review RN - Day",
+        company: "Capital Health",
+        location: "Trenton, NJ",
+        salary: "$39.40 - $51.47/hr",
+        salaryNum: 94000,
+        shift: "Day, 8hr, Full-time",
+        posted: "Recent",
+        experience: "UR 경험 우대",
+        tags: [
+          {text: "Day Shift", type: "good"},
+          {text: "8시간 근무", type: "good"},
+          {text: "병원", type: ""}
+        ],
+        url: "https://www.indeed.com/jobs?q=Utilization+Review+RN+Capital+Health"
+      }
+    ];
+
+    function renderJobs() {
+      const grid = document.getElementById('jobGrid');
+      
+      if (mdsJobs.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <div class="icon">🔍</div>
+            <h3>공고 검색 중...</h3>
+            <p>자비스가 MDS Coordinator 공고를 찾고 있습니다.<br>곧 업데이트됩니다!</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = mdsJobs.map(job => `
+        <div class="job-card ${job.hot ? 'hot' : ''}">
+          <h3 class="job-title">${job.title}</h3>
+          <p class="job-company">🏥 ${job.company}</p>
+          <p class="job-location">📍 ${job.location}</p>
+          
+          <div class="job-details">
+            <div class="detail">
+              <span class="detail-label">💰 급여</span><br>
+              <span class="detail-value">${job.salary || 'TBD'}</span>
+            </div>
+            <div class="detail">
+              <span class="detail-label">⏰ 근무</span><br>
+              <span class="detail-value">${job.shift || 'Day'}</span>
+            </div>
+            <div class="detail">
+              <span class="detail-label">📅 게시일</span><br>
+              <span class="detail-value">${job.posted || 'Recent'}</span>
+            </div>
+            <div class="detail">
+              <span class="detail-label">📋 경력</span><br>
+              <span class="detail-value">${job.experience || 'TBD'}</span>
+            </div>
+          </div>
+          
+          <div class="job-tags">
+            ${job.tags ? job.tags.map(tag => `<span class="tag ${tag.type || ''}">${tag.text}</span>`).join('') : ''}
+          </div>
+          
+          ${job.url ? `<a href="${job.url}" target="_blank" class="apply-btn">공고 보기 →</a>` : ''}
+        </div>
+      `).join('');
+
+      // Update stats
+      document.getElementById('totalJobs').textContent = mdsJobs.length;
+      document.getElementById('njJobs').textContent = mdsJobs.filter(j => j.location.includes('NJ')).length;
+      document.getElementById('nyJobs').textContent = mdsJobs.filter(j => j.location.includes('NY')).length;
+      
+      const salaries = mdsJobs.filter(j => j.salaryNum).map(j => j.salaryNum);
+      if (salaries.length > 0) {
+        const avg = Math.round(salaries.reduce((a, b) => a + b, 0) / salaries.length / 1000);
+        document.getElementById('avgSalary').textContent = `$${avg}K`;
+      }
+    }
+
+    renderJobs();
+  </script>
+</body>
+</html>
