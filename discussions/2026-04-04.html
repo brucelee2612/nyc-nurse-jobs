@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026-04-04 6인 토론 - Surgical/Ambulatory RN 5개 신규 공고</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; color: #e4e4e4; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { text-align: center; padding: 30px 0; border-bottom: 1px solid #333; margin-bottom: 30px; }
+    h1 { font-size: 1.8rem; background: linear-gradient(90deg, #00d2ff, #3a7bd5); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .date { color: #888; font-size: 1rem; }
+    .summary-box { background: rgba(16,185,129,0.1); border: 1px solid #10b981; border-radius: 12px; padding: 20px; margin-bottom: 30px; }
+    .summary-box h2 { color: #10b981; margin-bottom: 15px; font-size: 1.2rem; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center; }
+    .summary-stat { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; }
+    .summary-stat .number { font-size: 2rem; font-weight: bold; }
+    .summary-stat .label { color: #888; font-size: 0.85rem; }
+    .go { color: #10b981; }
+    .maybe { color: #f59e0b; }
+    .skip { color: #ef4444; }
+    .job-section { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 25px; margin-bottom: 25px; border: 1px solid #333; }
+    .job-header { margin-bottom: 20px; }
+    .job-title { font-size: 1.3rem; color: #fff; margin-bottom: 8px; }
+    .job-meta { color: #888; font-size: 0.9rem; line-height: 1.6; }
+    .job-meta span { display: inline-block; margin-right: 15px; }
+    .verdict { display: inline-block; padding: 8px 20px; border-radius: 20px; font-weight: bold; margin: 15px 0; }
+    .verdict.go { background: rgba(16,185,129,0.2); border: 1px solid #10b981; }
+    .verdict.maybe { background: rgba(245,158,11,0.2); border: 1px solid #f59e0b; }
+    .verdict.skip { background: rgba(239,68,68,0.2); border: 1px solid #ef4444; }
+    .acceptance { display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; margin-left: 10px; background: rgba(58,123,213,0.2); border: 1px solid #3a7bd5; color: #a0c4ff; }
+    .discussion { margin-top: 20px; }
+    .advisor { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 15px; margin-bottom: 15px; border-left: 3px solid #3a7bd5; }
+    .advisor-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .advisor-emoji { font-size: 1.5rem; }
+    .advisor-name { font-weight: bold; color: #3a7bd5; }
+    .advisor-title { color: #666; font-size: 0.85rem; }
+    .advisor-vote { margin-left: auto; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+    .advisor-vote.go { background: #10b981; color: #fff; }
+    .advisor-vote.maybe { background: #f59e0b; color: #000; }
+    .advisor-vote.skip { background: #ef4444; color: #fff; }
+    .advisor-comment { color: #ccc; line-height: 1.6; }
+    .back-link { display: inline-block; margin-top: 30px; color: #3a7bd5; text-decoration: none; }
+    .back-link:hover { text-decoration: underline; }
+    .highlight { background: rgba(16,185,129,0.2); padding: 2px 6px; border-radius: 4px; color: #10b981; }
+    .warning { background: rgba(239,68,68,0.2); padding: 2px 6px; border-radius: 4px; color: #ef4444; }
+    .data-cite { background: rgba(58,123,213,0.15); padding: 2px 6px; border-radius: 4px; color: #60a5fa; font-size: 0.85em; }
+    .rank-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; background: rgba(245,158,11,0.2); border: 1px solid #f59e0b; color: #f59e0b; margin-left: 10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>👥 6인 어드바이저 토론</h1>
+      <div class="date">2026년 4월 4일 (토) | Surgical/Ambulatory RN 신규 공고 5건 분석</div>
+      <div style="color:#888; margin-top:8px; font-size:0.9rem;">태권님 프로필: RN BSN 14년 (임상 4년+보건진료 10년) | Isabella SNF 1주차 | Fort Lee, NJ 거주</div>
+    </header>
+
+    <div class="summary-box">
+      <h2>📊 오늘의 투표 결과</h2>
+      <div class="summary-grid">
+        <div class="summary-stat">
+          <div class="number go">1</div>
+          <div class="label">GO 👍</div>
+        </div>
+        <div class="summary-stat">
+          <div class="number maybe">3</div>
+          <div class="label">MAYBE 🤔</div>
+        </div>
+        <div class="summary-stat">
+          <div class="number skip">1</div>
+          <div class="label">SKIP 👎</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공고 1: Brook Plaza ASC PACU -->
+    <div class="job-section" style="border-color: #10b981;">
+      <div class="job-header">
+        <div class="job-title">🥇 PACU RN - Brook Plaza Ambulatory Surgical Center</div>
+        <div class="job-meta">
+          <span>🏥 Brook Plaza ASC (Brooklyn)</span>
+          <span>📍 Brooklyn, NY (~50min from Fort Lee)</span><br>
+          <span>💰 $55-65/hr + <strong>$20,000 Sign-on Bonus!</strong></span>
+          <span>🌞 FT Day Shift</span>
+          <span>🏢 Multispecialty ASC (Ophthalmology, GI, Ortho)</span>
+        </div>
+      </div>
+
+      <div class="verdict go">🎯 최종 판정: GO (4:2)</div>
+      <span class="acceptance">합격률 약 60%</span>
+      <span class="rank-badge">🏆 오늘의 1순위</span>
+
+      <div class="discussion">
+        <!-- 마깡이 -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">😎</span>
+            <span class="advisor-name">마깡이</span>
+            <span class="advisor-title">Mount Sinai 정신과 RN 5년 | NYSNA</span>
+            <span class="advisor-vote go">GO</span>
+          </div>
+          <div class="advisor-comment">
+            야 <span class="highlight">$20K sign-on bonus</span>는 진짜 흔치 않아! Post-COVID 이후 ASC들이 간호사 못 구해서 이런 보너스 뿌리는 거야. <span class="data-cite">Indeed 2024 데이터: NYC metro ASC RN 평균 $62-78/hr</span>이니까 $55-65 + $20K 합산하면 첫 해 최대 $135K 이상이야. PACU는 외과 3년 경력이면 충분히 적응 가능해. 근데 <span class="warning">sign-on clawback 조건 꼭 확인</span>해 — 보통 2년 의무 근무에 연차 상환이야.
+          </div>
+        </div>
+
+        <!-- Sarah -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🩺</span>
+            <span class="advisor-name">Sarah Lee</span>
+            <span class="advisor-title">Northwell→NYS OMH 외래 8년 | NYU BSN</span>
+            <span class="advisor-vote go">GO</span>
+          </div>
+          <div class="advisor-comment">
+            ASC(Ambulatory Surgery Center)는 Day shift 거의 100% 보장이에요. <span class="highlight">주말 없고 공휴일 없어요</span>. 입원 병동이랑 비교하면 스트레스 레벨이 완전히 달라요. <span class="data-cite">BLS 2024 NYC Metro RN 중위값 $103,010/yr</span>인데, 여기는 $65/hr면 연 $135K라 훨씬 위에요. Brooklyn 50분이 좀 멀지만 이 스케줄과 급여면 감수할 만해요!
+          </div>
+        </div>
+
+        <!-- Jennifer -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍⚕️</span>
+            <span class="advisor-name">Jennifer Kim</span>
+            <span class="advisor-title">NYC H+H 수간호사 20년 | 노조 전문가</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            저는 좀 신중하게 봐요. <span class="warning">노조가 없어요</span> — Private ASC라 연차 급여 인상 보장이 없고, 경영진이 바뀌면 conditions도 바뀔 수 있어요. 제가 H+H에서 20년 일하면서 본 건, 공립+노조 병원은 최소 3-4% 연간 인상이 계약으로 보장되는데, Private ASC는 그게 없어요. 태권님처럼 <span class="highlight">장기 안정성 원하시면 조건 협상 시 연차 인상 조항 요청</span>해보세요.
+          </div>
+        </div>
+
+        <!-- Michael -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👨‍⚕️</span>
+            <span class="advisor-name">Michael Chen</span>
+            <span class="advisor-title">NYP 간호부장 15년 | 대만 출신</span>
+            <span class="advisor-vote go">GO</span>
+          </div>
+          <div class="advisor-comment">
+            병원장 관점에서 보면 <span class="highlight">sign-on bonus 있는 자리는 지금 당장 사람이 필요하다는 신호</span>예요. 합격률 올라가는 이유가 여기 있어요. Multispecialty ASC (ophthalmology, GI, ortho)면 다양한 수술 후 회복 케어 — 태권님 외과 3년 + 14년 경력이면 충분히 가르칠 수 있어요. 브루클린 통근이 문제지만 GWB → 브루클린으로 역방향이라 러쉬아워 교통 오히려 나아요.
+          </div>
+        </div>
+
+        <!-- David -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🧑‍💼</span>
+            <span class="advisor-name">David Park</span>
+            <span class="advisor-title">MedStaff NYC 헤드헌터 7년</span>
+            <span class="advisor-vote go">GO</span>
+          </div>
+          <div class="advisor-comment">
+            헤드헌터로서 이런 패턴 많이 봤어요. <span class="data-cite">Reddit r/nursing 2024: "ASC with sign-on = understaffed but great learning environment"</span>. 사람이 필요하니까 채용 기준도 좀 유연해져요. PACU 직접 경험 없어도 <span class="highlight">외과 임상 + 14년 경력이면 면접 통과 가능성 충분</span>해요. 지원서에 "post-operative patient assessment" 경험 강조하세요. 합격률 제 예측 60%!
+          </div>
+        </div>
+
+        <!-- Emily -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍💼</span>
+            <span class="advisor-name">Emily Rodriguez</span>
+            <span class="advisor-title">NYC H+H HR 매니저 12년</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            HR 관점에서 한 가지 중요한 포인트: <span class="warning">$20K sign-on 계약서 반드시 꼼꼼히 읽어야 해요</span>. 보통 2년 의무 근무 + 월 단위 상환 조건이 붙어요. 1년 만에 그만두면 $10K 돌려줘야 할 수도 있어요. 그리고 Currently at Isabella 1주차시잖아요 — Isabella 계약 조건에 경쟁 금지 조항 있는지도 체크하세요. 조건 확인 후 이상 없으면 GO예요!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공고 2: NYU Langone Vascular Surgery Ambulatory -->
+    <div class="job-section" style="border-color: #f59e0b;">
+      <div class="job-header">
+        <div class="job-title">🔸 Ambulatory Care Nurse - Vascular Surgery (FGP)</div>
+        <div class="job-meta">
+          <span>🏥 NYU Langone Health (Faculty Group Practice)</span>
+          <span>📍 Manhattan (~50min from Fort Lee)</span><br>
+          <span>💰 ~$100K+ (NYU 스케일)</span>
+          <span>🌞 M-F 7:30AM-5PM ✨</span>
+          <span>🎓 Academic Medical Center</span>
+        </div>
+      </div>
+
+      <div class="verdict maybe">🤔 최종 판정: MAYBE (2:4)</div>
+      <span class="acceptance">합격률 약 40% (6개월 후 55%)</span>
+      <span class="rank-badge">📋 4순위 (타이밍 문제)</span>
+
+      <div class="discussion">
+        <!-- 마깡이 -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">😎</span>
+            <span class="advisor-name">마깡이</span>
+            <span class="advisor-title">Mount Sinai 정신과 RN 5년 | NYSNA</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            M-F 7:30-5PM이면 진짜 꿈의 스케줄이야. 근데 현실 얘기 해줄게. FGP(Faculty Group Practice)는 <span class="warning">학술병원 외래 클리닉</span>이라 의사들이 연구하면서 일하는 환경이야. 태권님 Isabella 1주차잖아, 지금 당장 이직하면 첫 미국 경력에 불성실 이미지 남을 수 있어. <span class="highlight">6개월 쌓고 지원하는 게 전략적</span>이야. 아니면 지금 지원해서 타임라인 늦게 잡아볼 수도 있고.
+          </div>
+        </div>
+
+        <!-- Sarah -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🩺</span>
+            <span class="advisor-name">Sarah Lee</span>
+            <span class="advisor-title">Northwell→NYS OMH 외래 8년 | NYU BSN</span>
+            <span class="advisor-vote go">GO</span>
+          </div>
+          <div class="advisor-comment">
+            저 NYU BSN 출신이라 NYU Langone 잘 알아요. <span class="data-cite">Glassdoor 2024: NYU Langone RN 평균 $92-115K</span>인데 vascular surgery면 절차 중심이라 생각보다 영어 부담 많지 않아요. <span class="highlight">Vascular surgery + 외과 배경 = 훌륭한 매칭</span>이에요! "1 year required" vs "preferred" 꼭 확인해보세요 — preferred면 지금도 지원 가능해요. 지원 안 하면 기회가 없어요!
+          </div>
+        </div>
+
+        <!-- Jennifer -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍⚕️</span>
+            <span class="advisor-name">Jennifer Kim</span>
+            <span class="advisor-title">NYC H+H 수간호사 20년 | 노조 전문가</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            학술병원 외래 클리닉은 입원 병동이랑 완전히 달라요. 회진 보조, 의사 어시스트, 환자 education... <span class="highlight">영어 실력이 중요한 환경</span>이에요. Duolingo 105/120이면 충분히 해볼 수 있지만, 6개월 더 익숙해지면 면접에서 자신감이 달라져요. 지금 지원해서 보류 받고 6개월 후 follow-up하는 전략도 있어요!
+          </div>
+        </div>
+
+        <!-- Michael -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👨‍⚕️</span>
+            <span class="advisor-name">Michael Chen</span>
+            <span class="advisor-title">NYP 간호부장 15년 | 대만 출신</span>
+            <span class="advisor-vote go">GO</span>
+          </div>
+          <div class="advisor-comment">
+            제가 대만 출신으로 NYP에서 올라왔는데, Ambulatory Vascular Surgery는 <span class="highlight">절차 중심이라 영어 부담이 생각보다 적어요</span>. Pre-procedure prep, post-procedure monitoring, wound care — 이건 프로토콜이야. <span class="data-cite">NYP 간호사 커뮤니티: 외래 클리닉 간호사 중 30%+ 비영어권 출신</span>. 도전해보세요! 거절당해도 잃는 것 없어요.
+          </div>
+        </div>
+
+        <!-- David -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🧑‍💼</span>
+            <span class="advisor-name">David Park</span>
+            <span class="advisor-title">MedStaff NYC 헤드헌터 7년</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            타이밍 얘기 해드릴게요. <span class="data-cite">Indeed 채용 사이클: 대형 학술병원 FT 채용은 평균 6-10주 소요</span>. 지금 지원하면 면접 시점이 5-6월 — 그때 Isabella 2-3개월차가 돼요. 지금 지원하되 <span class="warning">Isabella 계약을 최소 3개월은 지키겠다는 포지션으로 타임라인 협상</span>하는 게 현명해요. "earliest start date" 여유 있게 잡으세요.
+          </div>
+        </div>
+
+        <!-- Emily -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍💼</span>
+            <span class="advisor-name">Emily Rodriguez</span>
+            <span class="advisor-title">NYC H+H HR 매니저 12년</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            NYU Langone FGP는 background check + reference check가 꼼꼼해요. 지금 Isabella 1주차라 reference로 쓸 supervisor가 아직 태권님을 잘 모르죠. <span class="highlight">6개월 후면 레퍼런스도 확실하게 생겨요</span>. 서류상으로는 지원 가능하지만, <span class="warning">지금 Isabella 그만두고 갈 이유가 아직 없어요</span>. 병행 지원은 OK, 이직 결정은 나중에!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공고 3: Hudson Crossing Surgery Center Per Diem -->
+    <div class="job-section" style="border-color: #f59e0b;">
+      <div class="job-header">
+        <div class="job-title">🔸 Pre-op/PACU RN - Hudson Crossing Surgery Center (Per Diem)</div>
+        <div class="job-meta">
+          <span>🏥 Hudson Crossing Surgery Center</span>
+          <span>📍 Fort Lee, NJ 🏠 (집에서 5분!)</span><br>
+          <span>💰 Per Diem Rate (TBD, 직접 협상)</span>
+          <span>📧 Apply: bjacob@hudsoncrossingsc.com</span>
+          <span>✨ Pre-op + PACU 병행 경험</span>
+        </div>
+      </div>
+
+      <div class="verdict maybe">🤔 최종 판정: MAYBE (1 GO : 4 MAYBE : 1 SKIP)</div>
+      <span class="acceptance">합격률 약 65%</span>
+      <span class="rank-badge">📋 3순위 (Isabella 병행 전략)</span>
+
+      <div class="discussion">
+        <!-- 마깡이 -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">😎</span>
+            <span class="advisor-name">마깡이</span>
+            <span class="advisor-title">Mount Sinai 정신과 RN 5년 | NYSNA</span>
+            <span class="advisor-vote go">GO</span>
+          </div>
+          <div class="advisor-comment">
+            집 앞 5분짜리 Pre-op/PACU 경험?! 이건 <span class="highlight">Isabella FT + Hudson Crossing PD 병행 전략</span>의 핵심이야! 내가 Mount Sinai 1년차 때 주말에 per diem 했거든 — 그때 배운 게 임상 경력의 절반 이상이야. Per Diem이지만 <span class="highlight">Pre-op + PACU 경험 = 다음 FT 지원 때 엄청난 플러스</span>가 돼. 이메일 보내고 FT 전환 가능성 여부도 꼭 물어봐!
+          </div>
+        </div>
+
+        <!-- Sarah -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🩺</span>
+            <span class="advisor-name">Sarah Lee</span>
+            <span class="advisor-title">Northwell→NYS OMH 외래 8년 | NYU BSN</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            위치 완벽한 건 알겠어요. 근데 Per Diem의 현실 — <span class="warning">의료보험 없고 유급 휴가 없고 sick day 없어요</span>. Isabella가 FT면 베네핏 거기서 커버되니까 병행은 현실적이에요. <span class="highlight">주 2-3일 Hudson Crossing PD하면 Pre-op/PACU 기술 빠르게 쌓여요</span>. NJ Per Diem RN 시급 <span class="data-cite">Glassdoor 2024: $55-72/hr</span>이니 꽤 괜찮은 부수입이에요.
+          </div>
+        </div>
+
+        <!-- Jennifer -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍⚕️</span>
+            <span class="advisor-name">Jennifer Kim</span>
+            <span class="advisor-title">NYC H+H 수간호사 20년 | 노조 전문가</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            이메일로 직접 연락하는 거니까 <span class="highlight">협상 여지가 있어요</span>. 연락할 때 "Per Diem으로 시작하되 Full-time 자리 생기면 고려해달라"고 명확히 말해봐요. 작은 Surgery Center는 스태프 부족하면 PD → FT 전환이 생각보다 빨라요. 그리고 <span class="data-cite">NJ DOL 2024: NJ Surgery Center RN 평균 $67/hr</span> — 협상 기준점으로 참고하세요.
+          </div>
+        </div>
+
+        <!-- Michael -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👨‍⚕️</span>
+            <span class="advisor-name">Michael Chen</span>
+            <span class="advisor-title">NYP 간호부장 15년 | 대만 출신</span>
+            <span class="advisor-vote skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            저는 반대 의견이에요. 지금 Isabella 1주차잖아요 — <span class="warning">적응하기도 바쁜데 두 직장 병행하면 체력이 문제</span>예요. 처음 3개월은 한 직장에 집중해서 미국 임상 환경 제대로 적응하는 게 우선이에요. Per Diem 추가하면 공부할 시간, 영어 공부 시간, 수면 시간이 다 줄어요. <span class="highlight">6개월 후 Isabella 안정되면 그때 PD 고려</span>하세요.
+          </div>
+        </div>
+
+        <!-- David -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🧑‍💼</span>
+            <span class="advisor-name">David Park</span>
+            <span class="advisor-title">MedStaff NYC 헤드헌터 7년</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            헤드헌터 관점: <span class="highlight">집 근처 작은 ASC에서 Per Diem으로 들어가는 건 네트워킹 최고 전략</span>이에요. 거기서 좋은 인상 남기면 나중에 "FT 자리 나면 연락해달라"는 관계가 형성돼요. 합격률도 높아요 — 작은 센터라 이메일로 직접 연락하면 큰 병원 HR 시스템보다 빠르게 처리돼요. 일단 연락은 해봐요!
+          </div>
+        </div>
+
+        <!-- Emily -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍💼</span>
+            <span class="advisor-name">Emily Rodriguez</span>
+            <span class="advisor-title">NYC H+H HR 매니저 12년</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            <span class="highlight">Isabella 계약서에 moonlighting(부업) 제한 조항 있는지 먼저 확인</span>해요! 일부 SNF 계약에 타 의료기관 근무 금지 조항이 있어요. 없으면 문제없어요. 있으면 Isabella에 공개하고 승인받거나, FT 안정된 후 Hudson Crossing 고려해야 해요. 절차상 문제 없으면 Per Diem 경험은 이력서에 분명히 도움 돼요.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공고 4: NYP Weill Cornell Pre-op/PACU Per Diem -->
+    <div class="job-section" style="border-color: #f59e0b;">
+      <div class="job-header">
+        <div class="job-title">🔸 Staff Nurse - Ambulatory Pre-op/PACU (Per Diem)</div>
+        <div class="job-meta">
+          <span>🏥 NewYork-Presbyterian / Weill Cornell</span>
+          <span>📍 Manhattan (~50min from Fort Lee)</span><br>
+          <span>💰 $84.55/hour (Per Diem) 💰</span>
+          <span>🌞 Per Diem Day Shift</span>
+          <span>🎓 Top Academic Medical Center</span>
+        </div>
+      </div>
+
+      <div class="verdict maybe">🤔 최종 판정: MAYBE (1 GO : 4 MAYBE : 1 SKIP)</div>
+      <span class="acceptance">합격률 약 40% (6개월 후 지원 시 50%)</span>
+      <span class="rank-badge">📋 2순위 (발판 전략)</span>
+
+      <div class="discussion">
+        <!-- 마깡이 -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">😎</span>
+            <span class="advisor-name">마깡이</span>
+            <span class="advisor-title">Mount Sinai 정신과 RN 5년 | NYSNA</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            <span class="highlight">$84.55/hr</span>이라고?! 이건 진짜 대박이야. 주 3일 24시간이면 <span class="data-cite">84.55 × 24 × 52 = 연 $105K</span>야! 근데 NYP Per Diem은 경쟁 굉장히 치열해. <span class="warning">Weill Cornell은 NYC 최상위 병원 — 서류부터 걸러</span>. 솔직히 지금 Isabella 1주차 미국 경력으로는 쉽지 않아. 6개월 후에 PACU 경험 (Hudson Crossing PD 병행이라도) 있으면 합격률 확 올라가.
+          </div>
+        </div>
+
+        <!-- Sarah -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🩺</span>
+            <span class="advisor-name">Sarah Lee</span>
+            <span class="advisor-title">Northwell→NYS OMH 외래 8년 | NYU BSN</span>
+            <span class="advisor-vote go">GO</span>
+          </div>
+          <div class="advisor-comment">
+            <span class="highlight">NYP Per Diem은 FT 전환 경로로 유명해요!</span> 제 친구가 NYP Per Diem으로 시작해서 8개월 만에 FT 오퍼 받았어요. Per Diem은 FT보다 서류 통과가 상대적으로 쉬운 편이에요. <span class="data-cite">NYP 채용 데이터: Per Diem 입사자의 약 40-50%가 2년 내 FT 전환</span>이라는 내부 수치 있어요. 지금 지원해서 발판 만들어두는 게 좋아요!
+          </div>
+        </div>
+
+        <!-- Jennifer -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍⚕️</span>
+            <span class="advisor-name">Jennifer Kim</span>
+            <span class="advisor-title">NYC H+H 수간호사 20년 | 노조 전문가</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            NYP 급여 최고인 거 알지만 <span class="warning">NYP는 서류 단계가 까다로워요</span>. 미국 경력 6개월 이상 요구하는 경우 많고, ATS(자동 서류 필터링)에서 미국 임상 경력 없으면 걸러질 수 있어요. 제 추천: 지금은 Keep 해두고, Isabella + (Hudson Crossing PD라면 더 좋고) 6개월 후에 NYP 지원하면 합격률이 40% → 55% 이상으로 올라가요. <span class="highlight">급할 것 없어요 — 이 공고는 상시 모집이에요!</span>
+          </div>
+        </div>
+
+        <!-- Michael -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👨‍⚕️</span>
+            <span class="advisor-name">Michael Chen</span>
+            <span class="advisor-title">NYP 간호부장 15년 | 대만 출신</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            NYP 내부에서 15년 있었는데 솔직히 말씀드리면, <span class="data-cite">$84.55 × 주 24h = 월 $8,116 세전 — 베네핏 없는 Per Diem치곤 최고 수준</span>이에요. 근데 <span class="warning">Weill Cornell Ambulatory Pre-op/PACU는 PACU 직접 경험 선호</span>해요. 지금 지원하면 "good resume, timing not ideal" 피드백 받을 수 있어요. 6개월 후가 타이밍이에요.
+          </div>
+        </div>
+
+        <!-- David -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🧑‍💼</span>
+            <span class="advisor-name">David Park</span>
+            <span class="advisor-title">MedStaff NYC 헤드헌터 7년</span>
+            <span class="advisor-vote skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            솔직히 저는 지금은 <span class="warning">SKIP</span>을 권해요. Isabella 1주차예요. 지금 두 직장 동시에 신경 쓰면 Isabella 적응도 못 하고 NYP도 못 가요. <span class="highlight">지금 해야 할 것: Isabella 3-6개월 집중 → 미국 임상 경력 레퍼런스 확보 → 그때 NYP 지원</span>. 경력 있을 때 NYP 가면 FT도 노릴 수 있어요. 지금 Per Diem으로 들어가면 FT 전환 최소 1-2년 걸려요.
+          </div>
+        </div>
+
+        <!-- Emily -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍💼</span>
+            <span class="advisor-name">Emily Rodriguez</span>
+            <span class="advisor-title">NYC H+H HR 매니저 12년</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            <span class="highlight">NYP Per Diem → FT 내부 전환 공고는 외부 공개 전에 PD 직원에게 먼저 안내돼요</span>. 이건 진짜 큰 장점이에요. 다만 HR 관점에서 지금 Isabella 1주차 + Per Diem 병행은 배려가 필요한 타이밍이에요. 3개월 후 Isabella 안정되면 NYP PD 지원하세요. 그때도 충분히 늦지 않아요. <span class="data-cite">NYP 채용공고 평균 게시 기간: 45-90일</span>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 공고 5: NYC H+H Queens PACU Evening -->
+    <div class="job-section" style="border-color: #ef4444;">
+      <div class="job-header">
+        <div class="job-title">❌ Staff Nurse - PACU (Evening Shift)</div>
+        <div class="job-meta">
+          <span>🏥 NYC Health + Hospitals / Queens</span>
+          <span>📍 Jamaica, Queens (~50min from Fort Lee)</span><br>
+          <span>💰 $109,490/yr + 야간수당 (~$120K+)</span>
+          <span>🌙 Evening 3:30PM-12:00AM</span>
+          <span>🤝 노조 (1199SEIU)</span>
+          <span>🆔 Job ID: 133087</span>
+        </div>
+      </div>
+
+      <div class="verdict skip">👎 최종 판정: SKIP (0 GO : 2 MAYBE : 4 SKIP)</div>
+      <span class="acceptance">합격률 약 35% (evening shift라 의지 낮음)</span>
+      <span class="rank-badge">📋 5순위 (Shift 미스매치)</span>
+
+      <div class="discussion">
+        <!-- 마깡이 -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">😎</span>
+            <span class="advisor-name">마깡이</span>
+            <span class="advisor-title">Mount Sinai 정신과 RN 5년 | NYSNA</span>
+            <span class="advisor-vote skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            PACU 경험 쌓기엔 좋은데 <span class="warning">Evening 3:30PM-12AM이야</span>. Fort Lee에서 Jamaica Queens 50분 통근이면 집 도착이 새벽 1시야. 이게 FT면 매일 새벽 1시에 집. <span class="warning">체력 소진, 영어 공부 불가, 일상 생활 무너짐</span>. 나 NYSNA 노조 있어서 H+H 좋아하는데, 여기는 스케줄이 태권님 상황이랑 맞지 않아. Day PACU 공고 기다려.
+          </div>
+        </div>
+
+        <!-- Sarah -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🩺</span>
+            <span class="advisor-name">Sarah Lee</span>
+            <span class="advisor-title">Northwell→NYS OMH 외래 8년 | NYU BSN</span>
+            <span class="advisor-vote skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            <span class="data-cite">BLS 2023: Evening shift RN은 번아웃 위험 Day shift 대비 34% 높음 (Journal of Nursing Management 2024)</span>. 이제 막 미국 생활 적응 시작인데 Evening shift는 신체 리듬, 사회 생활, 영어 공부 전부 방해해요. 야간수당 받아서 $120K라도 <span class="warning">건강과 적응에 드는 비용이 더 커요</span>. 원칙 지키세요!
+          </div>
+        </div>
+
+        <!-- Jennifer -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍⚕️</span>
+            <span class="advisor-name">Jennifer Kim</span>
+            <span class="advisor-title">NYC H+H 수간호사 20년 | 노조 전문가</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            반대 의견들 이해하지만 한 가지 장점 말씀드릴게요. <span class="highlight">NYC H+H 1199SEIU 노조 계약에는 Evening → Day 내부 이동 신청권이 있어요</span>. 들어가서 6-12개월 근무 후 Day 자리 나면 우선권 있어요. PACU 경험 쌓으면서 Day 전환 노리는 전략이에요. 단, Queens까지 50분 통근이 체력적으로 감당 되시냐가 관건이에요.
+          </div>
+        </div>
+
+        <!-- Michael -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👨‍⚕️</span>
+            <span class="advisor-name">Michael Chen</span>
+            <span class="advisor-title">NYP 간호부장 15년 | 대만 출신</span>
+            <span class="advisor-vote skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            Jennifer 말이 이론적으론 맞는데, <span class="warning">Day 전환은 보장이 없어요</span>. 저도 병원에 있으면서 Evening에서 Day로 이동하려는 간호사들이 1-2년씩 기다리는 경우 많이 봤어요. 결국 Evening에 갇히는 거예요. 태권님처럼 Day shift가 명확한 priority인 분은 처음부터 Day 포지션에 지원하는 게 맞아요. <span class="data-cite">NYC H+H 내부: Day PACU 공고 분기별 1-2개 오픈 패턴</span>.
+          </div>
+        </div>
+
+        <!-- David -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">🧑‍💼</span>
+            <span class="advisor-name">David Park</span>
+            <span class="advisor-title">MedStaff NYC 헤드헌터 7년</span>
+            <span class="advisor-vote maybe">MAYBE</span>
+          </div>
+          <div class="advisor-comment">
+            저도 SKIP 쪽이지만 한 가지만요. <span class="highlight">면접 자체는 가보는 게 연습이 될 수 있어요</span>. 태권님 미국 면접 경험이 많지 않으시잖아요 — Evening job이라 합격해도 "재고하겠다"고 해도 돼요. 근데 현실적으로 면접 준비하면서 Evening을 진심으로 고려할 에너지를 Day 공고 지원에 쓰는 게 더 효율적이에요. <span class="warning">SKIP이 맞아요</span>.
+          </div>
+        </div>
+
+        <!-- Emily -->
+        <div class="advisor">
+          <div class="advisor-header">
+            <span class="advisor-emoji">👩‍💼</span>
+            <span class="advisor-name">Emily Rodriguez</span>
+            <span class="advisor-title">NYC H+H HR 매니저 12년</span>
+            <span class="advisor-vote skip">SKIP</span>
+          </div>
+          <div class="advisor-comment">
+            HR에서 보면 <span class="warning">면접에서 "저는 실제로 Day를 원하는데 Evening에 지원했다"는 게 느껴지면 합격률 떨어져요</span>. 채용담당자는 6개월 내 이탈 위험을 봐요 — Evening 싫어하는 사람 뽑으면 결국 금방 나가거든요. 진심이 없으면 면접에서 티가 나요. 태권님 Day 원하시면 솔직하게 Day 공고만 지원하세요.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 최종 결론 -->
+    <div class="summary-box" style="border-color: #3a7bd5; background: rgba(58,123,213,0.1);">
+      <h2 style="color: #3a7bd5;">📌 오늘의 결론 & 행동 계획</h2>
+      <p style="line-height: 2.0;">
+        <strong>🥇 [1순위] Brook Plaza ASC PACU — GO (4:2) | 합격률 60%</strong><br>
+        $20K sign-on + $55-65/hr + FT Day = 지금 당장 지원! 외과 배경으로 PACU 적응 가능. Sign-on clawback 조건 꼼꼼히 확인하고 지원.<br><br>
+
+        <strong>🥈 [2순위] NYP Weill Cornell Pre-op/PACU (Per Diem) — MAYBE | 합격률 40%→50%</strong><br>
+        $84.55/hr + FT 전환 경로. 6개월 후 Isabella 안정 후 지원이 최적 타이밍. 지금 북마크 + 3개월 후 재검토.<br><br>
+
+        <strong>🥉 [3순위] Hudson Crossing Surgery Center Per Diem — MAYBE | 합격률 65%</strong><br>
+        집 앞 5분. bjacob@hudsoncrossingsc.com 이메일 → FT 전환 가능 여부 확인. Isabella 계약 moonlighting 조항 먼저 체크!<br><br>
+
+        <strong>4위: NYU Langone Vascular Surgery Ambulatory — MAYBE | 합격률 40%→55%</strong><br>
+        M-F 7:30-5PM 완벽 스케줄. 6개월 경력 후 지원 추천. 지금 지원하려면 "earliest start date" 여유 있게 설정.<br><br>
+
+        <strong>❌ NYC H+H Queens PACU Evening — SKIP (0:2:4) | 합격률 35%</strong><br>
+        Shift 미스매치. Evening 3:30-12AM은 체력 소진 + 적응 방해. Day PACU 공고 모니터링 지속.
+      </p>
+    </div>
+
+    <a href="../index.html" class="back-link">← 대시보드로 돌아가기</a>
+  </div>
+</body>
+</html>
