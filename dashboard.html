@@ -133,9 +133,9 @@
       </div>
     </div>
     <div class="stats">
-      <div class="stat-box"><div class="stat-number" id="totalJobs">6</div><div class="stat-label">📋 발견 공고</div></div>
-      <div class="stat-box"><div class="stat-number" id="dayJobs">4</div><div class="stat-label">🌞 Day Shift</div></div>
-      <div class="stat-box"><div class="stat-number">$48-76</div><div class="stat-label">💰 시급 범위</div></div>
+      <div class="stat-box"><div class="stat-number" id="totalJobs">25</div><div class="stat-label">📋 발견 공고</div></div>
+      <div class="stat-box"><div class="stat-number" id="dayJobs">21</div><div class="stat-label">🌞 Day Shift</div></div>
+      <div class="stat-box"><div class="stat-number">$46-147K</div><div class="stat-label">💰 급여 범위</div></div>
       <div class="stat-box"><div class="stat-number">6개월</div><div class="stat-label">⏳ 지원 예정</div></div>
     </div>
   </header>
@@ -147,7 +147,7 @@
   </div>
 
   <div id="listTab" class="tab-content active">
-    <h2 class="section-title">🏆 TOP 추천 공고 (Day + Full-time + NJ)</h2>
+    <h2 class="section-title">🏆 TOP 추천 공고 (NYC + NJ | Day + Full-time)</h2>
     <div class="job-grid" id="jobGrid"></div>
 
     <h2 class="section-title">🎯 Interview Events (6개월 후 참가)</h2>
@@ -178,8 +178,8 @@
   </div>
 
   <div class="last-updated">
-    <strong>마지막 업데이트:</strong> 2026-03-22 20:30 EDT<br>
-    <strong>업데이트 내용:</strong> Surgical/Ambulatory 전략 전환 + TOP 4 NJ Day shift 공고 + 소스별 필터 분석<br>
+    <strong>마지막 업데이트:</strong> 2026-04-04 EDT<br>
+    <strong>업데이트 내용:</strong> NYC/NJ 전체 동기화 — NYC 17개 + NJ 8개 총 25개 공고 + Brook Plaza $20K sign-on, NYU Langone Vascular, NYP Per Diem 신규 추가<br>
     <strong>다음 체크:</strong> 하트비트 시 로테이션 검색 계속
   </div>
 </div>
@@ -203,6 +203,7 @@
 </div>
 
 <script>
+// ── NJ 공고 (8개) ──
 const jobs = [
   {
     id: "rwjbarnabas-stepdown",
@@ -214,6 +215,7 @@ const jobs = [
     type: "Full-time",
     top: true,
     rank: 1,
+    state: "NJ",
     lat: 40.7920,
     lng: -74.3151,
     dateFound: "2026-03-22",
@@ -237,6 +239,7 @@ const jobs = [
     type: "Full-time",
     top: true,
     rank: 2,
+    state: "NJ",
     lat: 40.6687,
     lng: -74.1143,
     dateFound: "2026-03-22",
@@ -250,6 +253,81 @@ const jobs = [
       emily: { verdict: "go", comment: "중소 병원은 <strong>채용 프로세스 빨라요</strong>. 서류 넣으면 빨리 연락 올 거예요!" }
     }
   },
+  // ⭐ NEW 2026-03-28 - Global Surgery Center (Oradell, 5min!)
+  {
+    id: "global-surgery-oradell",
+    title: "Operating Room Registered Nurse 🔥🔥🔥",
+    company: "Global Surgery Center",
+    location: "Oradell, NJ (5min from Fort Lee!) 🔥",
+    pay: "$52-56/hour",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 1,
+    state: "NJ",
+    lat: 40.9584,
+    lng: -74.0279,
+    dateFound: "2026-03-28",
+    source: "Indeed",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Fort Lee에서 <strong>5분?!</strong> 이건 무조건 지원해야 해! Surgery Center라 <strong>외과 경력 직접 활용</strong>!" },
+      sarah: { verdict: "go", comment: "Ambulatory Surgery Center라 <strong>입원 환자 없어</strong>. 스트레스 적고 워라밸 좋아!" },
+      jennifer: { verdict: "go", comment: "OR 경험 있으면 바로 적응 가능. <strong>다양한 specialty</strong> (ophthalmology, ortho, spine)!" },
+      michael: { verdict: "go", comment: "$52-56/hr면 나쁘지 않아. 출퇴근 5분이면 <strong>삶의 질</strong> 엄청 올라가!" },
+      david: { verdict: "go", comment: "Surgery Center는 채용 빨라. <strong>Easily Apply</strong>라 바로 지원해봐!" },
+      emily: { verdict: "go", comment: "SIS EMR 쓴다는데, 배우기 어렵지 않아. <strong>위치가 최고</strong>야!" }
+    }
+  },
+  // ⭐⭐ NEW 2026-03-28 - Jersey City Medical Center PACU
+  {
+    id: "jcmc-pacu-day",
+    title: "RN PACU Full Time Day ⭐⭐",
+    company: "Jersey City Medical Center",
+    location: "Jersey City, NJ (~20min from Fort Lee)",
+    pay: "$46.47-64.93/hour",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 2,
+    state: "NJ",
+    lat: 40.7178,
+    lng: -74.0431,
+    dateFound: "2026-03-28",
+    source: "Indeed",
+    advisors: {
+      maggangi: { verdict: "go", comment: "PACU Day FT! <strong>외과 Post-op 경력</strong> 직접 활용 가능해!" },
+      sarah: { verdict: "go", comment: "RWJBarnabas 소속이라 <strong>대형 시스템 베네핏</strong>. 튜션 reimbursement도 있어!" },
+      jennifer: { verdict: "go", comment: "Jersey City는 Fort Lee에서 <strong>20분</strong>. 출퇴근 편해!" },
+      michael: { verdict: "go", comment: "$46-65/hr면 경력 따라 <strong>$60/hr+</strong> 받을 수 있어!" },
+      david: { verdict: "go", comment: "PACU는 Day shift 보장이야. <strong>워라밸 최고</strong>!" },
+      emily: { verdict: "go", comment: "RWJBarnabas는 국제 경력 인정 잘 해줘. <strong>추천!</strong>" }
+    }
+  },
+  // ⭐⭐⭐ NEW 2026-03-28 - Hackensack PACU/DAR
+  {
+    id: "hackensack-pacu-dar",
+    title: "RN PACU/DAR Ambulatory Surgery ⭐⭐⭐",
+    company: "Hackensack Meridian Health",
+    location: "Hackensack, NJ (~15min from Fort Lee)",
+    pay: "TBD",
+    shift: "Day FT",
+    type: "Full-time",
+    top: true,
+    rank: 3,
+    state: "NJ",
+    lat: 40.8859,
+    lng: -74.0435,
+    dateFound: "2026-03-28",
+    source: "LinkedIn",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Hackensack은 <strong>NJ 최고 병원</strong> 중 하나! PACU/DAR이면 외과 경력 딱이야!" },
+      sarah: { verdict: "go", comment: "Ambulatory Surgery Center라 <strong>Day shift 보장</strong>. 주말/야간 없어!" },
+      jennifer: { verdict: "go", comment: "Fort Lee에서 <strong>15분</strong>! 출퇴근 완전 편해!" },
+      michael: { verdict: "go", comment: "Hackensack Meridian은 <strong>급여 좋아</strong>. $55-75/hr 범위 기대해도 돼!" },
+      david: { verdict: "go", comment: "2일 전 올라온 공고라 <strong>신선해</strong>. 빨리 지원!" },
+      emily: { verdict: "go", comment: "대형 시스템이라 <strong>내부 이동</strong>도 자유로워. 커리어 성장 좋아!" }
+    }
+  },
   {
     id: "englewood-float",
     title: "Staff Nurse RN Float FT Days",
@@ -259,7 +337,8 @@ const jobs = [
     shift: "Day",
     type: "Full-time",
     top: true,
-    rank: 3,
+    rank: 4,
+    state: "NJ",
     lat: 40.8929,
     lng: -73.9726,
     dateFound: "2026-03-20",
@@ -273,30 +352,6 @@ const jobs = [
       emily: { verdict: "go", comment: "지역 병원이라 <strong>다양한 배경 환영</strong>. Fort Lee 한인 많으니까 한국 간호사도 있을 거예요!" }
     }
   },
-  // ⭐ NEW 2026-04-04 - Hudson Crossing Fort Lee Per Diem
-  {
-    id: "hudsoncrossing-perdiem-fortlee",
-    title: "Pre-op/PACU RN - Per Diem 🏠 Fort Lee!",
-    company: "Hudson Crossing Surgery Center",
-    location: "Fort Lee, NJ (집에서 5분! 🔥)",
-    pay: "TBD (Per Diem high rate)",
-    shift: "Per Diem",
-    type: "Per Diem",
-    top: false,
-    rank: null,
-    lat: 40.8509,
-    lng: -73.9701,
-    dateFound: "2026-04-04",
-    source: "Direct site (bjacob@hudsoncrossingsc.com)",
-    advisors: {
-      maggangi: { verdict: "maybe", comment: "Fort Lee에서 <strong>5분?!</strong> Per Diem이지만 위치가 최고. 경력 쌓으면 FT 전환 문의해봐!" },
-      sarah: { verdict: "maybe", comment: "집 근처 Pre-op/PACU 경험! <strong>이런 기회 흔치 않아</strong>." },
-      jennifer: { verdict: "maybe", comment: "Apply: bjacob@hudsoncrossingsc.com. <strong>FT 전환 가능성</strong> 물어봐요!" },
-      michael: { verdict: "maybe", comment: "Per Diem 단가 높을 거야. <strong>Isabella 병행</strong>으로 경험 쌓기 좋아!" },
-      david: { verdict: "maybe", comment: "위치가 <strong>최고</strong>. 연락해봐!" },
-      emily: { verdict: "maybe", comment: "작은 Surgery Center라 <strong>팀 친밀감</strong> 높아. 적응 쉬울 거야!" }
-    }
-  },
   {
     id: "stjoseph-medsurg",
     title: "RN Full Time 7AM-7:30PM (Med/Surg/Vents)",
@@ -306,7 +361,8 @@ const jobs = [
     shift: "Day 7AM-7:30PM",
     type: "Full-time",
     top: true,
-    rank: 4,
+    rank: 5,
+    state: "NJ",
     lat: 40.9168,
     lng: -74.1718,
     dateFound: "2026-03-20",
@@ -318,6 +374,31 @@ const jobs = [
       michael: { verdict: "go", comment: "$70/hr 받으면 <strong>연봉 $145K</strong>. NYC 대형병원이랑 비슷해!" },
       david: { verdict: "go", comment: "급여 최우선이면 <strong>여기가 답</strong>. 경력 협상 잘 하면 $60+ 가능!" },
       emily: { verdict: "go", comment: "St Joseph's는 <strong>다양성 강조</strong>하는 병원. 외국 경력 인정에도 열려있어요!" }
+    }
+  },
+  // ⭐ NEW 2026-04-04 - Hudson Crossing Fort Lee Per Diem
+  {
+    id: "hudsoncrossing-perdiem-fortlee",
+    title: "Pre-op/PACU RN - Per Diem 🏠 Fort Lee!",
+    company: "Hudson Crossing Surgery Center",
+    location: "Fort Lee, NJ (집에서 5분! 🔥)",
+    pay: "TBD (Per Diem high rate)",
+    shift: "Per Diem",
+    type: "Per Diem",
+    top: false,
+    rank: null,
+    state: "NJ",
+    lat: 40.8509,
+    lng: -73.9701,
+    dateFound: "2026-04-04",
+    source: "Direct site (bjacob@hudsoncrossingsc.com)",
+    advisors: {
+      maggangi: { verdict: "maybe", comment: "Fort Lee에서 <strong>5분?!</strong> Per Diem이지만 위치가 최고. 경력 쌓으면 FT 전환 문의해봐!" },
+      sarah: { verdict: "maybe", comment: "집 근처 Pre-op/PACU 경험! <strong>이런 기회 흔치 않아</strong>." },
+      jennifer: { verdict: "maybe", comment: "Apply: bjacob@hudsoncrossingsc.com. <strong>FT 전환 가능성</strong> 물어봐요!" },
+      michael: { verdict: "maybe", comment: "Per Diem 단가 높을 거야. <strong>Isabella 병행</strong>으로 경험 쌓기 좋아!" },
+      david: { verdict: "maybe", comment: "위치가 <strong>최고</strong>. 연락해봐!" },
+      emily: { verdict: "maybe", comment: "작은 Surgery Center라 <strong>팀 친밀감</strong> 높아. 적응 쉬울 거야!" }
     }
   }
 ];
@@ -372,18 +453,432 @@ const events = [
   }
 ];
 
+// ── NYC/LI 공고 (17개) ──
+const nycJobs = [
+  {
+    id: "harlem-surgical-prep",
+    title: "Staff Nurse - Surgical Prep and Holding ✅지원완료",
+    company: "Harlem Hospital (NYC H+H)",
+    location: "Manhattan, NY (~35min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day 8:30AM-5PM",
+    type: "Full-time",
+    top: true,
+    rank: 1,
+    applied: true,
+    state: "NY",
+    lat: 40.8140,
+    lng: -73.9422,
+    dateFound: "2026-03-22",
+    source: "NYC H+H Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "✅ <strong>지원 완료!</strong> Surgical Prep이면 외과 경력 직접 활용. 공립병원이라 국제 경력 인정 잘 해줘!" },
+      sarah: { verdict: "go", comment: "Harlem Hospital은 <strong>다양성 중시</strong>하는 곳. 외국 간호사 많아서 적응하기 좋아!" },
+      jennifer: { verdict: "go", comment: "NYC H+H는 <strong>공무원급 안정성</strong>. 연금, 의료보험 베네핏 최고!" },
+      michael: { verdict: "go", comment: "Day shift 8:30-5PM이면 <strong>워라밸 완벽</strong>. 야근 스트레스 없어!" },
+      david: { verdict: "go", comment: "$109K 시작이면 <strong>경력 가산</strong>받으면 더 올라가요!" },
+      emily: { verdict: "go", comment: "NYC H+H는 <strong>비자 스폰서십</strong>도 해주는 곳. 태권님은 영주권이라 더 유리!" }
+    }
+  },
+  {
+    id: "jacobi-amb-surgery",
+    title: "Staff Nurse - Ambulatory Surgery ⭐⭐⭐",
+    company: "NYC H+H Jacobi",
+    location: "Bronx, NY (~35min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 1,
+    state: "NY",
+    lat: 40.8575,
+    lng: -73.8465,
+    dateFound: "2026-03-28",
+    source: "NYC H+H Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "<strong>Ambulatory Surgery!</strong> 외과 경력 100% 활용! Day shift에 NYC H+H 노조 베네핏!" },
+      sarah: { verdict: "go", comment: "Ambulatory는 입원 없이 당일 퇴원. <strong>강도 낮고</strong> 프로토콜 중심이라 영어 부담 적어!" },
+      jennifer: { verdict: "go", comment: "마감 <strong>4/12</strong>라 좀 촉박하긴 한데, 지금 Isabella 시작했으니 6개월 경력 쌓고 다음 기회 노려도 돼!" },
+      michael: { verdict: "go", comment: "NYC H+H라 <strong>공무원급 안정성</strong>. 연금, 의료보험 최고!" },
+      david: { verdict: "go", comment: "Jacobi는 <strong>Level 1 Trauma</strong>야. 여기서 경험 쌓으면 어디든 갈 수 있어!" },
+      emily: { verdict: "go", comment: "공립이라 <strong>국제 경력 인정</strong> 잘 해줘. 14년 경력 어필해!" }
+    }
+  },
+  {
+    id: "jacobi-pacu",
+    title: "Staff Nurse - PACU ⭐⭐⭐",
+    company: "NYC H+H Jacobi",
+    location: "Bronx, NY (~35min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 2,
+    state: "NY",
+    lat: 40.8575,
+    lng: -73.8480,
+    dateFound: "2026-03-28",
+    source: "NYC H+H Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "<strong>PACU!</strong> Post-op 환자 케어. 외과 3년 경력이랑 딱 맞아!" },
+      sarah: { verdict: "go", comment: "PACU는 <strong>Day shift 거의 확정</strong>. 야간 없어!" },
+      jennifer: { verdict: "go", comment: "Recovery Room 경험은 <strong>어디서든 환영</strong>받아. 커리어 성장에 좋아!" },
+      michael: { verdict: "go", comment: "Jacobi PACU는 busy하지만 <strong>배우는 게 많아</strong>. 강추!" },
+      david: { verdict: "go", comment: "NYC H+H 노조라 <strong>급여 인상 보장</strong>. Step 시스템이야." },
+      emily: { verdict: "go", comment: "마감 <strong>4/13</strong>. 조금 촉박하지만 빠르게 지원하면 가능해!" }
+    }
+  },
+  {
+    id: "nyp-breast-surgery-koch",
+    title: "Staff Nurse (RN) - Breast Surgery - Koch Center ⭐⭐⭐",
+    company: "NewYork-Presbyterian Hospital",
+    location: "Manhattan, NY (~40min from Fort Lee)",
+    pay: "$128,149-146,972/yr 💰💰",
+    shift: "Day (Ambulatory M-F)",
+    type: "Full-time",
+    top: true,
+    rank: 3,
+    state: "NY",
+    lat: 40.7648,
+    lng: -73.9548,
+    dateFound: "2026-03-29",
+    source: "NYP Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "<strong>$147K!</strong> NYP 급여 최고! Ambulatory Breast Surgery라 <strong>외과 경력 직접 활용</strong>!" },
+      sarah: { verdict: "go", comment: "Koch Center는 <strong>최신 시설</strong>. Ambulatory라 M-F Day, 주말 없어!" },
+      jennifer: { verdict: "maybe", comment: "NYP는 <strong>경쟁 치열</strong>. 근데 외과 3년 + BSN이면 기회 있어!" },
+      michael: { verdict: "go", comment: "Breast Surgery는 <strong>Pre-op/Post-op care</strong> 중심. 영어 부담 적어!" },
+      david: { verdict: "go", comment: "이 급여면 <strong>NJ 대비 $30K+ 높아</strong>. 출퇴근 40분 감수할 만해!" },
+      emily: { verdict: "maybe", comment: "NYP 경력은 <strong>프리미엄</strong>. NP 진학할 때도 유리해!" }
+    }
+  },
+  {
+    id: "mountsinai-stepdown-9w",
+    title: "Clinical Nurse - Medicine Step Down - 9 West - FT Days ⭐⭐⭐",
+    company: "Mount Sinai Hospital",
+    location: "Manhattan, NY (~50min from Fort Lee)",
+    pay: "$64.85/hr (~$135K/yr) 💰",
+    shift: "Day FT",
+    type: "Full-time",
+    top: true,
+    rank: 4,
+    state: "NY",
+    lat: 40.7903,
+    lng: -73.9523,
+    dateFound: "2026-03-30",
+    source: "Mount Sinai Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "<strong>$135K!</strong> NYSNA 노조라 급여 보장. Step-down은 ICU 다음 단계라 <strong>중증도 적당</strong>해!" },
+      sarah: { verdict: "go", comment: "Step-down 경험은 <strong>커리어에 큰 플러스</strong>. ICU 가고 싶을 때도 유리해!" },
+      jennifer: { verdict: "maybe", comment: "급여 최고! 근데 <strong>ACLS 필요</strong>하니까 취득하고 지원해야 해." },
+      michael: { verdict: "maybe", comment: "Mount Sinai는 <strong>면접 2-3라운드</strong>. 준비 철저히!" },
+      david: { verdict: "maybe", comment: "6개월 경력 + ACLS 취득 후 지원하면 <strong>합격률 높아</strong>!" },
+      emily: { verdict: "maybe", comment: "노조라 <strong>급여 협상 없이 경력 스텝대로</strong>. 14년이면 상위 스텝!" }
+    }
+  },
+  {
+    id: "mountsinai-union-square",
+    title: "Staff RN I - Union Square - Phillips Surgery ⭐⭐",
+    company: "Mount Sinai",
+    location: "Manhattan, NY (~50min from Fort Lee)",
+    pay: "TBD",
+    shift: "Day M-F 8am-4pm ✨",
+    type: "Full-time",
+    top: true,
+    rank: 5,
+    state: "NY",
+    lat: 40.7362,
+    lng: -73.9903,
+    dateFound: "2026-03-23",
+    source: "Mount Sinai Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "월금 8-4?! <strong>꿈의 스케줄</strong>이야! 주말 없고 저녁 없고..." },
+      sarah: { verdict: "go", comment: "Union Square는 <strong>Ambulatory Surgery Center</strong>. outpatient 위주라 강도 낮아." },
+      jennifer: { verdict: "go", comment: "스케줄 최고. 근데 <strong>경쟁 치열</strong>할 거야. 이런 자리는 내부 이동이 많아서." },
+      michael: { verdict: "go", comment: "Phillips Surgery면 <strong>Ambulatory/Outpatient</strong>. 외과 배경이랑 맞아." },
+      david: { verdict: "go", comment: "Mount Sinai는 <strong>명문</strong>이야. 여기 들어가면 커리어에 큰 플러스." },
+      emily: { verdict: "maybe", comment: "Union Square는 Manhattan 남쪽이라 <strong>50분</strong> 정도. 괜찮은 편." }
+    }
+  },
+  {
+    id: "nyp-telemetry-bronxville",
+    title: "RN Telemetry Day Shift ⭐⭐⭐",
+    company: "NewYork-Presbyterian Hospital",
+    location: "Bronxville, NY (~25min from Fort Lee)",
+    pay: "$128,149-146,972/year",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 3,
+    state: "NY",
+    lat: 40.9376,
+    lng: -73.8320,
+    dateFound: "2026-03-28",
+    source: "Indeed",
+    advisors: {
+      maggangi: { verdict: "go", comment: "<strong>$128-147K!</strong> 급여 최고! NYP는 명문이야!" },
+      sarah: { verdict: "go", comment: "Telemetry면 cardiac monitoring. <strong>Day shift</strong>에 고연봉!" },
+      jennifer: { verdict: "go", comment: "NYP는 <strong>경쟁 치열</strong>하지만, 외과 배경 + BSN이면 가능성 있어!" },
+      michael: { verdict: "go", comment: "Bronxville은 Fort Lee에서 <strong>25분</strong>. 출퇴근 편해!" },
+      david: { verdict: "go", comment: "이 급여면 <strong>NJ 병원보다 높아</strong>. 경쟁력 있어!" },
+      emily: { verdict: "go", comment: "NYP 경력은 <strong>프리미엄</strong>. 나중에 NP 진학할 때도 유리해!" }
+    }
+  },
+  {
+    id: "northwell-ambulatory-great-neck",
+    title: "Registered Nurse - Ambulatory (Surgical) ⭐",
+    company: "Northwell Health",
+    location: "Great Neck, NY (~35-40min from Fort Lee)",
+    pay: "$68K-$115K/yr",
+    shift: "Day (Ambulatory typical)",
+    type: "Full-time",
+    top: true,
+    rank: 2,
+    state: "NY",
+    lat: 40.7868,
+    lng: -73.7284,
+    dateFound: "2026-03-23",
+    source: "ZipRecruiter",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Northwell 좋아! <strong>대형 시스템</strong>이라 안정적이고 Ambulatory는 Day 위주야." },
+      sarah: { verdict: "go", comment: "내가 Northwell 출신인데, 여기 진짜 좋아. Breakroom 평점 <strong>7.9는 99%ile</strong>!" },
+      jennifer: { verdict: "go", comment: "외래 수술은 입원 병동보다 <strong>영어 부담 적어</strong>. 프로토콜 중심이라 딱이야." },
+      michael: { verdict: "go", comment: "급여 범위 $68K-$115K면 경력에 따라 괜찮은 편. <strong>BSN preferred</strong>라 플러스." },
+      david: { verdict: "go", comment: "Northwell은 <strong>신규 채용 적극적</strong>. 6개월 후면 타이밍 좋아." },
+      emily: { verdict: "go", comment: "통근만 괜찮으면 추천. GWB → Cross Bronx → 135 North로 <strong>35-40분</strong>." }
+    }
+  },
+  {
+    id: "northwell-ambulatory-nhp",
+    title: "RN Ambulatory Surgery",
+    company: "Northwell Health",
+    location: "New Hyde Park, NY (~45min from Fort Lee)",
+    pay: "TBD",
+    shift: "Day (Ambulatory typical)",
+    type: "Full-time",
+    top: true,
+    rank: 3,
+    state: "NY",
+    lat: 40.7351,
+    lng: -73.6879,
+    dateFound: "2026-03-23",
+    source: "Northwell Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "New Hyde Park면 <strong>45분대</strong>? 나쁘지 않아." },
+      sarah: { verdict: "go", comment: "Ambulatory Surgery! Day shift 위주에 주말 적고. <strong>Northwell 본사</strong>도 거기야." },
+      jennifer: { verdict: "go", comment: "직접적으로 <strong>외과 경력 활용</strong> 가능." },
+      michael: { verdict: "go", comment: "3/19에 올라온 거면 아직 신선해. 빨리 움직이면 좋아." },
+      david: { verdict: "go", comment: "Northwell 본사 캠퍼스라 <strong>기회 많아</strong>." },
+      emily: { verdict: "maybe", comment: "Great Neck이 더 가깝긴 해. 근데 둘 다 좋아." }
+    }
+  },
+  {
+    id: "nychh-harlem-pacu",
+    title: "Staff Nurse - PACU",
+    company: "NYC H+H Harlem",
+    location: "Harlem, Manhattan (~30min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day (PACU typical)",
+    type: "Full-time",
+    top: true,
+    rank: 4,
+    state: "NY",
+    lat: 40.8140,
+    lng: -73.9435,
+    dateFound: "2026-03-23",
+    source: "NYC H+H Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "PACU! 이건 <strong>외과 경력 직접 활용</strong>할 수 있어. Harlem은 30분대." },
+      sarah: { verdict: "go", comment: "NYC H+H는 <strong>union</strong>이라 job security 좋고, 연금도 괜찮아." },
+      jennifer: { verdict: "go", comment: "우리 병원이야! H+H PACU면 <strong>Day shift 많아</strong>. 마감 5/7이니까 시간 여유 있어." },
+      michael: { verdict: "maybe", comment: "NYC H+H 급여가 private보다 낮긴 한데, <strong>베네핏이랑 안정성</strong>으로 상쇄돼." },
+      david: { verdict: "maybe", comment: "PACU 경험 없으면 바로 지원은 좀 어려울 수 있어. 근데 외과 배경이 있으니 가능성은 있어." },
+      emily: { verdict: "go", comment: "H+H는 경력 요구가 <strong>상대적으로 유연</strong>해. 인터뷰까지 갈 수 있어." }
+    }
+  },
+  {
+    id: "nychh-bellevue-medsurg-new",
+    title: "Staff Nurse - Medicine/Surgery ⭐⭐",
+    company: "NYC H+H Bellevue",
+    location: "Manhattan, NY (~40min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "TBD (Day verify)",
+    type: "Full-time",
+    top: true,
+    rank: 5,
+    state: "NY",
+    lat: 40.7392,
+    lng: -73.9751,
+    dateFound: "2026-03-23",
+    source: "NYC H+H Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Bellevue는 <strong>레전드</strong>야. Level 1 Trauma Center!" },
+      sarah: { verdict: "go", comment: "마감 <strong>9/8</strong>이면 아직 6개월 가까이 남았네. 타이밍 완벽해." },
+      jennifer: { verdict: "go", comment: "Bellevue Med-Surg는 busy하지만 <strong>배우는 것도 많아</strong>. 좋은 경험 될 거야." },
+      michael: { verdict: "go", comment: "Bellevue <strong>이름값</strong> 있어. 여기서 1년 일하면 어디든 갈 수 있어." },
+      david: { verdict: "go", comment: "NYC H+H는 <strong>international nurse 환영</strong>하는 분위기야." },
+      emily: { verdict: "go", comment: "마감 여유 있으니까 널싱홈 6개월 경력 쌓고 딱 지원하기 좋아. <strong>강추!</strong>" }
+    }
+  },
+  {
+    id: "brookplaza-pacu-brooklyn",
+    title: "PACU RN ⭐⭐ ($20K Sign-on!)",
+    company: "Brook Plaza Ambulatory Surgical Center",
+    location: "Brooklyn, NY (~50min from Fort Lee)",
+    pay: "$55-65/hour + $20,000 sign-on 💰",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 5,
+    state: "NY",
+    lat: 40.6296,
+    lng: -73.9376,
+    dateFound: "2026-04-04",
+    source: "Indeed",
+    advisors: {
+      maggangi: { verdict: "go", comment: "<strong>$20K sign-on bonus?!</strong> PACU FT Day! Ophthalmology/GI multispecialty. 외과 경력 딱이야!" },
+      sarah: { verdict: "go", comment: "Ambulatory Surgery Center라 <strong>Day shift 보장</strong>. 주말/야간 거의 없어!" },
+      jennifer: { verdict: "go", comment: "$55-65/hr + $20K sign-on이면 <strong>1년차 총 $130K+</strong> 가능!" },
+      michael: { verdict: "go", comment: "Sign-on bonus는 <strong>계약 기간 확인</strong>해. 보통 2년 의무 근무야." },
+      david: { verdict: "go", comment: "Brooklyn이라 조금 멀지만 <strong>급여+보너스</strong> 매력적이야!" },
+      emily: { verdict: "go", comment: "ASC라 <strong>병원급보다 스트레스 낮아</strong>. 추천!" }
+    }
+  },
+  {
+    id: "nyulangone-vascular-ambulatory",
+    title: "Ambulatory Care Nurse - Vascular Surgery ⭐⭐",
+    company: "NYU Langone Health (FGP)",
+    location: "Manhattan, NY (~50min from Fort Lee)",
+    pay: "TBD ($100K+ NYU scale)",
+    shift: "Day M-F 7:30AM-5PM ✨",
+    type: "Full-time",
+    top: true,
+    rank: 6,
+    state: "NY",
+    lat: 40.7421,
+    lng: -73.9739,
+    dateFound: "2026-04-04",
+    source: "NYU Langone Careers",
+    advisors: {
+      maggangi: { verdict: "maybe", comment: "M-F 7:30-5PM! <strong>완벽한 스케줄</strong>. Vascular Surgery라 외과 경험 활용 가능!" },
+      sarah: { verdict: "maybe", comment: "NYU Langone 급여 <strong>$100K+</strong>. 1년 경력 요구 있을 수 있어. 확인해봐!" },
+      jennifer: { verdict: "maybe", comment: "FGP(Faculty Group Practice) 포지션이라 <strong>학술병원 분위기</strong>. 영어 능숙해지면 딱!" },
+      michael: { verdict: "maybe", comment: "Ambulatory clinic이라 <strong>급성기 없어</strong>. 적응하기 좋아!" },
+      david: { verdict: "maybe", comment: "NYU Langone 경력은 <strong>프리미엄</strong>. NP 진학할 때 유리해!" },
+      emily: { verdict: "maybe", comment: "6개월 경력 쌓고 지원 추천. <strong>Virtual interview</strong> 시리즈 있어!" }
+    }
+  },
+  {
+    id: "mountsinai-neurosciences-8w",
+    title: "Clinical Nurse - 8 West Neurosciences - FT Days",
+    company: "Mount Sinai Hospital",
+    location: "Manhattan, NY (~50min from Fort Lee)",
+    pay: "~$64.85/hr (~$135K/yr)",
+    shift: "Day FT",
+    type: "Full-time",
+    top: true,
+    rank: 7,
+    state: "NY",
+    lat: 40.7903,
+    lng: -73.9510,
+    dateFound: "2026-03-30",
+    source: "Mount Sinai Careers",
+    advisors: {
+      maggangi: { verdict: "maybe", comment: "Neurosciences는 <strong>전문 분야</strong>. stroke, TBI 환자 케어. 배울 게 많아!" },
+      sarah: { verdict: "maybe", comment: "Neuro 경험 없으면 <strong>러닝 커브</strong> 있어. 근데 Day FT라 좋아!" },
+      jennifer: { verdict: "maybe", comment: "Mount Sinai Neuro는 <strong>연구도 활발</strong>. 학술적 환경 좋아해면 맞아!" },
+      michael: { verdict: "maybe", comment: "Neuro assessment skill 필요해. <strong>외과 배경</strong>이랑 좀 달라." },
+      david: { verdict: "skip", comment: "Step Down이 더 <strong>외과 경력</strong>이랑 맞아. 이건 backup으로!" },
+      emily: { verdict: "maybe", comment: "NYSNA 노조, 베네핏 좋아. <strong>관심 있으면 지원</strong>해봐!" }
+    }
+  },
+  {
+    id: "lincoln-surgical",
+    title: "Staff Nurse - Surgery",
+    company: "Lincoln Medical Center (NYC H+H)",
+    location: "Bronx, NY (~35min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day",
+    type: "Full-time",
+    top: true,
+    rank: 6,
+    state: "NY",
+    lat: 40.8168,
+    lng: -73.9246,
+    dateFound: "2026-03-22",
+    source: "NYC H+H Careers",
+    advisors: {
+      maggangi: { verdict: "go", comment: "Surgery unit이면 <strong>외과 경력 직접 활용</strong>! Lincoln은 Level 1 Trauma Center야!" },
+      sarah: { verdict: "go", comment: "Lincoln은 <strong>Bronx 핵심 병원</strong>. 바쁘지만 경험 쌓기 최고!" },
+      jennifer: { verdict: "go", comment: "NYC H+H라 <strong>베네핏 좋고</strong> 공무원급 안정성!" },
+      michael: { verdict: "go", comment: "Day shift + Surgery면 <strong>외과 배경</strong>에 딱 맞아!" },
+      david: { verdict: "go", comment: "Fort Lee에서 35분이면 <strong>출퇴근 가능</strong>!" },
+      emily: { verdict: "go", comment: "Lincoln은 <strong>다양한 환자층</strong>. 경험 풍부하게 쌓을 수 있어요!" }
+    }
+  },
+  {
+    id: "nyp-amb-preop-pacu-perdiem",
+    title: "Staff Nurse - Ambulatory Pre-op/PACU (Per Diem)",
+    company: "NewYork-Presbyterian / Weill Cornell",
+    location: "Manhattan, NY (~50min from Fort Lee)",
+    pay: "$84.55/hour (Per Diem)",
+    shift: "Per Diem Day",
+    type: "Per Diem",
+    top: false,
+    rank: null,
+    state: "NY",
+    lat: 40.7648,
+    lng: -73.9560,
+    dateFound: "2026-04-04",
+    source: "NYP Careers",
+    advisors: {
+      maggangi: { verdict: "wait", comment: "Per Diem이지만 <strong>$84.55/hr</strong>은 파격적이야! NYP 경력 쌓기 좋아." },
+      sarah: { verdict: "wait", comment: "Weill Cornell은 <strong>최상위 병원</strong>. Per Diem으로 발 담그면 나중에 FT 기회 생겨!" },
+      jennifer: { verdict: "wait", comment: "1년 경력 후 지원 추천. <strong>내부 전환 공고</strong> 먼저 볼 수 있어!" },
+      michael: { verdict: "wait", comment: "$84.55/hr × 3일/주면 <strong>연 $130K+</strong>. 계산해봐!" },
+      david: { verdict: "wait", comment: "6개월 경력 쌓고 <strong>FT 지원과 병행</strong>으로 고려해봐!" },
+      emily: { verdict: "wait", comment: "NYP Per Diem은 <strong>FT 전환 경로</strong>로 유명해. 발판이 돼!" }
+    }
+  },
+  {
+    id: "elmhurst-behavioral",
+    title: "Staff Nurse - Behavioral Health Services",
+    company: "Elmhurst Hospital (NYC H+H)",
+    location: "Queens, NY (~30min from Fort Lee)",
+    pay: "$109,490/year",
+    shift: "Day 8AM-4:30PM",
+    type: "Temporary",
+    top: false,
+    state: "NY",
+    lat: 40.7441,
+    lng: -73.8860,
+    dateFound: "2026-03-22",
+    source: "NYC H+H Careers",
+    advisors: {
+      maggangi: { verdict: "maybe", comment: "Day shift지만 <strong>Temporary</strong>가 아쉬워. 정규직 전환 가능한지 확인 필요." },
+      sarah: { verdict: "go", comment: "Behavioral Health면 <strong>정신과 경험</strong> 쌓기 좋아. 장기 목표(Psych NP)랑 맞아!" },
+      jennifer: { verdict: "go", comment: "Temporary라도 <strong>내부 전환</strong> 기회 많아요. 일단 들어가면 정규직 공고 먼저 볼 수 있어요." },
+      michael: { verdict: "go", comment: "Queens라 출퇴근 편해. Day shift면 <strong>워라밸</strong> 괜찮아!" },
+      david: { verdict: "maybe", comment: "마감 09/13이니까 시간 있어요. 정규직 결과 보고 결정해도 돼요." },
+      emily: { verdict: "go", comment: "NYC H+H 임시직은 <strong>정규직 전환율 높아요</strong>. 내부 지원이 유리!" }
+    }
+  }
+];
+
 // Render job cards
 function renderJobs() {
   const jobGrid = document.getElementById('jobGrid');
   const eventGrid = document.getElementById('eventGrid');
   
-  jobGrid.innerHTML = jobs.map(job => `
+  const allDisplayJobs = [...jobs, ...nycJobs];
+  jobGrid.innerHTML = allDisplayJobs.map(job => `
     <div class="job-card ${job.top ? 'top' : ''}" onclick="openModal('${job.id}')">
       <div class="job-badges">
         ${job.rank ? `<span class="badge badge-top">⭐ TOP ${job.rank}</span>` : ''}
         <span class="badge badge-day">${job.shift}</span>
         <span class="badge badge-ft">${job.type}</span>
-        <span class="badge badge-nj">NJ</span>
+        <span class="badge ${job.state === 'NY' ? 'badge-ny' : 'badge-nj'}">${job.state || 'NJ'}</span>
+        ${job.applied ? `<span class="badge" style="background:#22c55e;color:#fff;">✅ 지원완료</span>` : ''}
       </div>
       <div class="job-title">${job.title}</div>
       <div class="job-company">🏥 ${job.company}</div>
@@ -412,7 +907,7 @@ function renderJobs() {
 
 // Modal
 function openModal(jobId) {
-  const job = [...jobs, ...events].find(j => j.id === jobId);
+  const job = [...jobs, ...nycJobs, ...events].find(j => j.id === jobId);
   if (!job) return;
   
   document.getElementById('modalTitle').textContent = job.title;
@@ -490,7 +985,7 @@ function initMap() {
   }).addTo(map);
   
   // Job markers
-  const allJobs = [...jobs, ...events];
+  const allJobs = [...jobs, ...nycJobs, ...events];
   allJobs.forEach(job => {
     const color = job.top ? '#22c55e' : job.event ? '#8b5cf6' : '#0ea5e9';
     L.circleMarker([job.lat, job.lng], {
