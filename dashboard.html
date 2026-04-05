@@ -92,8 +92,17 @@
     .verdict-go { background: #22c55e; color: #fff; }
     .verdict-maybe { background: #f59e0b; color: #fff; }
     .verdict-wait { background: #64748b; color: #fff; }
+    .verdict-skip { background: #ef4444; color: #fff; }
     .advisor-comment { color: #475569; line-height: 1.6; font-size: 0.9rem; }
     .advisor-comment strong { color: #0284c7; }
+    .discussion-btn { display: inline-block; margin-top: 12px; padding: 7px 16px; background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%); color: #fff; border: none; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .discussion-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(14,165,233,0.4); }
+    .final-verdict-box { background: linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(6,182,212,0.05) 100%); border-radius: 16px; padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .final-verdict-label { font-size: 0.8rem; color: #64748b; margin-bottom: 4px; }
+    .final-verdict-value { font-size: 1.1rem; font-weight: 700; }
+    .final-go { color: #22c55e; }
+    .final-maybe { color: #f59e0b; }
+    .final-skip { color: #ef4444; }
     .last-updated { text-align: center; color: #64748b; font-size: 0.85rem; margin-top: 40px; padding: 24px; background: rgba(255,255,255,0.8); border-radius: 20px; }
     .leaflet-popup-content-wrapper { background: rgba(255,255,255,0.95); color: #0c4a6e; border-radius: 14px; }
     .popup-title { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
@@ -392,13 +401,16 @@ const jobs = [
     lng: -73.9701,
     dateFound: "2026-04-04",
     source: "Direct site (bjacob@hudsoncrossingsc.com)",
+    finalVerdict: "MAYBE",
+    finalVote: "1:4:1",
+    acceptanceRate: "65%",
     advisors: {
-      maggangi: { verdict: "maybe", comment: "Fort Lee에서 <strong>5분?!</strong> Per Diem이지만 위치가 최고. 경력 쌓으면 FT 전환 문의해봐!" },
-      sarah: { verdict: "maybe", comment: "집 근처 Pre-op/PACU 경험! <strong>이런 기회 흔치 않아</strong>." },
-      jennifer: { verdict: "maybe", comment: "Apply: bjacob@hudsoncrossingsc.com. <strong>FT 전환 가능성</strong> 물어봐요!" },
-      michael: { verdict: "maybe", comment: "Per Diem 단가 높을 거야. <strong>Isabella 병행</strong>으로 경험 쌓기 좋아!" },
-      david: { verdict: "maybe", comment: "위치가 <strong>최고</strong>. 연락해봐!" },
-      emily: { verdict: "maybe", comment: "작은 Surgery Center라 <strong>팀 친밀감</strong> 높아. 적응 쉬울 거야!" }
+      maggangi: { verdict: "go", comment: "집 앞 5분짜리 Pre-op/PACU 경험?! 이건 <strong>Isabella FT + Hudson Crossing PD 병행 전략</strong>의 핵심이야! Per Diem이지만 <strong>Pre-op + PACU 경험 = 다음 FT 지원 때 엄청난 플러스</strong>가 돼. 이메일 보내고 FT 전환 가능성 여부도 꼭 물어봐!" },
+      sarah: { verdict: "maybe", comment: "위치 완벽한 건 알겠어요. 근데 Per Diem의 현실 — <strong>의료보험 없고 유급 휴가 없어요</strong>. Isabella가 FT면 베네핏 거기서 커버되니까 병행은 현실적이에요. 주 2-3일 Hudson Crossing PD하면 Pre-op/PACU 기술 빠르게 쌓여요." },
+      jennifer: { verdict: "maybe", comment: "이메일로 직접 연락하는 거니까 <strong>협상 여지가 있어요</strong>. 연락할 때 'Per Diem으로 시작하되 Full-time 자리 생기면 고려해달라'고 명확히 말해봐요. 작은 Surgery Center는 PD → FT 전환이 생각보다 빨라요." },
+      michael: { verdict: "skip", comment: "지금 Isabella 1주차잖아요 — <strong>적응하기도 바쁜데 두 직장 병행하면 체력이 문제</strong>예요. 처음 3개월은 한 직장에 집중해서 미국 임상 환경 제대로 적응하는 게 우선이에요. <strong>6개월 후 Isabella 안정되면 그때 PD 고려</strong>하세요." },
+      david: { verdict: "maybe", comment: "헤드헌터 관점: <strong>집 근처 작은 ASC에서 Per Diem으로 들어가는 건 네트워킹 최고 전략</strong>이에요. 거기서 좋은 인상 남기면 'FT 자리 나면 연락해달라'는 관계가 형성돼요. 합격률도 높아요 — 일단 연락은 해봐요!" },
+      emily: { verdict: "maybe", comment: "<strong>Isabella 계약서에 moonlighting(부업) 제한 조항 있는지 먼저 확인</strong>해요! 일부 SNF 계약에 타 의료기관 근무 금지 조항이 있어요. 없으면 문제없어요. 절차상 문제 없으면 Per Diem 경험은 이력서에 분명히 도움 돼요." }
     }
   }
 ];
@@ -735,13 +747,16 @@ const nycJobs = [
     lng: -73.9376,
     dateFound: "2026-04-04",
     source: "Indeed",
+    finalVerdict: "GO",
+    finalVote: "4:2",
+    acceptanceRate: "60%",
     advisors: {
-      maggangi: { verdict: "go", comment: "<strong>$20K sign-on bonus?!</strong> PACU FT Day! Ophthalmology/GI multispecialty. 외과 경력 딱이야!" },
-      sarah: { verdict: "go", comment: "Ambulatory Surgery Center라 <strong>Day shift 보장</strong>. 주말/야간 거의 없어!" },
-      jennifer: { verdict: "go", comment: "$55-65/hr + $20K sign-on이면 <strong>1년차 총 $130K+</strong> 가능!" },
-      michael: { verdict: "go", comment: "Sign-on bonus는 <strong>계약 기간 확인</strong>해. 보통 2년 의무 근무야." },
-      david: { verdict: "go", comment: "Brooklyn이라 조금 멀지만 <strong>급여+보너스</strong> 매력적이야!" },
-      emily: { verdict: "go", comment: "ASC라 <strong>병원급보다 스트레스 낮아</strong>. 추천!" }
+      maggangi: { verdict: "go", comment: "야 <strong>$20K sign-on bonus</strong>는 진짜 흔치 않아! PACU는 외과 3년 경력이면 충분히 적응 가능해. 근데 <strong>sign-on clawback 조건 꼭 확인</strong>해 — 보통 2년 의무 근무에 연차 상환이야." },
+      sarah: { verdict: "go", comment: "ASC(Ambulatory Surgery Center)는 <strong>Day shift 거의 100% 보장</strong>이에요. 주말 없고 공휴일 없어요. $65/hr면 연 $135K라 훨씬 위에요!" },
+      jennifer: { verdict: "maybe", comment: "<strong>노조가 없어요</strong> — Private ASC라 연차 급여 인상 보장이 없어요. 조건 협상 시 연차 인상 조항 요청해보세요." },
+      michael: { verdict: "go", comment: "<strong>sign-on bonus 있는 자리는 지금 당장 사람이 필요하다는 신호</strong>예요. 외과 3년 + 14년 경력이면 충분히 가르칠 수 있어요. 브루클린 통근이 역방향이라 러쉬아워 교통 오히려 나아요." },
+      david: { verdict: "go", comment: "사람이 필요하니까 채용 기준도 유연해져요. PACU 직접 경험 없어도 <strong>외과 임상 + 14년 경력이면 면접 통과 가능성 충분</strong>해요. 합격률 제 예측 60%!" },
+      emily: { verdict: "maybe", comment: "<strong>$20K sign-on 계약서 반드시 꼼꼼히 읽어야 해요</strong>. 보통 2년 의무 근무 + 월 단위 상환 조건. 그리고 Isabella 계약 조건에 경쟁 금지 조항 있는지도 체크하세요!" }
     }
   },
   {
@@ -759,13 +774,16 @@ const nycJobs = [
     lng: -73.9739,
     dateFound: "2026-04-04",
     source: "NYU Langone Careers",
+    finalVerdict: "MAYBE",
+    finalVote: "2:4",
+    acceptanceRate: "40% (6개월 후 55%)",
     advisors: {
-      maggangi: { verdict: "maybe", comment: "M-F 7:30-5PM! <strong>완벽한 스케줄</strong>. Vascular Surgery라 외과 경험 활용 가능!" },
-      sarah: { verdict: "maybe", comment: "NYU Langone 급여 <strong>$100K+</strong>. 1년 경력 요구 있을 수 있어. 확인해봐!" },
-      jennifer: { verdict: "maybe", comment: "FGP(Faculty Group Practice) 포지션이라 <strong>학술병원 분위기</strong>. 영어 능숙해지면 딱!" },
-      michael: { verdict: "maybe", comment: "Ambulatory clinic이라 <strong>급성기 없어</strong>. 적응하기 좋아!" },
-      david: { verdict: "maybe", comment: "NYU Langone 경력은 <strong>프리미엄</strong>. NP 진학할 때 유리해!" },
-      emily: { verdict: "maybe", comment: "6개월 경력 쌓고 지원 추천. <strong>Virtual interview</strong> 시리즈 있어!" }
+      maggangi: { verdict: "maybe", comment: "M-F 7:30-5PM이면 진짜 꿈의 스케줄이야. 근데 FGP는 학술병원 외래 클리닉이라 <strong>Isabella 1주차잖아, 지금 당장 이직하면 불성실 이미지 남을 수 있어</strong>. 6개월 쌓고 지원하는 게 전략적이야." },
+      sarah: { verdict: "go", comment: "저 NYU BSN 출신이라 NYU Langone 잘 알아요. <strong>Vascular surgery + 외과 배경 = 훌륭한 매칭</strong>이에요! '1 year required' vs 'preferred' 꼭 확인하세요. 지원 안 하면 기회가 없어요!" },
+      jennifer: { verdict: "maybe", comment: "학술병원 외래 클리닉은 <strong>영어 실력이 중요한 환경</strong>이에요. 지금 지원해서 보류 받고 6개월 후 follow-up하는 전략도 있어요!" },
+      michael: { verdict: "go", comment: "Ambulatory Vascular Surgery는 <strong>절차 중심이라 영어 부담이 생각보다 적어요</strong>. Pre-procedure prep, post-procedure monitoring — 이건 프로토콜이야. 도전해보세요!" },
+      david: { verdict: "maybe", comment: "지금 지원하되 <strong>Isabella 계약을 최소 3개월은 지키겠다는 포지션으로 타임라인 협상</strong>하는 게 현명해요. 'earliest start date' 여유 있게 잡으세요." },
+      emily: { verdict: "maybe", comment: "NYU Langone FGP는 reference check가 꼼꼼해요. <strong>6개월 후면 레퍼런스도 확실하게 생겨요</strong>. 병행 지원은 OK, 이직 결정은 나중에!" }
     }
   },
   {
@@ -831,13 +849,43 @@ const nycJobs = [
     lng: -73.9560,
     dateFound: "2026-04-04",
     source: "NYP Careers",
+    finalVerdict: "MAYBE",
+    finalVote: "1:4:1",
+    acceptanceRate: "40% (6개월 후 50%)",
     advisors: {
-      maggangi: { verdict: "wait", comment: "Per Diem이지만 <strong>$84.55/hr</strong>은 파격적이야! NYP 경력 쌓기 좋아." },
-      sarah: { verdict: "wait", comment: "Weill Cornell은 <strong>최상위 병원</strong>. Per Diem으로 발 담그면 나중에 FT 기회 생겨!" },
-      jennifer: { verdict: "wait", comment: "1년 경력 후 지원 추천. <strong>내부 전환 공고</strong> 먼저 볼 수 있어!" },
-      michael: { verdict: "wait", comment: "$84.55/hr × 3일/주면 <strong>연 $130K+</strong>. 계산해봐!" },
-      david: { verdict: "wait", comment: "6개월 경력 쌓고 <strong>FT 지원과 병행</strong>으로 고려해봐!" },
-      emily: { verdict: "wait", comment: "NYP Per Diem은 <strong>FT 전환 경로</strong>로 유명해. 발판이 돼!" }
+      maggangi: { verdict: "maybe", comment: "<strong>$84.55/hr</strong>이라고?! 이건 진짜 대박이야. 근데 NYP Per Diem은 경쟁 굉장히 치열해. <strong>Weill Cornell은 NYC 최상위 병원 — 서류부터 걸러</strong>. 6개월 후 PACU 경험 (Hudson Crossing PD 병행이라도) 있으면 합격률 확 올라가." },
+      sarah: { verdict: "go", comment: "<strong>NYP Per Diem은 FT 전환 경로로 유명해요!</strong> 제 친구가 NYP Per Diem으로 시작해서 8개월 만에 FT 오퍼 받았어요. Per Diem은 FT보다 서류 통과가 상대적으로 쉬운 편이에요. 지금 지원해서 발판 만들어두는 게 좋아요!" },
+      jennifer: { verdict: "maybe", comment: "NYP는 <strong>서류 단계가 까다로워요</strong>. 6개월 후에 지원하면 합격률이 40% → 55% 이상으로 올라가요. <strong>이 공고는 상시 모집이에요!</strong>" },
+      michael: { verdict: "maybe", comment: "Weill Cornell Ambulatory Pre-op/PACU는 <strong>PACU 직접 경험 선호</strong>해요. 지금 지원하면 'good resume, timing not ideal' 피드백 받을 수 있어요. 6개월 후가 타이밍이에요." },
+      david: { verdict: "skip", comment: "솔직히 지금은 <strong>SKIP</strong>을 권해요. Isabella 1주차예요. 지금 해야 할 것: <strong>Isabella 3-6개월 집중 → 미국 임상 경력 레퍼런스 확보 → 그때 NYP 지원</strong>. 경력 있을 때 NYP 가면 FT도 노릴 수 있어요." },
+      emily: { verdict: "maybe", comment: "<strong>NYP Per Diem → FT 내부 전환 공고는 외부 공개 전에 PD 직원에게 먼저 안내돼요</strong>. 이건 진짜 큰 장점이에요. 3개월 후 Isabella 안정되면 NYP PD 지원하세요. 그때도 충분히 늦지 않아요." }
+    }
+  },
+  {
+    id: "nychh-queens-pacu-evening",
+    title: "Staff Nurse - PACU (Evening Shift)",
+    company: "NYC Health + Hospitals / Queens",
+    location: "Jamaica, Queens (~50min from Fort Lee)",
+    pay: "$109,490/yr + 야간수당 (~$120K+)",
+    shift: "Evening 3:30PM-12:00AM",
+    type: "Full-time",
+    top: false,
+    rank: null,
+    state: "NY",
+    lat: 40.7020,
+    lng: -73.8065,
+    dateFound: "2026-04-04",
+    source: "NYC H+H Careers (Job ID: 133087)",
+    finalVerdict: "SKIP",
+    finalVote: "0:2:4",
+    acceptanceRate: "35%",
+    advisors: {
+      maggangi: { verdict: "skip", comment: "PACU 경험 쌓기엔 좋은데 <strong>Evening 3:30PM-12AM이야</strong>. Fort Lee에서 Jamaica Queens 50분 통근이면 집 도착이 새벽 1시야. <strong>체력 소진, 영어 공부 불가, 일상 생활 무너짐</strong>. Day PACU 공고 기다려." },
+      sarah: { verdict: "skip", comment: "이제 막 미국 생활 적응 시작인데 Evening shift는 신체 리듬, 사회 생활, 영어 공부 전부 방해해요. 야간수당 받아서 $120K라도 <strong>건강과 적응에 드는 비용이 더 커요</strong>. 원칙 지키세요!" },
+      jennifer: { verdict: "maybe", comment: "한 가지 장점: <strong>NYC H+H 1199SEIU 노조 계약에는 Evening → Day 내부 이동 신청권이 있어요</strong>. 들어가서 6-12개월 근무 후 Day 자리 나면 우선권 있어요. 단, 50분 통근이 체력적으로 감당 되시냐가 관건이에요." },
+      michael: { verdict: "skip", comment: "Jennifer 말이 이론적으론 맞는데, <strong>Day 전환은 보장이 없어요</strong>. Evening에서 Day로 이동하려는 간호사들이 1-2년씩 기다리는 경우 많이 봤어요. 태권님처럼 Day shift가 명확한 priority인 분은 <strong>처음부터 Day 포지션에 지원</strong>하는 게 맞아요." },
+      david: { verdict: "maybe", comment: "SKIP 쪽이지만 한 가지만요. <strong>면접 자체는 가보는 게 연습이 될 수 있어요</strong>. 근데 현실적으로 면접 준비하면서 Evening을 진심으로 고려할 에너지를 Day 공고 지원에 쓰는 게 더 효율적이에요. <strong>SKIP이 맞아요</strong>." },
+      emily: { verdict: "skip", comment: "HR에서 보면 <strong>면접에서 'Day를 원한다는 게 느껴지면 합격률 떨어져요'</strong>. 채용담당자는 6개월 내 이탈 위험을 봐요. 진심이 없으면 면접에서 티가 나요. 태권님 Day 원하시면 솔직하게 <strong>Day 공고만 지원</strong>하세요." }
     }
   },
   {
@@ -887,6 +935,7 @@ function renderJobs() {
       <div class="job-details">
         <strong>소스:</strong> ${job.source} (${job.dateFound})
       </div>
+      ${job.finalVerdict ? `<button class="discussion-btn" onclick="event.stopPropagation();openModal('${job.id}')">👥 6인 토론 보기 — <strong style="color:${job.finalVerdict==='GO'?'#22c55e':job.finalVerdict==='MAYBE'?'#f59e0b':'#ef4444'}">${job.finalVerdict}</strong> (${job.finalVote})</button>` : ''}
     </div>
   `).join('');
   
@@ -923,15 +972,30 @@ function openModal(jobId) {
   `;
   
   const advisorNames = {
-    maggangi: { name: '막강이', role: 'Surgical RN 10년차', avatar: '🦊' },
-    sarah: { name: 'Sarah', role: 'NJ 병원 경력 5년', avatar: '👩‍⚕️' },
-    jennifer: { name: 'Jennifer', role: 'HR 매니저', avatar: '💼' },
-    michael: { name: 'Michael', role: '급여 협상 전문가', avatar: '💰' },
-    david: { name: 'David', role: '커리어 코치', avatar: '🎯' },
-    emily: { name: 'Emily', role: '이민 간호사 출신', avatar: '🌏' }
+    maggangi: { name: '마깡이', role: 'Mount Sinai 정신과 RN 5년 | NYSNA', avatar: '😎' },
+    sarah: { name: 'Sarah Lee', role: 'Northwell→NYS OMH 외래 8년 | NYU BSN', avatar: '🩺' },
+    jennifer: { name: 'Jennifer Kim', role: 'NYC H+H 수간호사 20년 | 노조 전문가', avatar: '👩‍⚕️' },
+    michael: { name: 'Michael Chen', role: 'NYP 간호부장 15년 | 대만 출신', avatar: '👨‍⚕️' },
+    david: { name: 'David Park', role: 'MedStaff NYC 헤드헌터 7년', avatar: '🧑‍💼' },
+    emily: { name: 'Emily Rodriguez', role: 'NYC H+H HR 매니저 12년', avatar: '👩‍💼' }
   };
-  
-  document.getElementById('advisorGrid').innerHTML = Object.entries(job.advisors).map(([key, adv]) => `
+
+  const verdictLabel = v => v === 'go' ? '✅ GO' : v === 'maybe' ? '🤔 MAYBE' : v === 'skip' ? '❌ SKIP' : '⏳ WAIT';
+  const verdictClass = v => v === 'go' ? 'verdict-go' : v === 'maybe' ? 'verdict-maybe' : v === 'skip' ? 'verdict-skip' : 'verdict-wait';
+
+  const finalBox = job.finalVerdict ? `
+    <div class="final-verdict-box">
+      <div>
+        <div class="final-verdict-label">최종 판정</div>
+        <div class="final-verdict-value final-${job.finalVerdict.toLowerCase()}">${job.finalVerdict === 'GO' ? '✅ GO' : job.finalVerdict === 'MAYBE' ? '🤔 MAYBE' : '❌ SKIP'} (${job.finalVote})</div>
+      </div>
+      <div>
+        <div class="final-verdict-label">합격률 예측</div>
+        <div class="final-verdict-value" style="color:#0284c7">${job.acceptanceRate}</div>
+      </div>
+    </div>` : '';
+
+  document.getElementById('advisorGrid').innerHTML = finalBox + Object.entries(job.advisors).map(([key, adv]) => `
     <div class="advisor-card ${key}">
       <div class="advisor-header">
         <div class="advisor-avatar">${advisorNames[key].avatar}</div>
@@ -940,7 +1004,7 @@ function openModal(jobId) {
           <div class="advisor-role">${advisorNames[key].role}</div>
         </div>
       </div>
-      <span class="advisor-verdict verdict-${adv.verdict}">${adv.verdict === 'go' ? '✅ GO' : adv.verdict === 'maybe' ? '🤔 MAYBE' : '⏳ WAIT'}</span>
+      <span class="advisor-verdict ${verdictClass(adv.verdict)}">${verdictLabel(adv.verdict)}</span>
       <p class="advisor-comment">${adv.comment}</p>
     </div>
   `).join('');
