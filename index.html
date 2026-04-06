@@ -109,6 +109,13 @@
     .badge-date { background: #e0f2fe; color: #0369a1; font-size: 0.65rem; }
     .card-link-icon { position: absolute; top: 12px; right: 12px; font-size: 0.8rem; color: #0ea5e9; opacity: 0.7; }
     .job-card { position: relative; }
+    .job-card.expired { opacity: 0.45; filter: grayscale(0.5); }
+    .job-card.expired:hover { opacity: 0.7; }
+    .badge-expired { background: #ef4444; color: #fff; font-weight: 700; }
+    .check-links-btn { display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; padding: 12px 24px; background: linear-gradient(135deg, #ef4444 0%, #f97316 100%); color: #fff; border: none; border-radius: 14px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 25px rgba(239,68,68,0.3); }
+    .check-links-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(239,68,68,0.4); }
+    .check-links-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .check-result { display: inline-block; margin-left: 10px; font-size: 0.85rem; }
     .leaflet-popup-content-wrapper { background: rgba(255,255,255,0.95); color: #0c4a6e; border-radius: 14px; }
     .popup-title { font-weight: 600; font-size: 1rem; margin-bottom: 5px; }
     .popup-company { color: #0284c7; margin-bottom: 5px; }
@@ -207,6 +214,10 @@
     <div class="discussion-links">
       <a href="discussions/2026-04-05.html" class="discussion-link">📋 4/5 토론 보기 (신규 3건)</a>
       <a href="discussions/2026-04-04.html" class="discussion-link" style="background:linear-gradient(135deg,#64748b,#94a3b8);">📋 4/4 토론 보기</a>
+    </div>
+    <div style="margin-top:15px;">
+      <button class="check-links-btn" onclick="checkAllLinks()" id="checkLinksBtn">🔍 공고 링크 유효성 체크</button>
+      <span class="check-result" id="checkResult"></span>
     </div>
   </div>
 </div>
@@ -1143,9 +1154,10 @@ function renderJobs() {
     const d = job.dateFound ? new Date(job.dateFound) : null;
     const dateLabel = d ? `${d.getMonth()+1}/${d.getDate()}` : '';
     return `
-    <div class="job-card ${job.top ? 'top' : ''} ${job.isNew ? 'new' : ''}" onclick="openModal('${job.id}')">
+    <div class="job-card ${job.top ? 'top' : ''} ${job.isNew ? 'new' : ''} ${job.expired ? 'expired' : ''}" onclick="openModal('${job.id}')" data-job-id="${job.id}">
       ${job.url ? '<span class="card-link-icon">🔗</span>' : ''}
       <div class="job-badges">
+        ${job.expired ? '<span class="badge badge-expired">❌ 만료</span>' : ''}
         ${job.isNew ? `<span class="badge badge-new">🆕 NEW ${dateLabel}</span>` : ''}
         ${job.rank && job.rank < 90 ? `<span class="badge badge-top">⭐ TOP ${job.rank}</span>` : ''}
         <span class="badge badge-day">${job.shift}</span>
@@ -1336,6 +1348,49 @@ function initMap() {
   legend.addTo(map);
   
   window.mapInitialized = true;
+}
+
+// Link validity checker
+async function checkAllLinks() {
+  const btn = document.getElementById('checkLinksBtn');
+  const result = document.getElementById('checkResult');
+  btn.disabled = true;
+  btn.textContent = '⏳ 체크 중...';
+  result.textContent = '';
+
+  const allJobs = [...appliedJobs, ...jobs, ...nycJobs, ...otherJobs];
+  const jobsWithUrl = allJobs.filter(j => j.url);
+  let checked = 0, expired = 0, ok = 0, skipped = 0;
+
+  for (const job of jobsWithUrl) {
+    checked++;
+    btn.textContent = `⏳ 체크 중... (${checked}/${jobsWithUrl.length})`;
+    try {
+      const resp = await fetch(job.url, { method: 'HEAD', mode: 'no-cors', signal: AbortSignal.timeout(5000) });
+      ok++;
+    } catch (e) {
+      job.expired = true;
+      expired++;
+      const card = document.querySelector(`[data-job-id="${job.id}"]`);
+      if (card) {
+        card.classList.add('expired');
+        const badges = card.querySelector('.job-badges');
+        if (badges && !badges.querySelector('.badge-expired')) {
+          badges.insertAdjacentHTML('afterbegin', '<span class="badge badge-expired">❌ 만료</span>');
+        }
+      }
+    }
+  }
+
+  skipped = allJobs.length - jobsWithUrl.length;
+  btn.disabled = false;
+  btn.textContent = '🔍 공고 링크 유효성 체크';
+
+  if (expired === 0) {
+    result.innerHTML = `<span style="color:#22c55e;">✅ 전체 ${ok}개 링크 정상! (URL 없음: ${skipped}개)</span>`;
+  } else {
+    result.innerHTML = `<span style="color:#ef4444;">⚠️ 만료 ${expired}개 / 정상 ${ok}개 / URL 없음 ${skipped}개</span>`;
+  }
 }
 
 // Initialize
