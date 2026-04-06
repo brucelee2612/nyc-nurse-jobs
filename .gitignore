@@ -1,0 +1,6 @@
+.claude/
+git-push.bat
+git-check.bat
+git-log.txt
+*.bat
+!discussions/
