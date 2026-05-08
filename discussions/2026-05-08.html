@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📋 2026-05-08 어드바이저 토론 - Mount Sinai 검색 + 전략 재정비</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+      min-height: 100vh;
+      color: #0c4a6e;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .subtitle { text-align: center; color: #475569; font-size: 0.9rem; margin-bottom: 30px; }
+    .job-section { background: rgba(255,255,255,0.92); border-radius: 20px; padding: 28px; margin-bottom: 30px; box-shadow: 0 8px 32px rgba(14,165,233,0.15); border: 1px solid rgba(14,165,233,0.2); }
+    .job-title { font-size: 1.25rem; font-weight: 700; color: #0284c7; margin-bottom: 12px; }
+    .job-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }
+    .badge-new { background: #06b6d4; color: #fff; }
+    .badge-day { background: #0ea5e9; color: #fff; }
+    .badge-ft { background: #0284c7; color: #fff; }
+    .badge-pay { background: #f59e0b; color: #fff; }
+    .badge-loc { background: #10b981; color: #fff; }
+    .badge-warn { background: #ef4444; color: #fff; }
+    .badge-strategy { background: #8b5cf6; color: #fff; }
+    .badge-info { background: #6b7280; color: #fff; }
+    .discussion-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 0.88rem; }
+    .discussion-table th { background: linear-gradient(135deg, #0284c7, #0ea5e9); color: #fff; padding: 10px 14px; text-align: left; font-size: 0.82rem; }
+    .discussion-table th:first-child { border-radius: 8px 0 0 0; }
+    .discussion-table th:last-child { border-radius: 0 8px 0 0; }
+    .discussion-table td { padding: 10px 14px; border-bottom: 1px solid rgba(14,165,233,0.1); vertical-align: top; }
+    .discussion-table tr:nth-child(even) td { background: rgba(14,165,233,0.04); }
+    .verdict-go { display: inline-block; padding: 2px 10px; border-radius: 12px; background: #dcfce7; color: #16a34a; font-weight: 700; font-size: 0.82rem; }
+    .verdict-maybe { display: inline-block; padding: 2px 10px; border-radius: 12px; background: #fef9c3; color: #ca8a04; font-weight: 700; font-size: 0.82rem; }
+    .verdict-skip { display: inline-block; padding: 2px 10px; border-radius: 12px; background: #fee2e2; color: #dc2626; font-weight: 700; font-size: 0.82rem; }
+    .advisor-name { font-weight: 600; color: #0284c7; }
+    .result-box { background: linear-gradient(135deg, rgba(2,132,199,0.08), rgba(14,165,233,0.05)); border: 2px solid rgba(2,132,199,0.25); border-radius: 14px; padding: 18px 22px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .final-verdict { font-size: 1.5rem; font-weight: 800; }
+    .final-go { color: #16a34a; }
+    .final-maybe { color: #ca8a04; }
+    .final-skip { color: #dc2626; }
+    .vote-count { font-size: 0.88rem; color: #64748b; }
+    .acceptance-rate { font-size: 1.1rem; font-weight: 700; color: #0284c7; }
+    .result-summary { flex: 1; font-size: 0.88rem; color: #475569; line-height: 1.5; }
+    .date-stamp { text-align: center; font-size: 0.78rem; color: #94a3b8; margin-top: 30px; }
+    .alert-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 14px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 0.88rem; color: #991b1b; }
+    .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 0.88rem; color: #1e40af; }
+    a { color: #0284c7; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<h1>📋 6인 어드바이저 토론 보고서</h1>
+<p class="subtitle">2026년 5월 8일 Mount Sinai Careers 모니터링 결과 · 신규 검증 가능 공고 0건 · 전략 재정비 토론</p>
+
+<div class="alert-box">
+  ⚠️ <strong>오늘의 핵심 알림</strong> — Harlem PACU 공고(<code>nychh-harlem-pacu-133033</code>, jobId 133023)가 어제(2026-05-07)로 <strong>마감</strong>됐습니다. 미지원 시 종료 처리. 또한 Mount Sinai Careers 검색 결과 URL 8건이 모두 404 (인덱스 만료) — 활성 신규 공고 0건 확인.
+</div>
+
+<div class="info-box">
+  📊 <strong>검색 로그 요약</strong>: WebSearch (`careers.mountsinai.org` 도메인 한정) 3회 실시. 인덱스 결과(2816788, 3012414, 3023816, 3024503, 3021210, 3017964, 3016802, 2808238) 모두 404. 기존 추적 7건(Step Down 3035067, Neurosciences 3035043, GI Transplant 3035350, Morningside Primary Care, Union Square Surgery 3033191, Interview Day 20000037, NM PACU 3030025)은 변경 없이 유지 — 활성 여부는 다음 회차 외부 인덱스(LinkedIn/Indeed)에서 교차 검증 예정.
+</div>
+
+<!-- ① 전략 토픽: Mount Sinai 검색 인덱스 만료 대응 -->
+<div class="job-section">
+  <div class="job-title">① 토픽: Mount Sinai Careers 인덱스 만료 — 검색 전략을 어떻게 바꿀까?</div>
+  <div class="job-meta">
+    <span class="badge badge-strategy">🧭 STRATEGY</span>
+    <span class="badge badge-info">📊 Search ops</span>
+    <span class="badge badge-warn">⚠️ 8건 모두 404</span>
+  </div>
+  <p style="font-size:0.85rem;color:#475569;margin-bottom:16px;">Oracle Cloud 기반 careers.mountsinai.org는 외부 검색 엔진의 캐시가 만료된 jobId만 반환. 다음 Mount Sinai 회차(2026-05-19, index 6)까지 11일이 비어 있는데, 그동안 Mount Sinai 신규 공고를 어떻게 포착할지 결정 필요.</p>
+  <table class="discussion-table">
+    <thead><tr><th>어드바이저</th><th>판정</th><th>핵심 코멘트</th></tr></thead>
+    <tbody>
+      <tr><td><span class="advisor-name">🎯 마깡이</span></td><td><span class="verdict-go">GO</span></td><td>인덱스 시간차는 흔한 문제. <strong>LinkedIn 회차에서 "Mount Sinai" 키워드 별도 추가</strong>하면 11일 갭 메꿀 수 있어. tracker의 sourceStrategies에 명시 필요!</td></tr>
+      <tr><td><span class="advisor-name">🌸 Sarah Lee</span></td><td><span class="verdict-go">GO</span></td><td>404가 8건 연속이면 <strong>검색 엔진 신뢰 불가</strong>. Mount Sinai는 자체 careers UI에서 직접 키워드 필터(Department: <em>Perioperative Services</em>, Shift: <em>Day</em>) 거는 게 정확해. 자비스가 못 하면 태권님께 수동 5분 부탁.</td></tr>
+      <tr><td><span class="advisor-name">💼 Jennifer Kim</span></td><td><span class="verdict-maybe">MAYBE</span></td><td>2026-03-30~04-04 사이 Mount Sinai에서만 4건이나 발견된 사례 있어. <strong>인덱스 만료 ≠ 공고 부재</strong>. 그러나 매일 강행 검색은 비용 대비 비효율 — 주 1회 LinkedIn 보강이 합리적.</td></tr>
+      <tr><td><span class="advisor-name">🔧 Michael Chen</span></td><td><span class="verdict-go">GO</span></td><td>기술적으로 <strong>Indeed 회차에서 "Mount Sinai" 회사 필터</strong> 걸면 동일 데이터 소스 활용. Indeed의 employer page는 실시간 공고 — 인덱스 lag 거의 없음.</td></tr>
+      <tr><td><span class="advisor-name">📊 David Park</span></td><td><span class="verdict-skip">SKIP</span></td><td>반대 의견. 11일은 길지 않아. Mount Sinai는 <strong>이미 7건 추적</strong> 중이고, 6개월 룰(2026-09-30) 전엔 지원 못 해. 새 공고 추가 추적은 <strong>오버 트래킹</strong>. 기존 공고 deep dive가 우선!</td></tr>
+      <tr><td><span class="advisor-name">💊 Emily Rodriguez</span></td><td><span class="verdict-go">GO</span></td><td>Mount Sinai NYSNA 노조 공고는 <strong>Day shift 비율 높음</strong>. 빠른 포착이 합격률에 직결. LinkedIn 회차에 Mount Sinai 보조 검색 추가하되, <strong>tracker.json sourceStrategies에 표기</strong>해 시스템화하자.</td></tr>
+    </tbody>
+  </table>
+  <div class="result-box">
+    <div><div class="final-verdict final-go">✅ GO</div><div class="vote-count">4 GO · 1 MAYBE · 1 SKIP</div></div>
+    <div class="acceptance-rate">실행 권고도: 70%</div>
+    <div class="result-summary"><strong>종합:</strong> 4:1:1 GO. <strong>David의 반대 의견</strong>(오버 트래킹 우려) 일리 있음. 권고: tracker.json sourceStrategies에 "Mount Sinai Careers" 항목 추가 — Indeed/LinkedIn 회차에서 employer 필터로 Mount Sinai 보조 검색 1회 수행. 11일 갭 메우기.</div>
+  </div>
+</div>
+
+<!-- ② 전략 토픽: Harlem PACU 마감 - 다음 우선순위 -->
+<div class="job-section">
+  <div class="job-title">② 토픽: Harlem PACU 마감 (5/7) — 다음 NYC H+H 우선 후보는?</div>
+  <div class="job-meta">
+    <span class="badge badge-warn">⏰ EXPIRED</span>
+    <span class="badge badge-strategy">🧭 STRATEGY</span>
+    <span class="badge badge-loc">📍 NYC H+H 시스템</span>
+  </div>
+  <p style="font-size:0.85rem;color:#475569;margin-bottom:16px;">tracker의 <code>nychh-harlem-pacu-133033</code> (Staff Nurse PACU - Harlem, jobId 133023) 마감일 2026-05-07 — 어제 종료됨. NYC H+H 활성 공고 중 다음 우선순위는: <strong>Bellevue Surgical Prep & Holding 134739</strong> (close 2026-10-25), <strong>Bellevue Med-Surg 133184</strong> (close 2026-09-08), <strong>Jacobi Amb Surgery/PACU/Float</strong> (4월 마감 — 재게시 확인 필요).</p>
+  <table class="discussion-table">
+    <thead><tr><th>어드바이저</th><th>판정</th><th>핵심 코멘트</th></tr></thead>
+    <tbody>
+      <tr><td><span class="advisor-name">🎯 마깡이</span></td><td><span class="verdict-go">GO</span></td><td><strong>Bellevue Surgical Prep & Holding (134739)</strong> 우선! "Surgical Prep" = 외과 3년 경력 직접 활용. 마감 10/25 여유 있고, 6개월 룰(9/30) 통과 후 바로 지원 가능 타이밍 완벽!</td></tr>
+      <tr><td><span class="advisor-name">🌸 Sarah Lee</span></td><td><span class="verdict-go">GO</span></td><td>Bellevue 134739 강력 추천. <strong>NYC H+H = $109K + BSN $1.8K + 경력 $8.2K = 약 $119K</strong>. 노조 1199SEIU 보장. 외과 경력자에게 PACU/Surgical Prep는 진입 1순위!</td></tr>
+      <tr><td><span class="advisor-name">💼 Jennifer Kim</span></td><td><span class="verdict-maybe">MAYBE</span></td><td>Bellevue는 좋지만 <strong>출퇴근 50분</strong>. priority2 등급. priority1인 Harlem이 막혔으니, NJ 권역(Hackensack Step-down, Englewood Health East Periop)으로 우선순위 재배치 검토 필요!</td></tr>
+      <tr><td><span class="advisor-name">🔧 Michael Chen</span></td><td><span class="verdict-go">GO</span></td><td>Jacobi 4건(Amb Surgery/PACU/Float Med-Surg) 마감일 4월이라 <strong>재게시 여부 확인 필요</strong>. NYC H+H는 매월 재게시 패턴. 다음 NYC H+H 회차(index 4) 때 재검색!</td></tr>
+      <tr><td><span class="advisor-name">📊 David Park</span></td><td><span class="verdict-go">GO</span></td><td>Bellevue Surgical Prep & Holding은 <strong>3월 부서명 그대로 신규 공고</strong>로 등장. NYC H+H는 동일 부서가 부서별 결원 시 재게시 — 추적 가치 높음!</td></tr>
+      <tr><td><span class="advisor-name">💊 Emily Rodriguez</span></td><td><span class="verdict-go">GO</span></td><td>Bellevue Surgical Prep & Holding 134739 = <strong>14년 경력 + 외과 3년</strong>으로 가장 적합. 6개월 룰 후 지원 시 합격률 85%+. Harlem 마감을 슬퍼할 필요 없음 — Bellevue가 더 나아!</td></tr>
+    </tbody>
+  </table>
+  <div class="result-box">
+    <div><div class="final-verdict final-go">✅ GO</div><div class="vote-count">5 GO · 1 MAYBE · 0 SKIP</div></div>
+    <div class="acceptance-rate">합격률 추정 (Bellevue 134739, 9/30 후 지원): 78%</div>
+    <div class="result-summary"><strong>종합:</strong> 5:1 GO. <strong>NYC H+H Bellevue Surgical Prep & Holding (134739)</strong>이 다음 우선 1순위로 확정. <strong>Jennifer의 반대 의견</strong>(통근 50분) 합리적 — NJ 권역 백업 후보(Hackensack Step-down, Health East Periop)도 병행 추적 권장.</div>
+  </div>
+</div>
+
+<!-- ③ 전략 토픽: 6개월 룰까지 D-145, 자기소개 정비 -->
+<div class="job-section">
+  <div class="job-title">③ 토픽: 9/30 6개월 룰까지 D-145 — 지금 무엇을 준비할까?</div>
+  <div class="job-meta">
+    <span class="badge badge-strategy">🧭 STRATEGY</span>
+    <span class="badge badge-info">📅 D-145</span>
+    <span class="badge badge-loc">📍 Isabella Nursing Home 재직중</span>
+  </div>
+  <p style="font-size:0.85rem;color:#475569;margin-bottom:16px;">태권님은 2026-03-31 Isabella Nursing Home 입사 — 6개월 룰 만료일은 <strong>2026-09-30</strong> (D-145일). 그때까지 지원 보류, 그 이후 동시 지원 가능. 5월의 145일은 무엇에 써야 가장 효율적일까?</p>
+  <table class="discussion-table">
+    <thead><tr><th>어드바이저</th><th>판정</th><th>핵심 코멘트</th></tr></thead>
+    <tbody>
+      <tr><td><span class="advisor-name">🎯 마깡이</span></td><td><span class="verdict-go">GO</span></td><td><strong>BLS/ACLS 자격증 갱신·취득</strong>이 1순위. RWJBarnabas Stepdown, Mount Sinai Step Down 모두 ACLS 필수. 5월~7월에 마치면 9월 지원 시 즉시 어필 가능!</td></tr>
+      <tr><td><span class="advisor-name">🌸 Sarah Lee</span></td><td><span class="verdict-go">GO</span></td><td>이력서 영문본 정비 + <strong>STAR 기법 면접 답변 5개</strong> 미리 작성. 외과 3년 사례를 PACU/Surgical Prep 시나리오로 변환하는 작업이 합격률에 직결!</td></tr>
+      <tr><td><span class="advisor-name">💼 Jennifer Kim</span></td><td><span class="verdict-go">GO</span></td><td>NJ RN 라이센스 endorsement <strong>지금 신청</strong>! 처리 6-12주. 9월 전에 받아두면 NJ권역(Englewood, Hackensack, Hudson Crossing) 동시 지원 가능. 비용 $200 — ROI 압도적!</td></tr>
+      <tr><td><span class="advisor-name">🔧 Michael Chen</span></td><td><span class="verdict-maybe">MAYBE</span></td><td>NJ 라이센스는 GO, 그러나 <strong>Isabella SNF 경력 6개월</strong>이 핵심. SNF에서 IV/와운드/기관절개 케이스 적극 자원해서 외과 감각 잃지 않게 — 그게 더 우선!</td></tr>
+      <tr><td><span class="advisor-name">📊 David Park</span></td><td><span class="verdict-go">GO</span></td><td>5월~9월 5개월 = <strong>면접 시뮬레이션 10회</strong>. 마깡이/Sarah와 모의면접 해서 영어 답변 자신감 쌓기. 채용 단계에서 영어가 가장 큰 변수!</td></tr>
+      <tr><td><span class="advisor-name">💊 Emily Rodriguez</span></td><td><span class="verdict-skip">SKIP</span></td><td>반대 의견. <strong>너무 많이 준비하면 번아웃</strong>. Isabella 본업 + ACLS 1개만 집중. 나머지(이력서/면접)는 8월부터 30일 집중 모드. 5월~7월은 <strong>휴식·체력 회복</strong>이 우선!</td></tr>
+    </tbody>
+  </table>
+  <div class="result-box">
+    <div><div class="final-verdict final-go">✅ GO</div><div class="vote-count">4 GO · 1 MAYBE · 1 SKIP</div></div>
+    <div class="acceptance-rate">실행 권고도: 75%</div>
+    <div class="result-summary"><strong>종합:</strong> 4:1:1 GO. 5월 우선순위 = <strong>① NJ RN endorsement 즉시 신청 (Jennifer), ② ACLS 코스 등록 (마깡이)</strong>. <strong>Emily의 반대 의견</strong>(번아웃 우려)도 새겨야 — 페이스 조절 필수. Michael의 MAYBE(SNF 경력 강화)도 수용해서 Isabella 근무 중 외과 case 자원하기 병행.</div>
+  </div>
+</div>
+
+<!-- 액션 아이템 요약 -->
+<div class="job-section" style="background: rgba(220, 252, 231, 0.6); border: 1px solid rgba(22, 163, 74, 0.3);">
+  <div class="job-title" style="color: #16a34a;">📌 오늘의 액션 아이템 (3개)</div>
+  <ol style="font-size: 0.92rem; line-height: 1.9; padding-left: 24px; color: #166534;">
+    <li><strong>tracker.json sourceStrategies 업데이트</strong> — Indeed/LinkedIn 회차에서 "Mount Sinai" employer 필터로 보조 검색 1회 수행하도록 명시 (인덱스 만료 갭 메우기).</li>
+    <li><strong>NJ RN License endorsement 신청</strong> — 처리 6-12주, 9월 전 발급 받으면 NJ 권역(Englewood Health East Periop, Hackensack Step-down, Hudson Crossing) 동시 지원 가능. 비용 약 $200.</li>
+    <li><strong>ACLS 코스 등록</strong> — Mount Sinai Step Down(3035067), RWJBarnabas Stepdown 모두 ACLS 필수. 5월 등록 → 7월 완료 목표.</li>
+  </ol>
+</div>
+
+<div class="date-stamp">🤖 자동 생성: 2026-05-08 18:00 ET | nyc-nurse-daily-monitor | Mount Sinai Careers (nextSourceIndex: 6→7 / Montefiore)</div>
+</body>
+</html>
