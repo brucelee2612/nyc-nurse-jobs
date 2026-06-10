@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📋 2026-06-09 어드바이저 토론 - 9W Med/Surg vs Oncology Infusion (재분석 v2)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+      min-height: 100vh;
+      color: #0c4a6e;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .subtitle { text-align: center; color: #475569; font-size: 0.9rem; margin-bottom: 30px; }
+    .job-section { background: rgba(255,255,255,0.92); border-radius: 20px; padding: 28px; margin-bottom: 30px; box-shadow: 0 8px 32px rgba(14,165,233,0.15); border: 1px solid rgba(14,165,233,0.2); }
+    .job-title { font-size: 1.25rem; font-weight: 700; color: #0284c7; margin-bottom: 12px; }
+    .job-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .badge { padding: 4px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; }
+    .badge-new { background: #06b6d4; color: #fff; }
+    .badge-day { background: #0ea5e9; color: #fff; }
+    .badge-ft { background: #0284c7; color: #fff; }
+    .badge-pay { background: #f59e0b; color: #fff; }
+    .badge-loc { background: #10b981; color: #fff; }
+    .badge-warn { background: #ef4444; color: #fff; }
+    .badge-strategy { background: #8b5cf6; color: #fff; }
+    .badge-info { background: #6b7280; color: #fff; }
+    .discussion-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 0.88rem; }
+    .discussion-table th { background: linear-gradient(135deg, #0284c7, #0ea5e9); color: #fff; padding: 10px 14px; text-align: left; font-size: 0.82rem; }
+    .discussion-table th:first-child { border-radius: 8px 0 0 0; }
+    .discussion-table th:last-child { border-radius: 0 8px 0 0; }
+    .discussion-table td { padding: 10px 14px; border-bottom: 1px solid rgba(14,165,233,0.1); vertical-align: top; }
+    .discussion-table tr:nth-child(even) td { background: rgba(14,165,233,0.04); }
+    .verdict-go { display: inline-block; padding: 2px 10px; border-radius: 12px; background: #dcfce7; color: #16a34a; font-weight: 700; font-size: 0.82rem; }
+    .verdict-maybe { display: inline-block; padding: 2px 10px; border-radius: 12px; background: #fef9c3; color: #ca8a04; font-weight: 700; font-size: 0.82rem; }
+    .verdict-skip { display: inline-block; padding: 2px 10px; border-radius: 12px; background: #fee2e2; color: #dc2626; font-weight: 700; font-size: 0.82rem; }
+    .advisor-name { font-weight: 600; color: #0284c7; }
+    .result-box { background: linear-gradient(135deg, rgba(2,132,199,0.08), rgba(14,165,233,0.05)); border: 2px solid rgba(2,132,199,0.25); border-radius: 14px; padding: 18px 22px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .final-verdict { font-size: 1.5rem; font-weight: 800; }
+    .final-go { color: #16a34a; }
+    .final-maybe { color: #ca8a04; }
+    .final-skip { color: #dc2626; }
+    .vote-count { font-size: 0.88rem; color: #64748b; }
+    .acceptance-rate { font-size: 1.1rem; font-weight: 700; color: #0284c7; }
+    .result-summary { flex: 1; font-size: 0.88rem; color: #475569; line-height: 1.5; }
+    .date-stamp { text-align: center; font-size: 0.78rem; color: #94a3b8; margin-top: 30px; }
+    .alert-box { background: #fef2f2; border-left: 4px solid #ef4444; padding: 14px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 0.88rem; color: #991b1b; }
+    .info-box { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 14px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 0.88rem; color: #1e40af; }
+    .flip-box { background: #fdf4ff; border-left: 4px solid #a855f7; padding: 14px 18px; border-radius: 8px; margin-bottom: 20px; font-size: 0.88rem; color: #6b21a8; }
+    a { color: #0284c7; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<h1>📋 6인 어드바이저 토론 보고서 (재분석 v2)</h1>
+<p class="subtitle">2026년 6월 9일 · 주제: Mount Sinai Morningside 9W Med/Surg vs Oncology Infusion Center · NJ Compact 라이선스 발급 당일</p>
+
+<div class="info-box">
+  🎉 <strong>오늘의 핵심 이벤트</strong> — 태권님 <strong>NJ RN License (Compact) 오늘 발급!</strong> Paramus NJ 인퓨전($60/hr Temp, Fort Lee 15분, M-F Day 7-3:30)이 오늘부로 지원 가능해졌습니다.
+</div>
+
+<div class="flip-box">
+  🔄 <strong>v1 토론 결론 뒤집힘</strong> — 이전 토론은 "Temp→Perm은 함정, 인퓨전 영구직 우선"이었으나, 실데이터(allnurses/Indeed) 확인 결과 <strong>인퓨전 영구직 다수가 '최근 6개월 내 급성기/인퓨전 경력 1-2년'을 요구</strong>. 태권님(Hemato-Onc 15년 전, 미국 인퓨전 0)은 그 필터에 걸림. 반대로 Temp는 라이선스+자격증 중심 채용이라 <strong>ONS Chemo-Bio 자격이 실제로 작동하는 유일한 입구</strong>. 우선순위 역전: 🥇 Paramus Temp → 🥈 6-12개월 후 영구직 → 🥉 9W 병행 지원.
+</div>
+
+<!-- 사전 수집 데이터 -->
+<div class="job-section">
+  <div class="job-title">📊 사전 수집 실데이터</div>
+  <table class="discussion-table">
+    <thead><tr><th>데이터</th><th>수치</th><th>출처</th></tr></thead>
+    <tbody>
+      <tr><td>Mount Sinai Health System Glassdoor</td><td><strong>3.6/5</strong> (4,636건), 추천율 67%</td><td><a href="https://www.glassdoor.com/Reviews/Mount-Sinai-Health-System-Reviews-E121517.htm" target="_blank">Glassdoor</a></td></tr>
+      <tr><td>Morningside 텔레메트리 RN 리뷰</td><td>"팀워크 좋음, 단 인력 부족 시 <strong>1:6 — extremely unsafe</strong>"</td><td>Glassdoor 직원 리뷰</td></tr>
+      <tr><td>Englewood Health Glassdoor</td><td><strong>3.7/5</strong> (235건), 추천율 68%. "환자 4-5명 manageable, 단 페이 낮음"</td><td><a href="https://www.glassdoor.com/Reviews/Englewood-Health-Reviews-E28043.htm" target="_blank">Glassdoor</a></td></tr>
+      <tr><td>전국 RN 이직률 (2025)</td><td><strong>17.6%</strong>, Med/Surg는 평균 초과</td><td><a href="https://www.beckershospitalreview.com/finance/the-cost-of-nurse-turnover-in-24-numbers-2025/" target="_blank">Becker's/NSI</a></td></tr>
+      <tr><td>신규 간호사 1년 내 이직</td><td><strong>33%</strong> (2년 내 56%). 레지던시 있으면 5%</td><td><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10907523/" target="_blank">PMC 문헌고찰</a></td></tr>
+      <tr><td>인퓨전 채용 요건</td><td>영구직 다수 "<strong>최근 급성기/종양 경력 1-2년</strong>" 요구. 신규+자체교육 기관도 존재</td><td><a href="https://allnurses.com/new-grad-interested-outpatient-infusion-t245529/" target="_blank">allnurses</a></td></tr>
+      <tr><td>NYSNA-Mount Sinai 2023 계약</td><td>강제력 있는 ratio + 위반 시 신속 중재·벌금</td><td><a href="https://www.nysna.org/blog/2023/02/28/mount-sinai-hospital-and-montefiore-bronx-win-groundbreaking-safe-staffing" target="_blank">NYSNA</a></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 오퍼 확률 + 손익 -->
+<div class="job-section">
+  <div class="job-title">① 오퍼 확률 재계산 (Michael Chen) &amp; 손익분석 (David Park)</div>
+  <div class="job-meta">
+    <span class="badge badge-strategy">🧭 STRATEGY</span>
+    <span class="badge badge-pay">💰 위약금 $15K 포함</span>
+    <span class="badge badge-info">📊 현실 보정 (H+H 15전 0승 반영)</span>
+  </div>
+  <table class="discussion-table">
+    <thead><tr><th></th><th>A. 9W Med/Surg ($64.24)</th><th>B-영구직 (Englewood/NYP)</th><th>B-Temp (Paramus $60)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>서류 통과</strong></td><td>40-50% (기피병동 보정)</td><td>15-25% (최근 경력 요건)</td><td><strong>60-70%</strong></td></tr>
+      <tr><td><strong>면접 통과</strong></td><td>20-30% (시나리오 영어 벽)</td><td>40-50%</td><td><strong>70%+</strong></td></tr>
+      <tr><td><strong>종합 오퍼 확률</strong></td><td>~12%</td><td>~8-12%</td><td><strong>~45-50%</strong></td></tr>
+      <tr><td><strong>연수입 (현재 $83K)</strong></td><td>~$120K</td><td>~$114K (추정)</td><td>~$125K</td></tr>
+      <tr><td><strong>위약금 차감 후 1년차 순증</strong></td><td>+$22K</td><td>+$16K</td><td><strong>+$27K</strong></td></tr>
+      <tr><td><strong>위약금 $15K 회수</strong></td><td>4.9개월</td><td>5.8개월</td><td><strong>4.3개월</strong></td></tr>
+      <tr><td><strong>리스크</strong></td><td>OT 4-6주(필요 8-12주의 절반), 신규 이직 33% 위험군, 1:6 증언</td><td>서류 탈락 (H+H 패턴 반복)</td><td>베네핏 공백(보험 월 $500-800), 계약 종료 리스크</td></tr>
+    </tbody>
+  </table>
+  <div class="result-box">
+    <div class="result-summary"><strong>합의:</strong> 위약금 $15K는 모든 경로에서 5개월 내 회수 → 의사결정 변수 아님 (현금흐름 관리 항목). A는 "붙기 어려운 게 아니라 <strong>버티기 어려운</strong>" 옵션. B-영구직은 사실상 A보다 들어가기 어려움. <strong>B-Temp만 확률·수입 모두 압도적.</strong></div>
+  </div>
+</div>
+
+<!-- 메인 토론 -->
+<div class="job-section">
+  <div class="job-title">② 토론: 어디를 메인으로? — 영어 약점 · 급성기 공백 정면 검토</div>
+  <div class="job-meta">
+    <span class="badge badge-new">🆕 NJ License 당일</span>
+    <span class="badge badge-day">☀️ Day only</span>
+    <span class="badge badge-warn">⚠️ 미국 급성기 0 · 영어 Duo 105</span>
+  </div>
+  <table class="discussion-table">
+    <thead><tr><th>어드바이저</th><th>판정</th><th>핵심 코멘트</th></tr></thead>
+    <tbody>
+      <tr><td><span class="advisor-name">😎 마깡이</span></td><td><span class="verdict-go">B-Temp+A</span></td><td><strong>지원은 공짜.</strong> 9W도 Paramus도 오늘 둘 다 지원하고 오퍼 쥐고 고르자. 9W는 NYSNA라 면접에서 "OT 8주+프리셉터 고정" 협상 가능한 유일한 환경. 단 Glassdoor 1:6 증언은 현장 현실로 인정.</td></tr>
+      <tr><td><span class="advisor-name">🩺 Sarah Lee</span></td><td><span class="verdict-go">B-Temp</span></td><td>외래 영구직은 '검증된 Temp'를 뽑는다. 영어 약자는 <strong>"면접으로 증명" 대신 "일로 증명"</strong>(Temp 6개월) 경로가 유리. 9W 호흡기 의존 병동의 desat 상황은 초 단위 영어 SBAR — 라이선스 리스크.</td></tr>
+      <tr><td><span class="advisor-name">👩‍⚕️ Jennifer Kim</span></td><td><span class="verdict-skip">A (반대)</span></td><td><strong>공식 반대 의견.</strong> Temp는 외줄(베네핏 공백+계약종료), NYSNA 영구직은 요새. 급성기 Day 공고는 희귀 — 내부자가 다 가져가는 자리가 외부에 열렸다. 9W는 회화 속도보다 꼼꼼함·체력이고 LTC 45명 메드패스 경험이 직결된다.</td></tr>
+      <tr><td><span class="advisor-name">👨‍⚕️ Michael Chen</span></td><td><span class="verdict-go">B-Temp</span></td><td>오퍼 확률 45-50% vs A 12% vs B영구 8-12%. 9W 6개월 중도 퇴사 시 이력서 흉터가 평생 감. <strong>급성기는 포기가 아니라 2년 연기</strong> — Temp→영구→Onco inpatient 누적 경로.</td></tr>
+      <tr><td><span class="advisor-name">🧑‍💼 David Park</span></td><td><span class="verdict-go">B-Temp</span></td><td>ONS Chemo-Bio는 영구직에선 보조 서류, <strong>Temp 시장에선 메인 티켓.</strong> NJ 라이선스 발급 당일 = Paramus 지원 타이밍 최적. Temp 6-12개월 = '최근 미국 인퓨전 경력' 제조기.</td></tr>
+      <tr><td><span class="advisor-name">👩‍💼 Emily Rodriguez</span></td><td><span class="verdict-maybe">B-Temp 조건부</span></td><td>지원 전 에이전시에 서면 확인 3종: ① 최근 1년 Perm 전환 실적 ② 계약 최소 보장 기간 ③ 베네핏 제공 여부. 그리고 이직 시점에 <strong>위약금 $15K 현금 쿠션</strong> 확보 필수.</td></tr>
+    </tbody>
+  </table>
+  <div class="result-box">
+    <div><div class="final-verdict final-go">✅ B-Temp 메인</div><div class="vote-count">5 B-Temp · 1 A (Jennifer 반대)</div></div>
+    <div class="acceptance-rate">B-Temp 오퍼 확률: ~45-50%</div>
+    <div class="result-summary"><strong>결론 (5:1):</strong> 🥇 Paramus Infusion Temp 즉시 지원 (NJ 라이선스 당일) → 🥈 6-12개월 후 인퓨전 영구직(Englewood 3.7★/NYP/HMH) → 🥉 9W는 병행 지원 (오퍼 시 OT 8주+ 서면 협상 조건, Jennifer 반대 의견 재상정). 위약금은 변수 아님. 영어 숙제: 약물 더블체크 · hypersensitivity reaction 보고 · 환자 교육 3개 시나리오 집중.</div>
+  </div>
+</div>
+
+<div class="job-section">
+  <div class="job-title">🎯 오늘 할 일 (2026-06-09)</div>
+  <table class="discussion-table">
+    <thead><tr><th>#</th><th>액션</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><strong>Paramus NJ Infusion Temp 지원</strong></td><td>NJ Compact 발급 당일 — 타이밍 최적</td></tr>
+      <tr><td>2</td><td>Mount Sinai Morningside 9W 지원 (병행)</td><td>면접 경험치 자체가 자산. 오퍼 시 OT 협상</td></tr>
+      <tr><td>3</td><td>Temp 에이전시 서면 확인</td><td>Perm 전환 실적 / 최소 보장 기간 / 베네핏</td></tr>
+      <tr><td>4</td><td>인퓨전 면접 영어 3종 연습</td><td>약물 더블체크 · 과민반응 보고 · 환자 교육</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="date-stamp">생성: 2026-06-09 · 6인 어드바이저 시스템 v2 (실데이터 기반 재분석) · 원본: discussions/2026-06-09.md</p>
+</body>
+</html>
