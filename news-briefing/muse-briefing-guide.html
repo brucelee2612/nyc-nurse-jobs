@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Noto+Serif+KR:wght@700;900&display=swap" rel="stylesheet">
+  <title>Muse 브리핑 요청서</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f3f5f1;
+      --paper: #ffffff;
+      --paper-2: #e9eee8;
+      --ink: #111814;
+      --muted: #55605a;
+      --line: #cbd2cc;
+      --deep: #0d2d21;
+      --on-deep: #f3f5f1;
+      --green: #0c7650;
+      --green-soft: #d8eee3;
+      --red: #b23a2d;
+      --red-soft: #f4ddd8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0c100e;
+        --paper: #151b18;
+        --paper-2: #1d2621;
+        --ink: #f0f4f0;
+        --muted: #acb7b0;
+        --line: #39433d;
+        --deep: #dce9e0;
+        --on-deep: #101813;
+        --green: #72d2a3;
+        --green-soft: #173a2c;
+        --red: #ff9b8d;
+        --red-soft: #47251f;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0c100e;
+      --paper: #151b18;
+      --paper-2: #1d2621;
+      --ink: #f0f4f0;
+      --muted: #acb7b0;
+      --line: #39433d;
+      --deep: #dce9e0;
+      --on-deep: #101813;
+      --green: #72d2a3;
+      --green-soft: #173a2c;
+      --red: #ff9b8d;
+      --red-soft: #47251f;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: "Noto Sans KR", sans-serif; font-size: 15px; line-height: 1.7;
+      -webkit-font-smoothing: antialiased; word-break: keep-all; overflow-wrap: anywhere;
+    }
+    a { color: var(--green); }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .86em;
+      padding: 1px 5px; border-radius: 4px; background: var(--paper-2);
+    }
+    .wrap { width: min(760px, 100%); margin: 0 auto; padding: 0 16px calc(64px + env(safe-area-inset-bottom)); }
+
+    header.top { padding: 28px 0 8px; }
+    .kicker { margin: 0 0 8px; color: var(--green); font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+    h1 {
+      margin: 0; font-family: "Noto Serif KR", serif; font-size: clamp(28px, 7vw, 40px);
+      line-height: 1.25; letter-spacing: -.035em; text-wrap: balance;
+    }
+    .lede { margin: 12px 0 0; color: var(--muted); font-size: 15px; }
+
+    .files { display: grid; gap: 8px; margin: 20px 0 0; }
+    .file { padding: 13px 15px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); }
+    .file b { display: block; font-size: 14px; }
+    .file span { display: block; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    section { margin-top: 40px; scroll-margin-top: 16px; }
+    h2 {
+      margin: 0 0 6px; font-family: "Noto Serif KR", serif; font-size: 23px; line-height: 1.35; letter-spacing: -.03em;
+    }
+    h2 .no { color: var(--green); margin-right: 6px; }
+    .sub { margin: 0 0 16px; color: var(--muted); font-size: 14px; }
+
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .steps > li {
+      display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 12px;
+      padding: 15px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper);
+    }
+    .steps .n {
+      width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--green-soft); color: var(--green); font-weight: 800; font-size: 14px;
+    }
+    .steps h3 { margin: 2px 0 4px; font-size: 15px; }
+    .steps p { margin: 0; color: var(--muted); font-size: 14px; }
+
+    .say {
+      display: flex; align-items: flex-start; gap: 10px; margin-top: 10px;
+      padding: 11px 12px; border-radius: 8px; background: var(--paper-2);
+    }
+    .say q { flex: 1; min-width: 0; quotes: none; font-size: 14px; font-weight: 700; line-height: 1.6; }
+    .copy {
+      flex: none; min-width: 52px; min-height: 32px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 6px;
+      background: var(--paper); color: var(--ink); font: inherit; font-size: 12px; font-weight: 800; cursor: pointer;
+    }
+    .copy:focus-visible, summary:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+    .copy.done { color: var(--green); border-color: var(--green); }
+
+    .phrases { display: grid; gap: 10px; }
+    .phrase { padding: 14px 15px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); }
+    .phrase .label { color: var(--muted); font-size: 12px; font-weight: 800; }
+    .phrase .say { margin-top: 6px; }
+    .phrase .note { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+
+    .flow { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .flow li {
+      padding: 7px 11px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line);
+      font-size: 13px; font-weight: 700;
+    }
+    .flow li.key { background: var(--green-soft); border-color: transparent; color: var(--green); }
+    .flow .arrow { padding: 0; border: 0; background: none; color: var(--muted); font-weight: 400; }
+    .loop { margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+
+    .toc { display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: var(--line); margin-top: 16px; }
+    .toc div { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 10px; padding: 11px 14px; background: var(--paper); }
+    .toc div.hl { background: var(--green-soft); }
+    .toc b { font-size: 13px; color: var(--green); }
+    .toc span { font-size: 14px; }
+    .toc small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+
+    .cause { padding: 20px 18px; border-radius: 9px; background: var(--deep); color: var(--on-deep); }
+    .cause p { margin: 0; font-size: 15px; line-height: 1.7; }
+    .cause .label { margin-bottom: 6px; font-size: 12px; font-weight: 800; letter-spacing: .06em; opacity: .7; }
+    .cause code { background: color-mix(in srgb, currentColor 16%, transparent); color: inherit; }
+    .rules { counter-reset: r; list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+    .rules li {
+      counter-increment: r; position: relative; padding: 13px 14px 13px 46px;
+      border: 1px solid var(--line); border-radius: 9px; background: var(--paper); font-size: 14px;
+    }
+    .rules li::before {
+      content: counter(r); position: absolute; left: 14px; top: 13px; width: 22px; height: 22px; border-radius: 50%;
+      display: grid; place-items: center; background: var(--green); color: var(--paper); font-size: 12px; font-weight: 800;
+    }
+    .rules b { display: block; }
+    .rules span { color: var(--muted); font-size: 13.5px; }
+
+    .evidence { display: grid; gap: 8px; margin-top: 14px; }
+    .ev { padding: 13px 14px; border-radius: 9px; border: 1px solid var(--line); background: var(--paper); }
+    .ev .tag { display: inline-block; margin-bottom: 4px; padding: 1px 8px; border-radius: 5px; font-size: 12px; font-weight: 800; }
+    .ev.fail .tag { background: var(--red-soft); color: var(--red); }
+    .ev.pass .tag { background: var(--green-soft); color: var(--green); }
+    .ev b { display: block; font-size: 14px; }
+    .ev span { display: block; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    .check { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .check li {
+      position: relative; padding: 12px 14px 12px 42px; border: 1px solid var(--line); border-radius: 9px;
+      background: var(--paper); font-size: 14px;
+    }
+    .check li::before {
+      content: ""; position: absolute; left: 14px; top: 15px; width: 16px; height: 16px;
+      border: 2px solid var(--green); border-radius: 4px;
+    }
+    .check small { display: block; color: var(--muted); font-size: 13px; }
+
+    details { border: 1px solid var(--line); border-radius: 9px; background: var(--paper); }
+    details + details { margin-top: 8px; }
+    summary {
+      cursor: pointer; list-style: none; padding: 13px 40px 13px 14px; position: relative;
+      font-size: 14.5px; font-weight: 700; border-radius: 9px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "＋"; position: absolute; right: 14px; top: 12px; color: var(--green); }
+    details[open] summary::after { content: "−"; }
+    details .body { padding: 0 14px 14px; color: var(--muted); font-size: 14px; }
+    details .body p { margin: 0; }
+    details .body .say { margin-top: 8px; }
+    details .body .say q { color: var(--ink); }
+
+    footer.foot {
+      margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: 12.5px; line-height: 1.7;
+    }
+    @media (min-width: 640px) {
+      .files { grid-template-columns: 1fr 1fr; }
+      .evidence { grid-template-columns: repeat(3, 1fr); }
+      .phrases { grid-template-columns: 1fr 1fr; }
+      .phrase.wide { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <p class="kicker">오늘의 미국 경제 뉴스 · Muse 요청서 설명서</p>
+      <h1>Muse에게 매일 같은 브리핑을 받는 법</h1>
+      <p class="lede">요청서(md) 파일 하나로 Muse가 매일 같은 구조와 디자인의 모바일 브리핑(HTML + 음성)을 만듭니다. 이번에 고친 오디오 끊김 방지 규칙이 들어 있습니다.</p>
+      <div class="files">
+        <div class="file"><b>muse-briefing-prompt.md</b><span>Muse에게 주는 작업 지시서. 규칙, 디자인 템플릿, 점검 스크립트가 모두 들어 있습니다.</span></div>
+        <div class="file"><b>결과물: YYYY-MM-DD-us-economy.html</b><span>음성과 이미지가 들어 있는 HTML 한 파일. 보통 3~5MB입니다.</span></div>
+      </div>
+    </header>
+
+    <section id="setup">
+      <h2><span class="no">1</span>처음 한 번 등록하기</h2>
+      <p class="sub">한 번 등록해 두면 다음부터는 짧게 요청하면 됩니다.</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div><h3>요청서 파일 저장</h3><p><code>muse-briefing-prompt.md</code>를 휴대폰이나 PC에 저장합니다.</p></div></li>
+        <li><span class="n">2</span><div><h3>Muse 채팅에 첨부하고 등록 문장 보내기</h3><p>파일을 첨부한 채로 아래 문장을 보냅니다.</p>
+          <div class="say"><q>이 요청서를 ~/briefing 폴더에 저장하고, 앞으로 '브리핑'이라고 하면 이대로 만들어줘. 지금 오늘 브리핑도 하나 만들어줘.</q><button class="copy" type="button">복사</button></div>
+        </div></li>
+        <li><span class="n">3</span><div><h3>첫 결과물 확인</h3><p>아래 <a href="#check">받은 파일 확인하기</a> 체크리스트로 확인합니다. Muse가 인터넷 접근이나 파일 저장 승인을 물으면 허용해야 뉴스를 모으고 파일을 만들 수 있습니다.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="daily">
+      <h2><span class="no">2</span>매일 요청하기</h2>
+      <p class="sub">버튼을 누르면 문장이 복사됩니다.</p>
+      <div class="phrases">
+        <div class="phrase"><div class="label">기본</div><div class="say"><q>브리핑</q><button class="copy" type="button">복사</button></div></div>
+        <div class="phrase"><div class="label">날짜 지정</div><div class="say"><q>2026-09-28 기준으로 브리핑 만들어줘</q><button class="copy" type="button">복사</button></div></div>
+        <div class="phrase"><div class="label">추가 요청</div><div class="say"><q>오늘 브리핑은 AI·반도체 뉴스 비중을 늘려줘</q><button class="copy" type="button">복사</button></div><p class="note">추가 요청은 반영되지만 음성·조립 규칙(6장·8장)은 그대로 지켜집니다.</p></div>
+        <div class="phrase"><div class="label">규칙을 잊은 것 같을 때</div><div class="say"><q>첨부한 요청서대로 오늘 브리핑 만들어줘</q><button class="copy" type="button">복사</button></div><p class="note">요청서 파일을 다시 첨부해서 보냅니다.</p></div>
+        <div class="phrase wide"><div class="label">자동 예약 (선택)</div><div class="say"><q>매일 아침 7시에 요청서대로 브리핑을 만들어서 보내줘</q><button class="copy" type="button">복사</button></div><p class="note">Muse의 예약 기능은 계정과 버전에 따라 다르게 동작할 수 있습니다. 예약이 멈추면 같은 문장으로 다시 등록하세요.</p></div>
+      </div>
+    </section>
+
+    <section id="flow">
+      <h2><span class="no">3</span>Muse가 하는 일</h2>
+      <p class="sub">요청서 3장의 작업 순서입니다.</p>
+      <ol class="flow" aria-label="작업 순서">
+        <li>준비</li><li class="arrow" aria-hidden="true">→</li>
+        <li>뉴스 수집·검증</li><li class="arrow" aria-hidden="true">→</li>
+        <li>원고</li><li class="arrow" aria-hidden="true">→</li>
+        <li class="key">음성</li><li class="arrow" aria-hidden="true">→</li>
+        <li>이미지</li><li class="arrow" aria-hidden="true">→</li>
+        <li>HTML 조립</li><li class="arrow" aria-hidden="true">→</li>
+        <li class="key">점검</li><li class="arrow" aria-hidden="true">→</li>
+        <li>전달</li>
+      </ol>
+      <p class="loop">점검에서 [필수] 항목이 나오면 고친 뒤 다시 점검합니다. "통과"가 나와야 파일을 보냅니다.</p>
+
+      <div class="toc" aria-label="요청서 목차">
+        <div><b>0</b><span>한눈에 보기<small>결과물, 기준, 전달 조건</small></span></div>
+        <div><b>1</b><span>역할<small>경제 브리핑 에디터이자 프런트엔드 개발자</small></span></div>
+        <div><b>2</b><span>요청마다 달라지는 값<small>발행일, 기준 장(주말·휴장일이면 직전 거래일), 추가 요청</small></span></div>
+        <div><b>3</b><span>작업 순서<small>8단계, 첨부된 요청서에서 템플릿을 그대로 추출하는 코드</small></span></div>
+        <div><b>4</b><span>뉴스 수집·검증<small>공식 발표 → 통신·경제 매체 순, 숫자는 두 곳 이상에서 교차 확인</small></span></div>
+        <div><b>5</b><span>콘텐츠 구성과 분량<small>히어로, 시장 스트립, 뉴스 7가지, 종목 온도계, 리스크, 열린 질문</small></span></div>
+        <div class="hl"><b>6</b><span>음성 브리핑 — 끊김 방지 규칙<small>원고, TTS, WAV로 합쳐 한 번만 인코딩, 길이 표기, HTML에 넣는 방식</small></span></div>
+        <div><b>7</b><span>이미지<small>생성 이미지 권장, 히어로 300KB·카드 200KB 이하</small></span></div>
+        <div><b>8</b><span>HTML 조립<small>자리표시자 표, 반복 블록 채우기 예시 코드</small></span></div>
+        <div><b>9</b><span>점검과 전달<small>"통과" 후 HTML 첨부 + 다섯 줄 요약</small></span></div>
+        <div><b>10</b><span>하지 말 것<small>미확인 숫자, 템플릿 변경, MP3 이어 붙이기, 뉴스 사이트 사진</small></span></div>
+        <div class="hl"><b>부록 A</b><span>템플릿<small>9월 26일 브리핑 디자인 그대로 + 재생 안정화 스크립트</small></span></div>
+        <div class="hl"><b>부록 B</b><span>점검 스크립트<small>필수·권장 항목을 자동으로 검사</small></span></div>
+      </div>
+    </section>
+
+    <section id="audio">
+      <h2><span class="no">4</span>음성 끊김을 막는 규칙</h2>
+      <div class="cause">
+        <p class="label">이전 파일에서 끊긴 이유</p>
+        <p>음성 파일은 정상이었습니다. 약 4MB짜리 음성을 HTML에 문자(base64)로 넣어 그대로 재생하고, 형식 표기를 오디오가 아닌 <code>application/octet-stream</code>으로 적은 것이 문제였습니다. 휴대폰 브라우저는 이런 방식을 불안정하게 처리하는 경우가 많습니다.</p>
+      </div>
+      <ol class="rules">
+        <li><b>형식 표기는 audio/mpeg</b><span>application/octet-stream은 쓰지 않습니다.</span></li>
+        <li><b>재생 안정화 스크립트를 그대로 넣기</b><span>음성을 Blob URL로 바꿔 재생하고, 오류가 나거나 5초 넘게 멈추면 그 자리에서 다시 이어 재생합니다. 재생 위치를 기억하고, 재생 중에는 화면이 꺼지지 않게 하며, 잠금화면에 제목을 표시합니다.</span></li>
+        <li><b>MP3 조각을 이어 붙이지 않기</b><span>TTS 조각을 WAV로 합친 뒤 MP3로는 한 번만 인코딩합니다.</span></li>
+        <li><b>64kbps 모노로 인코딩</b><span>음성 브리핑에 충분한 음질이고 파일이 가벼워집니다 (예: 5.2MB → 3.9MB).</span></li>
+        <li><b>점검 스크립트 "통과" 후에만 전달</b><span>위 규칙을 지켰는지 자동으로 검사합니다.</span></li>
+      </ol>
+      <div class="evidence">
+        <div class="ev fail"><span class="tag">실패 · 필수 4건</span><b>Muse가 만든 원본</b><span>audio 태그, MIME, source 형식, 재생 스크립트 없음</span></div>
+        <div class="ev pass"><span class="tag">통과</span><b>수정본 · 템플릿 결과물</b><span>브라우저에서 끝까지 재생, 오류·멈춤 자동 복구 확인</span></div>
+        <div class="ev fail"><span class="tag">실패 · 필수 3건</span><b>조각을 이어 붙인 MP3</b><span>헤더 중복과 디코딩 오류. 재생 중 멈추는 원인</span></div>
+      </div>
+    </section>
+
+    <section id="check">
+      <h2><span class="no">5</span>받은 파일 확인하기</h2>
+      <p class="sub">처음 몇 번은 직접 확인해 보세요.</p>
+      <ul class="check">
+        <li>Muse의 다섯 줄 요약에 "통과"가 있다<small>예: 통과 · 4.1MB · 음성 4:02</small></li>
+        <li>파일 이름이 <code>YYYY-MM-DD-us-economy.html</code>이고 크기가 3~5MB 안팎이다</li>
+        <li>Safari나 Chrome 같은 브라우저로 연다<small>앱 안의 미리보기보다 재생이 안정적입니다.</small></li>
+        <li>재생 버튼 옆에 전체 길이(예: 4:02)가 보인다</li>
+        <li>끝까지 끊김 없이 재생되고, 잠금화면에 '오늘의 음성 브리핑'이 뜬다</li>
+      </ul>
+    </section>
+
+    <section id="faq">
+      <h2><span class="no">6</span>문제가 생기면</h2>
+      <p class="sub">항목을 누르면 Muse에게 보낼 문장이 나옵니다.</p>
+      <details><summary>음성이 없어요</summary><div class="body"><p>Muse가 쓸 수 있는 음성 합성(TTS)이 없으면 먼저 알려 주도록 되어 있습니다(6-2). 다시 요청해 보세요.</p>
+        <div class="say"><q>음성까지 만들어서 요청서 6장대로 넣어줘</q><button class="copy" type="button">복사</button></div></div></details>
+      <details><summary>그래도 음성이 끊겨요</summary><div class="body"><p>파일을 브라우저로 직접 열어 보고, 점검 결과 전체를 확인하세요. 계속 끊기면 사용하는 기기와 앱(예: 아이폰 Safari)을 Claude에게 알려 주세요.</p>
+        <div class="say"><q>이 파일의 점검 스크립트 결과 전체를 보여줘</q><button class="copy" type="button">복사</button></div></div></details>
+      <details><summary>디자인이나 구성이 달라졌어요</summary><div class="body"><p>템플릿을 바꾸면 안 된다는 규칙(8장)을 다시 짚어 줍니다.</p>
+        <div class="say"><q>부록 A 템플릿을 한 글자도 바꾸지 말고 그대로 써서 다시 만들어줘</q><button class="copy" type="button">복사</button></div></div></details>
+      <details><summary>파일이 너무 크거나 안 열려요</summary><div class="body"><p>이미지 크기 규칙(7장)과 64kbps 음성 규칙으로 줄일 수 있습니다.</p>
+        <div class="say"><q>이미지는 7장 크기 규칙대로 압축하고 음성은 64kbps 모노로 다시 만들어줘</q><button class="copy" type="button">복사</button></div></div></details>
+      <details><summary>숫자가 맞는지 의심스러워요</summary><div class="body"><p>요청서 4장에 따라 Muse는 쓴 숫자와 출처를 메모로 남겨 둡니다.</p>
+        <div class="say"><q>오늘 브리핑에 쓴 숫자와 출처 목록을 보여줘</q><button class="copy" type="button">복사</button></div></div></details>
+      <details><summary>요청서 내용을 바꾸고 싶어요</summary><div class="body"><p>Claude에게 "md문서추가"라고 말하고 바꿀 내용을 알려 주세요. 요청서와 이 설명서가 함께 업데이트됩니다. 바뀐 요청서는 Muse에게 다시 첨부해 등록합니다.</p></div></details>
+    </section>
+
+    <footer class="foot">
+      저장소 위치: <code>news-briefing/muse-briefing-prompt.md</code>, <code>news-briefing/muse-briefing-guide.html</code><br>
+      2026년 9월 26일 작성 · Muse가 만든 9월 26일 브리핑과 그 수정본을 기준으로 만들었습니다.
+    </footer>
+  </div>
+  <script>
+    // 복사 버튼: 바로 앞 <q>의 문장을 클립보드에 복사한다
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('.copy');
+      if (!btn) return;
+      const text = btn.parentNode.querySelector('q').textContent;
+      const done = () => {
+        btn.textContent = '복사됨';
+        btn.classList.add('done');
+        setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('done'); }, 1500);
+      };
+      const fallback = () => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.append(ta);
+        ta.select();
+        try { if (document.execCommand('copy')) done(); } catch (err) {}
+        ta.remove();
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    });
+  </script>
+</body>
+</html>
